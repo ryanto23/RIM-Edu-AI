@@ -28,6 +28,8 @@ const quizData = [
 
 let currentQuestionIndex = 0;
 let userAnswers = new Array(quizData.length).fill(null);
+let timeLeft = 600; // 10 menit dalam detik
+let timerInterval;
 
 const questionNumberEl = document.getElementById("question-number");
 const questionTextEl = document.getElementById("question-text");
@@ -37,12 +39,60 @@ const nextBtn = document.getElementById("next-btn");
 const quizContainer = document.getElementById("quiz-container");
 const resultContainer = document.getElementById("result-container");
 const scoreValEl = document.getElementById("score-val");
-const progressBarEl = document.createElement("div"); // Membuat elemen progress bar secara dinamis
+const paletteGridEl = document.getElementById("palette-grid");
+const timeLeftEl = document.getElementById("time-left");
+const correctCountEl = document.getElementById("correct-count");
+const wrongCountEl = document.getElementById("wrong-count");
 
-// Menyisipkan progress bar ke dalam HTML di atas soal
-progressBarEl.className = "progress-container";
-progressBarEl.innerHTML = `<div class="progress-bar" id="progress-bar"></div>`;
-quizContainer.insertBefore(progressBarEl, document.getElementById("question-box"));
+// Inisialisasi Ujian
+function initQuiz() {
+    createPalette();
+    startTimer();
+    loadQuestion();
+}
+
+// Timer Mundur
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            showResult();
+            return;
+        }
+        timeLeft--;
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timeLeftEl.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }, 1000);
+}
+
+// Buat Kotak Nomor Soal di Sidebar
+function createPalette() {
+    paletteGridEl.innerHTML = "";
+    quizData.forEach((_, index) => {
+        const btn = document.createElement("button");
+        btn.classList.add("palette-btn");
+        btn.innerText = index + 1;
+        btn.onclick = () => goToQuestion(index);
+        paletteGridEl.appendChild(btn);
+    });
+}
+
+// Perbarui Status Palet
+function updatePalette() {
+    const buttons = paletteGridEl.getElementsByClassName("palette-btn");
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove("active");
+        if (i === currentQuestionIndex) {
+            buttons[i].classList.add("active");
+        }
+        if (userAnswers[i] !== null) {
+            buttons[i].classList.add("answered");
+        } else {
+            buttons[i].classList.remove("answered");
+        }
+    }
+}
 
 function loadQuestion() {
     const currentQuiz = quizData[currentQuestionIndex];
@@ -50,10 +100,6 @@ function loadQuestion() {
     questionNumberEl.innerText = `Soal ${currentQuestionIndex + 1} dari ${quizData.length}`;
     questionTextEl.innerText = currentQuiz.question;
     
-    // Perbarui Progress Bar
-    const progressPercent = ((currentQuestionIndex + 1) / quizData.length) * 100;
-    document.getElementById("progress-bar").style.width = `${progressPercent}%`;
-
     optionsListEl.innerHTML = "";
     
     currentQuiz.options.forEach((option, index) => {
@@ -71,6 +117,8 @@ function loadQuestion() {
 
     prevBtn.disabled = currentQuestionIndex === 0;
     nextBtn.innerText = currentQuestionIndex === quizData.length - 1 ? "Selesai" : "Selanjutnya";
+    
+    updatePalette();
 }
 
 function selectOption(index) {
@@ -84,6 +132,7 @@ function selectOption(index) {
             buttons[i].classList.remove("selected");
         }
     }
+    updatePalette();
 }
 
 function nextQuestion() {
@@ -91,7 +140,9 @@ function nextQuestion() {
         currentQuestionIndex++;
         loadQuestion();
     } else {
-        showResult();
+        if (confirm("Apakah Anda yakin ingin mengakhiri ujian dan melihat hasil?")) {
+            showResult();
+        }
     }
 }
 
@@ -102,26 +153,37 @@ function prevQuestion() {
     }
 }
 
+function goToQuestion(index) {
+    currentQuestionIndex = index;
+    loadQuestion();
+}
+
 function showResult() {
+    clearInterval(timerInterval);
     quizContainer.classList.add("hidden");
     resultContainer.classList.remove("hidden");
     
-    let score = 0;
+    let correct = 0;
     quizData.forEach((item, index) => {
         if (userAnswers[index] === item.answer) {
-            score += (100 / quizData.length);
+            correct++;
         }
     });
     
-    scoreValEl.innerText = Math.round(score);
+    let score = Math.round((correct / quizData.length) * 100);
+    scoreValEl.innerText = score;
+    correctCountEl.innerText = correct;
+    wrongCountEl.innerText = quizData.length - correct;
 }
 
 function restartQuiz() {
     currentQuestionIndex = 0;
     userAnswers.fill(null);
+    timeLeft = 600;
     resultContainer.classList.add("hidden");
     quizContainer.classList.remove("hidden");
-    loadQuestion();
+    initQuiz();
 }
 
-loadQuestion();
+// Mulai aplikasi saat halaman dimuat
+initQuiz();
