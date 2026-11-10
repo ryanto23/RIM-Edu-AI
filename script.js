@@ -1,9 +1,8 @@
-// Daftar Soal (Bisa Anda tambah atau sesuaikan sendiri)
 const quizData = [
     {
         question: "Hasil dari 125 + 75 - 50 adalah...",
         options: ["150", "140", "160", "130"],
-        answer: 0 // Indeks jawaban benar (0 = pilihan pertama, dst)
+        answer: 0
     },
     {
         question: "Berapa jumlah sudut dalam sebuah segitiga?",
@@ -38,6 +37,12 @@ const nextBtn = document.getElementById("next-btn");
 const quizContainer = document.getElementById("quiz-container");
 const resultContainer = document.getElementById("result-container");
 const scoreValEl = document.getElementById("score-val");
+const progressBarEl = document.createElement("div"); // Membuat elemen progress bar secara dinamis
+
+// Menyisipkan progress bar ke dalam HTML di atas soal
+progressBarEl.className = "progress-container";
+progressBarEl.innerHTML = `<div class="progress-bar" id="progress-bar"></div>`;
+quizContainer.insertBefore(progressBarEl, document.getElementById("question-box"));
 
 function loadQuestion() {
     const currentQuiz = quizData[currentQuestionIndex];
@@ -45,6 +50,10 @@ function loadQuestion() {
     questionNumberEl.innerText = `Soal ${currentQuestionIndex + 1} dari ${quizData.length}`;
     questionTextEl.innerText = currentQuiz.question;
     
+    // Perbarui Progress Bar
+    const progressPercent = ((currentQuestionIndex + 1) / quizData.length) * 100;
+    document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+
     optionsListEl.innerHTML = "";
     
     currentQuiz.options.forEach((option, index) => {
@@ -52,7 +61,6 @@ function loadQuestion() {
         button.classList.add("option-btn");
         button.innerText = option;
         
-        // Tandai jika opsi ini sudah dipilih sebelumnya
         if (userAnswers[currentQuestionIndex] === index) {
             button.classList.add("selected");
         }
@@ -68,7 +76,6 @@ function loadQuestion() {
 function selectOption(index) {
     userAnswers[currentQuestionIndex] = index;
     
-    // Perbarui visual tombol yang dipilih
     const buttons = optionsListEl.getElementsByTagName("button");
     for (let i = 0; i < buttons.length; i++) {
         if (i === index) {
@@ -117,5 +124,4 @@ function restartQuiz() {
     loadQuestion();
 }
 
-// Inisialisasi awal
 loadQuestion();
