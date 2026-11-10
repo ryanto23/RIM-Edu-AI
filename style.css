@@ -2,87 +2,121 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f4f7f6;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 20px;
 }
 
 .container {
     background: #ffffff;
     width: 100%;
-    max-width: 600px;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    max-width: 650px;
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 header {
     text-align: center;
-    margin-bottom: 25px;
-    border-bottom: 2px solid #eee;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #edf2f7;
     padding-bottom: 15px;
 }
 
 header h1 {
-    color: #2c3e50;
-    font-size: 24px;
-    margin-bottom: 5px;
+    color: #1a202c;
+    font-size: 26px;
+    margin-bottom: 6px;
+    font-weight: 700;
 }
 
 header p {
-    color: #7f8c8d;
+    color: #718096;
     font-size: 14px;
+}
+
+/* Progress Bar */
+.progress-container {
+    background: #edf2f7;
+    border-radius: 10px;
+    height: 8px;
+    width: 100%;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.question-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 #question-number {
     font-size: 13px;
-    font-weight: bold;
-    color: #3498db;
+    font-weight: 700;
+    color: #667eea;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 #question-text {
     font-size: 18px;
-    color: #2c3e50;
-    margin: 15px 0 20px 0;
+    color: #2d3748;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    font-weight: 600;
 }
 
 .options {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .option-btn {
-    background: #ffffff;
-    border: 2px solid #e0e0e0;
-    padding: 12px 16px;
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    padding: 14px 18px;
     text-align: left;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 15px;
+    color: #4a5568;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
 }
 
 .option-btn:hover {
-    background: #f1f8ff;
-    border-color: #3498db;
+    background: #ebf4ff;
+    border-color: #667eea;
+    color: #2b6cb0;
+    transform: translateY(-2px);
 }
 
 .option-btn.selected {
-    background: #ebf5fb;
-    border-color: #2980b9;
-    color: #2980b9;
+    background: #ebf4ff;
+    border-color: #667eea;
+    color: #2b6cb0;
     font-weight: 600;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
 }
 
 .navigation {
@@ -91,23 +125,26 @@ header p {
 }
 
 .navigation button, #result-container button {
-    background: #3498db;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 15px;
-    border-radius: 6px;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: opacity 0.2s, transform 0.1s;
 }
 
 .navigation button:disabled {
-    background: #bdc3c7;
+    background: #cbd5e0;
     cursor: not-allowed;
+    transform: none;
 }
 
 .navigation button:hover:not(:disabled), #result-container button:hover {
-    background: #2980b9;
+    opacity: 0.9;
+    transform: translateY(-1px);
 }
 
 .hidden {
@@ -116,17 +153,25 @@ header p {
 
 #result-container {
     text-align: center;
+    padding: 10px 0;
 }
 
 .score-card {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    padding: 25px;
+    border-radius: 12px;
     margin: 20px 0;
 }
 
 .score-card h1 {
-    font-size: 48px;
-    color: #27ae60;
+    font-size: 52px;
+    color: #48bb78;
     margin: 10px 0;
+    font-weight: 800;
+}
+
+.score-card p {
+    color: #4a5568;
+    font-size: 15px;
 }
