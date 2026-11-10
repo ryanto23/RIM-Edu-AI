@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Bank Soal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header / Judul -->
+        <header>
+            <h1>Bank Soal Digital</h1>
+            <p id="info-peserta">Silakan kerjakan soal di bawah ini dengan teliti.</p>
+        </header>
+
+        <!-- Area Kuis / Soal -->
+        <main id="quiz-container">
+            <div id="question-box">
+                <span id="question-number">Soal 1 dari 5</span>
+                <h3 id="question-text">Pertanyaan akan muncul di sini...</h3>
+                
+                <div id="options-list" class="options">
+                    <!-- Opsi jawaban akan dimuat oleh JavaScript -->
+                </div>
+            </div>
+
+            <!-- Tombol Navigasi -->
+            <div class="navigation">
+                <button id="prev-btn" onclick="prevQuestion()" disabled>Sebelumnya</button>
+                <button id="next-btn" onclick="nextQuestion()">Selanjutnya</button>
+            </div>
+        </main>
+
+        <!-- Area Hasil / Skor (Tersembunyi Awalnya) -->
+        <div id="result-container" class="hidden">
+            <h2>Hasil Ujian Anda</h2>
+            <div class="score-card">
+                <p>Nilai Akhir Anda:</p>
+                <h1 id="score-val">0</h1>
+                <p id="score-message">Bagus sekali!</p>
+            </div>
+            <button onclick="restartQuiz()">Ulangi Ujian</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
