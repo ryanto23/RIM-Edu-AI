@@ -43,7 +43,6 @@
   <script>
     const ADMIN_PIN_DEFAULT = "123456";
     const DURASI_KUIS_DETIK = 300;
-    const GEMINI_API_KEY = ""; // Isi API Key Gemini Anda di sini
 
     const dataPendidikan = {
       sd: {
@@ -152,9 +151,9 @@
           <h3>Data Diri Siswa</h3>
           <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">Materi: <b>${esc(bab)}</b></p>
           <label>Nama Lengkap:</label>
+          <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
           <label>Asal Sekolah:</label>
-          <label>Kelas Spesifik:</label>
-<div class="form-box"><h3>Pilih Kelas (${d.judul})</h3></div><div class="list-menu">` +
+ class="list-menu">` +
         d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
@@ -265,9 +264,10 @@
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('home')">⬅ Kembali</button>
           <h3>🤖 Tanya Materi ke AI</h3>
-          <textarea id="ai-prompt" rows="3" placeholder="Tulis pertanyaan pelajaran..."></textarea>
+          <p style="font-size:0.85rem; color:#64748b; margin-bottom:10px;">Tanyakan soal atau materi pelajaran apa saja (Gratis & Langsung Aktif).</p>
+          <textarea id="ai-prompt" rows="3" placeholder="Contoh: Jelaskan cara menghitung keliling lingkaran beserta contohnya..."></textarea>
           <button class="btn-primary" style="width:100%" onclick="kirimAI()">Kirim Pertanyaan</button>
-          <div id="ai-res" style="margin-top:14px; font-size:0.9rem; line-height:1.5;"></div>
+          <div id="ai-res" style="margin-top:14px; font-size:0.9rem; line-height:1.6;"></div>
         </div>`;
     }
 
@@ -275,17 +275,26 @@
       const q = document.getElementById("ai-prompt").value.trim();
       const box = document.getElementById("ai-res");
       if (!q) return alert("Tulis pertanyaan dulu!");
-      if (!GEMINI_API_KEY) return box.innerHTML = `<p style="color:#dc2626">⚠️ Isi <b>GEMINI_API_KEY</b> di dalam kode terlebih dahulu.</p>`;
-      box.innerHTML = "⏳ Sedang menjawab...";
+
+      box.innerHTML = "⏳ Sedang mengetik jawaban...";
       try {
-        const res = await fetch(`https://googleapis.com{GEMINI_API_KEY}`, {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: "Jawab singkat untuk siswa: " + q }] }] })
+        const res = await fetch("https://pollinations.ai", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages: [
+              { role: "system", content: "Kamu adalah guru ramah di Indonesia. Jawab pertanyaan siswa dalam bahasa Indonesia yang jelas, terstruktur, dan mudah dipahami." },
+              { role: "user", content: q }
+            ],
+            model: "openai"
+          })
         });
-        const data = await res.json();
-        const teks = (data.candidates && data.candidates[0] && data.candidates[0].content) ? data.candidates[0].content.parts[0].text : "Gagal mendapat jawaban.";
-        box.innerHTML = `<div style="background:#f8fafc; padding:12px; border-radius:8px; white-space:pre-wrap;">${esc(teks)}</div>`;
-      } catch (e) { box.innerHTML = "<p style='color:#dc2626'>Gagal terhubung ke AI.</p>"; }
+        if (!res.ok) throw new Error("Gagal");
+        const teks = await res.text();
+        box.innerHTML = `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px; white-space:pre-wrap;">${esc(teks)}</div>`;
+      } catch (e) {
+        box.innerHTML = "<p style='color:#dc2626'>Gagal terhubung ke server AI. Periksa koneksi internet Anda dan coba lagi.</p>";
+      }
     }
 
     function bukaAdmin(aksi) {
