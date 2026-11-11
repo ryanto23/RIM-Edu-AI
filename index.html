@@ -258,47 +258,61 @@
         </div>`;
     }
 
-    function bukaTanyaAI() {
+       function bukaTanyaAI() {
       title().innerText = "Asisten AI";
+      const savedKey = localStorage.getItem("rim_gemini_key") || "";
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('home')">⬅ Kembali</button>
           <h3>🤖 Tanya Materi ke AI</h3>
-          <p style="font-size:0.85rem; color:#64748b; margin-bottom:10px;">Tanyakan soal atau materi pelajaran apa saja (Gratis & Langsung Aktif).</p>
+          <p style="font-size:0.85rem; color:#64748b; margin-bottom:10px;">
+            ${savedKey ? "✅ API Key Gemini aktif." : "⚠️ Masukkan Gemini API Key gratis Anda sekali saja di bawah ini:"}
+          </p>
+          <input type="password" id="ai-key" value="${esc(savedKey)}" placeholder="Tempel Gemini API Key di sini (AIzaSy...)" style="margin-bottom:10px;" />
           <textarea id="ai-prompt" rows="3" placeholder="Contoh: Jelaskan cara menghitung keliling lingkaran beserta contohnya..."></textarea>
           <button class="btn-primary" style="width:100%" onclick="kirimAI()">Kirim Pertanyaan</button>
           <div id="ai-res" style="margin-top:14px; font-size:0.9rem; line-height:1.6;"></div>
         </div>`;
     }
 
-      async function kirimAI() {
+    async function kirimAI() {
+      const apiKey = document.getElementById("ai-key").value.trim();
       const q = document.getElementById("ai-prompt").value.trim();
       const box = document.getElementById("ai-res");
-      if (!q) return alert("Tulis pertanyaan dulu!");
 
+      if (!apiKey) return alert("Tempelkan Gemini API Key Anda terlebih dahulu pada kotak di atas!");
+      if (!q) return alert("Tulis pertanyaan pelajaran dulu!");
+
+      // Simpan API Key di browser perangkat ini saja (aman dari GitHub)
+      localStorage.setItem("rim_gemini_key", apiKey);
       box.innerHTML = "⏳ Sedang mengetik jawaban...";
-      const promptLengkap = encodeURIComponent("Kamu adalah guru ramah di Indonesia. Jawab pertanyaan siswa berikut dengan bahasa Indonesia yang jelas dan mudah dipahami: " + q);
 
       try {
-        // Menggunakan metode GET agar tidak diblokir CORS di GitHub Pages
-        const res = await fetch(`https://pollinations.ai{promptLengkap}?model=openai&seed=${Math.floor(Math.random() * 1000)}`);
-        if (!res.ok) throw new Error("Server sibuk");
-        const teks = await res.text();
-        
-        if (!teks || teks.trim() === "") throw new Error("Jawaban kosong");
-        box.innerHTML = `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px; white-space:pre-wrap; line-height:1.6;">${esc(teks)}</div>`;
+        const res = await fetch(`https://googleapis.com{apiKey}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{ text: "Kamu adalah guru ramah di Indonesia. Jawab pertanyaan siswa berikut dengan bahasa Indonesia yang jelas dan mudah dipahami: " + q }]
+            }]
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error?.message || "API Key tidak valid atau kuota habis.");
+        }
+
+        const teks = data.candidates?.[0]?.content?.parts?.[0]?.text || "AI tidak memberikan jawaban.";
+        box.innerHTML = `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px; white-space:pre-wrap;">${esc(teks)}</div>`;
       } catch (e) {
-        box.innerHTML = `
-          <div style="background:#fef2f2; border:1px solid #fecaca; padding:12px; border-radius:8px; color:#dc2626; font-size:0.88rem;">
-            <b>⚠️ Server AI sedang sibuk.</b><br>
-            Silakan tunggu 5 detik lalu klik tombol <b>Kirim Pertanyaan</b> lagi.
-          </div>`;
+        box.innerHTML = `<div style="background:#fef2f2; border:1px solid #fecaca; padding:12px; border-radius:8px; color:#dc2626; font-size:0.88rem;"><b>⚠️ Gagal:</b> ${esc(e.message)}</div>`;
       }
     }
 
 
     function bukaAdmin(aksi) {
-      const pin = prompt("Masukkan PIN Admin (Default: 123456):");
+      const pin = prompt("Masukkan PIN Admin :");
       if (pin !== (localStorage.getItem("rim_pin") || ADMIN_PIN_DEFAULT)) return alert("PIN Salah!");
       if (aksi === "rekap") {
         const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
