@@ -1,269 +1,331 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background-color: #f4f6f9;
-  color: #333;
-  padding-bottom: 75px; /* Ruang agar konten tidak tertutup menu bawah */
+    background-color: #f1f5f9;
+    color: #1e293b;
+    display: flex;
+    justify-content: center;
 }
 
+.app-container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+/* Header */
 .app-header {
-  background-color: #2563eb;
-  color: white;
-  padding: 16px;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: white;
+    padding: 16px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .app-header h1 {
-  font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
-.content-area {
-  padding: 16px;
-  max-width: 600px;
-  margin: 0 auto;
+/* Main Content */
+.app-content {
+    flex: 1;
+    padding: 16px;
+    padding-bottom: 85px;
+    overflow-y: auto;
 }
 
-/* Grid Kelas & Mapel */
+.app-content h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #0f172a;
+}
+
+/* Grid Menu Kelas & Mapel */
 .grid-menu {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
 .card-btn {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 16px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #1e293b;
-  cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  transition: transform 0.1s, background-color 0.2s;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
-.card-btn:active {
-  transform: scale(0.97);
-  background-color: #eff6ff;
+.card-btn:hover, .card-btn:active {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    color: #1d4ed8;
 }
 
-.back-btn {
-  background-color: #e2e8f0;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  cursor: pointer;
-}
-
-/* Menu List untuk Tab "Saya" */
-.list-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.list-item {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-
-/* Navigasi Bawah */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: space-around;
-  border-top: 1px solid #cbd5e1;
-  padding: 8px 0;
-  z-index: 1000;
-}
-
-.nav-item {
-  background: none;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #64748b;
-  font-size: 0.75rem;
-  cursor: pointer;
-  flex: 1;
-}
-
-.nav-item .icon {
-  font-size: 1.3rem;
-  margin-bottom: 2px;
-}
-
-.nav-item.active {
-  color: #2563eb;
-  font-weight: bold;
-}
-
-/* Tampilan Tanya AI di Menu Home */
-.ai-box {
-  background: white;
-  border-radius: 10px;
-  padding: 16px;
-  margin-top: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.chat-history {
-  height: 260px;
-  overflow-y: auto;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 12px;
-  margin: 12px 0;
-  background-color: #f8fafc;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.chat-msg {
-  padding: 10px 14px;
-  border-radius: 10px;
-  max-width: 85%;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.chat-user {
-  background-color: #2563eb;
-  color: white;
-  align-self: flex-end;
-}
-
-.chat-ai {
-  background-color: #e2e8f0;
-  color: #1e293b;
-  align-self: flex-start;
-}
-
-.chat-input-area {
-  display: flex;
-  gap: 8px;
-}
-
-.chat-input-area input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 0.9rem;
-}
-
-.chat-input-area button {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 0 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* Tampilan Kuis & Timer */
-.quiz-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #eff6ff;
-  padding: 10px 14px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  font-weight: bold;
-  color: #1d4ed8;
-}
-
-.opsi-btn {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: #f8fafc;
-  border: 1px solid #cbd5e1;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  font-size: 0.95rem;
-}
-
-.opsi-btn:hover {
-  background: #e0e7ff;
-  border-color: #2563eb;
-}
-
-/* Daftar Bab Materi */
+/* Daftar Bab & Pilihan Jawaban */
 .bab-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .bab-btn {
-  background: white;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 14px 16px;
-  text-align: left;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #1e293b;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.2s;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1e293b;
+    cursor: pointer;
+    text-align: left;
+    transition: 0.2s;
 }
 
 .bab-btn:hover {
-  background-color: #eff6ff;
-  border-color: #2563eb;
+    border-color: #2563eb;
+    background: #eff6ff;
 }
 
-/* Status Loading & Pembahasan */
+.back-btn {
+    background: #e2e8f0;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    margin-bottom: 14px;
+}
+
+/* Form Identitas Siswa */
+.form-box {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #334155;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #2563eb;
+}
+
+.primary-btn {
+    width: 100%;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    background: #1d4ed8;
+}
+
+/* Chat AI Box */
+.ai-box {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    margin-top: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.chat-history {
+    height: 240px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #f8fafc;
+}
+
+.chat-msg {
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    max-width: 85%;
+}
+
+.chat-ai {
+    background: #e0f2fe;
+    color: #0c4a6e;
+    align-self: flex-start;
+}
+
+.chat-user {
+    background: #2563eb;
+    color: white;
+    align-self: flex-end;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+}
+
+.chat-input-area button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Menu Akun & Pengaturan */
+.list-menu {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.list-item {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.list-item:last-child {
+    border-bottom: none;
+}
+
+.list-item:hover {
+    background: #f8fafc;
+}
+
+/* Loading Box */
 .loading-box {
-  background: white;
-  padding: 30px 20px;
-  border-radius: 10px;
-  text-align: center;
-  color: #475569;
+    background: white;
+    padding: 24px 16px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-.pembahasan-card {
-  background: #f8fafc;
-  border-left: 4px solid #2563eb;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 6px;
-  text-align: left;
-  font-size: 0.9rem;
+/* Tabel Rekap Nilai Admin */
+.table-wrapper {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.nilai-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+.nilai-table th, .nilai-table td {
+    border-bottom: 1px solid #e2e8f0;
+    padding: 8px 6px;
+    text-align: left;
+}
+
+.nilai-table th {
+    background: #f1f5f9;
+    font-weight: 600;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    z-index: 20;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #64748b;
+    cursor: pointer;
+    gap: 3px;
+}
+
+.nav-item .nav-icon {
+    font-size: 1.2rem;
+}
+
+.nav-item.active {
+    color: #2563eb;
+    font-weight: 700;
 }
