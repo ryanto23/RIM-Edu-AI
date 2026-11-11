@@ -1,85 +1,47 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ujian / Bank Soal Digital</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts untuk tampilan profesional -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIM Edu AI - Bank Soal</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="exam-wrapper">
-        <!-- Header Ujian -->
-        <header class="exam-header">
-            <div class="header-title">
-                <h1>Ujian Online Berbasis Web</h1>
-                <p>Mata Pelajaran: Matematika Dasar</p>
-            </div>
-            <div class="timer-box" id="timer-box">
-                <span id="timer-label">Sisa Waktu:</span>
-                <span id="time-left">10:00</span>
-            </div>
-        </header>
+  <!-- Header -->
+  <header class="app-header">
+    <h1 id="header-title">RIM Edu AI</h1>
+  </header>
 
-        <!-- Layout Utama: Konten Soal & Panel Nomor Soal -->
-        <div class="exam-body" id="quiz-container">
-            <!-- Sisi Kiri: Soal dan Opsi -->
-            <main class="question-main">
-                <div class="question-meta">
-                    <span id="question-number">Soal 1 dari 5</span>
-                </div>
-                <h3 id="question-text">Pertanyaan akan dimuat di sini...</h3>
-                
-                <div id="options-list" class="options">
-                    <!-- Opsi jawaban dimuat oleh JS -->
-                </div>
+  <!-- Konten Utama (Dinamis sesuai menu yang diklik) -->
+  <main id="app-content" class="content-area">
+    <!-- Konten dirender lewat script.js -->
+  </main>
 
-                <div class="navigation">
-                    <button id="prev-btn" class="btn btn-secondary" onclick="prevQuestion()">Sebelumnya</button>
-                    <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()">Selanjutnya</button>
-                </div>
-            </main>
+  <!-- Menu Navigasi Bawah -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="bukaMenu('home', this)">
+      <span class="icon">🏠</span>
+      <span class="label">Home</span>
+    </button>
+    <button class="nav-item" onclick="bukaMenu('sd', this)">
+      <span class="icon">🎒</span>
+      <span class="label">SD</span>
+    </button>
+    <button class="nav-item" onclick="bukaMenu('smp', this)">
+      <span class="icon">📘</span>
+      <span class="label">SMP</span>
+    </button>
+    <button class="nav-item" onclick="bukaMenu('sma', this)">
+      <span class="icon">🎓</span>
+      <span class="label">SMA/SMK</span>
+    </button>
+    <button class="nav-item" onclick="bukaMenu('saya', this)">
+      <span class="icon">👤</span>
+      <span class="label">Saya</span>
+    </button>
+  </nav>
 
-            <!-- Sisi Kanan: Palet Nomor Soal (Navigasi Cepat) -->
-            <aside class="question-palette">
-                <h4>Daftar Soal</h4>
-                <div id="palette-grid" class="palette-grid">
-                    <!-- Kotak nomor soal dimuat oleh JS -->
-                </div>
-                <div class="palette-legend">
-                    <div class="legend-item"><span class="box answered"></span> Terisi</div>
-                    <div class="legend-item"><span class="box unanswered"></span> Belum</div>
-                </div>
-            </aside>
-        </div>
-
-        <!-- Area Hasil Ujian (Tersembunyi di awal) -->
-        <div id="result-container" class="result-container hidden">
-            <div class="result-card">
-                <h2>Ujian Selesai!</h2>
-                <p>Terima kasih telah menyelesaikan ujian.</p>
-                
-                <div class="score-display">
-                    <span class="score-label">Nilai Akhir Anda</span>
-                    <h1 id="score-val">0</h1>
-                </div>
-
-                <div class="result-stats">
-                    <div class="stat-item">
-                        <span>Benar:</span> <strong id="correct-count">0</strong>
-                    </div>
-                    <div class="stat-item">
-                        <span>Salah/Kosong:</span> <strong id="wrong-count">0</strong>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary" onclick="restartQuiz()">Ulangi Ujian</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
