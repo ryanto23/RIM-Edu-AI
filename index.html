@@ -3,35 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIM Edu - Bank Soal Kurikulum Merdeka</title>
+    <title>RIM Edu AI - Bank Soal Kurikulum Merdeka</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
+        <!-- Header Aplikasi -->
         <header class="app-header">
-            <h1 id="header-title">Beranda - RIM Edu</h1>
+            <h1 id="header-title">RIM Edu AI</h1>
         </header>
 
-        <main id="app-content" class="app-content"></main>
+        <!-- Area Konten Utama -->
+        <main id="app-content" class="app-content">
+            <!-- Tampilan Default Menu Home -->
+            <section id="home-section" class="home-welcome">
+                <div class="hero-card">
+                    <h2>RIM Edu AI</h2>
+                    <p class="subtitle">
+                        Selamat datang di platform belajar cerdas dan bank soal interaktif Kurikulum Merdeka. 
+                        Asah kemampuanmu setiap hari dan raih prestasi terbaik bersama asisten belajar AI!
+                    </p>
+                    
+                    <!-- Tombol Fitur Tanya AI -->
+                    <button type="button" class="btn-ai-primary" onclick="bukaTanyaAI()">
+                        🤖 Tanya AI Sekarang
+                    </button>
+                </div>
 
+                <!-- Pilihan Cepat Jenjang -->
+                <div class="quick-menu">
+                    <h3>Pilih Jenjang Latihan Soal</h3>
+                    <div class="jenjang-grid">
+                        <button type="button" class="jenjang-card" onclick="bukaMenu('sd', document.querySelectorAll('.nav-item')[1])">
+                            <span class="icon">🎒</span>
+                            <strong>SD / MI</strong>
+                            <small>Kelas 1 - 6</small>
+                        </button>
+                        <button type="button" class="jenjang-card" onclick="bukaMenu('smp', document.querySelectorAll('.nav-item')[2])">
+                            <span class="icon">📘</span>
+                            <strong>SMP / MTs</strong>
+                            <small>Kelas 7 - 9</small>
+                        </button>
+                        <button type="button" class="jenjang-card" onclick="bukaMenu('sma', document.querySelectorAll('.nav-item')[3])">
+                            <span class="icon">🎓</span>
+                            <strong>SMA / SMK</strong>
+                            <small>Kelas 10 - 12</small>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal Form Biodata Sebelum Mengerjakan Soal -->
+        <div id="modal-biodata" class="modal-overlay" style="display: none;">
+            <div class="modal-box">
+                <h3>Isi Biodata Siswa</h3>
+                <p>Silakan lengkapi data diri terlebih dahulu sebelum mulai mengerjakan soal.</p>
+                <form id="form-biodata" onsubmit="mulaiKuis(event)">
+                    <div class="form-group">
+                        <label for="input-nama">Nama Lengkap</label>
+                        <input type="text" id="input-nama" placeholder="Contoh: Budi Santoso" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-kelas">Kelas / Jenjang</label>
+                        <input type="text" id="input-kelas" placeholder="Contoh: 8A SMP atau 11 IPA 2" required>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" onclick="tutupModal('modal-biodata')">Batal</button>
+                        <button type="submit" class="btn-primary">Mulai Kerjakan Soal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Fitur Tanya AI -->
+        <div id="modal-ai" class="modal-overlay" style="display: none;">
+            <div class="modal-box modal-ai-box">
+                <div class="modal-header">
+                    <h3>🤖 Asisten Belajar RIM Edu AI</h3>
+                    <button type="button" class="btn-close" onclick="tutupModal('modal-ai')">✖</button>
+                </div>
+                <div id="ai-chat-history" class="ai-chat-box">
+                    <div class="ai-message bot">
+                        Halo! Ada materi pelajaran atau soal yang sulit? Tanyakan apa saja di sini, saya siap membantu menjelaskannya!
+                    </div>
+                </div>
+                <form id="form-tanya-ai" class="ai-input-area" onsubmit="kirimPertanyaanAI(event)">
+                    <input type="text" id="input-pertanyaan-ai" placeholder="Ketik pertanyaan pelajaran di sini..." required>
+                    <button type="submit" class="btn-primary">Kirim</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Navigasi Bawah -->
         <nav class="bottom-nav">
-            <button class="nav-item active" onclick="bukaMenu('home', this)">
+            <button type="button" class="nav-item active" onclick="bukaMenu('home', this)">
                 <span class="nav-icon">🏠</span>
                 <span>Home</span>
             </button>
-            <button class="nav-item" onclick="bukaMenu('sd', this)">
+            <button type="button" class="nav-item" onclick="bukaMenu('sd', this)">
                 <span class="nav-icon">🎒</span>
                 <span>SD</span>
             </button>
-            <button class="nav-item" onclick="bukaMenu('smp', this)">
+            <button type="button" class="nav-item" onclick="bukaMenu('smp', this)">
                 <span class="nav-icon">📘</span>
                 <span>SMP</span>
             </button>
-            <button class="nav-item" onclick="bukaMenu('sma', this)">
+            <button type="button" class="nav-item" onclick="bukaMenu('sma', this)">
                 <span class="nav-icon">🎓</span>
                 <span>SMA/K</span>
             </button>
-            <button class="nav-item" onclick="bukaMenu('saya', this)">
+            <button type="button" class="nav-item" onclick="bukaMenu('saya', this)">
                 <span class="nav-icon">👤</span>
                 <span>Admin</span>
             </button>
