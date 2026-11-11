@@ -307,7 +307,7 @@
       idxSoal < soalList.length ? renderSoal() : selesaiKuis();
     }
 
-          function selesaiKuis() {
+            function selesaiKuis() {
       clearInterval(timer);
       const nilai = Math.round((skor / soalList.length) * 100);
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
@@ -340,7 +340,52 @@
       document.getElementById("adm-bab").innerHTML = list.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
     }
 
-    function simpanSoalBaru() {
+    function salinPromptAI() {
+      const j = document.getElementById("adm-jenjang").value.toUpperCase();
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const topik = document.getElementById("ai-topik").value.trim() || "Materi pokok semester ini";
+      const jml = document.getElementById("ai-jumlah").value;
+
+      const teksPerintah = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
+
+      navigator.clipboard.writeText(teksPerintah).then(() => {
+        alert("✅ Perintah berhasil disalin! Silakan tempel (Paste) di Gemini atau ChatGPT, lalu salin hasil JSON-nya ke kotak di bawah.");
+      }).catch(() => {
+        prompt("Salin teks perintah di bawah ini secara manual:", teksPerintah);
+      });
+    }
+
+    function imporSoalJSON() {
+      const j = document.getElementById("adm-jenjang").value;
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const bab = document.getElementById("adm-bab").value;
+      let mentah = document.getElementById("ai-json-hasil").value.trim();
+
+      if (!mentah) return alert("Tempelkan hasil kode JSON dari AI terlebih dahulu!");
+
+      try {
+        const awal = mentah.indexOf("[");
+        const akhir = mentah.lastIndexOf("]");
+        if (awal !== -1 && akhir !== -1) mentah = mentah.slice(awal, akhir + 1);
+
+        const daftarBaru = JSON.parse(mentah);
+        if (!Array.isArray(daftarBaru) || daftarBaru.length === 0) throw new Error("Format tidak sesuai");
+
+        const kunci = `${j}-${k}-${m}-${bab}`;
+        const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
+        if (!tambahan[kunci]) tambahan[kunci] = [];
+        tambahan[kunci] = tambahan[kunci].concat(daftarBaru);
+        localStorage.setItem("rim_soal_custom", JSON.stringify(tambahan));
+
+        alert(`✅ Sukses! ${daftarBaru.length} soal baru berhasil dimasukkan ke ${k} - ${m}.`);
+        document.getElementById("ai-json-hasil").value = "";
+      } catch (e) {
+        alert("❌ Format teks belum tepat. Pastikan Anda menyalin seluruh hasil dari AI mulai dari tanda [ sampai ].");
+      }
+    }
+        function simpanSoalBaru() {
       const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value, bab = document.getElementById("adm-bab").value;
       const q = document.getElementById("adm-q").value.trim(), pA = document.getElementById("adm-pa").value.trim();
@@ -390,11 +435,29 @@
     function bukaAdmin(aksi) {
       const pin = prompt("Masukkan PIN Admin:");
       if (pin !== (localStorage.getItem("rim_pin") || PIN_DEFAULT)) return alert("PIN Salah!");
-      if (aksi === "tambah-soal") {
+      if (aksi === "ai-soal") {
         app().innerHTML = `
           <div class="form-box">
             <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-            <h3 style="font-size:1.05rem; margin-bottom:12px;">➕ Tambah Bank Soal Baru</h3>
+            <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Buat Soal Cepat via AI</h3>
+            <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Tanpa API Key & bebas error. Salin perintahnya ke Gemini/ChatGPT, lalu tempel hasilnya di bawah.</p>
+            <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
+            <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
+            <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
+            <label>Simpan ke Bab</label><select id="adm-bab"></select>
+            <label>Topik Materi</label><input type="text" id="ai-topik" placeholder="Contoh: Ekosistem Sawah atau Aljabar">
+            <label>Jumlah Soal</label><select id="ai-jumlah"><option value="5">5 Soal</option><option value="10">10 Soal</option><option value="15">15 Soal</option></select>
+            <button type="button" class="btn-primary" style="background:#0ea5e9; margin-bottom:16px;" onclick="salinPromptAI()">1️⃣ Salin Perintah untuk AI</button>
+            <label>2️⃣ Tempel Hasil JSON dari AI di Sini</label>
+            <textarea id="ai-json-hasil" rows="4" placeholder='Tempel hasil jawaban AI di sini...'></textarea>
+            <button type="button" class="btn-primary" onclick="imporSoalJSON()">💾 Simpan Semua Soal ke Aplikasi</button>
+          </div>`;
+        updateDropdownAdmin();
+      } else if (aksi === "tambah-soal") {
+        app().innerHTML = `
+          <div class="form-box">
+            <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
+            <h3 style="font-size:1.05rem; margin-bottom:12px;">➕ Tambah Soal Manual</h3>
             <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
             <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
             <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
@@ -433,4 +496,3 @@
   </script>
 </body>
 </html>
-
