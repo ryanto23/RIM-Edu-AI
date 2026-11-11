@@ -5,49 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RIM EDU AI - Aplikasi Latihan Soal</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-        }
+        :root { --primary: #2563eb; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
         body { background-color: var(--bg); color: var(--text); padding-bottom: 80px; }
-        
-        /* Header & Container */
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         .card { background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px; }
-        
-        /* Home Styling */
         .hero { text-align: center; padding: 25px 15px; background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: white; border-radius: 16px; margin-bottom: 20px; }
         .hero h1 { font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; }
         .hero p { font-size: 14px; opacity: 0.9; line-height: 1.5; }
-
-        /* Form & Buttons */
         input, select, textarea { width: 100%; padding: 12px; margin: 8px 0 16px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
         button { background: var(--primary); color: white; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 15px; }
         button:hover { background: #1d4ed8; }
         .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); margin-top: 8px; }
         .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
         .btn-mapel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
-
-        /* Chat AI Box */
-        .ai-response { background: #eff6ff; border-left: 4px solid var(--primary); padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 14px; line-height: 1.5; display: none; }
-
-        /* Quiz Styling */
+        .ai-response { background: #eff6ff; border-left: 4px solid var(--primary); padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 14px; line-height: 1.5; display: none; white-space: pre-wrap; }
         .option-btn { background: #f1f5f9; color: var(--text); text-align: left; font-weight: normal; margin-bottom: 8px; border: 1px solid #cbd5e1; }
         .option-btn.selected { background: #dbeafe; border-color: var(--primary); font-weight: bold; }
-
-        /* Bottom Navigation */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); z-index: 100; }
         .nav-item { background: none; color: #64748b; border: none; font-size: 12px; display: flex; flex-direction: column; align-items: center; width: auto; padding: 5px 10px; }
         .nav-item.active { color: var(--primary); font-weight: bold; }
-
-        /* Table Admin */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
         th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; }
         th { background: #f1f5f9; }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -103,7 +84,7 @@
     <div id="view-kuis" class="hidden">
         <div class="card">
             <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: bold;">
-                <span id="kuis-header">Soal 1/2</span>
+                <span id="kuis-header">Soal 1/3</span>
                 <span id="kuis-timer" style="color: #dc2626;">05:00</span>
             </div>
             <p id="teks-soal" style="font-size: 16px; margin-bottom: 16px; line-height: 1.5;"></p>
@@ -127,7 +108,7 @@
     <div id="view-admin" class="hidden">
         <div id="admin-login" class="card">
             <h3>🔒 Akses Khusus Admin</h3>
-            <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Masukkan PIN Admin untuk melihat dan mengunduh rekap nilai.</p>
+            <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Masukkan PIN Admin untuk melihat rekap nilai dan mengatur API Key.</p>
             <input type="password" id="admin-pin" placeholder="Masukkan PIN (Default: 123456)">
             <button onclick="loginAdmin()">Masuk Panel Admin</button>
         </div>
@@ -151,6 +132,12 @@
                     <tbody id="tabel-rekap"></tbody>
                 </table>
             </div>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e2e8f0;">
+            <h4>🔑 Pengaturan Gemini API Key</h4>
+            <input type="password" id="input-api-key" placeholder="Tempel Gemini API Key di sini">
+            <button style="background: #0f172a;" onclick="simpanApiKey()">Simpan API Key</button>
+
             <button class="btn-outline" style="margin-top: 16px;" onclick="logoutAdmin()">Keluar Admin</button>
         </div>
     </div>
@@ -165,251 +152,6 @@
     <button class="nav-item" onclick="bukaMenu('admin')" id="nav-admin">⚙️<br>Admin</button>
 </div>
 
-<script>
-    // KONFIGURASI DATA (Sesuai struktur kode Anda)
-    const ADMIN_PIN_DEFAULT = "123456";
-    const DURASI_KUIS_DETIK = 300;
-    const GEMINI_API_KEY = ""; // Masukkan API Key Gemini Anda di sini jika sudah punya
-
-    const dataPendidikan = {
-        "SD": {
-            kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"],
-            mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "PJOK"]
-        },
-        "SMP": {
-            kelas: ["Kelas 7", "Kelas 8", "Kelas 9"],
-            mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Informatika"]
-        },
-        "SMA/SMK": {
-            kelas: ["Kelas 10", "Kelas 11", "Kelas 12"],
-            mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika / Kejuruan", "Ekonomi", "Sejarah"]
-        }
-    };
-
-    // CONTOH BANK SOAL (Bisa ditambahkan sesuai kebutuhan)
-    const bankSoal = [
-        { tanya: "Hasil dari 15 + 27 adalah...", opsi: ["32", "42", "52", "45"], jawaban: 1 },
-        { tanya: "Ibu kota negara Indonesia saat ini adalah...", opsi: ["Bandung", "Surabaya", "Jakarta", "Medan"], jawaban: 2 },
-        { tanya: "Bahasa Inggris dari 'Buku' adalah...", opsi: ["Pen", "Table", "Book", "Bag"], jawaban: 2 }
-    ];
-
-    // STATE APLIKASI
-    let jenjangAktif = "";
-    let kelasAktif = "";
-    let mapelAktif = "";
-    let indeksSoal = 0;
-let skor = 0;
-let jawabanDipilih = null;
-let timerInterval;
-// NAVIGASI MENU BAWAH
-function bukaMenu(menu) {
-document.querySelectorAll('.container > div').forEach(el => el.classList.add('hidden'));
-document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-if (menu === 'home') {
-document.getElementById('view-home').classList.remove('hidden');
-document.getElementById('nav-home').classList.add('active');
-} else if (menu === 'admin') {
-document.getElementById('view-admin').classList.remove('hidden');
-document.getElementById('nav-admin').classList.add('active');
-} else {
-jenjangAktif = menu;
-document.getElementById('view-jenjang').classList.remove('hidden');
-document.getElementById('nav-' + menu).classList.add('active');
-tampilkanKelas(menu);
-}
-}
-// TAMPILKAN KELAS & MAPEL
-function tampilkanKelas(jenjang) {
-document.getElementById('judul-jenjang').innerText = "Jenjang " + jenjang;
-document.getElementById('card-mapel').classList.add('hidden');
-const listKelas = document.getElementById('list-kelas');
-listKelas.innerHTML = "";
-dataPendidikan[jenjang].kelas.forEach(kls => {
-const btn = document.createElement('button');
-btn.innerText = kls;
-btn.onclick = () => tampilkanMapel(jenjang, kls);
-listKelas.appendChild(btn);
-});
-}
-function tampilkanMapel(jenjang, kls) {
-kelasAktif = kls;
-document.getElementById('card-mapel').classList.remove('hidden');
-document.getElementById('judul-mapel').innerText = "Mata Pelajaran (" + kls + ")";
-const listMapel = document.getElementById('list-mapel');
-listMapel.innerHTML = "";
-dataPendidikan[jenjang].mapel.forEach(mpl => {
-const btn = document.createElement('button');
-btn.className = "btn-outline";
-btn.innerText = mpl;
-btn.onclick = () => bukaFormBiodata(mpl);
-listMapel.appendChild(btn);
-});
-}
-function kembaliKeJenjang() {
-bukaMenu(jenjangAktif);
-}
-// BIODATA & MULAI KUIS
-function bukaFormBiodata(mpl) {
-mapelAktif = mpl;
-document.getElementById('view-jenjang').classList.add('hidden');
-document.getElementById('view-biodata').classList.remove('hidden');
-document.getElementById('info-kuis-terpilih').innerText = ${jenjangAktif} - ${kelasAktif} | Mapel: ${mapelAktif};
-document.getElementById('input-kelas').value = ${jenjangAktif} - ${kelasAktif};
-}
-function mulaiKuis() {
-const nama = document.getElementById('input-nama').value.trim();
-const sekolah = document.getElementById('input-sekolah').value.trim();
-if (!nama || !sekolah) {
-alert("Harap isi Nama Lengkap dan Asal Sekolah terlebih dahulu!");
-return;
-}
-indeksSoal = 0;
-skor = 0;
-document.getElementById('view-biodata').classList.add('hidden');
-document.getElementById('view-kuis').classList.remove('hidden');
-jalankanTimer();
-muatSoal();
-}
-function jalankanTimer() {
-let sisaWaktu = DURASI_KUIS_DETIK;
-clearInterval(timerInterval);
-timerInterval = setInterval(() => {
-sisaWaktu--;
-let menit = Math.floor(sisaWaktu / 60).toString().padStart(2, '0');
-let detik = (sisaWaktu % 60).toString().padStart(2, '0');
-document.getElementById('kuis-timer').innerText = ${menit}:${detik};
-if (sisaWaktu <= 0) {
-clearInterval(timerInterval);
-selesaiKuis();
-}
-}, 1000);
-}
-function muatSoal() {
-jawabanDipilih = null;
-const soal = bankSoal[indeksSoal];
-document.getElementById('kuis-header').innerText = Soal ${indeksSoal + 1} / ${bankSoal.length};
-document.getElementById('teks-soal').innerText = soal.tanya;
-const opsiDiv = document.getElementById('opsi-jawaban');
-opsiDiv.innerHTML = "";
-soal.opsi.forEach((teks, idx) => {
-const btn = document.createElement('button');
-btn.className = "option-btn";
-btn.innerText = teks;
-btn.onclick = () => {
-document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-btn.classList.add('selected');
-jawabanDipilih = idx;
-};
-opsiDiv.appendChild(btn);
-});
-}
-function soalBerikutnya() {
-if (jawabanDipilih === null) {
-alert("Pilih salah satu jawaban terlebih dahulu!");
-return;
-}
-if (jawabanDipilih === bankSoal[indeksSoal].jawaban) {
-skor++;
-}
-indeksSoal++;
-if (indeksSoal < bankSoal.length) {
-muatSoal();
-} else {
-selesaiKuis();
-}
-}
-function selesaiKuis() {
-clearInterval(timerInterval);
-const nilaiAkhir = Math.round((skor / bankSoal.length) * 100);
-const nama = document.getElementById('input-nama').value;
-const sekolah = document.getElementById('input-sekolah').value;
-// Simpan ke LocalStorage untuk Admin
-const rekapLama = JSON.parse(localStorage.getItem('rekap_rim_edu') || "[]");
-rekapLama.push({
-waktu: new Date().toLocaleString('id-ID'),
-nama: nama,
-sekolah: sekolah,
-kelas: ${jenjangAktif} - ${kelasAktif},
-mapel: mapelAktif,
-nilai: nilaiAkhir
-});
-localStorage.setItem('rekap_rim_edu', JSON.stringify(rekapLama));
-// Tampilkan layar hasil
-document.getElementById('view-kuis').classList.add('hidden');
-document.getElementById('view-hasil').classList.remove('hidden');
-document.getElementById('skor-akhir').innerText = nilaiAkhir;
-document.getElementById('detail-hasil').innerText = ${nama} (${sekolah}) - Benar ${skor} dari ${bankSoal.length} soal.;
-}
-// FITUR TANYA AI (Terhubung ke Gemini API)
-async function tanyaAI() {
-const prompt = document.getElementById('ai-prompt').value.trim();
-const output = document.getElementById('ai-output');
-if (!prompt) return alert("Ketik pertanyaan terlebih dahulu!");
-output.style.display = "block";
-output.innerText = "⏳ AI sedang berpikir...";
-if (!GEMINI_API_KEY) {
-setTimeout(() => {
-output.innerHTML = <strong>Simulasi Jawaban AI:</strong><br>Pertanyaan Anda: <em>"${prompt}"</em>.<br><br>⚠️ <em>Catatan: Masukkan <code>GEMINI_API_KEY</code> di dalam kode JavaScript agar AI dapat menjawab secara nyata.</em>;
-}, 800);
-return;
-}
-try {
-const response = await fetch(https://googleapis.com{GEMINI_API_KEY}, {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-});
-const data = await response.json();
-const jawaban = data.candidates[0].content.parts[0].text;
-output.innerText = jawaban;
-} catch (err) {
-output.innerText = "Gagal terhubung ke AI. Periksa koneksi internet atau API Key Anda.";
-}
-}
-// FITUR ADMIN & DOWNLOAD CSV
-function loginAdmin() {
-const pin = document.getElementById('admin-pin').value;
-if (pin === ADMIN_PIN_DEFAULT) {
-document.getElementById('admin-login').classList.add('hidden');
-document.getElementById('admin-dashboard').classList.remove('hidden');
-muatTabelRekap();
-} else {
-alert("PIN Admin salah!");
-}
-}
-function logoutAdmin() {
-document.getElementById('admin-pin').value = "";
-document.getElementById('admin-dashboard').classList.add('hidden');
-document.getElementById('admin-login').classList.remove('hidden');
-}
-function muatTabelRekap() {
-const data = JSON.parse(localStorage.getItem('rekap_rim_edu') || "[]");
-const tbody = document.getElementById('tabel-rekap');
-tbody.innerHTML = "";
-if (data.length === 0) {
-tbody.innerHTML = "Belum ada data siswa.";
-return;
-}
-data.forEach(item => {
-tbody.innerHTML += `
-${item.nama}
-${item.sekolah}
-${item.kelas}
-${item.mapel}
-${item.nilai}
-`;
-});
-}
-function downloadCSV() {
-const data = JSON.parse(localStorage.getItem('rekap_rim_edu') || "[]");
-if (data.length === 0) return alert("Belum ada data untuk diunduh.");
-let csv = "Waktu,Nama Lengkap,Asal Sekolah,Kelas,Mata Pelajaran,Nilai\n";
-data.forEach(row => {
-csv += "${row.waktu}","${row.nama}","${row.sekolah}","${row.kelas}","${row.mapel}",${row.nilai}\n;
-});
-const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-const link = document.createElement("a");
-link.href = URL.createObjectURL(blob);
-link.download = "Rekap_Nilai_RIM_EDU_AI.csv";
-link.click();
-}
+<script src="script.js"></script>
+</body>
+</html>
