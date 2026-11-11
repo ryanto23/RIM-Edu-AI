@@ -271,31 +271,31 @@
         </div>`;
     }
 
-    async function kirimAI() {
+      async function kirimAI() {
       const q = document.getElementById("ai-prompt").value.trim();
       const box = document.getElementById("ai-res");
       if (!q) return alert("Tulis pertanyaan dulu!");
 
       box.innerHTML = "⏳ Sedang mengetik jawaban...";
+      const promptLengkap = encodeURIComponent("Kamu adalah guru ramah di Indonesia. Jawab pertanyaan siswa berikut dengan bahasa Indonesia yang jelas dan mudah dipahami: " + q);
+
       try {
-        const res = await fetch("https://pollinations.ai", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            messages: [
-              { role: "system", content: "Kamu adalah guru ramah di Indonesia. Jawab pertanyaan siswa dalam bahasa Indonesia yang jelas, terstruktur, dan mudah dipahami." },
-              { role: "user", content: q }
-            ],
-            model: "openai"
-          })
-        });
-        if (!res.ok) throw new Error("Gagal");
+        // Menggunakan metode GET agar tidak diblokir CORS di GitHub Pages
+        const res = await fetch(`https://pollinations.ai{promptLengkap}?model=openai&seed=${Math.floor(Math.random() * 1000)}`);
+        if (!res.ok) throw new Error("Server sibuk");
         const teks = await res.text();
-        box.innerHTML = `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px; white-space:pre-wrap;">${esc(teks)}</div>`;
+        
+        if (!teks || teks.trim() === "") throw new Error("Jawaban kosong");
+        box.innerHTML = `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px; white-space:pre-wrap; line-height:1.6;">${esc(teks)}</div>`;
       } catch (e) {
-        box.innerHTML = "<p style='color:#dc2626'>Gagal terhubung ke server AI. Periksa koneksi internet Anda dan coba lagi.</p>";
+        box.innerHTML = `
+          <div style="background:#fef2f2; border:1px solid #fecaca; padding:12px; border-radius:8px; color:#dc2626; font-size:0.88rem;">
+            <b>⚠️ Server AI sedang sibuk.</b><br>
+            Silakan tunggu 5 detik lalu klik tombol <b>Kirim Pertanyaan</b> lagi.
+          </div>`;
       }
     }
+
 
     function bukaAdmin(aksi) {
       const pin = prompt("Masukkan PIN Admin (Default: 123456):");
