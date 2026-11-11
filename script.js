@@ -1,9 +1,9 @@
 // ==========================================
 // KONFIGURASI PIN ADMIN, AI & DURASI WAKTU
 // ==========================================
-const ADMIN_PIN_DEFAULT = "123456"; // Ubah PIN rahasia Anda di sini
-const DURASI_KUIS_DETIK = 300; // 300 detik = 5 menit
-const GEMINI_API_KEY = ""; // Opsional: Isi API Key Gemini Anda di sini jika ada
+const ADMIN_PIN_DEFAULT = "123456";
+const DURASI_KUIS_DETIK = 300;
+const GEMINI_API_KEY = "";
 
 // Data Struktur Jenjang, Kelas, dan Mata Pelajaran
 const dataPendidikan = {
@@ -103,9 +103,6 @@ const bankSoalBawaan = {
   ]
 };
 
-const contentArea = document.getElementById("app-content");
-const headerTitle = document.getElementById("header-title");
-
 let timerInterval;
 let soalAktifList = [];
 let riwayatJawabanUser = [];
@@ -122,6 +119,14 @@ let sesiSiswa = {
   mapel: "",
   bab: ""
 };
+
+function getContentArea() {
+  return document.getElementById("app-content");
+}
+
+function getHeaderTitle() {
+  return document.getElementById("header-title");
+}
 
 function escapeHTML(str) {
   return String(str)
@@ -141,7 +146,7 @@ function ambilSemuaBankSoal() {
   try {
     soalTambahanAdmin = JSON.parse(localStorage.getItem("rim_bank_soal_manual") || "{}");
   } catch (e) {
-    console.error("Gagal membaca data soal tambahan:", e);
+    soalTambahanAdmin = {};
   }
 
   const gabungan = Object.assign({}, bankSoalBawaan);
@@ -157,6 +162,13 @@ function ambilSemuaBankSoal() {
 // ==========================================
 function bukaMenu(menu, element) {
   clearInterval(timerInterval);
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
+
+  if (!contentArea) {
+    console.error("Elemen #app-content tidak ditemukan di index.html!");
+    return;
+  }
 
   if (element) {
     document.querySelectorAll(".nav-item").forEach(function (btn) {
@@ -164,8 +176,6 @@ function bukaMenu(menu, element) {
     });
     element.classList.add("active");
   }
-
-  if (!contentArea) return;
 
   if (menu === "home") {
     if (headerTitle) headerTitle.innerText = "RIM Edu AI";
@@ -212,11 +222,7 @@ function bukaMenu(menu, element) {
       </section>
     `;
   } else if (menu === "sd" || menu === "smp" || menu === "sma") {
-    if (typeof tampilkanDaftarKelas === "function") {
-      tampilkanDaftarKelas(menu);
-    } else {
-      console.error("Fungsi tampilkanDaftarKelas() belum didefinisikan.");
-    }
+    tampilkanDaftarKelas(menu);
   } else if (menu === "saya") {
     if (headerTitle) headerTitle.innerText = "Panel Guru / Admin";
     contentArea.innerHTML = `
@@ -245,29 +251,13 @@ function bukaMenu(menu, element) {
 }
 
 // ==========================================
-// FITUR TANYA AI (CHAT INTERAKTIF)
-// ==========================================
-function bukaTanyaAI() {
-  const modal = document.getElementById("modal-ai");
-  if (modal) {
-    modal.style.display = "flex";
-    setTimeout(() => {
-      const input = document.getElementById("input-pertanyaan-ai");
-      if (input) input.focus();
-    }, 100);
-  }
-}
-
-function tutupModal(idModal) {
-  const modal = document.getElementById(idModal);
-  if (modal) modal.style.display = "none";
-}
-// ==========================================
 // ALUR PEMILIHAN MATERI & FORM SISWA
 // ==========================================
 function tampilkanDaftarKelas(jenjang) {
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
   const data = dataPendidikan[jenjang];
-  if (!data) return;
+  if (!data || !contentArea) return;
 
   sesiSiswa.jenjang = jenjang;
   if (headerTitle) headerTitle.innerText = data.judul;
@@ -296,7 +286,11 @@ function tampilkanDaftarKelas(jenjang) {
 }
 
 function tampilkanDaftarMapel(jenjang, kelas) {
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
   const data = dataPendidikan[jenjang];
+  if (!data || !contentArea) return;
+
   sesiSiswa.kelasTingkat = kelas;
   if (headerTitle) headerTitle.innerText = `${kelas} - Mata Pelajaran`;
 
@@ -321,6 +315,10 @@ function tampilkanDaftarMapel(jenjang, kelas) {
 }
 
 function tampilkanDaftarBab(jenjang, kelas, mapel) {
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
+  if (!contentArea) return;
+
   sesiSiswa.mapel = mapel;
   if (headerTitle) headerTitle.innerText = mapel;
 
@@ -355,6 +353,10 @@ function tampilkanDaftarBab(jenjang, kelas, mapel) {
 }
 
 function tampilkanFormSiswa(bab) {
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
+  if (!contentArea) return;
+
   sesiSiswa.bab = bab;
   if (headerTitle) headerTitle.innerText = "Data Peserta Kuis";
 
@@ -434,8 +436,10 @@ function jalankanTimer() {
 }
 
 function renderSoal() {
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
   const soal = soalAktifList[soalSekarang];
-  if (!soal) {
+  if (!soal || !contentArea) {
     selesaikanKuis();
     return;
   }
@@ -493,9 +497,10 @@ function jawabSoal(indexPilihan) {
 
 function selesaikanKuis() {
   clearInterval(timerInterval);
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
   const nilaiAkhir = Math.round((skorTotal / soalAktifList.length) * 100);
 
-  // Simpan rekap nilai ke localStorage
   const rekapLama = JSON.parse(localStorage.getItem("rim_rekap_nilai") || "[]");
   rekapLama.push({
     tanggal: new Date().toLocaleString("id-ID"),
@@ -558,118 +563,208 @@ function verifikasiPinAdmin() {
 
 function bukaPanelAdmin() {
   if (!verifikasiPinAdmin()) return;
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
 
   const dataNilai = JSON.parse(localStorage.getItem("rim_rekap_nilai") || "[]");
   if (headerTitle) headerTitle.innerText = "Rekap Nilai Siswa";
 
   let barisNilai = "";
-if (dataNilai.length === 0) {
-barisNilai = <p style="color: #64748b; font-size: 0.9rem;">Belum ada data nilai siswa yang tersimpan.</p>;
-} else {
-dataNilai.forEach((row, i) => {
-barisNilai += <div style="border-bottom: 1px solid #e2e8f0; padding: 8px 0; font-size: 0.85rem;"> <b>${i + 1}. ${escapeHTML(row.nama)}</b> (${escapeHTML(row.kelas)} - ${escapeHTML(row.sekolah)})<br> <span style="color: #475569;">${escapeHTML(row.mapel)} | Nilai: <b>${row.nilai}</b></span><br> <small style="color: #94a3b8;">${escapeHTML(row.tanggal)}</small> </div>;
-});
+  if (dataNilai.length === 0) {
+    barisNilai = `<p style="color: #64748b; font-size: 0.9rem;">Belum ada data nilai siswa yang tersimpan.</p>`;
+  } else {
+    dataNilai.forEach((row, i) => {
+      barisNilai += `
+        <div style="border-bottom: 1px solid #e2e8f0; padding: 8px 0; font-size: 0.85rem;">
+          <b>${i + 1}. ${escapeHTML(row.nama)}</b> (${escapeHTML(row.kelas)} - ${escapeHTML(row.sekolah)})<br>
+          <span style="color: #475569;">${escapeHTML(row.mapel)} | Nilai: <b>${row.nilai}</b></span><br>
+          <small style="color: #94a3b8;">${escapeHTML(row.tanggal)}</small>
+        </div>
+      `;
+    });
+  }
+
+  contentArea.innerHTML = `
+    <button type="button" class="btn-back" onclick="bukaMenu('saya')" style="margin-bottom: 12px;">← Kembali</button>
+    <div class="form-box">
+      <h3>📊 Rekap Skor Siswa</h3>
+      <div style="margin: 12px 0; display: flex; gap: 8px;">
+        <button type="button" class="btn-ai-primary" onclick="unduhCSVNilai()">⬇️ Unduh CSV</button>
+        <button type="button" class="btn-back" style="color: #dc2626;" onclick="hapusSemuaNilai()">🗑️ Reset Data</button>
+      </div>
+      ${barisNilai}
+    </div>
+  `;
 }
-contentArea.innerHTML = <button type="button" class="btn-back" onclick="bukaMenu('saya')" style="margin-bottom: 12px;">← Kembali</button> <div class="form-box"> <h3>📊 Rekap Skor Siswa</h3> <div style="margin: 12px 0; display: flex; gap: 8px;"> <button type="button" class="btn-ai-primary" onclick="unduhCSVNilai()">⬇️ Unduh CSV</button> <button type="button" class="btn-back" style="color: #dc2626;" onclick="hapusSemuaNilai()">🗑️ Reset Data</button> </div> ${barisNilai} </div>;
-}
+
 function unduhCSVNilai() {
-const dataNilai = JSON.parse(localStorage.getItem("rim_rekap_nilai") || "[]");
-if (dataNilai.length === 0) {
-alert("Tidak ada data untuk diunduh.");
-return;
+  const dataNilai = JSON.parse(localStorage.getItem("rim_rekap_nilai") || "[]");
+  if (dataNilai.length === 0) {
+    alert("Tidak ada data untuk diunduh.");
+    return;
+  }
+
+  let csv = "No,Tanggal,Nama Siswa,Sekolah,Kelas,Mata Pelajaran,Bab,Nilai\n";
+  dataNilai.forEach((r, idx) => {
+    csv += `${idx + 1},"${r.tanggal}","${r.nama}","${r.sekolah}","${r.kelas}","${r.mapel}","${r.bab}",${r.nilai}\n`;
+  });
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `Rekap_Nilai_RIM_Edu_${new Date().toISOString().slice(0, 10)}.csv`;
+  link.click();
 }
-let csv = "No,Tanggal,Nama Siswa,Sekolah,Kelas,Mata Pelajaran,Bab,Nilai\n";
-dataNilai.forEach((r, idx) => {
-csv += ${idx + 1},"${r.tanggal}","${r.nama}","${r.sekolah}","${r.kelas}","${r.mapel}","${r.bab}",${r.nilai}\n;
-});
-const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-const link = document.createElement("a");
-link.href = URL.createObjectURL(blob);
-link.download = Rekap_Nilai_RIM_Edu_${new Date().toISOString().slice(0, 10)}.csv;
-link.click();
-}
+
 function hapusSemuaNilai() {
-if (confirm("Yakin ingin menghapus seluruh rekap nilai siswa?")) {
-localStorage.removeItem("rim_rekap_nilai");
-bukaPanelAdmin();
+  if (confirm("Yakin ingin menghapus seluruh rekap nilai siswa?")) {
+    localStorage.removeItem("rim_rekap_nilai");
+    bukaPanelAdmin();
+  }
 }
-}
+
 function bukaFormInputSoal() {
-if (!verifikasiPinAdmin()) return;
-if (headerTitle) headerTitle.innerText = "Tambah Soal Manual";
-contentArea.innerHTML = <button type="button" class="btn-back" onclick="bukaMenu('saya')" style="margin-bottom: 12px;">← Kembali</button> <div class="form-box" style="display: flex; flex-direction: column; gap: 10px;"> <h3>✍️ Input Soal Baru</h3> <select id="admin-jenjang" style="padding: 8px; border-radius: 6px;"> <option value="sd">SD</option> <option value="smp">SMP</option> <option value="sma">SMA / SMK</option> </select> <input type="text" id="admin-kelas" placeholder="Kelas (Contoh: Kelas 7)" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"> <input type="text" id="admin-mapel" placeholder="Mata Pelajaran (Contoh: Matematika)" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"> <input type="text" id="admin-bab" placeholder="Nama Bab (Harus sama persis dengan daftar bab)" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"> <textarea id="admin-pertanyaan" rows="3" placeholder="Tulis pertanyaan soal..." style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"></textarea> <input type="text" id="admin-pil-0" placeholder="Pilihan A" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"> <input type="text" id="admin-pil-1" placeholder="Pilihan B" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"> <input type="text" id="admin-pil-2" placeholder="Pilihan C" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"> <input type="text" id="admin-pil-3" placeholder="Pilihan D" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"> <select id="admin-kunci" style="padding: 8px; border-radius: 6px;"> <option value="0">Kunci Jawaban: A</option> <option value="1">Kunci Jawaban: B</option> <option value="2">Kunci Jawaban: C</option> <option value="3">Kunci Jawaban: D</option> </select> <textarea id="admin-pembahasan" rows="2" placeholder="Pembahasan singkat..." style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"></textarea> <button type="button" class="btn-ai-primary" onclick="simpanSoalBaru()">💾 Simpan Soal</button> </div>;
+  if (!verifikasiPinAdmin()) return;
+  const contentArea = getContentArea();
+  const headerTitle = getHeaderTitle();
+  if (headerTitle) headerTitle.innerText = "Tambah Soal Manual";
+
+  contentArea.innerHTML = `
+    <button type="button" class="btn-back" onclick="bukaMenu('saya')" style="margin-bottom: 12px;">← Kembali</button>
+    <div class="form-box" style="display: flex; flex-direction: column; gap: 10px;">
+      <h3>✍️ Input Soal Baru</h3>
+      <select id="admin-jenjang" style="padding: 8px; border-radius: 6px;">
+        <option value="sd">SD</option>
+        <option value="smp">SMP</option>
+        <option value="sma">SMA / SMK</option>
+      </select>
+      <input type="text" id="admin-kelas" placeholder="Kelas (Contoh: Kelas 7)" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;">
+      <input type="text" id="admin-mapel" placeholder="Mata Pelajaran (Contoh: Matematika)" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;">
+      <input type="text" id="admin-bab" placeholder="Nama Bab (Harus sama persis dengan daftar bab)" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;">
+      <textarea id="admin-pertanyaan" rows="3" placeholder="Tulis pertanyaan soal..." style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"></textarea>
+      <input type="text" id="admin-pil-0" placeholder="Pilihan A" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;">
+      <input type="text" id="admin-pil-1" placeholder="Pilihan B" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;">
+      <input type="text" id="admin-pil-2" placeholder="Pilihan C" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;">
+      <input type="text" id="admin-pil-3" placeholder="Pilihan D" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;">
+      <select id="admin-kunci" style="padding: 8px; border-radius: 6px;">
+        <option value="0">Kunci Jawaban: A</option>
+        <option value="1">Kunci Jawaban: B</option>
+        <option value="2">Kunci Jawaban: C</option>
+        <option value="3">Kunci Jawaban: D</option>
+      </select>
+      <textarea id="admin-pembahasan" rows="2" placeholder="Pembahasan singkat..." style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e1;"></textarea>
+      <button type="button" class="btn-ai-primary" onclick="simpanSoalBaru()">💾 Simpan Soal</button>
+    </div>
+  `;
 }
+
 function simpanSoalBaru() {
-const jenjang = document.getElementById("admin-jenjang").value;
-const kelas = document.getElementById("admin-kelas").value.trim();
-const mapel = document.getElementById("admin-mapel").value.trim();
-const bab = document.getElementById("admin-bab").value.trim();
-const pertanyaan = document.getElementById("admin-pertanyaan").value.trim();
-const pilihan = [
-document.getElementById("admin-pil-0").value.trim(),
-document.getElementById("admin-pil-1").value.trim(),
-document.getElementById("admin-pil-2").value.trim(),
-document.getElementById("admin-pil-3").value.trim()
-];
-const jawabanBenar = parseInt(document.getElementById("admin-kunci").value, 10);
-const pembahasan = document.getElementById("admin-pembahasan").value.trim();
-if (!kelas || !mapel || !bab || !pertanyaan || pilihan.includes("")) {
-alert("Harap isi semua kolom soal dan pilihan jawaban!");
-return;
+  const jenjang = document.getElementById("admin-jenjang").value;
+  const kelas = document.getElementById("admin-kelas").value.trim();
+  const mapel = document.getElementById("admin-mapel").value.trim();
+  const bab = document.getElementById("admin-bab").value.trim();
+  const pertanyaan = document.getElementById("admin-pertanyaan").value.trim();
+  const pilihan = [
+    document.getElementById("admin-pil-0").value.trim(),
+    document.getElementById("admin-pil-1").value.trim(),
+    document.getElementById("admin-pil-2").value.trim(),
+    document.getElementById("admin-pil-3").value.trim()
+  ];
+  const jawabanBenar = parseInt(document.getElementById("admin-kunci").value, 10);
+  const pembahasan = document.getElementById("admin-pembahasan").value.trim();
+
+  if (!kelas || !mapel || !bab || !pertanyaan || pilihan.includes("")) {
+    alert("Harap isi semua kolom soal dan pilihan jawaban!");
+    return;
+  }
+
+  const kunciMateri = `${jenjang}-${kelas}-${mapel}-${bab}`;
+  const bankTambahan = JSON.parse(localStorage.getItem("rim_bank_soal_manual") || "{}");
+
+  if (!bankTambahan[kunciMateri]) bankTambahan[kunciMateri] = [];
+  bankTambahan[kunciMateri].push({ pertanyaan, pilihan, jawabanBenar, pembahasan });
+
+  localStorage.setItem("rim_bank_soal_manual", JSON.stringify(bankTambahan));
+  alert("Soal berhasil disimpan ke Bank Soal!");
+  bukaMenu("saya");
 }
-const kunciMateri = ${jenjang}-${kelas}-${mapel}-${bab};
-const bankTambahan = JSON.parse(localStorage.getItem("rim_bank_soal_manual") || "{}");
-if (!bankTambahan[kunciMateri]) bankTambahan[kunciMateri] = [];
-bankTambahan[kunciMateri].push({ pertanyaan, pilihan, jawabanBenar, pembahasan });
-localStorage.setItem("rim_bank_soal_manual", JSON.stringify(bankTambahan));
-alert("Soal berhasil disimpan ke Bank Soal!");
-bukaMenu("saya");
-}
+
 function ubahPinAdmin() {
-if (!verifikasiPinAdmin()) return;
-const pinBaru = prompt("Masukkan PIN Admin baru (minimal 4 angka):");
-if (pinBaru && pinBaru.trim().length >= 4) {
-localStorage.setItem("rim_admin_pin", pinBaru.trim());
-alert("PIN Admin berhasil diperbarui!");
-} else if (pinBaru !== null) {
-alert("PIN minimal harus 4 karakter!");
+  if (!verifikasiPinAdmin()) return;
+  const pinBaru = prompt("Masukkan PIN Admin baru (minimal 4 angka):");
+  if (pinBaru && pinBaru.trim().length >= 4) {
+    localStorage.setItem("rim_admin_pin", pinBaru.trim());
+    alert("PIN Admin berhasil diperbarui!");
+  } else if (pinBaru !== null) {
+    alert("PIN minimal harus 4 karakter!");
+  }
 }
+
+// ==========================================
+// FITUR TANYA AI (CHAT INTERAKTIF)
+// ==========================================
+function bukaTanyaAI() {
+  const modal = document.getElementById("modal-ai");
+  if (modal) {
+    modal.style.display = "flex";
+    setTimeout(() => {
+      const input = document.getElementById("input-pertanyaan-ai");
+      if (input) input.focus();
+    }, 100);
+  } else {
+    alert("Elemen modal-ai belum tersedia di index.html.");
+  }
 }
-// ==========================================
-// INTEGRASI API GEMINI (UNTUK FITUR TANYA AI)
-// ==========================================
+
+function tutupModal(idModal) {
+  const modal = document.getElementById(idModal);
+  if (modal) modal.style.display = "none";
+}
+
 async function kirimPertanyaanAI() {
-const inputEl = document.getElementById("input-pertanyaan-ai");
-const chatBox = document.getElementById("chat-ai-box");
-if (!inputEl || !chatBox) return;
-const pertanyaan = inputEl.value.trim();
-if (!pertanyaan) return;
-chatBox.innerHTML += <div style="text-align: right; margin: 6px 0;"><span style="background: #2563eb; color: #fff; padding: 8px 12px; border-radius: 12px; display: inline-block;">${escapeHTML(pertanyaan)}</span></div>;
-inputEl.value = "";
-const loadingId = "ai-loading-" + Date.now();
-chatBox.innerHTML += <div id="${loadingId}" style="margin: 6px 0; color: #64748b; font-size: 0.85rem;">🤖 Sedang berpikir...</div>;
-chatBox.scrollTop = chatBox.scrollHeight;
-if (!GEMINI_API_KEY) {
-document.getElementById(loadingId).innerHTML = <span style="background: #f1f5f9; padding: 8px 12px; border-radius: 12px; display: inline-block;">⚠️ API Key Gemini belum diatur di file <b>script.js</b>. Silakan isi variabel <code>GEMINI_API_KEY</code> terlebih dahulu.</span>;
-return;
+  const inputEl = document.getElementById("input-pertanyaan-ai");
+  const chatBox = document.getElementById("chat-ai-box");
+  if (!inputEl || !chatBox) return;
+
+  const pertanyaan = inputEl.value.trim();
+  if (!pertanyaan) return;
+
+  chatBox.innerHTML += `<div style="text-align: right; margin: 6px 0;"><span style="background: #2563eb; color: #fff; padding: 8px 12px; border-radius: 12px; display: inline-block;">${escapeHTML(pertanyaan)}</span></div>`;
+  inputEl.value = "";
+
+  const loadingId = "ai-loading-" + Date.now();
+  chatBox.innerHTML += `<div id="${loadingId}" style="margin: 6px 0; color: #64748b; font-size: 0.85rem;">🤖 Sedang berpikir...</div>`;
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  if (!GEMINI_API_KEY) {
+    document.getElementById(loadingId).innerHTML = `<span style="background: #f1f5f9; padding: 8px 12px; border-radius: 12px; display: inline-block;">⚠️ API Key Gemini belum diisi di file <b>script.js</b>.</span>`;
+    return;
+  }
+
+  try {
+    const response = await fetch(`https://googleapis.com{GEMINI_API_KEY}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: `Kamu adalah asisten belajar ramah untuk siswa Indonesia (Kurikulum Merdeka). Jawab dengan jelas dan ringkas: ${pertanyaan}` }] }]
+      })
+    });
+
+    const data = await response.json();
+    const jawabanAI = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, AI tidak dapat memberikan jawaban saat ini.";
+
+    document.getElementById(loadingId).innerHTML = `<div style="background: #f1f5f9; padding: 10px 12px; border-radius: 12px; line-height: 1.5; white-space: pre-line;">${escapeHTML(jawabanAI)}</div>`;
+  } catch (error) {
+    document.getElementById(loadingId).innerHTML = `<span style="color: #dc2626;">❌ Gagal terhubung ke server AI. Periksa koneksi internet Anda.</span>`;
+  }
+
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
-try {
-const response = await fetch(https://googleapis.com{GEMINI_API_KEY}, {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
-contents: [{ parts: [{ text: Kamu adalah asisten belajar ramah untuk siswa Indonesia (Kurikulum Merdeka). Jawab dengan jelas dan ringkas: ${pertanyaan} }] }]
-})
-});
-const data = await response.json();
-const jawabanAI = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, AI tidak dapat memberikan jawaban saat ini.";
-document.getElementById(loadingId).innerHTML = <div style="background: #f1f5f9; padding: 10px 12px; border-radius: 12px; line-height: 1.5; white-space: pre-line;">${escapeHTML(jawabanAI)}</div>;
-} catch (error) {
-document.getElementById(loadingId).innerHTML = <span style="color: #dc2626;">❌ Gagal terhubung ke server AI. Periksa koneksi internet Anda.</span>;
-}
-chatBox.scrollTop = chatBox.scrollHeight;
-}
-// Jalankan halaman Home saat pertama kali dimuat
+
+// ==========================================
+// INISIALISASI HALAMAN AWAL
+// ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-bukaMenu("home", document.querySelectorAll(".nav-item")[0]);
+  const navItems = document.querySelectorAll(".nav-item");
+  bukaMenu("home", navItems[0] || null);
 });
