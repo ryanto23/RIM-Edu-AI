@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RIM Edu AI - Bank Soal</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIM Edu AI - Bank Soal Kurikulum Merdeka</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 id="header-title">Beranda - RIM Edu AI</h1>
+        </header>
 
-  <!-- Header -->
-  <header class="app-header">
-    <h1 id="header-title">RIM Edu AI</h1>
-  </header>
+        <!-- Konten Utama -->
+        <main id="app-content" class="app-content"></main>
 
-  <!-- Konten Utama (Dinamis sesuai menu yang diklik) -->
-  <main id="app-content" class="content-area">
-    <!-- Konten dirender lewat script.js -->
-  </main>
+        <!-- Navigasi Bawah -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="bukaMenu('home', this)">
+                <span class="nav-icon">🏠</span>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="bukaMenu('sd', this)">
+                <span class="nav-icon">🎒</span>
+                <span>SD</span>
+            </button>
+            <button class="nav-item" onclick="bukaMenu('smp', this)">
+                <span class="nav-icon">📘</span>
+                <span>SMP</span>
+            </button>
+            <button class="nav-item" onclick="bukaMenu('sma', this)">
+                <span class="nav-icon">🎓</span>
+                <span>SMA/K</span>
+            </button>
+            <button class="nav-item" onclick="bukaMenu('saya', this)">
+                <span class="nav-icon">👤</span>
+                <span>Saya</span>
+            </button>
+        </nav>
+    </div>
 
-  <!-- Menu Navigasi Bawah -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" onclick="bukaMenu('home', this)">
-      <span class="icon">🏠</span>
-      <span class="label">Home</span>
-    </button>
-    <button class="nav-item" onclick="bukaMenu('sd', this)">
-      <span class="icon">🎒</span>
-      <span class="label">SD</span>
-    </button>
-    <button class="nav-item" onclick="bukaMenu('smp', this)">
-      <span class="icon">📘</span>
-      <span class="label">SMP</span>
-    </button>
-    <button class="nav-item" onclick="bukaMenu('sma', this)">
-      <span class="icon">🎓</span>
-      <span class="label">SMA/SMK</span>
-    </button>
-    <button class="nav-item" onclick="bukaMenu('saya', this)">
-      <span class="icon">👤</span>
-      <span class="label">Saya</span>
-    </button>
-  </nav>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
