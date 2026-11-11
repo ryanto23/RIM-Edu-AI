@@ -218,12 +218,13 @@
           </div>`;
       } else if (dataPendidikan[menu]) {
         pilihKelas(menu);
-      } else if (menu === "saya") {
+           } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
           <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Kelola soal ujian dan rekap nilai siswa.</p></div>
           <div class="list-menu">
-            <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Baru</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('ai-soal')" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Buat Soal Otomatis (AI)</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Manual</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>📚 Kelola Soal Tambahan</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('rekap')"><span>📊 Lihat Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
@@ -231,83 +232,7 @@
             <div class="list-item" onclick="bukaAdmin('pin')"><span>🔑 Ubah PIN Admin</span><span>➔</span></div>
           </div>`;
       }
-    }
-
-    function pilihKelas(jenjang) {
-      const d = dataPendidikan[jenjang];
-      title().innerText = d.judul; sesi.jenjang = jenjang;
-      app().innerHTML = `<div class="form-box"><h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3><p style="font-size:0.84rem; color:#64748b;">${d.judul}</p></div><div class="list-menu">` +
-        d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
-    }
-
-    function pilihMapel(jenjang, kelas) {
-      sesi.tingkat = kelas;
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b;">${kelas}</p></div><div class="list-menu">` +
-        dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
-    }
-
-    function pilihBab(jenjang, kelas, mapel) {
-      sesi.mapel = mapel;
-      const list = babDefault[mapel] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"];
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Materi Ujian</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
-        list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
-    }
-
-    function formBiodata(bab) {
-      sesi.bab = bab;
-      const jml = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, bab).length;
-      app().innerHTML = `
-        <div class="form-box">
-          <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
-          <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
-          <p style="font-size:0.84rem; color:#64748b; margin-bottom:14px;">Materi: <b>${esc(bab)}</b> (${jml} Soal)</p>
-          <label>Nama Lengkap</label><input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
-          <label>Asal Sekolah</label><input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
-          <label>Kelas Spesifik</label><input type="text" id="inp-kelas" placeholder="Contoh: 7A">
-          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian (${jml} Soal)</button>
-        </div>`;
-    }
-
-    function mulaiKuis() {
-      const nama = document.getElementById("inp-nama").value.trim(), sekolah = document.getElementById("inp-sekolah").value.trim(), kelas = document.getElementById("inp-kelas").value.trim();
-      if (!nama || !sekolah || !kelas) return alert("Lengkapi identitas peserta terlebih dahulu!");
-      sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
-      soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab);
-      idxSoal = 0; skor = 0; riwayat = []; sisaWaktu = WAKTU_KUIS;
-      clearInterval(timer);
-      timer = setInterval(() => {
-        sisaWaktu--;
-        const t = document.getElementById("kuis-timer");
-        if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
-        if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu habis!"); selesaiKuis(); }
-      }, 1000);
-      renderSoal();
-    }
-
-    function renderSoal() {
-      const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
-      app().innerHTML = `
-        <div class="form-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} / ${soalList.length}</span>
-            <span id="kuis-timer" class="timer-badge">⏱️ 10:00</span>
-          </div>
-          <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
-          <div class="list-menu">
-            ${s.p.map((pil, i) => `<button class="list-item" style="width:100%; text-align:left;" onclick="jawab(${i})"><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span></button>`).join("")}
-          </div>
-        </div>`;
-    }
-
-    function jawab(i) {
-      const s = soalList[idxSoal], ok = i === s.b;
-      if (ok) skor++;
-      riwayat.push({ q: s.q, u: s.p[i], b: s.p[s.b], bahas: s.bahas, ok });
-      idxSoal++;
-      idxSoal < soalList.length ? renderSoal() : selesaiKuis();
-    }
-
-            function selesaiKuis() {
+    function selesaiKuis() {
       clearInterval(timer);
       const nilai = Math.round((skor / soalList.length) * 100);
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
@@ -326,66 +251,7 @@
           ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;"><b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
         </div>`;
     }
-
-    function updateDropdownAdmin() {
-      const j = document.getElementById("adm-jenjang").value;
-      document.getElementById("adm-kelas").innerHTML = dataPendidikan[j].kelas.map(k => `<option value="${k}">${k}</option>`).join("");
-      document.getElementById("adm-mapel").innerHTML = dataPendidikan[j].mapel.map(m => `<option value="${m}">${m}</option>`).join("");
-      updateBabAdmin();
-    }
-
-    function updateBabAdmin() {
-      const m = document.getElementById("adm-mapel").value;
-      const list = babDefault[m] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"];
-      document.getElementById("adm-bab").innerHTML = list.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
-    }
-
-    function salinPromptAI() {
-      const j = document.getElementById("adm-jenjang").value.toUpperCase();
-      const k = document.getElementById("adm-kelas").value;
-      const m = document.getElementById("adm-mapel").value;
-      const topik = document.getElementById("ai-topik").value.trim() || "Materi pokok semester ini";
-      const jml = document.getElementById("ai-jumlah").value;
-
-      const teksPerintah = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
-
-      navigator.clipboard.writeText(teksPerintah).then(() => {
-        alert("✅ Perintah berhasil disalin! Silakan tempel (Paste) di Gemini atau ChatGPT, lalu salin hasil JSON-nya ke kotak di bawah.");
-      }).catch(() => {
-        prompt("Salin teks perintah di bawah ini secara manual:", teksPerintah);
-      });
-    }
-
-    function imporSoalJSON() {
-      const j = document.getElementById("adm-jenjang").value;
-      const k = document.getElementById("adm-kelas").value;
-      const m = document.getElementById("adm-mapel").value;
-      const bab = document.getElementById("adm-bab").value;
-      let mentah = document.getElementById("ai-json-hasil").value.trim();
-
-      if (!mentah) return alert("Tempelkan hasil kode JSON dari AI terlebih dahulu!");
-
-      try {
-        const awal = mentah.indexOf("[");
-        const akhir = mentah.lastIndexOf("]");
-        if (awal !== -1 && akhir !== -1) mentah = mentah.slice(awal, akhir + 1);
-
-        const daftarBaru = JSON.parse(mentah);
-        if (!Array.isArray(daftarBaru) || daftarBaru.length === 0) throw new Error("Format tidak sesuai");
-
-        const kunci = `${j}-${k}-${m}-${bab}`;
-        const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
-        if (!tambahan[kunci]) tambahan[kunci] = [];
-        tambahan[kunci] = tambahan[kunci].concat(daftarBaru);
-        localStorage.setItem("rim_soal_custom", JSON.stringify(tambahan));
-
-        alert(`✅ Sukses! ${daftarBaru.length} soal baru berhasil dimasukkan ke ${k} - ${m}.`);
-        document.getElementById("ai-json-hasil").value = "";
-      } catch (e) {
-        alert("❌ Format teks belum tepat. Pastikan Anda menyalin seluruh hasil dari AI mulai dari tanda [ sampai ].");
-      }
-    }
-        function simpanSoalBaru() {
+    function simpanSoalBaru() {
       const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value, bab = document.getElementById("adm-bab").value;
       const q = document.getElementById("adm-q").value.trim(), pA = document.getElementById("adm-pa").value.trim();
