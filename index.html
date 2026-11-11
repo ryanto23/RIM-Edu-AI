@@ -1,157 +1,481 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIM EDU AI - Aplikasi Latihan Soal</title>
-    <style>
-        :root { --primary: #2563eb; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; }
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        body { background-color: var(--bg); color: var(--text); padding-bottom: 80px; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .card { background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px; }
-        .hero { text-align: center; padding: 25px 15px; background: linear-gradient(135deg, #1d4ed8, #3b82f6); color: white; border-radius: 16px; margin-bottom: 20px; }
-        .hero h1 { font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; }
-        .hero p { font-size: 14px; opacity: 0.9; line-height: 1.5; }
-        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0 16px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
-        button { background: var(--primary); color: white; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 15px; }
-        button:hover { background: #1d4ed8; }
-        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); margin-top: 8px; }
-        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-        .btn-mapel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
-        .ai-response { background: #eff6ff; border-left: 4px solid var(--primary); padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 14px; line-height: 1.5; display: none; white-space: pre-wrap; }
-        .option-btn { background: #f1f5f9; color: var(--text); text-align: left; font-weight: normal; margin-bottom: 8px; border: 1px solid #cbd5e1; }
-        .option-btn.selected { background: #dbeafe; border-color: var(--primary); font-weight: bold; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.08); z-index: 100; }
-        .nav-item { background: none; color: #64748b; border: none; font-size: 12px; display: flex; flex-direction: column; align-items: center; width: auto; padding: 5px 10px; }
-        .nav-item.active { color: var(--primary); font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-        th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; }
-        th { background: #f1f5f9; }
-        .hidden { display: none !important; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RIM Edu AI - Platform Belajar & Kuis</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f1f5f9; color: #1e293b; padding-bottom: 80px; }
+    
+    /* Header */
+    header { background: #2563eb; color: white; padding: 16px; text-align: center; font-weight: bold; font-size: 1.2rem; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    
+    /* Container Utama */
+    #app-content { max-width: 600px; margin: 16px auto; padding: 0 16px; }
+    
+    /* Kartu & Kotak Form */
+    .hero-card { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 20px; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 10px rgba(37,99,235,0.2); }
+    .hero-card h2 { margin-bottom: 8px; }
+    .hero-card .subtitle { font-size: 0.9rem; line-height: 1.5; margin-bottom: 16px; opacity: 0.95; }
+    
+    .form-box { background: white; padding: 16px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    
+    /* Tombol & Input */
+    .btn-ai-primary { background: #f59e0b; color: #fff; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; transition: 0.2s; }
+    .btn-ai-primary:hover { background: #d97706; }
+    .btn-back { background: #e2e8f0; color: #334155; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; margin-bottom: 10px; font-weight: 600; }
+    
+    input[type="text"], textarea { width: 100%; padding: 10px; margin: 6px 0 14px 0; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; }
+    label { font-size: 0.88rem; font-weight: 600; color: #334155; }
+    
+    /* Grid Jenjang */
+    .quick-menu h3 { font-size: 1rem; margin-bottom: 10px; }
+    .jenjang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+    .jenjang-card { background: white; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 8px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transition: 0.2s; }
+    .jenjang-card:hover { border-color: #2563eb; background: #eff6ff; }
+    .jenjang-card .icon { font-size: 1.8rem; }
+    
+    /* List Menu */
+    .list-menu { display: flex; flex-direction: column; gap: 8px; }
+    .list-item { background: white; padding: 14px 16px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid #e2e8f0; font-size: 0.95rem; transition: 0.15s; }
+    .list-item:hover { background: #f8fafc; border-color: #2563eb; }
+    
+    /* Navigasi Bawah */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; border-top: 1px solid #e2e8f0; padding: 8px 0; z-index: 20; }
+    .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #64748b; cursor: pointer; padding: 4px 12px; }
+    .nav-item.active { color: #2563eb; font-weight: bold; }
+    .nav-item span { font-size: 1.2rem; margin-bottom: 2px; }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- HALAMAN HOME -->
-    <div id="view-home">
-        <div class="hero">
-            <h1>RIM EDU AI</h1>
-            <p>Selamat datang di platform belajar pintar masa depan! Asah kemampuanmu, uji pemahaman materi sekolah, dan raih prestasi terbaik bersama asisten AI.</p>
-        </div>
+  <!-- Header -->
+  <header id="header-title">RIM Edu AI</header>
 
-        <div class="card">
-            <h3>🤖 Tanya AI</h3>
-            <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Bingung dengan materi pelajaran? Tanyakan langsung di sini.</p>
-            <textarea id="ai-prompt" rows="3" placeholder="Contoh: Jelaskan rumus luas lingkaran beserta contohnya..."></textarea>
-            <button onclick="tanyaAI()">Kirim Pertanyaan ke AI</button>
-            <div id="ai-output" class="ai-response"></div>
-        </div>
-    </div>
+  <!-- Konten Utama -->
+  <main id="app-content"></main>
 
-    <!-- HALAMAN PILIH KELAS & MAPEL -->
-    <div id="view-jenjang" class="hidden">
-        <div class="card">
-            <h2 id="judul-jenjang">Jenjang Pendidikan</h2>
-            <p style="font-size: 13px; color: #64748b;">Pilih tingkat kelas terlebih dahulu:</p>
-            <div id="list-kelas" class="btn-grid"></div>
-        </div>
+  <!-- Navigasi Bawah -->
+  <nav class="bottom-nav">
+    <button type="button" class="nav-item active" onclick="bukaMenu('home', this)">
+      <span>🏠</span>Beranda
+    </button>
+    <button type="button" class="nav-item" onclick="bukaMenu('sd', this)">
+      <span>🎒</span>SD
+    </button>
+    <button type="button" class="nav-item" onclick="bukaMenu('smp', this)">
+      <span>📘</span>SMP
+    </button>
+    <button type="button" class="nav-item" onclick="bukaMenu('sma', this)">
+      <span>🎓</span>SMA
+    </button>
+    <button type="button" class="nav-item" onclick="bukaMenu('saya', this)">
+      <span>🔐</span>Admin
+    </button>
+  </nav>
 
-        <div id="card-mapel" class="card hidden">
-            <h3 id="judul-mapel">Pilih Mata Pelajaran</h3>
-            <div id="list-mapel" class="btn-mapel"></div>
-        </div>
-    </div>
+  <script>
+    // ==========================================
+    // KONFIGURASI PIN ADMIN, AI & DURASI WAKTU
+    // ==========================================
+    const ADMIN_PIN_DEFAULT = "123456";
+    const DURASI_KUIS_DETIK = 300;
+    const GEMINI_API_KEY = ""; // Isi dengan API Key Gemini Anda jika ingin mengaktifkan AI
 
-    <!-- HALAMAN BIODATA SEBELUM KUIS -->
-    <div id="view-biodata" class="hidden">
-        <div class="card">
-            <h3>📝 Isi Biodata Peserta</h3>
-            <p id="info-kuis-terpilih" style="font-size: 13px; color: var(--primary); font-weight: bold; margin-bottom: 12px;"></p>
-            <label>Nama Lengkap</label>
-            <input type="text" id="input-nama" placeholder="Masukkan nama lengkap">
-            <label>Asal Sekolah</label>
-            <input type="text" id="input-sekolah" placeholder="Contoh: SDN 01 Jakarta">
-            <label>Kelas</label>
-            <input type="text" id="input-kelas" readonly>
-            <button onclick="mulaiKuis()">Mulai Kerjakan Soal</button>
-            <button class="btn-outline" onclick="kembaliKeJenjang()">Batal</button>
-        </div>
-    </div>
+    const dataPendidikan = {
+      sd: {
+        judul: "Sekolah Dasar (SD)",
+        kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"],
+        mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "PJOK", "Seni Budaya", "Pendidikan Agama"]
+      },
+      smp: {
+        judul: "Sekolah Menengah Pertama (SMP)",
+        kelas: ["Kelas 7", "Kelas 8", "Kelas 9"],
+        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika", "PJOK", "Seni Budaya"]
+      },
+      sma: {
+        judul: "SMA / SMK",
+        kelas: ["Kelas 10", "Kelas 11", "Kelas 12"],
+        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Sosiologi", "Geografi", "Sejarah", "Informatika", "Kejuruan SMK"]
+      }
+    };
 
-    <!-- HALAMAN MENGERJAKAN SOAL -->
-    <div id="view-kuis" class="hidden">
-        <div class="card">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: bold;">
-                <span id="kuis-header">Soal 1/3</span>
-                <span id="kuis-timer" style="color: #dc2626;">05:00</span>
-            </div>
-            <p id="teks-soal" style="font-size: 16px; margin-bottom: 16px; line-height: 1.5;"></p>
-            <div id="opsi-jawaban"></div>
-            <button id="btn-next" style="margin-top: 15px;" onclick="soalBerikutnya()">Selanjutnya</button>
-        </div>
-    </div>
+    const dataBabMateri = {
+      "sd-Kelas 1-Matematika": [
+        "Bab 1: Bilangan Cacah sampai 10",
+        "Bab 2: Penjumlahan dan Pengurangan sampai 10",
+        "Bab 3: Mengenal Bentuk Bangun Datar",
+        "Bab 4: Mengukur Panjang dan Waktu"
+      ],
+      "sd-Kelas 4-IPAS": [
+        "Bab 1: Tumbuhan, Sumber Kehidupan di Bumi",
+        "Bab 2: Wujud Zat dan Perubahannya",
+        "Bab 3: Gaya di Sekitar Kita",
+        "Bab 4: Mengubah Bentuk Energi"
+      ],
+      "smp-Kelas 7-Matematika": [
+        "Bab 1: Bilangan Bulat dan Bilangan Rasional",
+        "Bab 2: Aljabar",
+        "Bab 3: Persamaan Linear Satu Variabel",
+        "Bab 4: Perbandingan Senilai dan Berbalik Nilai"
+      ],
+      "smp-Kelas 7-IPA": [
+        "Bab 1: Hakikat Ilmu Sains dan Metode Ilmiah",
+        "Bab 2: Zat dan Perubahannya",
+        "Bab 3: Suhu, Kalor, dan Pemuaian",
+        "Bab 4: Gerak dan Gaya"
+      ],
+      "sma-Kelas 10-Fisika": [
+        "Bab 1: Pengukuran dalam Kerja Ilmiah",
+        "Bab 2: Energi Terbarukan",
+        "Bab 3: Pemanasan Global: Konsep dan Solusi"
+      ],
+      "sma-Kelas 10-Informatika": [
+        "Bab 1: Berpikir Komputasional",
+        "Bab 2: Teknologi Informasi dan Komunikasi",
+        "Bab 3: Sistem Komputer",
+        "Bab 4: Jaringan Komputer dan Internet"
+      ]
+    };
 
-    <!-- HALAMAN HASIL NILAI -->
-    <div id="view-hasil" class="hidden">
-        <div class="card" style="text-align: center;">
-            <h2>🎉 Kuis Selesai!</h2>
-            <p style="margin-top: 8px; color: #64748b;">Nilai kamu telah otomatis direkap ke sistem Admin.</p>
-            <div style="font-size: 48px; font-weight: bold; color: var(--primary); margin: 20px 0;" id="skor-akhir">100</div>
-            <p id="detail-hasil" style="font-size: 14px; margin-bottom: 20px;"></p>
-            <button onclick="bukaMenu('home')">Kembali ke Home</button>
-        </div>
-    </div>
+    const bankSoalBawaan = {
+      "smp-Kelas 7-Matematika-Bab 1: Bilangan Bulat dan Bilangan Rasional": [
+        {
+          pertanyaan: "Hasil dari -12 + 7 adalah ...",
+          pilihan: ["-5", "5", "-19", "19"],
+          jawabanBenar: 0,
+          pembahasan: "Utang 12 dibayar 7, maka sisanya adalah -5."
+        },
+        {
+          pertanyaan: "Hasil dari (-4) x (-6) adalah ...",
+          pilihan: ["-24", "24", "-10", "10"],
+          jawabanBenar: 1,
+          pembahasan: "Bilangan negatif dikali bilangan negatif menghasilkan bilangan positif: 4 x 6 = 24."
+        },
+        {
+          pertanyaan: "Suhu di puncak gunung pada pagi hari adalah -3°C. Pada siang hari suhunya naik 8°C. Suhu pada siang hari adalah ...",
+          pilihan: ["11°C", "-11°C", "5°C", "-5°C"],
+          jawabanBenar: 2,
+          pembahasan: "-3 + 8 = 5°C."
+        }
+      ],
+      "sd-Kelas 1-Matematika-Bab 1: Bilangan Cacah sampai 10": [
+        {
+          pertanyaan: "Angka setelah bilangan 6 adalah ...",
+          pilihan: ["5", "7", "8", "9"],
+          jawabanBenar: 1,
+          pembahasan: "Urutan bilangan: 5, 6, 7, 8."
+        },
+        {
+          pertanyaan: "Di atas meja ada 4 apel dan 3 jeruk. Jumlah seluruh buah adalah ...",
+          pilihan: ["6", "7", "8", "9"],
+          jawabanBenar: 1,
+          pembahasan: "4 + 3 = 7 buah."
+        }
+      ]
+    };
 
-    <!-- HALAMAN ADMIN -->
-    <div id="view-admin" class="hidden">
-        <div id="admin-login" class="card">
-            <h3>🔒 Akses Khusus Admin</h3>
-            <p style="font-size: 13px; color: #64748b; margin-top: 4px;">Masukkan PIN Admin untuk melihat rekap nilai dan mengatur API Key.</p>
-            <input type="password" id="admin-pin" placeholder="Masukkan PIN (Default: 123456)">
-            <button onclick="loginAdmin()">Masuk Panel Admin</button>
-        </div>
+    let timerInterval;
+    let soalAktifList = [];
+    let riwayatJawabanUser = [];
+    let soalSekarang = 0;
+    let skorTotal = 0;
+    let waktuTersisa = 0;
 
-        <div id="admin-dashboard" class="card hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>📊 Rekap Nilai Siswa</h3>
-                <button style="width: auto; padding: 8px 12px; font-size: 12px; background: #16a34a;" onclick="downloadCSV()">Download CSV</button>
-            </div>
-            <div style="overflow-x: auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Sekolah</th>
-                            <th>Kelas</th>
-                            <th>Mapel</th>
-                            <th>Nilai</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabel-rekap"></tbody>
-                </table>
-            </div>
+    let sesiSiswa = {
+      nama: "",
+      sekolah: "",
+      kelasInput: "",
+      jenjang: "",
+      kelasTingkat: "",
+      mapel: "",
+      bab: ""
+    };
 
-            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e2e8f0;">
-            <h4>🔑 Pengaturan Gemini API Key</h4>
-            <input type="password" id="input-api-key" placeholder="Tempel Gemini API Key di sini">
-            <button style="background: #0f172a;" onclick="simpanApiKey()">Simpan API Key</button>
+    function getContentArea() { return document.getElementById("app-content"); }
+    function getHeaderTitle() { return document.getElementById("header-title"); }
 
-            <button class="btn-outline" style="margin-top: 16px;" onclick="logoutAdmin()">Keluar Admin</button>
-        </div>
-    </div>
-</div>
+    function escapeHTML(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
 
-<!-- MENU NAVIGASI BAWAH -->
-<div class="bottom-nav">
-    <button class="nav-item active" onclick="bukaMenu('home')" id="nav-home">🏠<br>Home</button>
-    <button class="nav-item" onclick="bukaMenu('SD')" id="nav-SD">🎒<br>SD</button>
-    <button class="nav-item" onclick="bukaMenu('SMP')" id="nav-SMP">📘<br>SMP</button>
-    <button class="nav-item" onclick="bukaMenu('SMA/SMK')" id="nav-SMA/SMK">🎓<br>SMA/SMK</button>
-    <button class="nav-item" onclick="bukaMenu('admin')" id="nav-admin">⚙️<br>Admin</button>
-</div>
+    function getPinAdmin() {
+      return localStorage.getItem("rim_admin_pin") || ADMIN_PIN_DEFAULT;
+    }
 
-<script src="script.js"></script>
-</body>
-</html>
+    function ambilSemuaBankSoal() {
+      let soalTambahanAdmin = {};
+      try {
+        soalTambahanAdmin = JSON.parse(localStorage.getItem("rim_bank_soal_manual") || "{}");
+      } catch (e) {
+        soalTambahanAdmin = {};
+      }
+      const gabungan = Object.assign({}, bankSoalBawaan);
+      for (const kunci in soalTambahanAdmin) {
+        if (!gabungan[kunci]) gabungan[kunci] = [];
+        gabungan[kunci] = gabungan[kunci].concat(soalTambahanAdmin[kunci]);
+      }
+      return gabungan;
+    }
+
+    // ==========================================
+    // NAVIGASI MENU
+    // ==========================================
+    function bukaMenu(menu, element) {
+      clearInterval(timerInterval);
+      const contentArea = getContentArea();
+      const headerTitle = getHeaderTitle();
+
+      if (element) {
+        document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
+        element.classList.add("active");
+      }
+
+      if (menu === "home") {
+        headerTitle.innerText = "RIM Edu AI";
+        contentArea.innerHTML = `
+Use code with caution.
+RIM Edu AI
+
+Selamat datang di platform belajar cerdas dan bank soal interaktif Kurikulum Merdeka. Asah kemampuanmu setiap hari bersama asisten belajar AI!
+
+
+🤖 Tanya AI Sekarang
+
+
+
+Pilih Jenjang Latihan Soal
+
+
+🎒
+SD / MI
+Kelas 1 - 6
+
+
+📘
+SMP / MTs
+Kelas 7 - 9
+
+
+🎓
+SMA / SMK
+Kelas 10 - 12
+
+
+
+
+📌 Petunjuk Pengerjaan
+
+Pilih Jenjang → Kelas → Mata Pelajaran → Bab.
+Coba contoh soal yang sudah tersedia di SD Kelas 1 (Matematika - Bab 1) atau SMP Kelas 7 (Matematika - Bab 1).
+Skor nilai otomatis tersimpan untuk direkap oleh Guru/Admin (PIN Default: 123456).
+
+
+; } else if (menu === "sd" || menu === "smp" || menu === "sma") { tampilkanDaftarKelas(menu); } else if (menu === "saya") { headerTitle.innerText = "Panel Guru / Admin"; contentArea.innerHTML = 
+
+🔐 Area Khusus Guru / Admin
+
+PIN Default adalah 123456. Pilih menu di bawah untuk mengelola nilai dan soal.
+
+
+
+
+📊 Lihat Rekap Nilai Siswa
+➔
+
+
+🔑 Ubah PIN Admin
+➔
+
+
+`;
+}
+}
+function tampilkanDaftarKelas(jenjang) {
+const data = dataPendidikan[jenjang];
+getHeaderTitle().innerText = data.judul;
+sesiSiswa.jenjang = jenjang;
+let htmlKelas = data.kelas.map(k => <div class="list-item" onclick="tampilkanDaftarMapel('${jenjang}', '${k}')"> <span>📚 ${k}</span> <span>➔</span> </div>).join("");
+getContentArea().innerHTML = <div class="form-box"> <h3>Pilih Tingkat Kelas</h3> <p style="font-size: 0.85rem; color: #64748b;">Jenjang: <b>${data.judul}</b></p> </div> <div class="list-menu">${htmlKelas}</div>;
+}
+function tampilkanDaftarMapel(jenjang, kelas) {
+const data = dataPendidikan[jenjang];
+sesiSiswa.kelasTingkat = kelas;
+let htmlMapel = data.mapel.map(m => <div class="list-item" onclick="tampilkanDaftarBab('${jenjang}', '${kelas}', '${m}')"> <span>📖 ${m}</span> <span>➔</span> </div>).join("");
+getContentArea().innerHTML = <div class="form-box"> <button type="button" class="btn-back" onclick="tampilkanDaftarKelas('${jenjang}')">⬅ Kembali</button> <h3>Pilih Mata Pelajaran</h3> <p style="font-size: 0.85rem; color: #64748b;">${data.judul} - <b>${kelas}</b></p> </div> <div class="list-menu">${htmlMapel}</div>;
+}
+function tampilkanDaftarBab(jenjang, kelas, mapel) {
+sesiSiswa.mapel = mapel;
+const kunciBab = ${jenjang}-${kelas}-${mapel};
+const daftarBab = dataBabMateri[kunciBab] || ["Bab 1: Latihan Soal Umum"];
+let htmlBab = daftarBab.map(bab => <div class="list-item" onclick="tampilkanFormBiodata('${escapeHTML(bab)}')"> <span>📝 ${escapeHTML(bab)}</span> <span>➔</span> </div>).join("");
+getContentArea().innerHTML = <div class="form-box"> <button type="button" class="btn-back" onclick="tampilkanDaftarMapel('${jenjang}', '${kelas}')">⬅ Kembali</button> <h3>Pilih Bab Materi</h3> <p style="font-size: 0.85rem; color: #64748b;">${kelas} - <b>${mapel}</b></p> </div> <div class="list-menu">${htmlBab}</div>;
+}
+function tampilkanFormBiodata(bab) {
+sesiSiswa.bab = bab;
+getContentArea().innerHTML = `
+
+⬅ Kembali
+Data Diri Siswa
+Materi: ${escapeHTML(bab)}
+Nama Lengkap:
+Asal Sekolah:
+Kelas Spesifik:
+🚀 Mulai Mengerjakan Soal
+
+`;
+}
+// ==========================================
+// KUIS & PENILAIAN
+// ==========================================
+function mulaiKuis() {
+const nama = document.getElementById("input-nama").value.trim();
+const sekolah = document.getElementById("input-sekolah").value.trim();
+const kelasInput = document.getElementById("input-kelas").value.trim();
+if (!nama || !sekolah || !kelasInput) {
+alert("Harap lengkapi Nama, Asal Sekolah, dan Kelas terlebih dahulu!");
+return;
+}
+sesiSiswa.nama = nama;
+sesiSiswa.sekolah = sekolah;
+sesiSiswa.kelasInput = kelasInput;
+const semuaSoal = ambilSemuaBankSoal();
+const kunciSoal = ${sesiSiswa.jenjang}-${sesiSiswa.kelasTingkat}-${sesiSiswa.mapel}-${sesiSiswa.bab};
+soalAktifList = semuaSoal[kunciSoal] || [];
+if (soalAktifList.length === 0) {
+alert("Maaf, soal untuk bab ini belum tersedia. Coba pilih SD Kelas 1 Matematika Bab 1 atau SMP Kelas 7 Matematika Bab 1.");
+return;
+}
+soalSekarang = 0;
+skorTotal = 0;
+riwayatJawabanUser = [];
+waktuTersisa = DURASI_KUIS_DETIK;
+jalankanTimer();
+renderSoal();
+}
+function jalankanTimer() {
+clearInterval(timerInterval);
+timerInterval = setInterval(() => {
+waktuTersisa--;
+const timerEl = document.getElementById("kuis-timer");
+if (timerEl) {
+const menit = Math.floor(waktuTersisa / 60);
+const detik = waktuTersisa % 60;
+timerEl.innerText = ⏱️ ${menit}:${detik < 10 ? "0" : ""}${detik};
+}
+if (waktuTersisa <= 0) {
+clearInterval(timerInterval);
+alert("Waktu habis! Jawaban Anda otomatis dikumpulkan.");
+selesaiKuis();
+}
+}, 1000);
+}
+function renderSoal() {
+const soal = soalAktifList[soalSekarang];
+const hurufPilihan = ["A", "B", "C", "D"];
+let htmlPilihan = soal.pilihan.map((pil, index) => <button type="button" class="list-item" style="width:100%; text-align:left; margin-bottom:8px;" onclick="pilihJawaban(${index})"> <span><b>${hurufPilihan[index]}.</b> ${escapeHTML(pil)}</span> </button>).join("");
+getContentArea().innerHTML = <div class="form-box"> <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-weight:bold;"> <span>Soal ${soalSekarang + 1} dari ${soalAktifList.length}</span> <span id="kuis-timer" style="color:#dc2626;">⏱️ 5:00</span> </div> <p style="font-size:1rem; margin-bottom:16px; line-height:1.5;">${escapeHTML(soal.pertanyaan)}</p> <div>${htmlPilihan}</div> </div>;
+}
+function pilihJawaban(indexPilihan) {
+const soal = soalAktifList[soalSekarang];
+const benar = indexPilihan === soal.jawabanBenar;
+if (benar) skorTotal++;
+riwayatJawabanUser.push({
+pertanyaan: soal.pertanyaan,
+pilihanUser: soal.pilihan[indexPilihan],
+jawabanBenar: soal.pilihan[soal.jawabanBenar],
+pembahasan: soal.pembahasan,
+status: benar
+});
+soalSekarang++;
+if (soalSekarang < soalAktifList.length) {
+renderSoal();
+} else {
+selesaiKuis();
+}
+}
+function selesaiKuis() {
+clearInterval(timerInterval);
+const nilaiAkhir = Math.round((skorTotal / soalAktifList.length) * 100);
+const dataRekap = JSON.parse(localStorage.getItem("rim_rekap_nilai") || "[]");
+dataRekap.push({
+tanggal: new Date().toLocaleString("id-ID"),
+nama: sesiSiswa.nama,
+sekolah: sesiSiswa.sekolah,
+kelas: sesiSiswa.kelasInput,
+mapel: sesiSiswa.mapel,
+bab: sesiSiswa.bab,
+nilai: nilaiAkhir
+});
+localStorage.setItem("rim_rekap_nilai", JSON.stringify(dataRekap));
+let htmlPembahasan = riwayatJawabanUser.map((item, idx) => <div style="border-bottom:1px solid #e2e8f0; padding:10px 0;"> <p><b>${idx + 1}. ${escapeHTML(item.pertanyaan)}</b></p> <p style="color:${item.status ? "#16a34a" : "#dc2626"}; font-size:0.9rem;"> Jawabanmu: ${escapeHTML(item.pilihanUser)} (${item.status ? "Benar" : "Salah"}) </p> ${!item.status ?Jawaban Benar: ${escapeHTML(item.jawabanBenar)}: ""} <p style="font-size:0.85rem; color:#64748b; margin-top:4px;">💡 <i>${escapeHTML(item.pembahasan)}</i></p> </div>).join("");
+getContentArea().innerHTML = <div class="form-box" style="text-align:center;"> <h2>🎉 Kuis Selesai!</h2> <p style="margin-top:8px;">Nilai Akhir <b>${escapeHTML(sesiSiswa.nama)}</b>:</p> <h1 style="font-size:3rem; color:#2563eb; margin:12px 0;">${nilaiAkhir}</h1> <p style="font-size:0.9rem; color:#64748b;">Benar ${skorTotal} dari ${soalAktifList.length} soal</p> <button type="button" class="btn-ai-primary" onclick="bukaMenu('home')" style="margin-top:16px;">🏠 Kembali ke Beranda</button> </div> <div class="form-box"> <h3>📋 Pembahasan Soal</h3> ${htmlPembahasan} </div>;
+}
+// ==========================================
+// FITUR TANYA AI
+// ==========================================
+function bukaTanyaAI() {
+getHeaderTitle().innerText = "Asisten Belajar AI";
+getContentArea().innerHTML = <div class="form-box"> <button type="button" class="btn-back" onclick="bukaMenu('home')">⬅ Kembali</button> <h3>🤖 Tanya Materi ke AI</h3> <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">Tanyakan konsep pelajaran yang belum kamu pahami.</p> <textarea id="ai-prompt" rows="4" placeholder="Contoh: Jelaskan rumus luas lingkaran beserta contoh soalnya..."></textarea> <button type="button" class="btn-ai-primary" onclick="kirimPertanyaanAI()" style="width:100%;">Kirim Pertanyaan</button> <div id="ai-response" style="margin-top:16px; font-size:0.9rem; line-height:1.6;"></div> </div>;
+}
+async function kirimPertanyaanAI() {
+const promptText = document.getElementById("ai-prompt").value.trim();
+const responseBox = document.getElementById("ai-response");
+if (!promptText) {
+alert("Tulis pertanyaan terlebih dahulu!");
+return;
+}
+if (!GEMINI_API_KEY) {
+responseBox.innerHTML = <p style="color:#dc2626;">⚠️ API Key Gemini belum diisi pada variabel <code>GEMINI_API_KEY</code> di dalam kode.</p>;
+return;
+}
+responseBox.innerHTML = <p>⏳ Sedang berpikir...</p>;
+try {
+const res = await fetch(https://googleapis.com{GEMINI_API_KEY}, {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+contents: [{ parts: [{ text: Kamu adalah guru yang ramah untuk siswa Indonesia. Jawab dengan bahasa sederhana: ${promptText} }] }]
+})
+});
+const data = await res.json();
+const jawaban = data?.candidates?.?.content?.parts?.?.text || "Maaf, AI tidak dapat memberikan jawaban saat ini.";
+responseBox.innerHTML = <div style="background:#f8fafc; padding:12px; border-radius:8px; white-space:pre-wrap;">${escapeHTML(jawaban)}</div>;
+} catch (error) {
+responseBox.innerHTML = <p style="color:#dc2626;">Terjadi kesalahan koneksi ke server AI.</p>;
+}
+}
+// ==========================================
+// PANEL ADMIN
+// ==========================================
+function bukaPanelAdmin(aksi) {
+const pinInput = prompt("Masukkan PIN Admin (Default: 123456):");
+if (pinInput !== getPinAdmin()) {
+alert("PIN salah! Akses ditolak.");
+return;
+}
+if (aksi === "rekap") {
+const dataRekap = JSON.parse(localStorage.getItem("rim_rekap_nilai") || "[]");
+let isiTabel = dataRekap.length === 0
+? "Belum ada data nilai siswa."
+: dataRekap.map((d, i) => <div style="border-bottom:1px solid #e2e8f0; padding:8px 0; font-size:0.85rem;"> <b>${i + 1}. ${escapeHTML(d.nama)}</b> (${escapeHTML(d.sekolah)} - ${escapeHTML(d.kelas)})<br> Mapel: ${escapeHTML(d.mapel)} | Nilai: <b style="color:#2563eb;">${d.nilai}</b><br> <small style="color:#64748b;">${escapeHTML(d.tanggal)}</small> </div>).join("");
+getContentArea().innerHTML = <div class="form-box"> <button type="button" class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button> <h3>📊 Rekap Nilai Siswa</h3> <div style="margin-top:12px;">${isiTabel}</div> </div>;
+} else if (aksi === "ganti-pin") {
+const pinBaru = prompt("Masukkan PIN Admin Baru (minimal 4 angka):");
+if (pinBaru && pinBaru.length >= 4) {
+localStorage.setItem("rim_admin_pin", pinBaru);
+alert("PIN Admin berhasil diperbarui!");
+} else {
+alert("PIN tidak valid.");
+}
+}
+}
+// Jalankan beranda saat halaman dibuka
+bukaMenu("home");
