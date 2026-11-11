@@ -3,7 +3,7 @@
 // ==========================================
 const ADMIN_PIN_DEFAULT = "123456"; // Ubah PIN rahasia Anda di sini
 const DURASI_KUIS_DETIK = 300;     // 300 detik = 5 menit
-const GEMINI_API_KEY = "";         // Opsional: Isi API Key Gemini Anda di sini jika ingin jawaban AI online super lengkap
+const GEMINI_API_KEY = "";         // Opsional: Isi API Key Gemini Anda di sini jika ada
 
 // Data Struktur Jenjang, Kelas, dan Mata Pelajaran
 const dataPendidikan = {
@@ -64,7 +64,7 @@ const dataBabMateri = {
 };
 
 // ==========================================
-// BANK SOAL MANUAL (BISA DIEDIT LANGSUNG DI SINI)
+// BANK SOAL MANUAL
 // ==========================================
 const bankSoalBawaan = {
     "smp-Kelas 7-Matematika-Bab 1: Bilangan Bulat dan Bilangan Rasional": [
@@ -122,18 +122,14 @@ let sesiSiswa = {
     bab: ""
 };
 
-// Perbaikan fungsi escapeHTML agar tidak error sintaks
+// Aman dari error sintaks tanda kutip saat dicopy-paste
 function escapeHTML(str) {
-    return String(str).replace(/[&<>'"]/g, function(tag) {
-        const chars = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            "'": '&#39;',
-            '"': '&quot;'
-        };
-        return chars[tag] || tag;
-    });
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/\x27/g, "&#039;");
 }
 
 function getPinAdmin() {
@@ -240,13 +236,18 @@ function bukaMenu(menu, element) {
 // FITUR TANYA AI (CHAT INTERAKTIF)
 // ==========================================
 function bukaTanyaAI() {
-    document.getElementById("modal-ai").style.display = "flex";
-    setTimeout(() => {
-        document.getElementById("input-pertanyaan-ai").focus();
-    }, 100);
+    const modal = document.getElementById("modal-ai");
+    if (modal) {
+        modal.style.display = "flex";
+        setTimeout(() => {
+            const input = document.getElementById("input-pertanyaan-ai");
+            if (input) input.focus();
+        }, 100);
+    }
 }
 
 function tutupModal(idModal) {
-    document.getElementById(idModal).style.display = "none";
+    const modal = document.getElementById(idModal);
+    if (modal) modal.style.display = "none";
 }
 
