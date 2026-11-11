@@ -122,14 +122,14 @@ let sesiSiswa = {
     bab: ""
 };
 
-// Aman dari error sintaks tanda kutip saat dicopy-paste
+// Menggunakan Unicode \u0027 agar 100% aman saat di-copy-paste
 function escapeHTML(str) {
     return String(str)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
-        .replace(/\x27/g, "&#039;");
+        .replace(/\u0027/g, "\u0026#39;");
 }
 
 function getPinAdmin() {
