@@ -1,189 +1,114 @@
-const quizData = [
-    {
-        question: "Hasil dari 125 + 75 - 50 adalah...",
-        options: ["150", "140", "160", "130"],
-        answer: 0
-    },
-    {
-        question: "Berapa jumlah sudut dalam sebuah segitiga?",
-        options: ["90 derajat", "180 derajat", "270 derajat", "360 derajat"],
-        answer: 1
-    },
-    {
-        question: "Jika sebuah persegi memiliki sisi 8 cm, maka luasnya adalah...",
-        options: ["32 cm²", "16 cm²", "64 cm²", "128 cm²"],
-        answer: 2
-    },
-    {
-        question: "Faktor persekutuan terbesar (FPB) dari 24 dan 36 adalah...",
-        options: ["6", "8", "12", "18"],
-        answer: 2
-    },
-    {
-        question: "Bentuk pecahan biasa dari 0,75 adalah...",
-        options: ["1/2", "3/4", "1/4", "2/3"],
-        answer: 1
-    }
-];
+// Data Struktur Jenjang, Kelas, dan Mata Pelajaran
+const dataPendidikan = {
+  sd: {
+    judul: "Sekolah Dasar (SD)",
+    kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"],
+    mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "PJOK", "Seni Budaya", "Pendidikan Agama"]
+  },
+  smp: {
+    judul: "Sekolah Menengah Pertama (SMP)",
+    kelas: ["Kelas 7", "Kelas 8", "Kelas 9"],
+    mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika", "PJOK", "Seni Budaya"]
+  },
+  sma: {
+    judul: "SMA / SMK",
+    kelas: ["Kelas 10", "Kelas 11", "Kelas 12"],
+    mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Sosiologi", "Geografi", "Sejarah", "Informatika", "Kejuruan SMK"]
+  }
+};
 
-let currentQuestionIndex = 0;
-let userAnswers = new Array(quizData.length).fill(null);
-let timeLeft = 600; // 10 menit dalam detik
-let timerInterval;
+const contentArea = document.getElementById("app-content");
+const headerTitle = document.getElementById("header-title");
 
-const questionNumberEl = document.getElementById("question-number");
-const questionTextEl = document.getElementById("question-text");
-const optionsListEl = document.getElementById("options-list");
-const prevBtn = document.getElementById("prev-btn");
-const nextBtn = document.getElementById("next-btn");
-const quizContainer = document.getElementById("quiz-container");
-const resultContainer = document.getElementById("result-container");
-const scoreValEl = document.getElementById("score-val");
-const paletteGridEl = document.getElementById("palette-grid");
-const timeLeftEl = document.getElementById("time-left");
-const correctCountEl = document.getElementById("correct-count");
-const wrongCountEl = document.getElementById("wrong-count");
+// Fungsi Utama Navigasi Bawah
+function bukaMenu(menu, element) {
+  // Ubah status aktif pada tombol bawah
+  if (element) {
+    document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
+    element.classList.add("active");
+  }
 
-// Inisialisasi Ujian
-function initQuiz() {
-    createPalette();
-    startTimer();
-    loadQuestion();
+  if (menu === "home") {
+    headerTitle.innerText = "Beranda - RIM Edu AI";
+    contentArea.innerHTML = `
+      <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <h2>Selamat Datang! 👋</h2>
+        <p style="margin-top: 8px; color: #475569; line-height: 1.5;">
+          Pilih jenjang pendidikan pada menu di bawah untuk mulai mengerjakan bank soal dan latihan ujian.
+        </p>
+      </div>
+    `;
+  } 
+  else if (menu === "sd" || menu === "smp" || menu === "sma") {
+    tampilkanDaftarKelas(menu);
+  } 
+  else if (menu === "saya") {
+    headerTitle.innerText = "Akun & Pengaturan";
+    contentArea.innerHTML = `
+      <div class="list-menu">
+        <div class="list-item" onclick="alert('Profil Pengguna')">
+          <span>👤 Profil Saya</span> <span>›</span>
+        </div>
+        <div class="list-item" onclick="alert('Riwayat Skor Ujian')">
+          <span>📊 Riwayat Nilai & Latihan</span> <span>›</span>
+        </div>
+        <div class="list-item" onclick="alert('Pengaturan Aplikasi')">
+          <span>⚙️ Pengaturan Aplikasi</span> <span>›</span>
+        </div>
+        <div class="list-item" onclick="alert('Tentang RIM Edu AI')">
+          <span>ℹ️ Tentang & Bantuan</span> <span>›</span>
+        </div>
+      </div>
+    `;
+  }
 }
 
-// Timer Mundur
-function startTimer() {
-    timerInterval = setInterval(() => {
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            showResult();
-            return;
-        }
-        timeLeft--;
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        timeLeftEl.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }, 1000);
+// Menampilkan Daftar Kelas sesuai Jenjang
+function tampilkanDaftarKelas(jenjang) {
+  const info = dataPendidikan[jenjang];
+  headerTitle.innerText = info.judul;
+
+  let html = `<h3>Pilih Kelas:</h3><div class="grid-menu">`;
+  info.kelas.forEach(kelas => {
+    html += `<button class="card-btn" onclick="tampilkanMapel('${jenjang}', '${kelas}')">${kelas}</button>`;
+  });
+  html += `</div>`;
+
+  contentArea.innerHTML = html;
 }
 
-// Buat Kotak Nomor Soal di Sidebar
-function createPalette() {
-    paletteGridEl.innerHTML = "";
-    quizData.forEach((_, index) => {
-        const btn = document.createElement("button");
-        btn.classList.add("palette-btn");
-        btn.innerText = index + 1;
-        btn.onclick = () => goToQuestion(index);
-        paletteGridEl.appendChild(btn);
-    });
+// Menampilkan Semua Mapel pada Kelas yang Dipilih
+function tampilkanMapel(jenjang, kelas) {
+  const info = dataPendidikan[jenjang];
+  headerTitle.innerText = `${jenjang.toUpperCase()} - ${kelas}`;
+
+  let html = `
+    <button class="back-btn" onclick="tampilkanDaftarKelas('${jenjang}')">← Kembali ke Daftar Kelas</button>
+    <h3>Pilih Mata Pelajaran (${kelas}):</h3>
+    <div class="grid-menu">
+  `;
+
+  info.mapel.forEach(mapel => {
+    html += `<button class="card-btn" onclick="mulaiKuis('${jenjang}', '${kelas}', '${mapel}')">${mapel}</button>`;
+  });
+
+  html += `</div>`;
+  contentArea.innerHTML = html;
 }
 
-// Perbarui Status Palet
-function updatePalette() {
-    const buttons = paletteGridEl.getElementsByClassName("palette-btn");
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove("active");
-        if (i === currentQuestionIndex) {
-            buttons[i].classList.add("active");
-        }
-        if (userAnswers[i] !== null) {
-            buttons[i].classList.add("answered");
-        } else {
-            buttons[i].classList.remove("answered");
-        }
-    }
+// Menghubungkan ke Kuis / Bank Soal
+function mulaiKuis(jenjang, kelas, mapel) {
+  headerTitle.innerText = `${mapel} (${kelas})`;
+  contentArea.innerHTML = `
+    <button class="back-btn" onclick="tampilkanMapel('${jenjang}', '${kelas}')">← Ganti Mapel</button>
+    <div style="background: white; padding: 20px; border-radius: 10px;">
+      <h3>Latihan Soal: ${mapel}</h3>
+      <p style="margin: 10px 0; color: #64748b;">Jenjang: ${jenjang.toUpperCase()} | ${kelas}</p>
+      <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
+      <p><em>Area soal kuis dan timer Anda akan dimuat di sini.</em></p>
+    </div>
+  `;
 }
 
-function loadQuestion() {
-    const currentQuiz = quizData[currentQuestionIndex];
-    
-    questionNumberEl.innerText = `Soal ${currentQuestionIndex + 1} dari ${quizData.length}`;
-    questionTextEl.innerText = currentQuiz.question;
-    
-    optionsListEl.innerHTML = "";
-    
-    currentQuiz.options.forEach((option, index) => {
-        const button = document.createElement("button");
-        button.classList.add("option-btn");
-        button.innerText = option;
-        
-        if (userAnswers[currentQuestionIndex] === index) {
-            button.classList.add("selected");
-        }
-        
-        button.onclick = () => selectOption(index);
-        optionsListEl.appendChild(button);
-    });
-
-    prevBtn.disabled = currentQuestionIndex === 0;
-    nextBtn.innerText = currentQuestionIndex === quizData.length - 1 ? "Selesai" : "Selanjutnya";
-    
-    updatePalette();
-}
-
-function selectOption(index) {
-    userAnswers[currentQuestionIndex] = index;
-    
-    const buttons = optionsListEl.getElementsByTagName("button");
-    for (let i = 0; i < buttons.length; i++) {
-        if (i === index) {
-            buttons[i].classList.add("selected");
-        } else {
-            buttons[i].classList.remove("selected");
-        }
-    }
-    updatePalette();
-}
-
-function nextQuestion() {
-    if (currentQuestionIndex < quizData.length - 1) {
-        currentQuestionIndex++;
-        loadQuestion();
-    } else {
-        if (confirm("Apakah Anda yakin ingin mengakhiri ujian dan melihat hasil?")) {
-            showResult();
-        }
-    }
-}
-
-function prevQuestion() {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        loadQuestion();
-    }
-}
-
-function goToQuestion(index) {
-    currentQuestionIndex = index;
-    loadQuestion();
-}
-
-function showResult() {
-    clearInterval(timerInterval);
-    quizContainer.classList.add("hidden");
-    resultContainer.classList.remove("hidden");
-    
-    let correct = 0;
-    quizData.forEach((item, index) => {
-        if (userAnswers[index] === item.answer) {
-            correct++;
-        }
-    });
-    
-    let score = Math.round((correct / quizData.length) * 100);
-    scoreValEl.innerText = score;
-    correctCountEl.innerText = correct;
-    wrongCountEl.innerText = quizData.length - correct;
-}
-
-function restartQuiz() {
-    currentQuestionIndex = 0;
-    userAnswers.fill(null);
-    timeLeft = 600;
-    resultContainer.classList.add("hidden");
-    quizContainer.classList.remove("hidden");
-    initQuiz();
-}
-
-// Mulai aplikasi saat halaman dimuat
-initQuiz();
+// Muat halaman Home saat pertama kali dibuka
+bukaMenu('home');
