@@ -306,8 +306,7 @@
       idxSoal++;
       idxSoal < soalList.length ? renderSoal() : selesaiKuis();
     }
-
-          function selesaiKuis() {
+    function selesaiKuis() {
       clearInterval(timer);
       const nilai = Math.round((skor / soalList.length) * 100);
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
@@ -362,16 +361,16 @@
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      doc.setFontSize(16); doc.setTextColor(79, 70, 229);
+      doc.setFontSize(16); doc.setTextColor("#4f46e5");
       doc.text("REKAPITULASI NILAI UJIAN - RIM CBT", 14, 18);
-      doc.setFontSize(10); doc.setTextColor(100, 116, 139);
+      doc.setFontSize(10); doc.setTextColor("#64748b");
       doc.text("Dicetak pada: " + new Date().toLocaleString("id-ID"), 14, 25);
       doc.autoTable({
         startY: 32,
         head: [["No", "Nama Siswa", "Asal Sekolah", "Kelas", "Mata Pelajaran", "Nilai"]],
         body: data.map((d, i) => [i + 1, d.nama, d.sekolah, d.kelas, d.mapel, d.nilai]),
         theme: "grid",
-        headStyles: { fillColor:, textColor: 255, fontStyle: "bold" },
+        headStyles: { fillColor: "#4f46e5", textColor: "#ffffff", fontStyle: "bold" },
         styles: { fontSize: 9, cellPadding: 3 }
       });
       doc.save("Rekap_Nilai_RIM_CBT.pdf");
@@ -434,3 +433,4 @@
 </body>
 </html>
 
+     
