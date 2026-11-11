@@ -201,7 +201,7 @@ async function kirimPertanyaanAI() {
         const data = await response.json();
         if (data.error) throw new Error(data.error.message);
 
-        const jawabanAI = data.candidates?.?.content?.parts?.?.text || "Maaf, AI tidak dapat menjawab saat ini.";
+        const jawabanAI = data.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, AI tidak dapat menjawab saat ini.";
         document.getElementById(loadingId).innerHTML = jawabanAI.replace(/\n/g, "<br>");
     } catch (error) {
         document.getElementById(loadingId).innerHTML = `❌ Gagal terhubung ke server AI: ${error.message}`;
@@ -257,4 +257,3 @@ function tampilkanBab(jenjang, kelas, mapel) {
 
     let html = `
         <button class="back-btn" onclick="tampilkanMapel('${jenjang}', '${kelas}')">← Ganti Mapel</button>
-        <h3>Pilih Bab Materi (Kurikulum Merdeka):</h3>
