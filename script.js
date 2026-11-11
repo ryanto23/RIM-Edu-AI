@@ -1,8 +1,9 @@
 // ==========================================
-// KONFIGURASI API AI
+// KONFIGURASI API AI & PIN ADMIN
 // ==========================================
 const GEMINI_API_KEY = "MASUKKAN_API_KEY_GEMINI_ANDA_DISINI";
 const GEMINI_MODEL = "gemini-2.5-flash";
+const ADMIN_PIN_DEFAULT = "123456"; // Ubah PIN rahasia Anda di sini
 
 // Data Struktur Jenjang, Kelas, dan Mata Pelajaran (Kurikulum Merdeka)
 const dataPendidikan = {
@@ -72,7 +73,16 @@ let soalSekarang = 0;
 let skorTotal = 0;
 let waktuTersisa = 0;
 
-// Helper untuk mencegah injeksi HTML pada chat
+// Data sesi pengerjaan siswa yang sedang aktif
+let sesiSiswa = {
+    nama: "",
+    kelasInput: "",
+    jenjang: "",
+    kelasTingkat: "",
+    mapel: "",
+    bab: ""
+};
+
 function escapeHTML(str) {
     return str.replace(/[&<>'"]/g, tag => ({
         '&': '&amp;',
@@ -120,11 +130,14 @@ function bukaMenu(menu, element) {
         headerTitle.innerText = "Akun & Pengaturan";
         contentArea.innerHTML = `
             <div class="list-menu">
-                <div class="list-item" onclick="alert('Profil Siswa - Kurikulum Merdeka')">
-                    <span>👤 Profil Saya</span> <span>›</span>
+                <div class="list-item" onclick="bukaPanelAdmin()">
+                    <span>🔐 Rekap Nilai Siswa (Khusus Admin)</span> <span>›</span>
                 </div>
                 <div class="list-item" onclick="aturApiKey()">
                     <span>🔑 Atur API Key Gemini AI</span> <span>›</span>
+                </div>
+                <div class="list-item" onclick="ubahPinAdmin()">
+                    <span>🛡️ Ubah PIN Admin</span> <span>›</span>
                 </div>
                 <div class="list-item" onclick="alert('Aplikasi Bank Soal Kurikulum Merdeka Otomatis berbasis AI')">
                     <span>ℹ️ Tentang & Bantuan</span> <span>›</span>
@@ -188,7 +201,7 @@ async function kirimPertanyaanAI() {
         const data = await response.json();
         if (data.error) throw new Error(data.error.message);
 
-        const jawabanAI = data.candidates?.[0]?.content?.parts?.[0]?.text || "Maaf, AI tidak dapat menjawab saat ini.";
+        const jawabanAI = data.candidates?.?.content?.parts?.?.text || "Maaf, AI tidak dapat menjawab saat ini.";
         document.getElementById(loadingId).innerHTML = jawabanAI.replace(/\n/g, "<br>");
     } catch (error) {
         document.getElementById(loadingId).innerHTML = `❌ Gagal terhubung ke server AI: ${error.message}`;
@@ -245,15 +258,3 @@ function tampilkanBab(jenjang, kelas, mapel) {
     let html = `
         <button class="back-btn" onclick="tampilkanMapel('${jenjang}', '${kelas}')">← Ganti Mapel</button>
         <h3>Pilih Bab Materi (Kurikulum Merdeka):</h3>
-        <div class="bab-list">
-    `;
-
-    daftarBab.forEach(bab => {
-        html += `
-            <button class="bab-btn" onclick="buatSoalOtomatisAI('${jenjang}', '${kelas}', '${mapel}', '${bab}')">
-                <span>${bab}</span>
-                <span>✨ Mulai</span>
-            </button>
-        `;
-    });
-
