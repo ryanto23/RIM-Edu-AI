@@ -10,7 +10,6 @@
   <style>
     :root {
       --primary: #4f46e5;
-      --primary-dark: #3730a3;
       --accent: #f59e0b;
       --bg: #f8fafc;
       --surface: #ffffff;
@@ -18,130 +17,37 @@
       --text-muted: #64748b;
       --border: #e2e8f0;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background: var(--bg); color: var(--text-main); padding-bottom: 95px; }
-
-    header {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      color: var(--primary);
-      padding: 16px 20px;
-      text-align: center;
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: -0.5px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      border-bottom: 1px solid var(--border);
-    }
-
+    header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); color: var(--primary); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 1.25rem; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--border); }
     #app-content { max-width: 560px; margin: 20px auto; padding: 0 16px; animation: fadeIn 0.3s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    .hero-card {
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-      color: #fff;
-      padding: 26px 22px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.35);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-card::after {
-      content: ""; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px;
-      background: rgba(255, 255, 255, 0.1); border-radius: 50%;
-    }
-    .hero-badge {
-      display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 4px 10px;
-      border-radius: 20px; font-size: 0.72rem; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px;
-    }
-    .hero-card h2 { margin-bottom: 8px; font-size: 1.4rem; font-weight: 800; line-height: 1.3; }
+    .hero-card { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: #fff; padding: 26px 22px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.35); }
+    .hero-badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; margin-bottom: 10px; }
+    .hero-card h2 { margin-bottom: 8px; font-size: 1.4rem; font-weight: 800; }
     .hero-card p { font-size: 0.9rem; line-height: 1.6; opacity: 0.92; }
-
-    .form-box {
-      background: var(--surface);
-      padding: 20px;
-      border-radius: 18px;
-      margin-bottom: 14px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-    }
-    .quote-box {
-      background: var(--surface);
-      border-left: 4px solid var(--accent);
-      padding: 16px 18px;
-      border-radius: 14px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-    }
+    .form-box { background: var(--surface); padding: 20px; border-radius: 18px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03); }
+    .quote-box { background: var(--surface); border-left: 4px solid var(--accent); padding: 16px 18px; border-radius: 14px; margin-bottom: 14px; }
     .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.6; margin-bottom: 6px; }
     .quote-box small { color: var(--text-muted); font-weight: 700; font-size: 0.78rem; }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #4f46e5, #4338ca);
-      color: #fff; border: none; padding: 14px; border-radius: 12px;
-      font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25); transition: transform 0.15s;
-    }
-    .btn-primary:active { transform: scale(0.98); }
-    .btn-pdf {
-      background: linear-gradient(135deg, #16a34a, #15803d);
-      color: #fff; border: none; padding: 12px 16px; border-radius: 12px;
-      font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 12px;
-      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
-    }
-    .btn-danger {
-      background: #fef2f2; color: #dc2626; border: 1.5px solid #fecaca;
-      padding: 11px 16px; border-radius: 12px; font-weight: 700;
-      cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px;
-    }
-    .btn-back {
-      background: #f1f5f9; color: #475569; border: none; padding: 7px 14px;
-      border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem;
-    }
-    input {
-      width: 100%; padding: 12px 14px; margin: 6px 0 16px; border: 1.5px solid var(--border);
-      border-radius: 12px; font-size: 0.95rem; background: #f8fafc; transition: 0.2s;
-    }
-    input:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+    .btn-primary { background: linear-gradient(135deg, #4f46e5, #4338ca); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
+    .btn-pdf { background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 12px; }
+    .btn-danger { background: #fef2f2; color: #dc2626; border: 1.5px solid #fecaca; padding: 11px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
+    .btn-back { background: #f1f5f9; color: #475569; border: none; padding: 7px 14px; border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem; }
+    input { width: 100%; padding: 12px 14px; margin: 6px 0 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.95rem; background: #f8fafc; }
+    input:focus { outline: none; border-color: var(--primary); background: #fff; }
     label { font-size: 0.82rem; font-weight: 700; color: #334155; }
-
     .list-menu { display: flex; flex-direction: column; gap: 10px; }
-    .list-item {
-      background: var(--surface); padding: 15px 18px; border-radius: 14px;
-      display: flex; justify-content: space-between; align-items: center;
-      cursor: pointer; border: 1.5px solid var(--border); font-size: 0.95rem;
-      font-weight: 600; color: var(--text-main); transition: all 0.15s ease;
-    }
-    .list-item:hover { border-color: var(--primary); background: #eef2ff; transform: translateY(-1px); }
-
-    .timer-badge {
-      background: #fef2f2; color: #dc2626; padding: 5px 12px;
-      border-radius: 20px; font-size: 0.85rem; font-weight: 800; border: 1px solid #fecaca;
-    }
-
-    .bottom-nav {
-      position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto;
-      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px);
-      display: flex; justify-content: space-around; border: 1px solid var(--border);
-      border-radius: 20px; padding: 8px 4px; z-index: 30;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-    }
-    .nav-item {
-      background: none; border: none; display: flex; flex-direction: column;
-      align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
-      cursor: pointer; padding: 6px 12px; border-radius: 14px; transition: 0.2s;
-    }
+    .list-item { background: var(--surface); padding: 15px 18px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid var(--border); font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+    .list-item:hover { border-color: var(--primary); background: #eef2ff; }
+    .timer-badge { background: #fef2f2; color: #dc2626; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; border: 1px solid #fecaca; }
+    .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08); }
+    .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); cursor: pointer; padding: 6px 12px; border-radius: 14px; }
     .nav-item.active { color: var(--primary); background: #eef2ff; font-weight: 800; }
     .nav-item span { font-size: 1.2rem; margin-bottom: 2px; }
   </style>
 </head>
 <body>
-
   <header id="header-title">RIM CBT</header>
   <main id="app-content"></main>
 
@@ -152,6 +58,7 @@
     <button type="button" class="nav-item" data-menu="sma" onclick="bukaMenu('sma')"><span>🎓</span>SMA</button>
     <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🔐</span>Admin</button>
   </nav>
+
   <script>
     const PIN_DEFAULT = "123456";
     const WAKTU_KUIS = 300;
@@ -220,7 +127,6 @@
           </div>`;
       }
     }
-
     function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
       title().innerText = d.judul;
@@ -241,6 +147,7 @@
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Materi Ujian</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
         list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
     }
+
     function formBiodata(bab) {
       sesi.bab = bab;
       app().innerHTML = `
