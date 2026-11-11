@@ -275,20 +275,19 @@
         </div>`;
     }
 
-    async function kirimAI() {
+        async function kirimAI() {
       const apiKey = document.getElementById("ai-key").value.trim();
       const q = document.getElementById("ai-prompt").value.trim();
       const box = document.getElementById("ai-res");
 
-      if (!apiKey) return alert("Tempelkan Gemini API Key Anda terlebih dahulu pada kotak di atas!");
+      if (!apiKey) return alert("Tempelkan Gemini API Key Anda terlebih dahulu!");
       if (!q) return alert("Tulis pertanyaan pelajaran dulu!");
 
-      // Simpan API Key di browser perangkat ini saja (aman dari GitHub)
       localStorage.setItem("rim_gemini_key", apiKey);
       box.innerHTML = "⏳ Sedang mengetik jawaban...";
 
       try {
-        const res = await fetch(`https://googleapis.com{apiKey}`, {
+        const res = await fetch("https://googleapis.com" + encodeURIComponent(apiKey), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -299,14 +298,24 @@
         });
 
         const data = await res.json();
+        
         if (!res.ok) {
-          throw new Error(data.error?.message || "API Key tidak valid atau kuota habis.");
+          const pesanError = (data.error && data.error.message) ? data.error.message : "API Key ditolak oleh Google.";
+          throw new Error(pesanError);
         }
 
-        const teks = data.candidates?.[0]?.content?.parts?.[0]?.text || "AI tidak memberikan jawaban.";
+        // Mengambil jawaban dengan indeks array yang benar
+        let teks = "AI tidak memberikan jawaban.";
+        if (data.candidates && data.candidates.length > 0) {
+          const parts = data.candidates.content.parts;
+          if (parts && parts.length > 0) {
+            teks = parts.text;
+          }
+        }
+
         box.innerHTML = `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px; white-space:pre-wrap;">${esc(teks)}</div>`;
       } catch (e) {
-        box.innerHTML = `<div style="background:#fef2f2; border:1px solid #fecaca; padding:12px; border-radius:8px; color:#dc2626; font-size:0.88rem;"><b>⚠️ Gagal:</b> ${esc(e.message)}</div>`;
+        box.innerHTML = `<div style="background:#fef2f2; border:1px solid #fecaca; padding:12px; border-radius:8px; color:#dc2626; font-size:0.88rem;"><b>⚠️ Detail Error:</b> ${esc(e.message)}</div>`;
       }
     }
 
