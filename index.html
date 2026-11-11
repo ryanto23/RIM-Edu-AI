@@ -112,7 +112,6 @@
           </div>`;
       }
     }
-
     function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
       title().innerText = d.judul;
@@ -124,37 +123,6 @@
     function pilihMapel(jenjang, kelas) {
       sesi.tingkat = kelas;
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3>Pilih Mapel (${kelas})</h3></div><div class="list-menu">` +
-        dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
-    }
-
-    function pilihBab(jenjang, kelas, mapel) {
-      sesi.mapel = mapel;
-      const list = dataBab[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Soal Umum"];
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3>Pilih Bab (${mapel})</h3></div><div class="list-menu">` +
-        list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
-    }
-
-    function formBiodata(bab) {
-      sesi.bab = bab;
-      app().innerHTML = `
-        <div class="form-box">
-          <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
-          <h3>Data Diri Siswa</h3>
-          <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">Materi: <b>${esc(bab)}</b></p>
-          <label>Nama Lengkap:</label>
-          <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
-          <label>Asal Sekolah:</label>
-          <label>Kelas Spesifik:</label>
-          <input type="text" id="inp-kelas" placeholder="Contoh: 7A">
-          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Mengerjakan Soal</button>
-        </div>`;
-    }
-
-    function mulaiKuis() {
-      const nama = document.getElementById("inp-nama").value.trim();
-      const sekolah = document.getElementById("inp-sekolah").value.trim();
-      const kelas = document.getElementById("inp-kelas").value.trim();
- Kembali</button><h3>Pilih Mapel (${kelas})</h3></div><div class="list-menu">` +
         dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
