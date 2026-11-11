@@ -1,313 +1,125 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f1f5f9;
-    color: #1e293b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+  background-color: #f4f6f9;
+  color: #333;
+  padding-bottom: 75px; /* Ruang agar konten tidak tertutup menu bawah */
 }
 
-.exam-wrapper {
-    background: #ffffff;
-    width: 100%;
-    max-width: 900px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    border: 1px solid #e2e8f0;
+.app-header {
+  background-color: #2563eb;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Header */
-.exam-header {
-    background: #0f172a;
-    color: white;
-    padding: 20px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.app-header h1 {
+  font-size: 1.2rem;
 }
 
-.header-title h1 {
-    font-size: 20px;
-    font-weight: 700;
+.content-area {
+  padding: 16px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.header-title p {
-    font-size: 13px;
-    color: #94a3b8;
-    margin-top: 3px;
+/* Grid Kelas & Mapel */
+.grid-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 12px;
 }
 
-.timer-box {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+.card-btn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1e293b;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.1s, background-color 0.2s;
 }
 
-#time-left {
-    color: #38bdf8;
-    margin-left: 6px;
+.card-btn:active {
+  transform: scale(0.97);
+  background-color: #eff6ff;
 }
 
-/* Layout Utama */
-.exam-body {
-    display: grid;
-    grid-template-columns: 1fr 260px;
-    gap: 0;
+.back-btn {
+  background-color: #e2e8f0;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  cursor: pointer;
 }
 
-.question-main {
-    padding: 30px;
-    border-right: 1px solid #e2e8f0;
+/* Menu List untuk Tab "Saya" */
+.list-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
 }
 
-#question-number {
-    font-size: 12px;
-    font-weight: 700;
-    color: #0284c7;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.list-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
 }
 
-#question-text {
-    font-size: 17px;
-    color: #0f172a;
-    margin: 12px 0 24px 0;
-    line-height: 1.6;
-    font-weight: 600;
+/* Navigasi Bawah */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #cbd5e1;
+  padding: 8px 0;
+  z-index: 1000;
 }
 
-.options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 30px;
+.nav-item {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #64748b;
+  font-size: 0.75rem;
+  cursor: pointer;
+  flex: 1;
 }
 
-.option-btn {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    padding: 14px 18px;
-    text-align: left;
-    border-radius: 8px;
-    font-size: 15px;
-    color: #334155;
-    cursor: pointer;
-    transition: all 0.2s ease;
+.nav-item .icon {
+  font-size: 1.3rem;
+  margin-bottom: 2px;
 }
 
-.option-btn:hover {
-    background: #f0f9ff;
-    border-color: #0284c7;
-    color: #0369a1;
-}
-
-.option-btn.selected {
-    background: #e0f2fe;
-    border-color: #0284c7;
-    color: #0369a1;
-    font-weight: 600;
-}
-
-/* Tombol Navigasi */
-.navigation {
-    display: flex;
-    justify-content: space-between;
-}
-
-.btn {
-    padding: 10px 22px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    transition: background 0.2s;
-}
-
-.btn-primary {
-    background: #0284c7;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #0369a1;
-}
-
-.btn-secondary {
-    background: #e2e8f0;
-    color: #475569;
-}
-
-.btn-secondary:hover:not(:disabled) {
-    background: #cbd5e1;
-}
-
-.btn-secondary:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Palet Nomor Soal (Sidebar Kanan) */
-.question-palette {
-    background: #f8fafc;
-    padding: 25px 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.question-palette h4 {
-    font-size: 14px;
-    color: #334155;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.palette-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.palette-btn {
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    height: 38px;
-    font-weight: 600;
-    font-size: 13px;
-    color: #475569;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.palette-btn:hover {
-    border-color: #0284c7;
-    color: #0284c7;
-}
-
-.palette-btn.active {
-    border-color: #0284c7;
-    background: #e0f2fe;
-    color: #0284c7;
-}
-
-.palette-btn.answered {
-    background: #0284c7;
-    color: white;
-    border-color: #0284c7;
-}
-
-.palette-legend {
-    margin-top: auto;
-    font-size: 12px;
-    color: #64748b;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    border-top: 1px solid #e2e8f0;
-    padding-top: 12px;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.legend-item .box {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-}
-
-.legend-item .box.answered {
-    background: #0284c7;
-}
-
-.legend-item .box.unanswered {
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-}
-
-/* Hasil Ujian */
-.hidden {
-    display: none !important;
-}
-
-.result-container {
-    padding: 50px 30px;
-    text-align: center;
-}
-
-.result-card {
-    max-width: 450px;
-    margin: 0 auto;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    padding: 30px;
-    border-radius: 12px;
-}
-
-.result-card h2 {
-    color: #0f172a;
-    margin-bottom: 5px;
-}
-
-.result-card p {
-    color: #64748b;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.score-display {
-    margin: 20px 0;
-}
-
-.score-label {
-    font-size: 13px;
-    color: #64748b;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-.score-display h1 {
-    font-size: 56px;
-    color: #16a34a;
-    font-weight: 800;
-    margin-top: 5px;
-}
-
-.result-stats {
-    display: flex;
-    justify-content: space-around;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    font-size: 14px;
-}
-
-/* Responsif untuk HP */
-@media (max-width: 768px) {
-    .exam-body {
-        grid-template-columns: 1fr;
-    }
-    .question-palette {
-        border-top: 1px solid #e2e8f0;
-    }
+.nav-item.active {
+  color: #2563eb;
+  font-weight: bold;
 }
