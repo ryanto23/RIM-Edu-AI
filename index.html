@@ -52,83 +52,173 @@
   </nav>
   <script>
     const PIN_DEFAULT = "123456";
-    const WAKTU_KUIS = 300;
+    const WAKTU_KUIS = 600;
 
     const dataPendidikan = {
-      sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
-      smp: { judul: "Sekolah Menengah Pertama (SMP)", kelas: ["Kelas 7", "Kelas 8", "Kelas 9"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"] },
-      sma: { judul: "SMA / SMK", kelas: ["Kelas 10", "Kelas 11", "Kelas 12"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"] }
+      sd: {
+        judul: "Sekolah Dasar (SD)",
+        kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"],
+        mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"]
+      },
+      smp: {
+        judul: "Sekolah Menengah Pertama (SMP)",
+        kelas: ["Kelas 7", "Kelas 8", "Kelas 9"],
+        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"]
+      },
+      sma: {
+        judul: "SMA / SMK",
+        kelas: ["Kelas 10", "Kelas 11", "Kelas 12"],
+        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"]
+      }
     };
 
-    const dataBab = {
-      "sd-Kelas 1-Matematika": ["Bab 1: Bilangan Cacah sampai 10", "Bab 2: Penjumlahan dan Pengurangan"],
-      "sd-Kelas 4-IPAS": ["Bab 1: Tumbuhan, Sumber Kehidupan di Bumi", "Bab 2: Wujud Zat dan Perubahannya"],
-      "sd-Kelas 5-Koding & Kecerdasan Artifisial": ["Bab 1: Berpikir Komputasional & Pola", "Bab 2: Mengenal Kecerdasan Artifisial (AI)"],
-      "smp-Kelas 7-Matematika": ["Bab 1: Bilangan Bulat dan Bilangan Rasional", "Bab 2: Aljabar"],
-      "smp-Kelas 7-IPA": ["Bab 1: Hakikat Ilmu Sains dan Metode Ilmiah", "Bab 2: Zat dan Perubahannya"],
-      "smp-Kelas 8-Informatika & KKA": ["Bab 1: Algoritma dan Pemrograman Dasar", "Bab 2: Literasi & Etika Kecerdasan Artifisial"],
-      "sma-Kelas 10-Fisika": ["Bab 1: Pengukuran dalam Kerja Ilmiah", "Bab 2: Energi Terbarukan"],
-      "sma-Kelas 10-Informatika & KKA": ["Bab 1: Berpikir Komputasional & Struktur Data", "Bab 2: Konsep Dasar Kecerdasan Artifisial"],
-      "sma-Kelas 11-Biologi": ["Bab 1: Menjelajah Sel", "Bab 2: Pergerakan Zat melalui Membran Sel"]
+    const babDefaultPerMapel = {
+      "Matematika": ["Bab 1: Bilangan & Operasi Hitung", "Bab 2: Aljabar, Pengukuran & Geometri", "Bab 3: Statistika & Peluang"],
+      "Bahasa Indonesia": ["Bab 1: Memahami Teks & Gagasan Utama", "Bab 2: Kaidah Kebahasaan & Ejaan (EYD V)", "Bab 3: Teks Argumentasi & Karya Sastra"],
+      "Bahasa Inggris": ["Bab 1: Daily Communication & Vocabulary", "Bab 2: Grammar & Tenses in Context", "Bab 3: Reading Comprehension & Functional Text"],
+      "IPAS": ["Bab 1: Makhluk Hidup & Ekosistem", "Bab 2: Wujud Zat, Energi & Gaya", "Bab 3: Keragaman Budaya & Geografi Indonesia"],
+      "IPA": ["Bab 1: Metode Ilmiah & Pengukuran", "Bab 2: Klasifikasi Materi & Perubahan Zat", "Bab 3: Sistem Organ, Gerak & Energi"],
+      "IPS": ["Bab 1: Interaksi Sosial & Lembaga Masyarakat", "Bab 2: Kondisi Geografis & Sumber Daya Alam", "Bab 3: Kegiatan Ekonomi & Sejarah Perjuangan"],
+      "Pendidikan Pancasila": ["Bab 1: Nilai-Nilai Pancasila dalam Kehidupan", "Bab 2: Norma, UUD NRI 1945 & Hak Warga Negara", "Bab 3: Bhinneka Tunggal Ika & Keutuhan NKRI"],
+      "Koding & Kecerdasan Artifisial": ["Bab 1: Berpikir Komputasional & Logika Algoritma", "Bab 2: Pengenalan Kecerdasan Artifisial (AI)", "Bab 3: Etika Digital & Keamanan Data"],
+      "Informatika & KKA": ["Bab 1: Algoritma, Struktur Data & Pemrograman", "Bab 2: Konsep Machine Learning & AI Generatif", "Bab 3: Dampak Sosial Informatika & Keamanan Siber"],
+      "Fisika": ["Bab 1: Pengukuran, Vektor & Kinematika", "Bab 2: Dinamika Gerak, Usaha & Energi", "Bab 3: Suhu, Kalor, Gelombang & Listrik"],
+      "Kimia": ["Bab 1: Struktur Atom & Sistem Periodik Unsur", "Bab 2: Ikatan Kimia & Stoikiometri", "Bab 3: Larutan Asam-Basa & Termokimia"],
+      "Biologi": ["Bab 1: Keanekaragaman Hayati & Ekologi", "Bab 2: Struktur Sel & Sistem Organ Manusia", "Bab 3: Metabolisme, Genetika & Evolusi"],
+      "Ekonomi": ["Bab 1: Konsep Dasar Ilmu Ekonomi & Kelangkaan", "Bab 2: Permintaan, Penawaran & Pasar", "Bab 3: Kebijakan Moneter, Fiskal & Akuntansi"]
     };
-
-    const bankSoal = {
-      "sd-Kelas 1-Matematika-Bab 1: Bilangan Cacah sampai 10": [
-        { q: "Bilangan yang terletak tepat setelah angka 6 adalah ...", p: ["5", "7", "8", "9"], b: 1, bahas: "Urutan bilangan cacah: 5, 6, 7, 8." },
-        { q: "Di atas meja ada 4 apel dan 3 jeruk. Jumlah seluruh buah adalah ...", p: ["6", "7", "8", "9"], b: 1, bahas: "4 + 3 = 7 buah." },
-        { q: "Manakah bilangan yang paling besar di bawah ini?", p: ["4", "9", "7", "2"], b: 1, bahas: "Dari pilihan tersebut, 9 memiliki nilai paling besar." }
+    const bankTemplateMapel = {
+      "Bahasa Indonesia": [
+        { q: "Kalimat utama yang memuat inti pembicaraan dalam sebuah paragraf disebut ...", p: ["Gagasan pokok", "Kalimat penjelas", "Kata penghubung", "Judul bacaan"], b: 0, bahas: "Gagasan pokok adalah ide utama yang menjadi dasar pengembangan paragraf." },
+        { q: "Penulisan huruf kapital yang tepat sesuai EYD Edisi V adalah ...", p: ["Ibu membeli jeruk Bali di pasar.", "Adik sedang belajar bahasa inggris.", "Mereka berlibur ke Danau Toba.", "Paman bekerja di pulau jawa."], b: 2, bahas: "Nama geografi yang diikuti nama diri (Danau Toba) ditulis dengan huruf kapital." },
+        { q: "Teks yang bertujuan meyakinkan pembaca dengan disertai data dan fakta logis disebut teks ...", p: ["Narasi", "Deskripsi", "Argumentasi", "Prosedur"], b: 2, bahas: "Teks argumentasi berisi pendapat yang diperkuat bukti dan alasan logis." },
+        { q: "Sinonim dari kata 'inovatif' dalam konteks teknologi pendidikan adalah ...", p: ["Kuno", "Pembaruan", "Membosankan", "Statis"], b: 1, bahas: "Inovatif bermakna bersifat memperkenalkan sesuatu yang baru (pembaruan)." },
+        { q: "Imbuhan 'me-' jika bertemu dengan kata dasar 'sapu' akan luluh menjadi ...", p: ["Mensapu", "Menyapu", "Mesapu", "Mengsapu"], b: 1, bahas: "Kata dasar berawalan huruf 's' yang diikuti vokal luluh menjadi 'meny-'." },
+        { q: "Bagian akhir dari sebuah teks cerita (narasi) yang berisi penyelesaian masalah disebut ...", p: ["Orientasi", "Komplikasi", "Resolusi", "Koda"], b: 2, bahas: "Resolusi merupakan tahap penyelesaian konflik dalam struktur teks narasi." },
+        { q: "Kata baku yang sesuai dengan Kamus Besar Bahasa Indonesia (KBBI) adalah ...", p: ["Apotik", "Praktek", "Aktivitas", "Analisa"], b: 2, bahas: "Bentuk baku yang benar adalah Aktivitas, Apotek, Praktik, dan Analisis." },
+        { q: "Majas yang mengumpamakan benda mati seolah-olah dapat bertingkah laku seperti manusia disebut ...", p: ["Hiperbola", "Personifikasi", "Metafora", "Simile"], b: 1, bahas: "Personifikasi memberikan sifat insani pada benda mati, contoh: 'Angin berbisik'." },
+        { q: "Tanda baca yang digunakan untuk mengapit petikan langsung dalam dialog adalah ...", p: ["Tanda kurung (...)", "Tanda petik (\"...\")", "Tanda titik koma (;)", "Tanda hubung (-)"], b: 1, bahas: "Tanda petik ganda digunakan untuk menandai kutipan langsung dari pembicara." },
+        { q: "Langkah pertama dalam menyusun ringkasan sebuah buku atau artikel adalah ...", p: ["Menulis kesimpulan langsung", "Membaca naskah asli secara keseluruhan", "Menghitung jumlah halaman", "Mengubah judul bacaan"], b: 1, bahas: "Membaca keseluruhan naskah diperlukan untuk menangkap kesan umum dan gagasan utama." },
+        { q: "Kata penghubung (konjungsi) yang menyatakan hubungan sebab-akibat adalah ...", p: ["Tetapi", "Sehingga", "Sedangkan", "Atau"], b: 1, bahas: "Kata 'sehingga' atau 'karena' menunjukkan hubungan kausalitas (sebab-akibat)." },
+        { q: "Pesan moral yang ingin disampaikan pengarang kepada pembaca melalui karya sastra disebut ...", p: ["Alur", "Latar", "Amanat", "Penokohan"], b: 2, bahas: "Amanat adalah pesan kebaikan atau pelajaran hidup di balik sebuah cerita." }
       ],
-      "sd-Kelas 4-IPAS-Bab 1: Tumbuhan, Sumber Kehidupan di Bumi": [
-        { q: "Bagian tumbuhan yang berfungsi menyerap air dan zat hara dari dalam tanah adalah ...", p: ["Daun", "Batang", "Akar", "Bunga"], b: 2, bahas: "Akar menyerap air dan mineral dari tanah." },
-        { q: "Proses tumbuhan membuat makanannya sendiri dengan bantuan cahaya matahari disebut ...", p: ["Respirasi", "Fotosintesis", "Transpirasi", "Adaptasi"], b: 1, bahas: "Fotosintesis terjadi pada daun yang mengandung klorofil." }
+      "Bahasa Inggris": [
+        { q: "Choose the correct response: 'How are you doing today?'", p: ["I am twelve years old.", "I am doing great, thank you.", "I live in Surabaya.", "My name is Budi."], b: 1, bahas: "'How are you doing?' menanyakan kabar, dijawab dengan 'I am doing great, thank you.'" },
+        { q: "She ... to school by bicycle every morning.", p: ["go", "goes", "going", "went"], b: 1, bahas: "Subject 'She' pada Simple Present Tense menggunakan kata kerja berakhiran -es (goes)." },
+        { q: "What is the English translation of 'Perpustakaan'?", p: ["Laboratory", "Canteen", "Library", "Classroom"], b: 2, bahas: "Library berarti perpustakaan." },
+        { q: "They ... football in the yard yesterday afternoon.", p: ["play", "plays", "played", "playing"], b: 2, bahas: "Keterangan waktu 'yesterday' menandakan Simple Past Tense (verb-2: played)." },
+        { q: "Look at the clouds! It ... rain soon.", p: ["is going to", "was", "did", "have"], b: 0, bahas: "'Be going to' digunakan untuk memprediksi kejadian berdasarkan bukti yang terlihat." },
+        { q: "Which word is an adjective (kata sifat)?", p: ["Quickly", "Diligent", "Teacher", "Write"], b: 1, bahas: "Diligent (rajin) adalah kata sifat (adjective)." },
+        { q: "My brother is ... than me.", p: ["tall", "taller", "tallest", "most tall"], b: 1, bahas: "Perbandingan dua hal (comparative) menggunakan akhiran -er (taller than)." },
+        { q: "We must keep our environment clean. The underlined word 'must' expresses ...", p: ["Ability", "Obligation", "Permission", "Past habit"], b: 1, bahas: "'Must' menyatakan keharusan/kewajiban (obligation)." },
+        { q: "What does 'No Littering' mean on a public sign?", p: ["Dilarang masuk", "Dilarang membuang sampah sembarangan", "Dilarang parkir", "Dilarang berisik"], b: 1, bahas: "Littering artinya membuang sampah sembarangan." },
+        { q: "I have lived in this city ... 2020.", p: ["for", "since", "at", "on"], b: 1, bahas: "'Since' diikuti titik awal waktu spesifik (tahun 2020)." },
+        { q: "What is the antonym (lawan kata) of 'Expensive'?", p: ["Cheap", "Big", "Heavy", "Modern"], b: 0, bahas: "Lawan kata expensive (mahal) adalah cheap (murah)." },
+        { q: "Excuse me, ... you help me carry this box, please?", p: ["could", "are", "have", "does"], b: 0, bahas: "'Could you...' adalah ungkapan sopan untuk meminta bantuan." }
       ],
-      "sd-Kelas 5-Koding & Kecerdasan Artifisial-Bab 2: Mengenal Kecerdasan Artifisial (AI)": [
-        { q: "Contoh penerapan Kecerdasan Artifisial (AI) yang sering kita temui di ponsel adalah ...", p: ["Kalkulator biasa", "Asisten suara (Voice Assistant)", "Senter ponsel", "Jam weker"], b: 1, bahas: "Asisten suara menggunakan AI untuk memahami perintah ucapan manusia." },
-        { q: "Agar AI dapat mengenali gambar kucing dengan tepat, langkah pertama yang harus dilakukan adalah ...", p: ["Mematikan komputer", "Melatih AI dengan banyak contoh gambar kucing", "Menghapus semua data", "Mengganti layar monitor"], b: 1, bahas: "AI belajar dari data latih berupa kumpulan contoh gambar." }
-      ],
-      "smp-Kelas 7-Matematika-Bab 1: Bilangan Bulat dan Bilangan Rasional": [
-        { q: "Hasil dari -12 + 7 adalah ...", p: ["-5", "5", "-19", "19"], b: 0, bahas: "-12 + 7 = -5." },
-        { q: "Hasil dari (-4) x (-6) adalah ...", p: ["-24", "24", "-10", "10"], b: 1, bahas: "Bilangan negatif dikali negatif menghasilkan positif: 24." },
-        { q: "Suhu pagi di puncak gunung -3°C, siang hari naik 8°C. Suhu siang hari adalah ...", p: ["11°C", "-11°C", "5°C", "-5°C"], b: 2, bahas: "-3 + 8 = 5°C." }
-      ],
-      "smp-Kelas 7-IPA-Bab 1: Hakikat Ilmu Sains dan Metode Ilmiah": [
-        { q: "Langkah pertama yang dilakukan ilmuwan dalam metode ilmiah adalah ...", p: ["Menarik kesimpulan", "Melakukan observasi (pengamatan)", "Membuat grafik", "Menulis laporan"], b: 1, bahas: "Metode ilmiah diawali dengan mengamati fenomena di sekitar." }
-      ],
-      "smp-Kelas 8-Informatika & KKA-Bab 2: Literasi & Etika Kecerdasan Artifisial": [
-        { q: "Urutan langkah-langkah logis yang disusun secara sistematis untuk menyelesaikan masalah disebut ...", p: ["Algoritma", "Perangkat keras", "Jaringan", "Basis data"], b: 0, bahas: "Algoritma adalah instruksi berurutan untuk memecahkan masalah." },
-        { q: "Sikap etis yang wajib diterapkan pelajar saat menggunakan AI generatif untuk tugas sekolah adalah ...", p: ["Menyalin seluruh hasil AI tanpa membaca", "Menggunakan AI sebagai teman diskusi dan memverifikasi faktanya", "Mengakui karya AI sepenuhnya sebagai buatan sendiri", "Menyebarkan berita bohong"], b: 1, bahas: "Pengguna wajib memeriksa ulang kebenaran informasi dari AI." }
-      ],
-      "sma-Kelas 10-Fisika-Bab 1: Pengukuran dalam Kerja Ilmiah": [
-        { q: "Besaran berikut yang termasuk kelompok besaran pokok dalam Sistem Internasional (SI) adalah ...", p: ["Kecepatan, massa, waktu", "Panjang, massa, waktu", "Luas, volume, suhu", "Gaya, usaha, daya"], b: 1, bahas: "Panjang (m), massa (kg), dan waktu (s) adalah besaran pokok SI." }
-      ],
-      "sma-Kelas 10-Informatika & KKA-Bab 2: Konsep Dasar Kecerdasan Artifisial": [
-        { q: "Cabang kecerdasan artifisial yang memungkinkan komputer belajar dari pola data tanpa diprogram secara eksplisit disebut ...", p: ["Machine Learning", "Cloud Storage", "Cyber Security", "Operating System"], b: 0, bahas: "Machine Learning melatih model menggunakan data historis." }
-      ],
-      "sma-Kelas 11-Biologi-Bab 1: Menjelajah Sel": [
-        { q: "Organel sel yang berfungsi sebagai tempat respirasi seluler dan penghasil energi (ATP) adalah ...", p: ["Ribosom", "Mitokondria", "Lisosom", "Badan Golgi"], b: 1, bahas: "Mitokondria menghasilkan energi ATP bagi sel." }
-      ],
-      "umum": [
-        { q: "Dalam Kurikulum Merdeka, projek penguatan karakter pelajar dikenal dengan istilah ...", p: ["Ujian Nasional", "Kokurikuler & Profil Pelajar Pancasila", "Bimbingan Belajar", "Ekstrakurikuler Wajib"], b: 1, bahas: "Penguatan karakter berfokus pada dimensi Profil Pelajar Pancasila." },
-        { q: "Kemampuan memahami, mengevaluasi, dan menggunakan informasi digital secara bijak disebut ...", p: ["Literasi Digital", "Pemrograman", "Desain Grafis", "Jaringan Lokal"], b: 0, bahas: "Literasi digital mencakup kecakapan, etika, budaya, dan keamanan digital." }
+      "Pendidikan Pancasila": [
+        { q: "Lambang sila keempat Pancasila adalah ...", p: ["Bintang", "Rantai emas", "Pohon beringin", "Kepala banteng"], b: 3, bahas: "Kepala banteng melambangkan musyawarah dan kekuatan rakyat." },
+        { q: "Sikap menghargai perbedaan agama, suku, dan budaya mencerminkan pengamalan sila ke-...", p: ["Pertama", "Kedua", "Ketiga", "Kelima"], b: 2, bahas: "Sila ke-3 (Persatuan Indonesia) menekankan persatuan dalam keberagaman." },
+        { q: "Aturan yang bersumber dari hati nurani manusia disebut norma ...", p: ["Hukum", "Kesusilaan", "Kesopanan", "Agama"], b: 1, bahas: "Norma kesusilaan berasal dari bisikan hati nurani setiap manusia." },
+        { q: "Hukum dasar tertulis yang berlaku di Negara Kesatuan Republik Indonesia adalah ...", p: ["KUHP", "UUD NRI Tahun 1945", "Peraturan Pemerintah", "Keputusan Presiden"], b: 1, bahas: "UUD NRI Tahun 1945 merupakan hukum dasar tertinggi di Indonesia." },
+        { q: "Semboyan 'Bhinneka Tunggal Ika' memiliki arti ...", p: ["Bersatu kita teguh", "Berbeda-beda tetapi tetap satu jua", "Maju terus pantang mundur", "Keadilan bagi seluruh rakyat"], b: 1, bahas: "Bhinneka Tunggal Ika berasal dari Kitab Sutasoma karya Mpu Tantular." },
+        { q: "Keputusan bersama dalam rapat kelas sebaiknya diambil melalui ...", p: ["Keputusan ketua kelas sendiri", "Musyawarah untuk mufakat", "Undian acak", "Menunggu perintah guru"], b: 1, bahas: "Musyawarah mufakat mengutamakan kesepakatan bersama demi kepentingan umum." },
+        { q: "Contoh kewajiban seorang pelajar di lingkungan sekolah adalah ...", p: ["Mendapatkan nilai bagus", "Mematuhi tata tertib sekolah", "Menggunakan fasilitas perpustakaan", "Mendapat bimbingan guru"], b: 1, bahas: "Mematuhi tata tertib adalah kewajiban, sedangkan sisanya adalah hak siswa." },
+        { q: "Hari lahirnya Pancasila diperingati bangsa Indonesia setiap tanggal ...", p: ["17 Agustus", "1 Juni", "28 Oktober", "10 November"], b: 1, bahas: "1 Juni 1945 merupakan momen pidato Bung Karno mengenai dasar negara Pancasila." },
+        { q: "Hak asasi manusia yang dimiliki setiap warga negara sejak lahir bersifat ...", p: ["Sementara", "Kodrati dan melekat", "Dapat diperjualbelikan", "Hanya untuk orang dewasa"], b: 1, bahas: "HAM adalah anugerah Tuhan yang melekat secara kodrati pada setiap manusia." },
+        { q: "Sikap yang harus dihindari dalam menjaga keutuhan NKRI adalah ...", p: ["Toleransi", "Gotong royong", "Etnosentrisme (menganggap sukunya paling unggul)", "Rela berkorban"], b: 2, bahas: "Etnosentrisme dapat memicu perpecahan antar suku bangsa." },
+        { q: "Lembaga negara yang berwenang mengubah dan menetapkan UUD adalah ...", p: ["MPR", "DPR", "MA", "BPK"], b: 0, bahas: "Sesuai Pasal 3 UUD 1945, MPR berwenang mengubah dan menetapkan UUD." },
+        { q: "Gotong royong membersihkan lingkungan sekolah merupakan wujud nyata dari karakter ...", p: ["Individualisme", "Kolaborasi dan kepedulian sosial", "Persaingan bebas", "Ketergantungan"], b: 1, bahas: "Gotong royong menumbuhkan semangat kerja sama dan kepedulian terhadap sesama." }
       ]
     };
+    const bankTemplateSainsSosial = {
+      "Sains": [
+        { q: "Langkah awal yang dilakukan dalam metode ilmiah untuk menemukan masalah adalah ...", p: ["Observasi (pengamatan)", "Menarik kesimpulan", "Membuat grafik", "Publikasi hasil"], b: 0, bahas: "Observasi adalah pengamatan langsung terhadap fenomena alam." },
+        { q: "Satuan Internasional (SI) untuk besaran suhu adalah ...", p: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], b: 2, bahas: "Dalam sistem SI, satuan standar suhu adalah Kelvin (K)." },
+        { q: "Perubahan wujud benda dari gas menjadi cair seperti terbentuknya embun pagi disebut ...", p: ["Menguap", "Mengembun", "Menyublim", "Membeku"], b: 1, bahas: "Mengembun (kondensasi) adalah perubahan wujud gas menjadi cair." },
+        { q: "Sumber energi terbarukan yang memanfaatkan cahaya matahari untuk menghasilkan listrik adalah ...", p: ["PLTU Batu Bara", "Panel Surya (PLTS)", "PLTD Solar", "PLTG Gas"], b: 1, bahas: "Panel surya mengubah energi cahaya matahari menjadi energi listrik." },
+        { q: "Bagian sel yang berfungsi mengatur seluruh aktivitas sel dan menyimpan materi genetik adalah ...", p: ["Inti sel (Nukleus)", "Dinding sel", "Vakuola", "Sitoplasma"], b: 0, bahas: "Nukleus berperan sebagai pusat kendali sel." },
+        { q: "Perpindahan kalor melalui zat perantara tanpa disertai perpindahan partikel zatnya disebut ...", p: ["Konduksi", "Konveksi", "Radiasi", "Evaporasi"], b: 0, bahas: "Konduksi terjadi pada benda padat seperti logam yang dipanaskan." },
+        { q: "Dalam rantai makanan di sawah, padi berperan sebagai ...", p: ["Produsen", "Konsumen I", "Konsumen II", "Pengurai"], b: 0, bahas: "Tumbuhan hijau mampu membuat makanan sendiri sehingga disebut produsen." },
+        { q: "Gas rumah kaca utama yang dihasilkan dari pembakaran bahan bakar fosil kendaraan bermotor adalah ...", p: ["Oksigen", "Karbon dioksida (CO2)", "Helium", "Neon"], b: 1, bahas: "Emisi CO2 berlebih memicu pemanasan global." },
+        { q: "Gaya yang bekerja berlawanan arah dengan arah gerak benda sehingga memperlambat gerak benda adalah gaya ...", p: ["Gravitasi", "Gesek", "Pegas", "Magnet"], b: 1, bahas: "Gaya gesek terjadi antara dua permukaan benda yang saling bersentuhan." },
+        { q: "Organ pernapasan manusia tempat terjadinya pertukaran oksigen dan karbon dioksida adalah ...", p: ["Trakea", "Alveolus", "Bronkus", "Faring"], b: 1, bahas: "Alveolus dikelilingi kapiler darah untuk difusi gas O2 dan CO2." },
+        { q: "Simbol kimia untuk unsur air murni terdiri dari atom hidrogen dan oksigen dengan rumus ...", p: ["CO2", "H2O", "O2", "NaCl"], b: 1, bahas: "Satu molekul air (H2O) tersusun atas 2 atom Hidrogen dan 1 atom Oksigen." },
+        { q: "Benda yang dapat ditarik kuat oleh magnet disebut benda ...", p: ["Diamagnetik", "Feromagnetik", "Nonmagnetik", "Isolator"], b: 1, bahas: "Contoh benda feromagnetik adalah besi, baja, nikel, dan kobalt." }
+      ],
+      "Sosial": [
+        { q: "Kebutuhan manusia yang tidak terbatas sedangkan alat pemuas kebutuhan terbatas disebut masalah ...", p: ["Kelangkaan", "Inflasi", "Distribusi", "Konsumsi"], b: 0, bahas: "Kelangkaan (scarcity) merupakan inti permasalahan dalam ilmu ekonomi." },
+        { q: "Letak Indonesia yang berada di antara dua benua (Asia dan Australia) serta dua samudra disebut letak ...", p: ["Astronomis", "Geografis", "Geologis", "Maritim"], b: 1, bahas: "Letak geografis adalah posisi suatu wilayah dilihat dari kenyataannya di permukaan bumi." },
+        { q: "Kegiatan menyalurkan barang dari produsen hingga sampai ke tangan konsumen disebut ...", p: ["Produksi", "Distribusi", "Konsumsi", "Investasi"], b: 1, bahas: "Distribusi bertujuan memastikan barang sampai kepada pengguna akhir." },
+        { q: "Hubungan timbal balik yang dinamis antara individu dengan individu maupun kelompok disebut ...", p: ["Interaksi sosial", "Mobilitas sosial", "Stratifikasi sosial", "Konflik sosial"], b: 0, bahas: "Interaksi sosial terjadi apabila ada kontak sosial dan komunikasi." },
+        { q: "Garis khayal yang membagi bumi menjadi belahan utara dan selatan adalah garis ...", p: ["Bujur", "Khatulistiwa (Ekuator)", "Meridian", "Wallace"], b: 1, bahas: "Garis khatulistiwa berada pada 0 derajat lintang." },
+        { q: "Hukum permintaan menyatakan bahwa jika harga suatu barang naik, maka jumlah barang yang diminta akan ...", p: ["Naik", "Turun", "Tetap", "Tidak terpengaruh"], b: 1, bahas: "Harga dan jumlah permintaan berbanding terbalik (ceteris paribus)." },
+        { q: "Kerajaan bercorak Hindu tertua di Indonesia yang terletak di Kalimantan Timur adalah ...", p: ["Majapahit", "Kutai", "Sriwijaya", "Tarumanegara"], b: 1, bahas: "Kerajaan Kutai berdiri sekitar abad ke-4 Masehi dengan raja terkenal Mulawarman." },
+        { q: "Sumber daya alam yang dapat diperbarui kembali dalam waktu relatif singkat adalah ...", p: ["Minyak bumi", "Batu bara", "Hutan dan air", "Emas"], b: 2, bahas: "Hutan, air, dan hewan termasuk sumber daya alam yang dapat diperbarui." },
+        { q: "Tempat bertemunya penjual dan pembeli untuk melakukan transaksi barang maupun jasa disebut ...", p: ["Pasar", "Bank", "Koperasi", "Pabrik"], b: 0, bahas: "Pasar dapat berbentuk fisik maupun digital (e-commerce)." },
+        { q: "Peristiwa Sumpah Pemuda yang mempersatukan pemuda seluruh Nusantara terjadi pada tanggal ...", p: ["17 Agustus 1945", "28 Oktober 1928", "20 Mei 1908", "10 November 1945"], b: 1, bahas: "Sumpah Pemuda menegaskan satu tanah air, satu bangsa, dan satu bahasa Indonesia." },
+        { q: "Badan usaha yang beranggotakan orang-seorang dengan berlandaskan asas kekeluargaan adalah ...", p: ["Perseroan Terbatas", "Koperasi", "Firma", "CV"], b: 1, bahas: "Sesuai Pasal 33 UUD 1945, koperasi berasas kekeluargaan." },
+        { q: "Perubahan iklim global dapat berdampak pada sektor ekonomi pertanian berupa ...", p: ["Panen melimpah sepanjang tahun", "Gagal panen akibat cuaca ekstrem", "Harga pupuk gratis", "Berkurangnya hama tanaman"], b: 1, bahas: "Ketidakpastian musim hujan dan kemarau mengganggu jadwal tanam petani." }
+      ],
+      "KodingAI": [
+        { q: "Urutan langkah logis yang sistematis untuk menyelesaikan suatu masalah disebut ...", p: ["Algoritma", "Hardware", "Browser", "Database"], b: 0, bahas: "Algoritma adalah fondasi utama dalam pemrograman komputer." },
+        { q: "Teknik memecah masalah besar menjadi bagian-bagian kecil yang lebih mudah diselesaikan disebut ...", p: ["Dekomposisi", "Abstraksi", "Enkripsi", "Kompilasi"], b: 0, bahas: "Dekomposisi adalah salah satu pilar berpikir komputasional." },
+        { q: "Kecerdasan Artifisial (AI) belajar mengenali pola dengan cara dilatih menggunakan ...", p: ["Kumpulan data (Dataset)", "Kabel jaringan", "Baterai cadangan", "Layar sentuh"], b: 0, bahas: "Semakin berkualitas dataset yang diberikan, semakin akurat prediksi AI." },
+        { q: "Struktur kontrol dalam pemrograman yang menjalankan perintah secara berulang-ulang disebut ...", p: ["Looping (Perulangan)", "Variabel", "Komentar", "Input"], b: 0, bahas: "Looping (seperti for atau while) menghemat penulisan kode yang berulang." },
+        { q: "Contoh pemanfaatan Kecerdasan Artifisial di bidang kesehatan adalah ...", p: ["Membantu mendeteksi penyakit dari citra rontgen", "Mengukur tinggi badan dengan penggaris", "Menimbang berat badan manual", "Mencatat nama pasien di buku"], b: 0, bahas: "Computer Vision pada AI mampu menganalisis citra medis secara cepat." },
+        { q: "Fokus hanya pada informasi penting dan mengabaikan detail yang tidak relevan disebut ...", p: ["Abstraksi", "Debugging", "Algoritma", "Iterasi"], b: 0, bahas: "Abstraksi menyederhanakan masalah agar fokus pada inti persoalan." },
+        { q: "Proses mencari dan memperbaiki kesalahan (bug) dalam kode program disebut ...", p: ["Debugging", "Uploading", "Streaming", "Formatting"], b: 0, bahas: "Debugging memastikan program berjalan sesuai logika yang diharapkan." },
+        { q: "Informasi pribadi yang TIDAK boleh dibagikan sembarangan ke platform AI publik adalah ...", p: ["Pertanyaan rumus matematika", "NIK, password, dan alamat rumah lengkap", "Ide cerita fiksi", "Terjemahan bahasa Inggris"], b: 1, bahas: "Data sensitif harus dilindungi untuk mencegah penyalahgunaan privasi." },
+        { q: "Fenomena ketika AI generatif memberikan jawaban yang terdengar meyakinkan padahal faktanya salah disebut ...", p: ["Halusinasi AI", "Virus komputer", "Overheating", "Lagging"], b: 0, bahas: "Pengguna wajib memverifikasi kebenaran jawaban AI dari sumber tepercaya." },
+        { q: "Perangkat lunak yang digunakan untuk menulis dan menjalankan kode program disebut ...", p: ["Code Editor / IDE", "Spreadsheet", "Media Player", "Antivirus"], b: 0, bahas: "Contoh IDE adalah VS Code, Scratch, atau Replit." },
+        { q: "Dalam logika pemrograman, tipe data yang hanya memiliki dua nilai yaitu True atau False adalah ...", p: ["Boolean", "Integer", "String", "Float"], b: 0, bahas: "Boolean digunakan dalam pengambilan keputusan (percabangan if-else)." },
+        { q: "Etika utama dalam memanfaatkan teknologi digital dan AI di lingkungan sekolah adalah ...", p: ["Menggunakannya untuk meningkatkan pemahaman dan kreativitas secara jujur", "Menjiplak karya teman", "Menyebarkan informasi hoaks", "Meretas akun orang lain"], b: 0, bahas: "Integritas akademik tetap menjadi prioritas utama dalam belajar." }
+      ]
+    };
+    function buatSoalMatematika(jenjang, kelas, bab) {
+      const angkaKelas = parseInt(kelas.replace(/\D/g, ""), 10) || 1;
+      const soal = [];
+      for (let i = 1; i <= 12; i++) {
+        if (jenjang === "sd" && angkaKelas <= 3) {
+          const a = i * 2 + angkaKelas, b = i + 3, hasil = a + b;
+          soal.push({ q: `[${kelas} • ${bab}] Hasil penjumlahan dari ${a} + ${b} adalah ...`, p: [String(hasil - 1), String(hasil), String(hasil + 2), String(hasil + 1)], b: 1, bahas: `${a} + ${b} = ${hasil}.` });
+        } else if (jenjang === "sd" && angkaKelas >= 4) {
+          const a = (i + 2) * 4, b = i * 3, hasil = a * 2 - b;
+          soal.push({ q: `[${kelas} • ${bab}] Hasil dari (${a} x 2) - ${b} adalah ...`, p: [String(hasil + 4), String(hasil - 2), String(hasil), String(hasil + 6)], b: 2, bahas: `${a} x 2 = ${a * 2}, dikurangi ${b} hasilnya ${hasil}.` });
+        } else if (jenjang === "smp") {
+          const x = i + 2, konstanta = angkaKelas, total = 3 * x + konstanta;
+          soal.push({ q: `[${kelas} • ${bab}] Jika 3x + ${konstanta} = ${total}, maka nilai x adalah ...`, p: [String(x - 1), String(x), String(x + 1), String(x + 2)], b: 1, bahas: `3x = ${total} - ${konstanta} = ${3 * x}, maka x = ${x}.` });
+        } else {
+          const a = i + 1, b = angkaKelas - 7, hasil = a * a + b;
+          soal.push({ q: `[${kelas} • ${bab}] Diketahui fungsi f(x) = x² + ${b}. Nilai dari f(${a}) adalah ...`, p: [String(hasil - 3), String(hasil + 2), String(hasil), String(hasil + 5)], b: 2, bahas: `f(${a}) = ${a}² + ${b} = ${a * a} + ${b} = ${hasil}.` });
+        }
+      }
+      return soal;
+    }
+
+    function dapatkanSoalLengkap(jenjang, kelas, mapel, bab) {
+      const kunci = `${jenjang}-${kelas}-${mapel}-${bab}`;
+      const soalAdmin = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}")[kunci] || [];
+      let paketBawaan = [];
+      if (mapel === "Matematika") {
+        paketBawaan = buatSoalMatematika(jenjang, kelas, bab);
+      } else if (bankTemplateMapel[mapel]) {
+        paketBawaan = bankTemplateMapel[mapel].map(item => ({ ...item, q: `(${kelas} • ${bab.split(":")}) ${item.q}` }));
+      } else if (["IPAS", "IPA", "Fisika", "Kimia", "Biologi"].includes(mapel)) {
+        paketBawaan = bankTemplateSainsSosial["Sains"].map(item => ({ ...item, q: `(${mapel} ${kelas}) ${item.q}` }));
+      } else if (["IPS", "Ekonomi"].includes(mapel)) {
+        paketBawaan = bankTemplateSainsSosial["Sosial"].map(item => ({ ...item, q: `(${mapel} ${kelas}) ${item.q}` }));
+      } else {
+        paketBawaan = bankTemplateSainsSosial["KodingAI"].map(item => ({ ...item, q: `(${mapel} ${kelas}) ${item.q}` }));
+      }
+      return [...soalAdmin, ...paketBawaan];
+    }
     let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0;
     let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "" };
 
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-
-    function ambilBankSoalGabungan() {
-      const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
-      const gabungan = {};
-      for (const k in bankSoal) gabungan[k] = [...bankSoal[k]];
-      for (const k in tambahan) {
-        if (!gabungan[k]) gabungan[k] = [];
-        gabungan[k] = gabungan[k].concat(tambahan[k]);
-      }
-      return gabungan;
-    }
 
     function bukaMenu(menu) {
       clearInterval(timer);
@@ -139,7 +229,7 @@
           <div class="hero-card">
             <span class="hero-badge">KURIKULUM MERDEKA 2026/2027</span>
             <h2>Selamat Datang di RIM CBT</h2>
-            <p>Platform latihan soal dan evaluasi digital terpadu untuk jenjang SD, SMP, dan SMA. Pilih jenjang pendidikanmu di menu bawah untuk mulai berlatih!</p>
+            <p>Setiap mata pelajaran dan bab telah dilengkapi paket 12 soal latihan terstruktur untuk jenjang SD, SMP, dan SMA. Pilih jenjangmu di menu bawah untuk memulai!</p>
           </div>
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
@@ -152,7 +242,7 @@
         app().innerHTML = `
           <div class="form-box">
             <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Tambah soal ujian, kelola hasil nilai siswa, atau unduh laporan PDF.</p>
+            <p style="font-size:0.84rem; color:#64748b;">Tambah soal baru ke bab mana saja, lihat rekap nilai, atau unduh laporan PDF.</p>
           </div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Baru</span><span>➔</span></div>
@@ -167,8 +257,7 @@
 
     function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
-      title().innerText = d.judul;
-      sesi.jenjang = jenjang;
+      title().innerText = d.judul; sesi.jenjang = jenjang;
       app().innerHTML = `<div class="form-box"><h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${d.judul}</p></div><div class="list-menu">` +
         d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
     }
@@ -181,33 +270,31 @@
 
     function pilihBab(jenjang, kelas, mapel) {
       sesi.mapel = mapel;
-      const list = dataBab[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Evaluasi Kurikulum Merdeka"];
+      const list = babDefaultPerMapel[mapel] || ["Bab 1: Evaluasi Materi Utama", "Bab 2: Pendalaman Konsep"];
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Materi Ujian</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
         list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function formBiodata(bab) {
       sesi.bab = bab;
+      const jml = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, bab).length;
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
           <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
-          <p style="font-size:0.84rem; color:#64748b; margin-bottom:16px;">Materi: <b>${esc(bab)}</b></p>
+          <p style="font-size:0.84rem; color:#64748b; margin-bottom:16px;">Materi: <b>${esc(bab)}</b> (${jml} Soal)</p>
           <label>Nama Lengkap</label><input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
           <label>Asal Sekolah</label><input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
           <label>Kelas Spesifik</label><input type="text" id="inp-kelas" placeholder="Contoh: 7A">
-          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian Sekarang</button>
+          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian (${jml} Soal)</button>
         </div>`;
     }
 
     function mulaiKuis() {
-      const nama = document.getElementById("inp-nama").value.trim();
-      const sekolah = document.getElementById("inp-sekolah").value.trim();
-      const kelas = document.getElementById("inp-kelas").value.trim();
+      const nama = document.getElementById("inp-nama").value.trim(), sekolah = document.getElementById("inp-sekolah").value.trim(), kelas = document.getElementById("inp-kelas").value.trim();
       if (!nama || !sekolah || !kelas) return alert("Harap lengkapi identitas peserta terlebih dahulu!");
       sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
-      const semuaSoal = ambilBankSoalGabungan();
-      soalList = semuaSoal[`${sesi.jenjang}-${sesi.tingkat}-${sesi.mapel}-${sesi.bab}`] || semuaSoal["umum"];
+      soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab);
       idxSoal = 0; skor = 0; riwayat = []; sisaWaktu = WAKTU_KUIS;
       clearInterval(timer);
       timer = setInterval(() => {
@@ -220,13 +307,12 @@
     }
 
     function renderSoal() {
-      const s = soalList[idxSoal];
-      const abjad = ["A", "B", "C", "D"];
+      const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
       app().innerHTML = `
         <div class="form-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
             <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} dari ${soalList.length}</span>
-            <span id="kuis-timer" class="timer-badge">⏱️ 5:00</span>
+            <span id="kuis-timer" class="timer-badge">⏱️ 10:00</span>
           </div>
           <p style="font-size:1rem; font-weight:600; margin-bottom:18px; line-height:1.6;">${esc(s.q)}</p>
           <div class="list-menu">
@@ -236,8 +322,7 @@
     }
 
     function jawab(i) {
-      const s = soalList[idxSoal];
-      const ok = i === s.b;
+      const s = soalList[idxSoal], ok = i === s.b;
       if (ok) skor++;
       riwayat.push({ q: s.q, u: s.p[i], b: s.p[s.b], bahas: s.bahas, ok });
       idxSoal++;
@@ -277,24 +362,17 @@
     }
 
     function updateBabAdmin() {
-      const jenjang = document.getElementById("adm-jenjang").value;
-      const kelas = document.getElementById("adm-kelas").value;
       const mapel = document.getElementById("adm-mapel").value;
-      const list = dataBab[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Evaluasi Kurikulum Merdeka"];
+      const list = babDefaultPerMapel[mapel] || ["Bab 1: Evaluasi Materi Utama", "Bab 2: Pendalaman Konsep"];
       document.getElementById("adm-bab").innerHTML = list.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
     }
 
     function simpanSoalBaru() {
-      const jenjang = document.getElementById("adm-jenjang").value;
-      const kelas = document.getElementById("adm-kelas").value;
-      const mapel = document.getElementById("adm-mapel").value;
-      const bab = document.getElementById("adm-bab").value;
-      const q = document.getElementById("adm-q").value.trim();
-      const pA = document.getElementById("adm-pa").value.trim();
-      const pB = document.getElementById("adm-pb").value.trim();
-      const pC = document.getElementById("adm-pc").value.trim();
-      const pD = document.getElementById("adm-pd").value.trim();
-      const b = parseInt(document.getElementById("adm-kunci").value, 10);
+      const jenjang = document.getElementById("adm-jenjang").value, kelas = document.getElementById("adm-kelas").value;
+      const mapel = document.getElementById("adm-mapel").value, bab = document.getElementById("adm-bab").value;
+      const q = document.getElementById("adm-q").value.trim(), pA = document.getElementById("adm-pa").value.trim();
+      const pB = document.getElementById("adm-pb").value.trim(), pC = document.getElementById("adm-pc").value.trim();
+      const pD = document.getElementById("adm-pd").value.trim(), b = parseInt(document.getElementById("adm-kunci").value, 10);
       const bahas = document.getElementById("adm-bahas").value.trim() || "Sesuai konsep materi pada bab ini.";
       if (!q || !pA || !pB || !pC || !pD) return alert("Harap isi pertanyaan dan keempat pilihan jawaban!");
 
@@ -303,7 +381,7 @@
       if (!tambahan[kunci]) tambahan[kunci] = [];
       tambahan[kunci].push({ q, p: [pA, pB, pC, pD], b, bahas });
       localStorage.setItem("rim_soal_custom", JSON.stringify(tambahan));
-      alert("✅ Soal baru berhasil ditambahkan!");
+      alert("✅ Soal baru berhasil ditambahkan ke " + kelas + " - " + mapel + "!");
       ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas"].forEach(id => document.getElementById(id).value = "");
     }
 
@@ -312,11 +390,9 @@
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      doc.setFontSize(16);
-      doc.setTextColor(79, 70, 229);
+      doc.setFontSize(16); doc.setTextColor(79, 70, 229);
       doc.text("REKAPITULASI NILAI UJIAN - RIM CBT", 14, 18);
-      doc.setFontSize(10);
-      doc.setTextColor(100, 116, 139);
+      doc.setFontSize(10); doc.setTextColor(100, 116, 139);
       doc.text("Dicetak pada: " + new Date().toLocaleString("id-ID"), 14, 25);
       doc.autoTable({
         startY: 32,
