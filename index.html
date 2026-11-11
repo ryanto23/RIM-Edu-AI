@@ -9,14 +9,14 @@
     body { background: #f1f5f9; color: #1e293b; padding-bottom: 80px; }
     header { background: #2563eb; color: #fff; padding: 16px; text-align: center; font-weight: bold; font-size: 1.2rem; position: sticky; top: 0; z-index: 10; }
     #app-content { max-width: 600px; margin: 16px auto; padding: 0 16px; }
-    .hero-card { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; padding: 24px 20px; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 10px rgba(37,99,235,0.2); }
-    .hero-card h2 { margin-bottom: 8px; font-size: 1.4rem; }
-    .hero-card p { font-size: 0.92rem; line-height: 1.5; opacity: 0.95; }
+    .hero-card { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; padding: 22px 18px; border-radius: 12px; margin-bottom: 14px; }
+    .hero-card h2 { margin-bottom: 8px; font-size: 1.35rem; }
+    .hero-card p { font-size: 0.9rem; line-height: 1.5; }
     .form-box { background: #fff; padding: 16px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-    .quote-box { background: #fff; border-left: 4px solid #f59e0b; padding: 16px; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-    .quote-box p { font-style: italic; color: #334155; font-size: 0.92rem; line-height: 1.5; margin-bottom: 6px; }
+    .quote-box { background: #fff; border-left: 4px solid #f59e0b; padding: 14px 16px; border-radius: 10px; margin-bottom: 12px; }
+    .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.5; margin-bottom: 4px; }
     .quote-box small { color: #64748b; font-weight: bold; }
-    .btn-primary { background: #f59e0b; color: #fff; border: none; padding: 12px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
+    .btn-primary { background: #f59e0b; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; width: 100%; }
     .btn-back { background: #e2e8f0; color: #334155; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 10px; font-weight: bold; }
     input { width: 100%; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; }
     label { font-size: 0.85rem; font-weight: bold; }
@@ -43,55 +43,43 @@
   </nav>
 
   <script>
-    const ADMIN_PIN_DEFAULT = "123456";
-    const DURASI_KUIS_DETIK = 300;
+    const PIN_DEFAULT = "123456";
+    const WAKTU_KUIS = 300;
 
     const dataPendidikan = {
-      sd: {
-        judul: "Sekolah Dasar (SD)",
-        kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"],
-        mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris"]
-      },
-      smp: {
-        judul: "Sekolah Menengah Pertama (SMP)",
-        kelas: ["Kelas 7", "Kelas 8", "Kelas 9"],
-        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Informatika"]
-      },
-      sma: {
-        judul: "SMA / SMK",
-        kelas: ["Kelas 10", "Kelas 11", "Kelas 12"],
-        mapel: ["Matematika", "Bahasa Indonesia", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika"]
-      }
+      sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris"] },
+      smp: { judul: "Sekolah Menengah Pertama (SMP)", kelas: ["Kelas 7", "Kelas 8", "Kelas 9"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Informatika"] },
+      sma: { judul: "SMA / SMK", kelas: ["Kelas 10", "Kelas 11", "Kelas 12"], mapel: ["Matematika", "Bahasa Indonesia", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika"] }
     };
 
-    const dataBabMateri = {
+    const dataBab = {
       "sd-Kelas 1-Matematika": ["Bab 1: Bilangan Cacah sampai 10", "Bab 2: Penjumlahan dan Pengurangan sampai 10"],
       "smp-Kelas 7-Matematika": ["Bab 1: Bilangan Bulat dan Bilangan Rasional", "Bab 2: Aljabar"],
       "sma-Kelas 10-Fisika": ["Bab 1: Pengukuran dalam Kerja Ilmiah", "Bab 2: Energi Terbarukan"]
     };
 
-    const bankSoalBawaan = {
+    const bankSoal = {
       "smp-Kelas 7-Matematika-Bab 1: Bilangan Bulat dan Bilangan Rasional": [
-        { pertanyaan: "Hasil dari -12 + 7 adalah ...", pilihan: ["-5", "5", "-19", "19"], jawabanBenar: 0, pembahasan: "Utang 12 dibayar 7, sisanya -5." },
-        { pertanyaan: "Hasil dari (-4) x (-6) adalah ...", pilihan: ["-24", "24", "-10", "10"], jawabanBenar: 1, pembahasan: "Negatif kali negatif hasilnya positif: 24." },
-        { pertanyaan: "Suhu pagi hari -3°C, siang hari naik 8°C. Suhu siang hari adalah ...", pilihan: ["11°C", "-11°C", "5°C", "-5°C"], jawabanBenar: 2, pembahasan: "-3 + 8 = 5°C." }
+        { q: "Hasil dari -12 + 7 adalah ...", p: ["-5", "5", "-19", "19"], b: 0, bahas: "Utang 12 dibayar 7, sisanya -5." },
+        { q: "Hasil dari (-4) x (-6) adalah ...", p: ["-24", "24", "-10", "10"], b: 1, bahas: "Negatif kali negatif hasilnya positif: 24." },
+        { q: "Suhu pagi -3°C, siang naik 8°C. Suhu siang hari adalah ...", p: ["11°C", "-11°C", "5°C", "-5°C"], b: 2, bahas: "-3 + 8 = 5°C." }
       ],
       "sd-Kelas 1-Matematika-Bab 1: Bilangan Cacah sampai 10": [
-        { pertanyaan: "Angka setelah bilangan 6 adalah ...", pilihan: ["5", "7", "8", "9"], jawabanBenar: 1, pembahasan: "Urutan: 5, 6, 7, 8." },
-        { pertanyaan: "Di meja ada 4 apel dan 3 jeruk. Jumlah seluruh buah adalah ...", pilihan: ["6", "7", "8", "9"], jawabanBenar: 1, pembahasan: "4 + 3 = 7 buah." }
+        { q: "Angka setelah bilangan 6 adalah ...", p: ["5", "7", "8", "9"], b: 1, bahas: "Urutan: 5, 6, 7, 8." },
+        { q: "Di meja ada 4 apel dan 3 jeruk. Jumlah seluruh buah adalah ...", p: ["6", "7", "8", "9"], b: 1, bahas: "4 + 3 = 7 buah." }
       ]
     };
 
-    let timerInterval, soalAktifList = [], riwayatJawabanUser = [], soalSekarang = 0, skorTotal = 0, waktuTersisa = 0;
-    let sesiSiswa = { nama: "", sekolah: "", kelasInput: "", jenjang: "", kelasTingkat: "", mapel: "", bab: "" };
+    let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0;
+    let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "" };
 
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
     function bukaMenu(menu) {
-      clearInterval(timerInterval);
-      document.querySelectorAll(".nav-item").forEach(b => b.classList.toggle("active", b.dataset.menu === menu));
+      clearInterval(timer);
+      document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.dataset.menu === menu));
 
       if (menu === "home") {
         title().innerText = "RIM Edu";
@@ -110,9 +98,7 @@
           </div>
           <div class="form-box">
             <h3 style="font-size:1rem; margin-bottom:6px;">📌 Cara Mulai Latihan</h3>
-            <p style="font-size:0.88rem; color:#475569; line-height:1.5;">
-              Silakan pilih jenjang pendidikanmu (<b>SD</b>, <b>SMP</b>, atau <b>SMA</b>) pada menu navigasi di bagian bawah layar untuk mulai mengerjakan latihan soal.
-            </p>
+            <p style="font-size:0.88rem; color:#475569; line-height:1.5;">Pilih jenjang pendidikanmu (<b>SD</b>, <b>SMP</b>, atau <b>SMA</b>) pada menu navigasi di bagian bawah layar untuk mulai mengerjakan latihan soal.</p>
           </div>`;
       } else if (dataPendidikan[menu]) {
         pilihKelas(menu);
@@ -130,56 +116,60 @@
     function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
       title().innerText = d.judul;
-      sesiSiswa.jenjang = jenjang;
+      sesi.jenjang = jenjang;
       app().innerHTML = `<div class="form-box"><h3>Pilih Kelas (${d.judul})</h3></div><div class="list-menu">` +
         d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function pilihMapel(jenjang, kelas) {
-      sesiSiswa.kelasTingkat = kelas;
+      sesi.tingkat = kelas;
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3>Pilih Mapel (${kelas})</h3></div><div class="list-menu">` +
         dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function pilihBab(jenjang, kelas, mapel) {
-      sesiSiswa.mapel = mapel;
-      const listBab = dataBabMateri[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Soal Umum"];
+      sesi.mapel = mapel;
+      const list = dataBab[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Soal Umum"];
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3>Pilih Bab (${mapel})</h3></div><div class="list-menu">` +
-        listBab.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
+        list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function formBiodata(bab) {
-      sesiSiswa.bab = bab;
+      sesi.bab = bab;
       app().innerHTML = `
         <div class="form-box">
-          <button class="btn-back" onclick="pilihBab('${sesiSiswa.jenjang}','${sesiSiswa.kelasTingkat}','${sesiSiswa.mapel}')">⬅ Kembali</button>
+          <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
           <h3>Data Diri Siswa</h3>
           <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">Materi: <b>${esc(bab)}</b></p>
           <label>Nama Lengkap:</label>
           <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
-enjang = jenjang;
-      app().innerHTML = `<div class="form-box"><h3>Pilih Kelas (${d.judul})</h3></div><div class="list-menu">` +
-        d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
+          <label>Asal Sekolah:</label>
+          <label>Kelas Spesifik:</label>
+          <input type="text" id="inp-kelas" placeholder="Contoh: 7A">
+          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Mengerjakan Soal</button>
+        </div>`;
     }
 
-    function pilihMapel(jenjang, kelas) {
-      sesiSiswa.kelasTingkat = kelas;
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3>Pilih Mapel (${kelas})</h3></div><div class="list-menu">` +
+    function mulaiKuis() {
+      const nama = document.getElementById("inp-nama").value.trim();
+      const sekolah = document.getElementById("inp-sekolah").value.trim();
+      const kelas = document.getElementById("inp-kelas").value.trim();
+ Kembali</button><h3>Pilih Mapel (${kelas})</h3></div><div class="list-menu">` +
         dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function pilihBab(jenjang, kelas, mapel) {
-      sesiSiswa.mapel = mapel;
-      const listBab = dataBabMateri[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Soal Umum"];
+      sesi.mapel = mapel;
+      const list = dataBab[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Soal Umum"];
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3>Pilih Bab (${mapel})</h3></div><div class="list-menu">` +
-        listBab.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
+        list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function formBiodata(bab) {
-      sesiSiswa.bab = bab;
+      sesi.bab = bab;
       app().innerHTML = `
         <div class="form-box">
-          <button class="btn-back" onclick="pilihBab('${sesiSiswa.jenjang}','${sesiSiswa.kelasTingkat}','${sesiSiswa.mapel}')">⬅ Kembali</button>
+          <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
           <h3>Data Diri Siswa</h3>
           <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">Materi: <b>${esc(bab)}</b></p>
           <label>Nama Lengkap:</label>
@@ -188,7 +178,7 @@ enjang = jenjang;
           <input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
           <label>Kelas Spesifik:</label>
           <input type="text" id="inp-kelas" placeholder="Contoh: 7A">
-          <button type="button" class="btn-primary" style="width:100%" onclick="mulaiKuis()">🚀 Mulai Mengerjakan Soal</button>
+          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Mengerjakan Soal</button>
         </div>`;
     }
 
@@ -198,74 +188,73 @@ enjang = jenjang;
       const kelas = document.getElementById("inp-kelas").value.trim();
       if (!nama || !sekolah || !kelas) return alert("Lengkapi semua data diri dulu!");
 
-      sesiSiswa.nama = nama; sesiSiswa.sekolah = sekolah; sesiSiswa.kelasInput = kelas;
-      const kunci = `${sesiSiswa.jenjang}-${sesiSiswa.kelasTingkat}-${sesiSiswa.mapel}-${sesiSiswa.bab}`;
-      soalAktifList = bankSoalBawaan[kunci] || [];
-      if (soalAktifList.length === 0) return alert("Soal bab ini belum tersedia di database.");
+      sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
+      soalList = bankSoal[`${sesi.jenjang}-${sesi.tingkat}-${sesi.mapel}-${sesi.bab}`] || [];
+      if (soalList.length === 0) return alert("Soal bab ini belum tersedia di database.");
 
-      soalSekarang = 0; skorTotal = 0; riwayatJawabanUser = []; waktuTersisa = DURASI_KUIS_DETIK;
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        waktuTersisa--;
+      idxSoal = 0; skor = 0; riwayat = []; sisaWaktu = WAKTU_KUIS;
+      clearInterval(timer);
+      timer = setInterval(() => {
+        sisaWaktu--;
         const t = document.getElementById("kuis-timer");
-        if (t) t.innerText = `⏱️ ${Math.floor(waktuTersisa / 60)}:${String(waktuTersisa % 60).padStart(2, "0")}`;
-        if (waktuTersisa <= 0) { clearInterval(timerInterval); alert("Waktu habis!"); selesaiKuis(); }
+        if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
+        if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu habis!"); selesaiKuis(); }
       }, 1000);
       renderSoal();
     }
 
     function renderSoal() {
-      const s = soalAktifList[soalSekarang];
+      const s = soalList[idxSoal];
       const abjad = ["A", "B", "C", "D"];
       app().innerHTML = `
         <div class="form-box">
           <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:12px;">
-            <span>Soal ${soalSekarang + 1} / ${soalAktifList.length}</span>
+            <span>Soal ${idxSoal + 1} / ${soalList.length}</span>
             <span id="kuis-timer" style="color:#dc2626">⏱️ 5:00</span>
           </div>
-          <p style="margin-bottom:16px; line-height:1.5;">${esc(s.pertanyaan)}</p>
-          ${s.pilihan.map((p, i) => `<button class="list-item" style="width:100%; margin-bottom:8px;" onclick="jawab(${i})"><span><b>${abjad[i]}.</b> ${esc(p)}</span></button>`).join("")}
+          <p style="margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
+          ${s.p.map((pil, i) => `<button class="list-item" style="width:100%; margin-bottom:8px;" onclick="jawab(${i})"><span><b>${abjad[i]}.</b> ${esc(pil)}</span></button>`).join("")}
         </div>`;
     }
 
-    function jawab(idx) {
-      const s = soalAktifList[soalSekarang];
-      const benar = idx === s.jawabanBenar;
-      if (benar) skorTotal++;
-      riwayatJawabanUser.push({ q: s.pertanyaan, u: s.pilihan[idx], b: s.pilihan[s.jawabanBenar], p: s.pembahasan, ok: benar });
-      soalSekarang++;
-      soalSekarang < soalAktifList.length ? renderSoal() : selesaiKuis();
+    function jawab(i) {
+      const s = soalList[idxSoal];
+      const ok = i === s.b;
+      if (ok) skor++;
+      riwayat.push({ q: s.q, u: s.p[i], b: s.p[s.b], bahas: s.bahas, ok });
+      idxSoal++;
+      idxSoal < soalList.length ? renderSoal() : selesaiKuis();
     }
 
     function selesaiKuis() {
-      clearInterval(timerInterval);
-      const nilai = Math.round((skorTotal / soalAktifList.length) * 100);
+      clearInterval(timer);
+      const nilai = Math.round((skor / soalList.length) * 100);
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      rekap.push({ tgl: new Date().toLocaleString("id-ID"), nama: sesiSiswa.nama, sekolah: sesiSiswa.sekolah, kelas: sesiSiswa.kelasInput, mapel: sesiSiswa.mapel, nilai });
+      rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: sesi.mapel, nilai });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
 
       app().innerHTML = `
         <div class="form-box" style="text-align:center;">
           <h2>🎉 Selesai!</h2>
-          <p style="margin-top:6px;">Nilai <b>${esc(sesiSiswa.nama)}</b>:</p>
+          <p style="margin-top:6px;">Nilai <b>${esc(sesi.nama)}</b>:</p>
           <h1 style="font-size:3rem; color:#2563eb; margin:10px 0;">${nilai}</h1>
-          <p style="font-size:0.85rem; color:#64748b;">Benar ${skorTotal} dari ${soalAktifList.length} soal</p>
+          <p style="font-size:0.85rem; color:#64748b;">Benar ${skor} dari ${soalList.length} soal</p>
           <button class="btn-primary" style="margin-top:14px;" onclick="bukaMenu('home')">🏠 Ke Beranda</button>
         </div>
         <div class="form-box"><h3>📋 Pembahasan</h3>
-          ${riwayatJawabanUser.map((r, i) => `
+          ${riwayat.map((r, i) => `
             <div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.9rem;">
               <b>${i + 1}. ${esc(r.q)}</b><br>
               <span style="color:${r.ok ? "#16a34a" : "#dc2626"}">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>
               ${!r.ok ? `<span>Jawaban Benar: <b>${esc(r.b)}</b><br></span>` : ""}
-              <small style="color:#64748b">💡 ${esc(r.p)}</small>
+              <small style="color:#64748b">💡 ${esc(r.bahas)}</small>
             </div>`).join("")}
         </div>`;
     }
 
     function bukaAdmin(aksi) {
       const pin = prompt("Masukkan PIN Admin (Default: 123456):");
-      if (pin !== (localStorage.getItem("rim_pin") || ADMIN_PIN_DEFAULT)) return alert("PIN Salah!");
+      if (pin !== (localStorage.getItem("rim_pin") || PIN_DEFAULT)) return alert("PIN Salah!");
       if (aksi === "rekap") {
         const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
         app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3>📊 Rekap Nilai</h3>` +
