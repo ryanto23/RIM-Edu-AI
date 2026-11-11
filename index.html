@@ -8,15 +8,7 @@
   <script src="https://cloudflare.com"></script>
   <script src="https://cloudflare.com"></script>
   <style>
-    :root {
-      --primary: #4f46e5;
-      --accent: #f59e0b;
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-    }
+    :root { --primary: #4f46e5; --accent: #f59e0b; --bg: #f8fafc; --surface: #ffffff; --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0; }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background: var(--bg); color: var(--text-main); padding-bottom: 95px; }
     header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); color: var(--primary); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 1.25rem; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--border); }
@@ -34,9 +26,9 @@
     .btn-pdf { background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 12px; }
     .btn-danger { background: #fef2f2; color: #dc2626; border: 1.5px solid #fecaca; padding: 11px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
     .btn-back { background: #f1f5f9; color: #475569; border: none; padding: 7px 14px; border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem; }
-    input { width: 100%; padding: 12px 14px; margin: 6px 0 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.95rem; background: #f8fafc; }
-    input:focus { outline: none; border-color: var(--primary); background: #fff; }
-    label { font-size: 0.82rem; font-weight: 700; color: #334155; }
+    input, select, textarea { width: 100%; padding: 11px 13px; margin: 5px 0 14px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; background: #f8fafc; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
+    label { font-size: 0.82rem; font-weight: 700; color: #334155; display: block; }
     .list-menu { display: flex; flex-direction: column; gap: 10px; }
     .list-item { background: var(--surface); padding: 15px 18px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid var(--border); font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
     .list-item:hover { border-color: var(--primary); background: #eef2ff; }
@@ -58,28 +50,14 @@
     <button type="button" class="nav-item" data-menu="sma" onclick="bukaMenu('sma')"><span>🎓</span>SMA</button>
     <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🔐</span>Admin</button>
   </nav>
-
-    <script>
+  <script>
     const PIN_DEFAULT = "123456";
     const WAKTU_KUIS = 300;
 
-    // Struktur Mata Pelajaran Kurikulum Merdeka 2026/2027
     const dataPendidikan = {
-      sd: {
-        judul: "Sekolah Dasar (SD)",
-        kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"],
-        mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"]
-      },
-      smp: {
-        judul: "Sekolah Menengah Pertama (SMP)",
-        kelas: ["Kelas 7", "Kelas 8", "Kelas 9"],
-        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"]
-      },
-      sma: {
-        judul: "SMA / SMK",
-        kelas: ["Kelas 10", "Kelas 11", "Kelas 12"],
-        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"]
-      }
+      sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
+      smp: { judul: "Sekolah Menengah Pertama (SMP)", kelas: ["Kelas 7", "Kelas 8", "Kelas 9"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"] },
+      sma: { judul: "SMA / SMK", kelas: ["Kelas 10", "Kelas 11", "Kelas 12"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"] }
     };
 
     const dataBab = {
@@ -102,12 +80,11 @@
       ],
       "sd-Kelas 4-IPAS-Bab 1: Tumbuhan, Sumber Kehidupan di Bumi": [
         { q: "Bagian tumbuhan yang berfungsi menyerap air dan zat hara dari dalam tanah adalah ...", p: ["Daun", "Batang", "Akar", "Bunga"], b: 2, bahas: "Akar menyerap air dan mineral dari tanah." },
-        { q: "Proses tumbuhan membuat makanannya sendiri dengan bantuan cahaya matahari disebut ...", p: ["Respirasi", "Fotosintesis", "Transpirasi", "Adaptasi"], b: 1, bahas: "Fotosintesis terjadi pada daun yang mengandung klorofil." },
-        { q: "Gas yang dihasilkan tumbuhan saat fotosintesis dan dibutuhkan manusia untuk bernapas adalah ...", p: ["Karbon dioksida", "Oksigen", "Nitrogen", "Hidrogen"], b: 1, bahas: "Fotosintesis menghasilkan glukosa dan oksigen (O2)." }
+        { q: "Proses tumbuhan membuat makanannya sendiri dengan bantuan cahaya matahari disebut ...", p: ["Respirasi", "Fotosintesis", "Transpirasi", "Adaptasi"], b: 1, bahas: "Fotosintesis terjadi pada daun yang mengandung klorofil." }
       ],
       "sd-Kelas 5-Koding & Kecerdasan Artifisial-Bab 2: Mengenal Kecerdasan Artifisial (AI)": [
         { q: "Contoh penerapan Kecerdasan Artifisial (AI) yang sering kita temui di ponsel adalah ...", p: ["Kalkulator biasa", "Asisten suara (Voice Assistant)", "Senter ponsel", "Jam weker"], b: 1, bahas: "Asisten suara menggunakan AI untuk memahami perintah ucapan manusia." },
-        { q: "Agar AI dapat mengenali gambar kucing dengan tepat, langkah pertama yang harus dilakukan adalah ...", p: ["Mematikan komputer", "Melatih AI dengan banyak contoh gambar kucing", "Menghapus semua data", "Mengganti layar monitor"], b: 1, bahas: "AI belajar dari data latih (training data) berupa kumpulan contoh gambar." }
+        { q: "Agar AI dapat mengenali gambar kucing dengan tepat, langkah pertama yang harus dilakukan adalah ...", p: ["Mematikan komputer", "Melatih AI dengan banyak contoh gambar kucing", "Menghapus semua data", "Mengganti layar monitor"], b: 1, bahas: "AI belajar dari data latih berupa kumpulan contoh gambar." }
       ],
       "smp-Kelas 7-Matematika-Bab 1: Bilangan Bulat dan Bilangan Rasional": [
         { q: "Hasil dari -12 + 7 adalah ...", p: ["-5", "5", "-19", "19"], b: 0, bahas: "-12 + 7 = -5." },
@@ -115,32 +92,26 @@
         { q: "Suhu pagi di puncak gunung -3°C, siang hari naik 8°C. Suhu siang hari adalah ...", p: ["11°C", "-11°C", "5°C", "-5°C"], b: 2, bahas: "-3 + 8 = 5°C." }
       ],
       "smp-Kelas 7-IPA-Bab 1: Hakikat Ilmu Sains dan Metode Ilmiah": [
-        { q: "Langkah pertama yang dilakukan ilmuwan dalam metode ilmiah adalah ...", p: ["Menarik kesimpulan", "Melakukan observasi (pengamatan)", "Membuat grafik", "Menulis laporan"], b: 1, bahas: "Metode ilmiah diawali dengan mengamati fenomena di sekitar." },
-        { q: "Alat laboratorium yang digunakan untuk mengukur volume zat cair dengan teliti adalah ...", p: ["Gelas ukur", "Neraca pegas", "Termometer", "Stopwatch"], b: 0, bahas: "Gelas ukur memiliki skala mililiter untuk mengukur volume cairan." }
+        { q: "Langkah pertama yang dilakukan ilmuwan dalam metode ilmiah adalah ...", p: ["Menarik kesimpulan", "Melakukan observasi (pengamatan)", "Membuat grafik", "Menulis laporan"], b: 1, bahas: "Metode ilmiah diawali dengan mengamati fenomena di sekitar." }
       ],
-
-            "smp-Kelas 8-Informatika & KKA-Bab 2: Literasi & Etika Kecerdasan Artifisial": [
+      "smp-Kelas 8-Informatika & KKA-Bab 2: Literasi & Etika Kecerdasan Artifisial": [
         { q: "Urutan langkah-langkah logis yang disusun secara sistematis untuk menyelesaikan masalah disebut ...", p: ["Algoritma", "Perangkat keras", "Jaringan", "Basis data"], b: 0, bahas: "Algoritma adalah instruksi berurutan untuk memecahkan masalah." },
-        { q: "Sikap etis yang wajib diterapkan pelajar saat menggunakan AI generatif untuk tugas sekolah adalah ...", p: ["Menyalin seluruh hasil AI tanpa membaca", "Menggunakan AI sebagai teman diskusi dan memverifikasi kebenaran faktanya", "Mengakui karya AI sepenuhnya sebagai buatan sendiri", "Menggunakan AI untuk menyebarkan berita bohong"], b: 1, bahas: "AI dapat mengalami halusinasi data, sehingga pengguna wajib memeriksa ulang faktanya." }
+        { q: "Sikap etis yang wajib diterapkan pelajar saat menggunakan AI generatif untuk tugas sekolah adalah ...", p: ["Menyalin seluruh hasil AI tanpa membaca", "Menggunakan AI sebagai teman diskusi dan memverifikasi faktanya", "Mengakui karya AI sepenuhnya sebagai buatan sendiri", "Menyebarkan berita bohong"], b: 1, bahas: "Pengguna wajib memeriksa ulang kebenaran informasi dari AI." }
       ],
       "sma-Kelas 10-Fisika-Bab 1: Pengukuran dalam Kerja Ilmiah": [
-        { q: "Besaran berikut yang termasuk kelompok besaran pokok dalam Sistem Internasional (SI) adalah ...", p: ["Kecepatan, massa, waktu", "Panjang, massa, waktu", "Luas, volume, suhu", "Gaya, usaha, daya"], b: 1, bahas: "Panjang (m), massa (kg), dan waktu (s) adalah besaran pokok SI." },
-        { q: "Alat ukur panjang yang memiliki tingkat ketelitian hingga 0,01 mm adalah ...", p: ["Mistar", "Jangka sorong", "Mikrometer sekrup", "Meteran gulung"], b: 2, bahas: "Mikrometer sekrup memiliki ketelitian 0,01 mm, lebih teliti dari jangka sorong (0,1 mm)." }
+        { q: "Besaran berikut yang termasuk kelompok besaran pokok dalam Sistem Internasional (SI) adalah ...", p: ["Kecepatan, massa, waktu", "Panjang, massa, waktu", "Luas, volume, suhu", "Gaya, usaha, daya"], b: 1, bahas: "Panjang (m), massa (kg), dan waktu (s) adalah besaran pokok SI." }
       ],
       "sma-Kelas 10-Informatika & KKA-Bab 2: Konsep Dasar Kecerdasan Artifisial": [
-        { q: "Cabang kecerdasan artifisial yang memungkinkan komputer belajar dari pola data tanpa diprogram secara eksplisit disebut ...", p: ["Machine Learning", "Cloud Storage", "Cyber Security", "Operating System"], b: 0, bahas: "Machine Learning (Pembelajaran Mesin) melatih model menggunakan data historis." },
-        { q: "Teknik memecah masalah kompleks menjadi bagian-bagian kecil yang lebih mudah dikelola dalam berpikir komputasional disebut ...", p: ["Abstraksi", "Dekomposisi", "Pengenalan pola", "Evaluasi"], b: 1, bahas: "Dekomposisi berarti menguraikan masalah besar menjadi sub-masalah kecil." }
+        { q: "Cabang kecerdasan artifisial yang memungkinkan komputer belajar dari pola data tanpa diprogram secara eksplisit disebut ...", p: ["Machine Learning", "Cloud Storage", "Cyber Security", "Operating System"], b: 0, bahas: "Machine Learning melatih model menggunakan data historis." }
       ],
       "sma-Kelas 11-Biologi-Bab 1: Menjelajah Sel": [
-        { q: "Organel sel yang berfungsi sebagai tempat respirasi seluler dan penghasil energi (ATP) adalah ...", p: ["Ribosom", "Mitokondria", "Lisosom", "Badan Golgi"], b: 1, bahas: "Mitokondria dijuluki 'the powerhouse of cell' karena menghasilkan energi ATP." },
-        { q: "Perbedaan utama antara sel tumbuhan dan sel hewan adalah sel tumbuhan memiliki ...", p: ["Membran sel dan sitoplasma", "Dinding sel dan kloroplas", "Inti sel dan ribosom", "Mitokondria dan retikulum endoplasma"], b: 1, bahas: "Sel tumbuhan memiliki dinding sel dari selulosa dan kloroplas untuk fotosintesis." }
+        { q: "Organel sel yang berfungsi sebagai tempat respirasi seluler dan penghasil energi (ATP) adalah ...", p: ["Ribosom", "Mitokondria", "Lisosom", "Badan Golgi"], b: 1, bahas: "Mitokondria menghasilkan energi ATP bagi sel." }
       ],
       "umum": [
         { q: "Dalam Kurikulum Merdeka, projek penguatan karakter pelajar dikenal dengan istilah ...", p: ["Ujian Nasional", "Kokurikuler & Profil Pelajar Pancasila", "Bimbingan Belajar", "Ekstrakurikuler Wajib"], b: 1, bahas: "Penguatan karakter berfokus pada dimensi Profil Pelajar Pancasila." },
-        { q: "Kemampuan memahami, mengevaluasi, dan menggunakan informasi digital secara bijak disebut ...", p: ["Literasi Digital", "Pemrograman", "Desain Grafis", "Jaringan Lokal"], b: 0, bahas: "Literasi digital mencakup kecakapan, etika, budaya, dan keamanan di ruang digital." }
+        { q: "Kemampuan memahami, mengevaluasi, dan menggunakan informasi digital secara bijak disebut ...", p: ["Literasi Digital", "Pemrograman", "Desain Grafis", "Jaringan Lokal"], b: 0, bahas: "Literasi digital mencakup kecakapan, etika, budaya, dan keamanan digital." }
       ]
     };
-
     let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0;
     let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "" };
 
@@ -148,10 +119,20 @@
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
+    function ambilBankSoalGabungan() {
+      const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
+      const gabungan = {};
+      for (const k in bankSoal) gabungan[k] = [...bankSoal[k]];
+      for (const k in tambahan) {
+        if (!gabungan[k]) gabungan[k] = [];
+        gabungan[k] = gabungan[k].concat(tambahan[k]);
+      }
+      return gabungan;
+    }
+
     function bukaMenu(menu) {
       clearInterval(timer);
       document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.dataset.menu === menu));
-
       if (menu === "home") {
         title().innerText = "RIM CBT";
         app().innerHTML = `
@@ -171,9 +152,11 @@
         app().innerHTML = `
           <div class="form-box">
             <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Kelola hasil ujian siswa, unduh laporan PDF, atau bersihkan data rekap.</p>
+            <p style="font-size:0.84rem; color:#64748b;">Tambah soal ujian, kelola hasil nilai siswa, atau unduh laporan PDF.</p>
           </div>
           <div class="list-menu">
+            <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Baru</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>📚 Kelola Soal Tambahan</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('rekap')"><span>📊 Lihat Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🗑️ Hapus Semua Rekap Nilai</span><span>➔</span></div>
@@ -182,7 +165,7 @@
       }
     }
 
-          function pilihKelas(jenjang) {
+    function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
       title().innerText = d.judul;
       sesi.jenjang = jenjang;
@@ -210,12 +193,9 @@
           <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
           <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
           <p style="font-size:0.84rem; color:#64748b; margin-bottom:16px;">Materi: <b>${esc(bab)}</b></p>
-          <label>Nama Lengkap</label>
-          <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
-          <label>Asal Sekolah</label>
-          <input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
-          <label>Kelas Spesifik</label>
-          <input type="text" id="inp-kelas" placeholder="Contoh: 7A">
+          <label>Nama Lengkap</label><input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
+          <label>Asal Sekolah</label><input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
+          <label>Kelas Spesifik</label><input type="text" id="inp-kelas" placeholder="Contoh: 7A">
           <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian Sekarang</button>
         </div>`;
     }
@@ -225,11 +205,9 @@
       const sekolah = document.getElementById("inp-sekolah").value.trim();
       const kelas = document.getElementById("inp-kelas").value.trim();
       if (!nama || !sekolah || !kelas) return alert("Harap lengkapi identitas peserta terlebih dahulu!");
-
       sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
-      const kunciSpesifik = `${sesi.jenjang}-${sesi.tingkat}-${sesi.mapel}-${sesi.bab}`;
-      soalList = bankSoal[kunciSpesifik] || bankSoal["umum"];
-
+      const semuaSoal = ambilBankSoalGabungan();
+      soalList = semuaSoal[`${sesi.jenjang}-${sesi.tingkat}-${sesi.mapel}-${sesi.bab}`] || semuaSoal["umum"];
       idxSoal = 0; skor = 0; riwayat = []; sisaWaktu = WAKTU_KUIS;
       clearInterval(timer);
       timer = setInterval(() => {
@@ -265,14 +243,12 @@
       idxSoal++;
       idxSoal < soalList.length ? renderSoal() : selesaiKuis();
     }
-
     function selesaiKuis() {
       clearInterval(timer);
       const nilai = Math.round((skor / soalList.length) * 100);
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       rekap.push({ tgl: new Date().toLocaleDateString("id-ID"), nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: sesi.mapel, nilai });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
-
       app().innerHTML = `
         <div class="form-box" style="text-align:center; padding:28px 20px;">
           <span class="hero-badge" style="background:#eef2ff; color:#4f46e5;">HASIL UJIAN</span>
@@ -293,39 +269,70 @@
         </div>`;
     }
 
+    function updateDropdownAdmin() {
+      const jenjang = document.getElementById("adm-jenjang").value;
+      document.getElementById("adm-kelas").innerHTML = dataPendidikan[jenjang].kelas.map(k => `<option value="${k}">${k}</option>`).join("");
+      document.getElementById("adm-mapel").innerHTML = dataPendidikan[jenjang].mapel.map(m => `<option value="${m}">${m}</option>`).join("");
+      updateBabAdmin();
+    }
+
+    function updateBabAdmin() {
+      const jenjang = document.getElementById("adm-jenjang").value;
+      const kelas = document.getElementById("adm-kelas").value;
+      const mapel = document.getElementById("adm-mapel").value;
+      const list = dataBab[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Evaluasi Kurikulum Merdeka"];
+      document.getElementById("adm-bab").innerHTML = list.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
+    }
+
+    function simpanSoalBaru() {
+      const jenjang = document.getElementById("adm-jenjang").value;
+      const kelas = document.getElementById("adm-kelas").value;
+      const mapel = document.getElementById("adm-mapel").value;
+      const bab = document.getElementById("adm-bab").value;
+      const q = document.getElementById("adm-q").value.trim();
+      const pA = document.getElementById("adm-pa").value.trim();
+      const pB = document.getElementById("adm-pb").value.trim();
+      const pC = document.getElementById("adm-pc").value.trim();
+      const pD = document.getElementById("adm-pd").value.trim();
+      const b = parseInt(document.getElementById("adm-kunci").value, 10);
+      const bahas = document.getElementById("adm-bahas").value.trim() || "Sesuai konsep materi pada bab ini.";
+      if (!q || !pA || !pB || !pC || !pD) return alert("Harap isi pertanyaan dan keempat pilihan jawaban!");
+
+      const kunci = `${jenjang}-${kelas}-${mapel}-${bab}`;
+      const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
+      if (!tambahan[kunci]) tambahan[kunci] = [];
+      tambahan[kunci].push({ q, p: [pA, pB, pC, pD], b, bahas });
+      localStorage.setItem("rim_soal_custom", JSON.stringify(tambahan));
+      alert("✅ Soal baru berhasil ditambahkan!");
+      ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas"].forEach(id => document.getElementById(id).value = "");
+    }
+
     function unduhPDF() {
       const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
-
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-
       doc.setFontSize(16);
       doc.setTextColor(79, 70, 229);
       doc.text("REKAPITULASI NILAI UJIAN - RIM CBT", 14, 18);
-
       doc.setFontSize(10);
       doc.setTextColor(100, 116, 139);
       doc.text("Dicetak pada: " + new Date().toLocaleString("id-ID"), 14, 25);
-
-      const barisTabel = data.map((d, i) => [i + 1, d.nama, d.sekolah, d.kelas, d.mapel, d.nilai]);
-
       doc.autoTable({
         startY: 32,
         head: [["No", "Nama Siswa", "Asal Sekolah", "Kelas", "Mata Pelajaran", "Nilai"]],
-        body: barisTabel,
+        body: data.map((d, i) => [i + 1, d.nama, d.sekolah, d.kelas, d.mapel, d.nilai]),
         theme: "grid",
         headStyles: { fillColor:, textColor: 255, fontStyle: "bold" },
         styles: { fontSize: 9, cellPadding: 3 }
       });
-
       doc.save("Rekap_Nilai_RIM_CBT.pdf");
     }
 
     function hapusRekapNilai() {
       const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       if (data.length === 0) return alert("Data rekap nilai sudah kosong.");
-      if (confirm("Yakin ingin menghapus seluruh data rekap nilai siswa? Tindakan ini tidak bisa dibatalkan.")) {
+      if (confirm("Yakin ingin menghapus seluruh data rekap nilai siswa?")) {
         localStorage.removeItem("rim_rekap");
         alert("Seluruh rekap nilai berhasil dihapus!");
         bukaMenu("saya");
@@ -335,16 +342,40 @@
     function bukaAdmin(aksi) {
       const pin = prompt("Masukkan PIN Admin (Default: 123456):");
       if (pin !== (localStorage.getItem("rim_pin") || PIN_DEFAULT)) return alert("PIN Salah!");
-      if (aksi === "rekap") {
+      if (aksi === "tambah-soal") {
+        app().innerHTML = `
+          <div class="form-box">
+            <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
+            <h3 style="font-size:1.05rem; margin-bottom:12px;">➕ Tambah Bank Soal Baru</h3>
+            <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
+            <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
+            <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
+            <label>Bab Materi</label><select id="adm-bab"></select>
+            <label>Pertanyaan</label><textarea id="adm-q" rows="3" placeholder="Tulis pertanyaan..."></textarea>
+            <label>Pilihan A</label><input type="text" id="adm-pa" placeholder="Jawaban A">
+            <label>Pilihan B</label><input type="text" id="adm-pb" placeholder="Jawaban B">
+            <label>Pilihan C</label><input type="text" id="adm-pc" placeholder="Jawaban C">
+            <label>Pilihan D</label><input type="text" id="adm-pd" placeholder="Jawaban D">
+            <label>Kunci Jawaban</label><select id="adm-kunci"><option value="0">Pilihan A</option><option value="1">Pilihan B</option><option value="2">Pilihan C</option><option value="3">Pilihan D</option></select>
+            <label>Pembahasan</label><input type="text" id="adm-bahas" placeholder="Penjelasan singkat">
+            <button type="button" class="btn-primary" onclick="simpanSoalBaru()">💾 Simpan Soal</button>
+          </div>`;
+        updateDropdownAdmin();
+      } else if (aksi === "kelola-soal") {
+        const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
+        const keys = Object.keys(tambahan);
+        let html = keys.length === 0 ? "<p style='color:#64748b; font-size:0.9rem; margin-top:10px;'>Belum ada soal tambahan.</p>" : "";
+        keys.forEach(k => tambahan[k].forEach((s, i) => html += `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.86rem;"><small style="color:#4f46e5; font-weight:700;">${esc(k)}</small><br><b>${i + 1}. ${esc(s.q)}</b></div>`));
+        app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📚 Daftar Soal Tambahan</h3>${html}` +
+          (keys.length ? `<button class="btn-danger" onclick="if(confirm('Hapus semua soal tambahan?')){localStorage.removeItem('rim_soal_custom');bukaMenu('saya');}">🗑️ Hapus Semua Soal Tambahan</button>` : "") + `</div>`;
+      } else if (aksi === "rekap") {
         const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
         app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📊 Rekap Nilai Peserta</h3>` +
           (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Mapel: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
           `<button class="btn-pdf" onclick="unduhPDF()">📄 Download Rekap Nilai (PDF)</button><button class="btn-danger" onclick="hapusRekapNilai()">🗑️ Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
-      } else if (aksi === "pdf") {
-        unduhPDF();
-      } else if (aksi === "hapus") {
-        hapusRekapNilai();
-      } else if (aksi === "pin") {
+      } else if (aksi === "pdf") { unduhPDF(); }
+      else if (aksi === "hapus") { hapusRekapNilai(); }
+      else if (aksi === "pin") {
         const baru = prompt("Masukkan PIN baru (min 4 karakter):");
         if (baru && baru.length >= 4) { localStorage.setItem("rim_pin", baru); alert("PIN Admin berhasil diperbarui!"); }
       }
