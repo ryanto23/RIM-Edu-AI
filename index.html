@@ -3,35 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RIM Edu AI</title>
+  <title>RIM CBT - Sistem Ujian & Latihan</title>
+  <link href="https://googleapis.com" rel="stylesheet">
+  <script src="https://cloudflare.com"></script>
+  <script src="https://cloudflare.com"></script>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-    body { background: #f1f5f9; color: #1e293b; padding-bottom: 80px; }
-    header { background: #2563eb; color: #fff; padding: 16px; text-align: center; font-weight: bold; font-size: 1.2rem; position: sticky; top: 0; z-index: 10; }
-    #app-content { max-width: 600px; margin: 16px auto; padding: 0 16px; }
-    .hero-card { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; padding: 22px 18px; border-radius: 12px; margin-bottom: 14px; }
-    .hero-card h2 { margin-bottom: 8px; font-size: 1.35rem; }
-    .hero-card p { font-size: 0.9rem; line-height: 1.5; }
-    .form-box { background: #fff; padding: 16px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-    .quote-box { background: #fff; border-left: 4px solid #f59e0b; padding: 14px 16px; border-radius: 10px; margin-bottom: 12px; }
-    .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.5; margin-bottom: 4px; }
-    .quote-box small { color: #64748b; font-weight: bold; }
-    .btn-primary { background: #f59e0b; color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; width: 100%; }
-    .btn-back { background: #e2e8f0; color: #334155; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 10px; font-weight: bold; }
-    input { width: 100%; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; }
-    label { font-size: 0.85rem; font-weight: bold; }
-    .list-menu { display: flex; flex-direction: column; gap: 8px; }
-    .list-item { background: #fff; padding: 14px 16px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid #cbd5e1; font-size: 0.95rem; }
-    .list-item:hover { border-color: #2563eb; background: #eff6ff; }
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; border-top: 1px solid #cbd5e1; padding: 8px 0; z-index: 20; }
-    .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #64748b; cursor: pointer; }
-    .nav-item.active { color: #2563eb; font-weight: bold; }
-    .nav-item span { font-size: 1.2rem; }
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #3730a3;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg); color: var(--text-main); padding-bottom: 95px; }
+
+    header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: var(--primary);
+      padding: 16px 20px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.5px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--border);
+    }
+
+    #app-content { max-width: 560px; margin: 20px auto; padding: 0 16px; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .hero-card {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: #fff;
+      padding: 26px 22px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: ""; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px;
+      background: rgba(255, 255, 255, 0.1); border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 4px 10px;
+      border-radius: 20px; font-size: 0.72rem; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px;
+    }
+    .hero-card h2 { margin-bottom: 8px; font-size: 1.4rem; font-weight: 800; line-height: 1.3; }
+    .hero-card p { font-size: 0.9rem; line-height: 1.6; opacity: 0.92; }
+
+    .form-box {
+      background: var(--surface);
+      padding: 20px;
+      border-radius: 18px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    }
+    .quote-box {
+      background: var(--surface);
+      border-left: 4px solid var(--accent);
+      padding: 16px 18px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    }
+    .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.6; margin-bottom: 6px; }
+    .quote-box small { color: var(--text-muted); font-weight: 700; font-size: 0.78rem; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #4338ca);
+      color: #fff; border: none; padding: 14px; border-radius: 12px;
+      font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25); transition: transform 0.15s;
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-pdf {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #fff; border: none; padding: 12px 16px; border-radius: 12px;
+      font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 12px;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+    }
+    .btn-danger {
+      background: #fef2f2; color: #dc2626; border: 1.5px solid #fecaca;
+      padding: 11px 16px; border-radius: 12px; font-weight: 700;
+      cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px;
+    }
+    .btn-back {
+      background: #f1f5f9; color: #475569; border: none; padding: 7px 14px;
+      border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem;
+    }
+    input {
+      width: 100%; padding: 12px 14px; margin: 6px 0 16px; border: 1.5px solid var(--border);
+      border-radius: 12px; font-size: 0.95rem; background: #f8fafc; transition: 0.2s;
+    }
+    input:focus { outline: none; border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
+    label { font-size: 0.82rem; font-weight: 700; color: #334155; }
+
+    .list-menu { display: flex; flex-direction: column; gap: 10px; }
+    .list-item {
+      background: var(--surface); padding: 15px 18px; border-radius: 14px;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; border: 1.5px solid var(--border); font-size: 0.95rem;
+      font-weight: 600; color: var(--text-main); transition: all 0.15s ease;
+    }
+    .list-item:hover { border-color: var(--primary); background: #eef2ff; transform: translateY(-1px); }
+
+    .timer-badge {
+      background: #fef2f2; color: #dc2626; padding: 5px 12px;
+      border-radius: 20px; font-size: 0.85rem; font-weight: 800; border: 1px solid #fecaca;
+    }
+
+    .bottom-nav {
+      position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto;
+      background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px);
+      display: flex; justify-content: space-around; border: 1px solid var(--border);
+      border-radius: 20px; padding: 8px 4px; z-index: 30;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+    .nav-item {
+      background: none; border: none; display: flex; flex-direction: column;
+      align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+      cursor: pointer; padding: 6px 12px; border-radius: 14px; transition: 0.2s;
+    }
+    .nav-item.active { color: var(--primary); background: #eef2ff; font-weight: 800; }
+    .nav-item span { font-size: 1.2rem; margin-bottom: 2px; }
   </style>
 </head>
 <body>
 
-  <header id="header-title">RIM Edu AI</header>
+  <header id="header-title">RIM CBT</header>
   <main id="app-content"></main>
 
   <nav class="bottom-nav">
@@ -41,7 +152,6 @@
     <button type="button" class="nav-item" data-menu="sma" onclick="bukaMenu('sma')"><span>🎓</span>SMA</button>
     <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🔐</span>Admin</button>
   </nav>
-
   <script>
     const PIN_DEFAULT = "123456";
     const WAKTU_KUIS = 300;
@@ -82,11 +192,12 @@
       document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.dataset.menu === menu));
 
       if (menu === "home") {
-        title().innerText = "RIM Edu AI";
+        title().innerText = "RIM CBT";
         app().innerHTML = `
           <div class="hero-card">
-            <h2>Selamat Datang di RIM Edu AI</h2>
-            <p>Langkah kecil yang kamu lakukan hari ini untuk berlatih dan belajar adalah awal dari kesuksesan besar di masa depan. Tetap semangat dan teruslah berkembang!</p>
+            <span class="hero-badge">COMPUTER BASED TEST</span>
+            <h2>Selamat Datang di RIM CBT</h2>
+            <p>Langkah kecil yang kamu lakukan hari ini untuk berlatih dan menguji kemampuan adalah awal dari prestasi besar di masa depan. Tetap fokus dan percaya diri!</p>
           </div>
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
@@ -97,48 +208,53 @@
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
-          <div class="form-box"><h3>🔐 Area Admin</h3></div>
+          <div class="form-box">
+            <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3>
+            <p style="font-size:0.84rem; color:#64748b;">Kelola hasil ujian siswa, unduh laporan PDF, atau bersihkan data rekap.</p>
+          </div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaAdmin('rekap')"><span>📊 Lihat Rekap Nilai Siswa</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🗑️ Hapus Semua Rekap Nilai</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('pin')"><span>🔑 Ubah PIN Admin</span><span>➔</span></div>
           </div>`;
       }
     }
+
     function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
       title().innerText = d.judul;
       sesi.jenjang = jenjang;
-      app().innerHTML = `<div class="form-box"><h3>Pilih Kelas (${d.judul})</h3></div><div class="list-menu">` +
+      app().innerHTML = `<div class="form-box"><h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${d.judul}</p></div><div class="list-menu">` +
         d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function pilihMapel(jenjang, kelas) {
       sesi.tingkat = kelas;
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3>Pilih Mapel (${kelas})</h3></div><div class="list-menu">` +
+      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${kelas}</p></div><div class="list-menu">` +
         dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function pilihBab(jenjang, kelas, mapel) {
       sesi.mapel = mapel;
       const list = dataBab[`${jenjang}-${kelas}-${mapel}`] || ["Bab 1: Latihan Soal Umum"];
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3>Pilih Bab (${mapel})</h3></div><div class="list-menu">` +
+      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Materi Ujian</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
         list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
     }
-
     function formBiodata(bab) {
       sesi.bab = bab;
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
-          <h3>Data Diri Siswa</h3>
-          <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">Materi: <b>${esc(bab)}</b></p>
-          <label>Nama Lengkap:</label>
+          <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
+          <p style="font-size:0.84rem; color:#64748b; margin-bottom:16px;">Materi: <b>${esc(bab)}</b></p>
+          <label>Nama Lengkap</label>
           <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
-          <label>Asal Sekolah:</label>
+          <label>Asal Sekolah</label>
           <input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
-          <label>Kelas Spesifik:</label>
+          <label>Kelas Spesifik</label>
           <input type="text" id="inp-kelas" placeholder="Contoh: 7A">
-          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Mengerjakan Soal</button>
+          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian Sekarang</button>
         </div>`;
     }
 
@@ -146,11 +262,11 @@
       const nama = document.getElementById("inp-nama").value.trim();
       const sekolah = document.getElementById("inp-sekolah").value.trim();
       const kelas = document.getElementById("inp-kelas").value.trim();
-      if (!nama || !sekolah || !kelas) return alert("Lengkapi semua data diri dulu!");
+      if (!nama || !sekolah || !kelas) return alert("Harap lengkapi identitas peserta terlebih dahulu!");
 
       sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
       soalList = bankSoal[`${sesi.jenjang}-${sesi.tingkat}-${sesi.mapel}-${sesi.bab}`] || [];
-      if (soalList.length === 0) return alert("Soal bab ini belum tersedia di database.");
+      if (soalList.length === 0) return alert("Paket soal untuk materi ini belum tersedia.");
 
       idxSoal = 0; skor = 0; riwayat = []; sisaWaktu = WAKTU_KUIS;
       clearInterval(timer);
@@ -158,7 +274,7 @@
         sisaWaktu--;
         const t = document.getElementById("kuis-timer");
         if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
-        if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu habis!"); selesaiKuis(); }
+        if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu ujian habis!"); selesaiKuis(); }
       }, 1000);
       renderSoal();
     }
@@ -168,12 +284,14 @@
       const abjad = ["A", "B", "C", "D"];
       app().innerHTML = `
         <div class="form-box">
-          <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:12px;">
-            <span>Soal ${idxSoal + 1} / ${soalList.length}</span>
-            <span id="kuis-timer" style="color:#dc2626">⏱️ 5:00</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} dari ${soalList.length}</span>
+            <span id="kuis-timer" class="timer-badge">⏱️ 5:00</span>
           </div>
-          <p style="margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
-          ${s.p.map((pil, i) => `<button class="list-item" style="width:100%; margin-bottom:8px;" onclick="jawab(${i})"><span><b>${abjad[i]}.</b> ${esc(pil)}</span></button>`).join("")}
+          <p style="font-size:1rem; font-weight:600; margin-bottom:18px; line-height:1.6;">${esc(s.q)}</p>
+          <div class="list-menu">
+            ${s.p.map((pil, i) => `<button class="list-item" style="width:100%; text-align:left;" onclick="jawab(${i})"><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span></button>`).join("")}
+          </div>
         </div>`;
     }
 
@@ -190,26 +308,66 @@
       clearInterval(timer);
       const nilai = Math.round((skor / soalList.length) * 100);
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: sesi.mapel, nilai });
+      rekap.push({ tgl: new Date().toLocaleDateString("id-ID"), nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: sesi.mapel, nilai });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
 
       app().innerHTML = `
-        <div class="form-box" style="text-align:center;">
-          <h2>🎉 Selesai!</h2>
-          <p style="margin-top:6px;">Nilai <b>${esc(sesi.nama)}</b>:</p>
-          <h1 style="font-size:3rem; color:#2563eb; margin:10px 0;">${nilai}</h1>
-          <p style="font-size:0.85rem; color:#64748b;">Benar ${skor} dari ${soalList.length} soal</p>
-          <button class="btn-primary" style="margin-top:14px;" onclick="bukaMenu('home')">🏠 Ke Beranda</button>
+        <div class="form-box" style="text-align:center; padding:28px 20px;">
+          <span class="hero-badge" style="background:#eef2ff; color:#4f46e5;">HASIL UJIAN</span>
+          <h2 style="margin-top:8px;">Ujian Selesai!</h2>
+          <p style="margin-top:4px; color:#64748b; font-size:0.9rem;">Peserta: <b>${esc(sesi.nama)}</b></p>
+          <h1 style="font-size:3.5rem; font-weight:800; color:#4f46e5; margin:12px 0;">${nilai}</h1>
+          <p style="font-size:0.88rem; color:#64748b; margin-bottom:20px;">Jawaban Benar: <b>${skor}</b> dari <b>${soalList.length}</b> soal</p>
+          <button class="btn-primary" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
         </div>
-        <div class="form-box"><h3>📋 Pembahasan</h3>
+        <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:8px;">📋 Kunci & Pembahasan</h3>
           ${riwayat.map((r, i) => `
-            <div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.9rem;">
+            <div style="border-bottom:1px solid #e2e8f0; padding:12px 0; font-size:0.9rem; line-height:1.5;">
               <b>${i + 1}. ${esc(r.q)}</b><br>
-              <span style="color:${r.ok ? "#16a34a" : "#dc2626"}">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>
-              ${!r.ok ? `<span>Jawaban Benar: <b>${esc(r.b)}</b><br></span>` : ""}
-              <small style="color:#64748b">💡 ${esc(r.bahas)}</small>
+              <span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>
+              ${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}
+              <small style="color:#64748b; display:block; margin-top:4px;">💡 ${esc(r.bahas)}</small>
             </div>`).join("")}
         </div>`;
+    }
+
+    function unduhPDF() {
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(16);
+      doc.setTextColor(79, 70, 229);
+      doc.text("REKAPITULASI NILAI UJIAN - RIM CBT", 14, 18);
+
+      doc.setFontSize(10);
+      doc.setTextColor(100, 116, 139);
+      doc.text("Dicetak pada: " + new Date().toLocaleString("id-ID"), 14, 25);
+
+      const barisTabel = data.map((d, i) => [i + 1, d.nama, d.sekolah, d.kelas, d.mapel, d.nilai]);
+
+      doc.autoTable({
+        startY: 32,
+        head: [["No", "Nama Siswa", "Asal Sekolah", "Kelas", "Mata Pelajaran", "Nilai"]],
+        body: barisTabel,
+        theme: "grid",
+        headStyles: { fillColor:, textColor: 255, fontStyle: "bold" },
+        styles: { fontSize: 9, cellPadding: 3 }
+      });
+
+      doc.save("Rekap_Nilai_RIM_CBT.pdf");
+    }
+
+    function hapusRekapNilai() {
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      if (data.length === 0) return alert("Data rekap nilai sudah kosong.");
+      if (confirm("Yakin ingin menghapus seluruh data rekap nilai siswa? Tindakan ini tidak bisa dibatalkan.")) {
+        localStorage.removeItem("rim_rekap");
+        alert("Seluruh rekap nilai berhasil dihapus!");
+        bukaMenu("saya");
+      }
     }
 
     function bukaAdmin(aksi) {
@@ -217,11 +375,16 @@
       if (pin !== (localStorage.getItem("rim_pin") || PIN_DEFAULT)) return alert("PIN Salah!");
       if (aksi === "rekap") {
         const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-        app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3>📊 Rekap Nilai</h3>` +
-          (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:8px 0; font-size:0.85rem;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>${esc(d.mapel)} | Nilai: <b>${d.nilai}</b></div>`).join("") : "<p style='margin-top:10px; color:#64748b'>Belum ada data nilai.</p>") + `</div>`;
+        app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📊 Rekap Nilai Peserta</h3>` +
+          (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Mapel: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
+          `<button class="btn-pdf" onclick="unduhPDF()">📄 Download Rekap Nilai (PDF)</button><button class="btn-danger" onclick="hapusRekapNilai()">🗑️ Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
+      } else if (aksi === "pdf") {
+        unduhPDF();
+      } else if (aksi === "hapus") {
+        hapusRekapNilai();
       } else if (aksi === "pin") {
         const baru = prompt("Masukkan PIN baru (min 4 karakter):");
-        if (baru && baru.length >= 4) { localStorage.setItem("rim_pin", baru); alert("PIN berhasil diubah!"); }
+        if (baru && baru.length >= 4) { localStorage.setItem("rim_pin", baru); alert("PIN Admin berhasil diperbarui!"); }
       }
     }
 
