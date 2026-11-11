@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RIM Edu AI</title>
+  <title>RIM Edu</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
     body { background: #f1f5f9; color: #1e293b; padding-bottom: 80px; }
     header { background: #2563eb; color: #fff; padding: 16px; text-align: center; font-weight: bold; font-size: 1.2rem; position: sticky; top: 0; z-index: 10; }
     #app-content { max-width: 600px; margin: 16px auto; padding: 0 16px; }
-    .hero-card { background: #2563eb; color: #fff; padding: 20px; border-radius: 12px; margin-bottom: 16px; }
-    .hero-card p { font-size: 0.9rem; margin: 8px 0 14px; line-height: 1.4; }
+    .hero-card { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; padding: 24px 20px; border-radius: 12px; margin-bottom: 16px; box-shadow: 0 4px 10px rgba(37,99,235,0.2); }
+    .hero-card h2 { margin-bottom: 8px; font-size: 1.4rem; }
+    .hero-card p { font-size: 0.92rem; line-height: 1.5; opacity: 0.95; }
     .form-box { background: #fff; padding: 16px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .quote-box { background: #fff; border-left: 4px solid #f59e0b; padding: 16px; border-radius: 10px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .quote-box p { font-style: italic; color: #334155; font-size: 0.92rem; line-height: 1.5; margin-bottom: 6px; }
+    .quote-box small { color: #64748b; font-weight: bold; }
     .btn-primary { background: #f59e0b; color: #fff; border: none; padding: 12px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; }
     .btn-back { background: #e2e8f0; color: #334155; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 10px; font-weight: bold; }
-    input, textarea { width: 100%; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; }
+    input { width: 100%; padding: 10px; margin: 6px 0 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; }
     label { font-size: 0.85rem; font-weight: bold; }
-    .jenjang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0 16px; }
-    .jenjang-card { background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 14px 8px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
     .list-menu { display: flex; flex-direction: column; gap: 8px; }
     .list-item { background: #fff; padding: 14px 16px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid #cbd5e1; font-size: 0.95rem; }
     .list-item:hover { border-color: #2563eb; background: #eff6ff; }
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; border-top: 1px solid #cbd5e1; padding: 8px 0; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; display: flex; justify-content: space-around; border-top: 1px solid #cbd5e1; padding: 8px 0; z-index: 20; }
     .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #64748b; cursor: pointer; }
     .nav-item.active { color: #2563eb; font-weight: bold; }
     .nav-item span { font-size: 1.2rem; }
@@ -29,7 +31,7 @@
 </head>
 <body>
 
-  <header id="header-title">RIM Edu AI</header>
+  <header id="header-title">RIM Edu</header>
   <main id="app-content"></main>
 
   <nav class="bottom-nav">
@@ -92,22 +94,25 @@
       document.querySelectorAll(".nav-item").forEach(b => b.classList.toggle("active", b.dataset.menu === menu));
 
       if (menu === "home") {
-        title().innerText = "RIM Edu AI";
+        title().innerText = "RIM Edu";
         app().innerHTML = `
           <div class="hero-card">
-            <h2>RIM Edu AI</h2>
-            <p>Platform belajar cerdas dan bank soal interaktif Kurikulum Merdeka.</p>
-            <button type="button" class="btn-primary" onclick="bukaTanyaAI()">🤖 Tanya AI Sekarang</button>
+            <h2>Selamat Datang di RIM Edu 👋</h2>
+            <p>Langkah kecil yang kamu lakukan hari ini untuk berlatih dan belajar adalah awal dari kesuksesan besar di masa depan. Tetap semangat dan teruslah berkembang!</p>
           </div>
-          <h3>Pilih Jenjang Latihan Soal</h3>
-          <div class="jenjang-grid">
-            <button type="button" class="jenjang-card" onclick="bukaMenu('sd')"><span style="font-size:1.8rem">🎒</span><b>SD / MI</b><small>Kelas 1-6</small></button>
-            <button type="button" class="jenjang-card" onclick="bukaMenu('smp')"><span style="font-size:1.8rem">📘</span><b>SMP / MTs</b><small>Kelas 7-9</small></button>
-            <button type="button" class="jenjang-card" onclick="bukaMenu('sma')"><span style="font-size:1.8rem">🎓</span><b>SMA / SMK</b><small>Kelas 10-12</small></button>
+          <div class="quote-box">
+            <p>"Pendidikan adalah senjata paling mematikan di dunia, karena dengan pendidikan kamu dapat mengubah dunia."</p>
+            <small>— Nelson Mandela</small>
+          </div>
+          <div class="quote-box">
+            <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
+            <small>— Motivasi Belajar</small>
           </div>
           <div class="form-box">
-            <b>📌 Soal Tersedia untuk Uji Coba:</b>
-            <p style="font-size:0.85rem; color:#475569; margin-top:6px;">• <b>SD → Kelas 1 → Matematika → Bab 1</b><br>• <b>SMP → Kelas 7 → Matematika → Bab 1</b></p>
+            <h3 style="font-size:1rem; margin-bottom:6px;">📌 Cara Mulai Latihan</h3>
+            <p style="font-size:0.88rem; color:#475569; line-height:1.5;">
+              Silakan pilih jenjang pendidikanmu (<b>SD</b>, <b>SMP</b>, atau <b>SMA</b>) pada menu navigasi di bagian bawah layar untuk mulai mengerjakan latihan soal.
+            </p>
           </div>`;
       } else if (dataPendidikan[menu]) {
         pilihKelas(menu);
@@ -152,8 +157,8 @@
           <p style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">Materi: <b>${esc(bab)}</b></p>
           <label>Nama Lengkap:</label>
           <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
-          <label>Asal Sekolah:</label>
- class="list-menu">` +
+enjang = jenjang;
+      app().innerHTML = `<div class="form-box"><h3>Pilih Kelas (${d.judul})</h3></div><div class="list-menu">` +
         d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
@@ -196,7 +201,7 @@
       sesiSiswa.nama = nama; sesiSiswa.sekolah = sekolah; sesiSiswa.kelasInput = kelas;
       const kunci = `${sesiSiswa.jenjang}-${sesiSiswa.kelasTingkat}-${sesiSiswa.mapel}-${sesiSiswa.bab}`;
       soalAktifList = bankSoalBawaan[kunci] || [];
-      if (soalAktifList.length === 0) return alert("Soal bab ini belum tersedia. Coba SD Kelas 1 Matematika Bab 1 atau SMP Kelas 7 Matematika Bab 1.");
+      if (soalAktifList.length === 0) return alert("Soal bab ini belum tersedia di database.");
 
       soalSekarang = 0; skorTotal = 0; riwayatJawabanUser = []; waktuTersisa = DURASI_KUIS_DETIK;
       clearInterval(timerInterval);
@@ -258,70 +263,8 @@
         </div>`;
     }
 
-       function bukaTanyaAI() {
-      title().innerText = "Asisten AI";
-      const savedKey = localStorage.getItem("rim_gemini_key") || "";
-      app().innerHTML = `
-        <div class="form-box">
-          <button class="btn-back" onclick="bukaMenu('home')">⬅ Kembali</button>
-          <h3>🤖 Tanya Materi ke AI</h3>
-          <p style="font-size:0.85rem; color:#64748b; margin-bottom:10px;">
-            ${savedKey ? "✅ API Key Gemini aktif." : "⚠️ Masukkan Gemini API Key gratis Anda sekali saja di bawah ini:"}
-          </p>
-          <input type="password" id="ai-key" value="${esc(savedKey)}" placeholder="Tempel Gemini API Key di sini (AIzaSy...)" style="margin-bottom:10px;" />
-          <textarea id="ai-prompt" rows="3" placeholder="Contoh: Jelaskan cara menghitung keliling lingkaran beserta contohnya..."></textarea>
-          <button class="btn-primary" style="width:100%" onclick="kirimAI()">Kirim Pertanyaan</button>
-          <div id="ai-res" style="margin-top:14px; font-size:0.9rem; line-height:1.6;"></div>
-        </div>`;
-    }
-
-        async function kirimAI() {
-      const apiKey = document.getElementById("ai-key").value.trim();
-      const q = document.getElementById("ai-prompt").value.trim();
-      const box = document.getElementById("ai-res");
-
-      if (!apiKey) return alert("Tempelkan Gemini API Key Anda terlebih dahulu!");
-      if (!q) return alert("Tulis pertanyaan pelajaran dulu!");
-
-      localStorage.setItem("rim_gemini_key", apiKey);
-      box.innerHTML = "⏳ Sedang mengetik jawaban...";
-
-      try {
-        const res = await fetch("https://googleapis.com" + encodeURIComponent(apiKey), {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{ text: "Kamu adalah guru ramah di Indonesia. Jawab pertanyaan siswa berikut dengan bahasa Indonesia yang jelas dan mudah dipahami: " + q }]
-            }]
-          })
-        });
-
-        const data = await res.json();
-        
-        if (!res.ok) {
-          const pesanError = (data.error && data.error.message) ? data.error.message : "API Key ditolak oleh Google.";
-          throw new Error(pesanError);
-        }
-
-        // Mengambil jawaban dengan indeks array yang benar
-        let teks = "AI tidak memberikan jawaban.";
-        if (data.candidates && data.candidates.length > 0) {
-          const parts = data.candidates.content.parts;
-          if (parts && parts.length > 0) {
-            teks = parts.text;
-          }
-        }
-
-        box.innerHTML = `<div style="background:#f8fafc; border:1px solid #e2e8f0; padding:14px; border-radius:8px; white-space:pre-wrap;">${esc(teks)}</div>`;
-      } catch (e) {
-        box.innerHTML = `<div style="background:#fef2f2; border:1px solid #fecaca; padding:12px; border-radius:8px; color:#dc2626; font-size:0.88rem;"><b>⚠️ Detail Error:</b> ${esc(e.message)}</div>`;
-      }
-    }
-
-
     function bukaAdmin(aksi) {
-      const pin = prompt("Masukkan PIN Admin :");
+      const pin = prompt("Masukkan PIN Admin (Default: 123456):");
       if (pin !== (localStorage.getItem("rim_pin") || ADMIN_PIN_DEFAULT)) return alert("PIN Salah!");
       if (aksi === "rekap") {
         const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
