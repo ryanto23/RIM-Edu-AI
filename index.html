@@ -8,33 +8,31 @@
   <script src="https://cloudflare.com"></script>
   <script src="https://cloudflare.com"></script>
   <style>
-    :root { --primary: #4f46e5; --accent: #f59e0b; --bg: #f8fafc; --surface: #ffffff; --text-main: #0f172a; --text-muted: #64748b; --border: #e2e8f0; }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background: var(--bg); color: var(--text-main); padding-bottom: 95px; }
-    header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); color: var(--primary); padding: 16px 20px; text-align: center; font-weight: 800; font-size: 1.25rem; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--border); }
-    #app-content { max-width: 560px; margin: 20px auto; padding: 0 16px; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-    .hero-card { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: #fff; padding: 26px 22px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.35); }
-    .hero-badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; margin-bottom: 10px; }
-    .hero-card h2 { margin-bottom: 8px; font-size: 1.4rem; font-weight: 800; }
-    .hero-card p { font-size: 0.9rem; line-height: 1.6; opacity: 0.92; }
-    .form-box { background: var(--surface); padding: 20px; border-radius: 18px; margin-bottom: 14px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03); }
-    .quote-box { background: var(--surface); border-left: 4px solid var(--accent); padding: 16px 18px; border-radius: 14px; margin-bottom: 14px; }
-    .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.6; margin-bottom: 6px; }
-    .quote-box small { color: var(--text-muted); font-weight: 700; font-size: 0.78rem; }
-    .btn-primary { background: linear-gradient(135deg, #4f46e5, #4338ca); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
-    .btn-pdf { background: linear-gradient(135deg, #16a34a, #15803d); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 12px; }
-    .btn-danger { background: #fef2f2; color: #dc2626; border: 1.5px solid #fecaca; padding: 11px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
+    :root { --primary: #4f46e5; --accent: #f59e0b; --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 95px; }
+    header { background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); color: var(--primary); padding: 16px; text-align: center; font-weight: 800; font-size: 1.2rem; position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--border); }
+    #app-content { max-width: 560px; margin: 18px auto; padding: 0 16px; }
+    .hero-card { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; padding: 24px 20px; border-radius: 18px; margin-bottom: 14px; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; margin-bottom: 8px; }
+    .hero-card h2 { margin-bottom: 8px; font-size: 1.35rem; font-weight: 800; }
+    .hero-card p { font-size: 0.9rem; line-height: 1.5; opacity: 0.95; }
+    .form-box { background: var(--surface); padding: 18px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--border); }
+    .quote-box { background: var(--surface); border-left: 4px solid var(--accent); padding: 14px 16px; border-radius: 12px; margin-bottom: 14px; }
+    .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.5; margin-bottom: 4px; }
+    .quote-box small { color: var(--muted); font-weight: 700; font-size: 0.78rem; }
+    .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
+    .btn-pdf { background: #16a34a; color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 10px; }
+    .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
     .btn-back { background: #f1f5f9; color: #475569; border: none; padding: 7px 14px; border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem; }
     input, select, textarea { width: 100%; padding: 11px 13px; margin: 5px 0 14px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; background: #f8fafc; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); background: #fff; }
     label { font-size: 0.82rem; font-weight: 700; color: #334155; display: block; }
     .list-menu { display: flex; flex-direction: column; gap: 10px; }
-    .list-item { background: var(--surface); padding: 15px 18px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid var(--border); font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+    .list-item { background: var(--surface); padding: 14px 16px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid var(--border); font-size: 0.94rem; font-weight: 600; color: var(--text); }
     .list-item:hover { border-color: var(--primary); background: #eef2ff; }
-    .timer-badge { background: #fef2f2; color: #dc2626; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; border: 1px solid #fecaca; }
-    .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08); }
-    .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); cursor: pointer; padding: 6px 12px; border-radius: 14px; }
+    .timer-badge { background: #fef2f2; color: #dc2626; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; border: 1px solid #fecaca; }
+    .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255,255,255,0.95); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+    .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--muted); cursor: pointer; padding: 6px 12px; border-radius: 14px; }
     .nav-item.active { color: var(--primary); background: #eef2ff; font-weight: 800; }
     .nav-item span { font-size: 1.2rem; margin-bottom: 2px; }
   </style>
@@ -42,7 +40,6 @@
 <body>
   <header id="header-title">RIM CBT</header>
   <main id="app-content"></main>
-
   <nav class="bottom-nav">
     <button type="button" class="nav-item active" data-menu="home" onclick="bukaMenu('home')"><span>🏠</span>Beranda</button>
     <button type="button" class="nav-item" data-menu="sd" onclick="bukaMenu('sd')"><span>🎒</span>SD</button>
@@ -50,172 +47,156 @@
     <button type="button" class="nav-item" data-menu="sma" onclick="bukaMenu('sma')"><span>🎓</span>SMA</button>
     <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🔐</span>Admin</button>
   </nav>
-  <script>
+
+    <script>
     const PIN_DEFAULT = "123456";
     const WAKTU_KUIS = 600;
 
     const dataPendidikan = {
-      sd: {
-        judul: "Sekolah Dasar (SD)",
-        kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"],
-        mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"]
-      },
-      smp: {
-        judul: "Sekolah Menengah Pertama (SMP)",
-        kelas: ["Kelas 7", "Kelas 8", "Kelas 9"],
-        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"]
-      },
-      sma: {
-        judul: "SMA / SMK",
-        kelas: ["Kelas 10", "Kelas 11", "Kelas 12"],
-        mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"]
-      }
+      sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
+      smp: { judul: "Sekolah Menengah Pertama (SMP)", kelas: ["Kelas 7", "Kelas 8", "Kelas 9"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"] },
+      sma: { judul: "SMA / SMK", kelas: ["Kelas 10", "Kelas 11", "Kelas 12"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"] }
     };
 
-    const babDefaultPerMapel = {
-      "Matematika": ["Bab 1: Bilangan & Operasi Hitung", "Bab 2: Aljabar, Pengukuran & Geometri", "Bab 3: Statistika & Peluang"],
-      "Bahasa Indonesia": ["Bab 1: Memahami Teks & Gagasan Utama", "Bab 2: Kaidah Kebahasaan & Ejaan (EYD V)", "Bab 3: Teks Argumentasi & Karya Sastra"],
-      "Bahasa Inggris": ["Bab 1: Daily Communication & Vocabulary", "Bab 2: Grammar & Tenses in Context", "Bab 3: Reading Comprehension & Functional Text"],
-      "IPAS": ["Bab 1: Makhluk Hidup & Ekosistem", "Bab 2: Wujud Zat, Energi & Gaya", "Bab 3: Keragaman Budaya & Geografi Indonesia"],
-      "IPA": ["Bab 1: Metode Ilmiah & Pengukuran", "Bab 2: Klasifikasi Materi & Perubahan Zat", "Bab 3: Sistem Organ, Gerak & Energi"],
-      "IPS": ["Bab 1: Interaksi Sosial & Lembaga Masyarakat", "Bab 2: Kondisi Geografis & Sumber Daya Alam", "Bab 3: Kegiatan Ekonomi & Sejarah Perjuangan"],
-      "Pendidikan Pancasila": ["Bab 1: Nilai-Nilai Pancasila dalam Kehidupan", "Bab 2: Norma, UUD NRI 1945 & Hak Warga Negara", "Bab 3: Bhinneka Tunggal Ika & Keutuhan NKRI"],
-      "Koding & Kecerdasan Artifisial": ["Bab 1: Berpikir Komputasional & Logika Algoritma", "Bab 2: Pengenalan Kecerdasan Artifisial (AI)", "Bab 3: Etika Digital & Keamanan Data"],
-      "Informatika & KKA": ["Bab 1: Algoritma, Struktur Data & Pemrograman", "Bab 2: Konsep Machine Learning & AI Generatif", "Bab 3: Dampak Sosial Informatika & Keamanan Siber"],
-      "Fisika": ["Bab 1: Pengukuran, Vektor & Kinematika", "Bab 2: Dinamika Gerak, Usaha & Energi", "Bab 3: Suhu, Kalor, Gelombang & Listrik"],
-      "Kimia": ["Bab 1: Struktur Atom & Sistem Periodik Unsur", "Bab 2: Ikatan Kimia & Stoikiometri", "Bab 3: Larutan Asam-Basa & Termokimia"],
-      "Biologi": ["Bab 1: Keanekaragaman Hayati & Ekologi", "Bab 2: Struktur Sel & Sistem Organ Manusia", "Bab 3: Metabolisme, Genetika & Evolusi"],
-      "Ekonomi": ["Bab 1: Konsep Dasar Ilmu Ekonomi & Kelangkaan", "Bab 2: Permintaan, Penawaran & Pasar", "Bab 3: Kebijakan Moneter, Fiskal & Akuntansi"]
+    const babDefault = {
+      "Matematika": ["Bab 1: Bilangan & Operasi Hitung", "Bab 2: Aljabar & Geometri", "Bab 3: Statistika & Peluang"],
+      "Bahasa Indonesia": ["Bab 1: Gagasan Utama & Teks", "Bab 2: Kaidah EYD V", "Bab 3: Argumentasi & Sastra"],
+      "Bahasa Inggris": ["Bab 1: Daily Communication", "Bab 2: Grammar & Tenses", "Bab 3: Reading Comprehension"],
+      "IPAS": ["Bab 1: Makhluk Hidup & Ekosistem", "Bab 2: Wujud Zat & Energi", "Bab 3: Geografi & Budaya"],
+      "IPA": ["Bab 1: Metode Ilmiah & Pengukuran", "Bab 2: Zat & Perubahannya", "Bab 3: Sistem Organ & Energi"],
+      "IPS": ["Bab 1: Interaksi Sosial", "Bab 2: Sumber Daya Alam", "Bab 3: Kegiatan Ekonomi"],
+      "Pendidikan Pancasila": ["Bab 1: Nilai Pancasila", "Bab 2: Norma & UUD 1945", "Bab 3: Bhinneka Tunggal Ika"],
+      "Koding & Kecerdasan Artifisial": ["Bab 1: Berpikir Komputasional", "Bab 2: Mengenal AI", "Bab 3: Etika Digital"],
+      "Informatika & KKA": ["Bab 1: Algoritma & Pemrograman", "Bab 2: Machine Learning & AI", "Bab 3: Keamanan Siber"],
+      "Fisika": ["Bab 1: Pengukuran & Vektor", "Bab 2: Gerak, Usaha & Energi", "Bab 3: Kalor, Gelombang & Listrik"],
+      "Kimia": ["Bab 1: Struktur Atom", "Bab 2: Ikatan Kimia", "Bab 3: Asam-Basa & Termokimia"],
+      "Biologi": ["Bab 1: Keanekaragaman Hayati", "Bab 2: Sel & Sistem Organ", "Bab 3: Metabolisme & Genetika"],
+      "Ekonomi": ["Bab 1: Ilmu Ekonomi & Kelangkaan", "Bab 2: Permintaan & Penawaran", "Bab 3: Kebijakan Moneter & Fiskal"]
     };
-    const bankTemplateMapel = {
+
+          const bankSoalMapel = {
       "Bahasa Indonesia": [
-        { q: "Kalimat utama yang memuat inti pembicaraan dalam sebuah paragraf disebut ...", p: ["Gagasan pokok", "Kalimat penjelas", "Kata penghubung", "Judul bacaan"], b: 0, bahas: "Gagasan pokok adalah ide utama yang menjadi dasar pengembangan paragraf." },
-        { q: "Penulisan huruf kapital yang tepat sesuai EYD Edisi V adalah ...", p: ["Ibu membeli jeruk Bali di pasar.", "Adik sedang belajar bahasa inggris.", "Mereka berlibur ke Danau Toba.", "Paman bekerja di pulau jawa."], b: 2, bahas: "Nama geografi yang diikuti nama diri (Danau Toba) ditulis dengan huruf kapital." },
-        { q: "Teks yang bertujuan meyakinkan pembaca dengan disertai data dan fakta logis disebut teks ...", p: ["Narasi", "Deskripsi", "Argumentasi", "Prosedur"], b: 2, bahas: "Teks argumentasi berisi pendapat yang diperkuat bukti dan alasan logis." },
-        { q: "Sinonim dari kata 'inovatif' dalam konteks teknologi pendidikan adalah ...", p: ["Kuno", "Pembaruan", "Membosankan", "Statis"], b: 1, bahas: "Inovatif bermakna bersifat memperkenalkan sesuatu yang baru (pembaruan)." },
-        { q: "Imbuhan 'me-' jika bertemu dengan kata dasar 'sapu' akan luluh menjadi ...", p: ["Mensapu", "Menyapu", "Mesapu", "Mengsapu"], b: 1, bahas: "Kata dasar berawalan huruf 's' yang diikuti vokal luluh menjadi 'meny-'." },
-        { q: "Bagian akhir dari sebuah teks cerita (narasi) yang berisi penyelesaian masalah disebut ...", p: ["Orientasi", "Komplikasi", "Resolusi", "Koda"], b: 2, bahas: "Resolusi merupakan tahap penyelesaian konflik dalam struktur teks narasi." },
-        { q: "Kata baku yang sesuai dengan Kamus Besar Bahasa Indonesia (KBBI) adalah ...", p: ["Apotik", "Praktek", "Aktivitas", "Analisa"], b: 2, bahas: "Bentuk baku yang benar adalah Aktivitas, Apotek, Praktik, dan Analisis." },
-        { q: "Majas yang mengumpamakan benda mati seolah-olah dapat bertingkah laku seperti manusia disebut ...", p: ["Hiperbola", "Personifikasi", "Metafora", "Simile"], b: 1, bahas: "Personifikasi memberikan sifat insani pada benda mati, contoh: 'Angin berbisik'." },
-        { q: "Tanda baca yang digunakan untuk mengapit petikan langsung dalam dialog adalah ...", p: ["Tanda kurung (...)", "Tanda petik (\"...\")", "Tanda titik koma (;)", "Tanda hubung (-)"], b: 1, bahas: "Tanda petik ganda digunakan untuk menandai kutipan langsung dari pembicara." },
-        { q: "Langkah pertama dalam menyusun ringkasan sebuah buku atau artikel adalah ...", p: ["Menulis kesimpulan langsung", "Membaca naskah asli secara keseluruhan", "Menghitung jumlah halaman", "Mengubah judul bacaan"], b: 1, bahas: "Membaca keseluruhan naskah diperlukan untuk menangkap kesan umum dan gagasan utama." },
-        { q: "Kata penghubung (konjungsi) yang menyatakan hubungan sebab-akibat adalah ...", p: ["Tetapi", "Sehingga", "Sedangkan", "Atau"], b: 1, bahas: "Kata 'sehingga' atau 'karena' menunjukkan hubungan kausalitas (sebab-akibat)." },
-        { q: "Pesan moral yang ingin disampaikan pengarang kepada pembaca melalui karya sastra disebut ...", p: ["Alur", "Latar", "Amanat", "Penokohan"], b: 2, bahas: "Amanat adalah pesan kebaikan atau pelajaran hidup di balik sebuah cerita." }
+        { q: "Inti pembicaraan dalam sebuah paragraf disebut ...", p: ["Gagasan pokok", "Kalimat penjelas", "Konjungsi", "Judul"], b: 0, bahas: "Gagasan pokok adalah ide utama paragraf." },
+        { q: "Penulisan huruf kapital yang benar sesuai EYD V adalah ...", p: ["jeruk Bali", "bahasa inggris", "Danau Toba", "pulau jawa"], b: 2, bahas: "Nama geografi diikuti nama diri ditulis kapital." },
+        { q: "Teks yang bertujuan meyakinkan pembaca dengan data logis disebut ...", p: ["Narasi", "Deskripsi", "Argumentasi", "Prosedur"], b: 2, bahas: "Argumentasi berisi pendapat disertai bukti." },
+        { q: "Sinonim kata 'inovatif' adalah ...", p: ["Kuno", "Pembaruan", "Statis", "Lama"], b: 1, bahas: "Inovatif bermakna pembaruan." },
+        { q: "Imbuhan 'me-' + 'sapu' menjadi ...", p: ["Mensapu", "Menyapu", "Mesapu", "Mengsapu"], b: 1, bahas: "Huruf 's' luluh menjadi 'meny-'." },
+        { q: "Bagian akhir teks narasi yang berisi penyelesaian masalah disebut ...", p: ["Orientasi", "Komplikasi", "Resolusi", "Koda"], b: 2, bahas: "Resolusi adalah penyelesaian konflik." },
+        { q: "Kata baku sesuai KBBI adalah ...", p: ["Apotik", "Praktek", "Aktivitas", "Analisa"], b: 2, bahas: "Aktivitas adalah bentuk baku yang tepat." },
+        { q: "Majas yang mengumpamakan benda mati seperti manusia disebut ...", p: ["Hiperbola", "Personifikasi", "Metafora", "Simile"], b: 1, bahas: "Personifikasi memberi sifat manusia pada benda." },
+        { q: "Tanda baca untuk mengapit petikan langsung adalah ...", p: ["Kurung (...)", "Petik (\"...\")", "Titik koma (;)", "Hubung (-)"], b: 1, bahas: "Tanda petik menandai kutipan langsung." },
+        { q: "Langkah awal menyusun ringkasan adalah ...", p: ["Menulis kesimpulan", "Membaca naskah asli secara utuh", "Menghitung halaman", "Mengubah judul"], b: 1, bahas: "Membaca utuh menangkap gagasan utama." },
+        { q: "Konjungsi yang menyatakan hubungan sebab-akibat adalah ...", p: ["Tetapi", "Sehingga", "Sedangkan", "Atau"], b: 1, bahas: "Kata 'sehingga' menunjukkan akibat." },
+        { q: "Pesan moral dalam karya sastra disebut ...", p: ["Alur", "Latar", "Amanat", "Tokoh"], b: 2, bahas: "Amanat adalah pesan kebaikan cerita." }
       ],
       "Bahasa Inggris": [
-        { q: "Choose the correct response: 'How are you doing today?'", p: ["I am twelve years old.", "I am doing great, thank you.", "I live in Surabaya.", "My name is Budi."], b: 1, bahas: "'How are you doing?' menanyakan kabar, dijawab dengan 'I am doing great, thank you.'" },
-        { q: "She ... to school by bicycle every morning.", p: ["go", "goes", "going", "went"], b: 1, bahas: "Subject 'She' pada Simple Present Tense menggunakan kata kerja berakhiran -es (goes)." },
-        { q: "What is the English translation of 'Perpustakaan'?", p: ["Laboratory", "Canteen", "Library", "Classroom"], b: 2, bahas: "Library berarti perpustakaan." },
-        { q: "They ... football in the yard yesterday afternoon.", p: ["play", "plays", "played", "playing"], b: 2, bahas: "Keterangan waktu 'yesterday' menandakan Simple Past Tense (verb-2: played)." },
-        { q: "Look at the clouds! It ... rain soon.", p: ["is going to", "was", "did", "have"], b: 0, bahas: "'Be going to' digunakan untuk memprediksi kejadian berdasarkan bukti yang terlihat." },
-        { q: "Which word is an adjective (kata sifat)?", p: ["Quickly", "Diligent", "Teacher", "Write"], b: 1, bahas: "Diligent (rajin) adalah kata sifat (adjective)." },
-        { q: "My brother is ... than me.", p: ["tall", "taller", "tallest", "most tall"], b: 1, bahas: "Perbandingan dua hal (comparative) menggunakan akhiran -er (taller than)." },
-        { q: "We must keep our environment clean. The underlined word 'must' expresses ...", p: ["Ability", "Obligation", "Permission", "Past habit"], b: 1, bahas: "'Must' menyatakan keharusan/kewajiban (obligation)." },
-        { q: "What does 'No Littering' mean on a public sign?", p: ["Dilarang masuk", "Dilarang membuang sampah sembarangan", "Dilarang parkir", "Dilarang berisik"], b: 1, bahas: "Littering artinya membuang sampah sembarangan." },
-        { q: "I have lived in this city ... 2020.", p: ["for", "since", "at", "on"], b: 1, bahas: "'Since' diikuti titik awal waktu spesifik (tahun 2020)." },
-        { q: "What is the antonym (lawan kata) of 'Expensive'?", p: ["Cheap", "Big", "Heavy", "Modern"], b: 0, bahas: "Lawan kata expensive (mahal) adalah cheap (murah)." },
-        { q: "Excuse me, ... you help me carry this box, please?", p: ["could", "are", "have", "does"], b: 0, bahas: "'Could you...' adalah ungkapan sopan untuk meminta bantuan." }
+        { q: "Response for 'How are you doing today?' is ...", p: ["I am twelve.", "I am doing great, thank you.", "I live in Jakarta.", "My name is Ani."], b: 1, bahas: "Menanyakan kabar dijawab dengan kondisi baik." },
+        { q: "She ... to school by bicycle every morning.", p: ["go", "goes", "going", "went"], b: 1, bahas: "Subject 'She' memakai verb + es (goes)." },
+        { q: "English translation of 'Perpustakaan' is ...", p: ["Laboratory", "Canteen", "Library", "Classroom"], b: 2, bahas: "Library berarti perpustakaan." },
+        { q: "They ... football in the yard yesterday.", p: ["play", "plays", "played", "playing"], b: 2, bahas: "Yesterday menandakan Past Tense (played)." },
+        { q: "Look at the clouds! It ... rain soon.", p: ["is going to", "was", "did", "have"], b: 0, bahas: "Prediksi dengan bukti memakai 'be going to'." },
+        { q: "Which word is an adjective?", p: ["Quickly", "Diligent", "Teacher", "Write"], b: 1, bahas: "Diligent (rajin) adalah kata sifat." },
+        { q: "My brother is ... than me.", p: ["tall", "taller", "tallest", "most tall"], b: 1, bahas: "Perbandingan dua hal memakai -er (taller)." },
+        { q: "The word 'must' in 'We must study hard' expresses ...", p: ["Ability", "Obligation", "Permission", "Habit"], b: 1, bahas: "Must menyatakan kewajiban (obligation)." },
+        { q: "'No Littering' means ...", p: ["Dilarang masuk", "Dilarang buang sampah sembarangan", "Dilarang parkir", "Dilarang berisik"], b: 1, bahas: "Littering artinya membuang sampah." },
+        { q: "I have lived here ... 2020.", p: ["for", "since", "at", "on"], b: 1, bahas: "Since diikuti titik awal tahun." },
+        { q: "Antonym of 'Expensive' is ...", p: ["Cheap", "Big", "Heavy", "Modern"], b: 0, bahas: "Lawan kata mahal adalah cheap (murah)." },
+        { q: "Excuse me, ... you help me please?", p: ["could", "are", "have", "does"], b: 0, bahas: "Could you adalah permintaan sopan." }
       ],
       "Pendidikan Pancasila": [
-        { q: "Lambang sila keempat Pancasila adalah ...", p: ["Bintang", "Rantai emas", "Pohon beringin", "Kepala banteng"], b: 3, bahas: "Kepala banteng melambangkan musyawarah dan kekuatan rakyat." },
-        { q: "Sikap menghargai perbedaan agama, suku, dan budaya mencerminkan pengamalan sila ke-...", p: ["Pertama", "Kedua", "Ketiga", "Kelima"], b: 2, bahas: "Sila ke-3 (Persatuan Indonesia) menekankan persatuan dalam keberagaman." },
-        { q: "Aturan yang bersumber dari hati nurani manusia disebut norma ...", p: ["Hukum", "Kesusilaan", "Kesopanan", "Agama"], b: 1, bahas: "Norma kesusilaan berasal dari bisikan hati nurani setiap manusia." },
-        { q: "Hukum dasar tertulis yang berlaku di Negara Kesatuan Republik Indonesia adalah ...", p: ["KUHP", "UUD NRI Tahun 1945", "Peraturan Pemerintah", "Keputusan Presiden"], b: 1, bahas: "UUD NRI Tahun 1945 merupakan hukum dasar tertinggi di Indonesia." },
-        { q: "Semboyan 'Bhinneka Tunggal Ika' memiliki arti ...", p: ["Bersatu kita teguh", "Berbeda-beda tetapi tetap satu jua", "Maju terus pantang mundur", "Keadilan bagi seluruh rakyat"], b: 1, bahas: "Bhinneka Tunggal Ika berasal dari Kitab Sutasoma karya Mpu Tantular." },
-        { q: "Keputusan bersama dalam rapat kelas sebaiknya diambil melalui ...", p: ["Keputusan ketua kelas sendiri", "Musyawarah untuk mufakat", "Undian acak", "Menunggu perintah guru"], b: 1, bahas: "Musyawarah mufakat mengutamakan kesepakatan bersama demi kepentingan umum." },
-        { q: "Contoh kewajiban seorang pelajar di lingkungan sekolah adalah ...", p: ["Mendapatkan nilai bagus", "Mematuhi tata tertib sekolah", "Menggunakan fasilitas perpustakaan", "Mendapat bimbingan guru"], b: 1, bahas: "Mematuhi tata tertib adalah kewajiban, sedangkan sisanya adalah hak siswa." },
-        { q: "Hari lahirnya Pancasila diperingati bangsa Indonesia setiap tanggal ...", p: ["17 Agustus", "1 Juni", "28 Oktober", "10 November"], b: 1, bahas: "1 Juni 1945 merupakan momen pidato Bung Karno mengenai dasar negara Pancasila." },
-        { q: "Hak asasi manusia yang dimiliki setiap warga negara sejak lahir bersifat ...", p: ["Sementara", "Kodrati dan melekat", "Dapat diperjualbelikan", "Hanya untuk orang dewasa"], b: 1, bahas: "HAM adalah anugerah Tuhan yang melekat secara kodrati pada setiap manusia." },
-        { q: "Sikap yang harus dihindari dalam menjaga keutuhan NKRI adalah ...", p: ["Toleransi", "Gotong royong", "Etnosentrisme (menganggap sukunya paling unggul)", "Rela berkorban"], b: 2, bahas: "Etnosentrisme dapat memicu perpecahan antar suku bangsa." },
-        { q: "Lembaga negara yang berwenang mengubah dan menetapkan UUD adalah ...", p: ["MPR", "DPR", "MA", "BPK"], b: 0, bahas: "Sesuai Pasal 3 UUD 1945, MPR berwenang mengubah dan menetapkan UUD." },
-        { q: "Gotong royong membersihkan lingkungan sekolah merupakan wujud nyata dari karakter ...", p: ["Individualisme", "Kolaborasi dan kepedulian sosial", "Persaingan bebas", "Ketergantungan"], b: 1, bahas: "Gotong royong menumbuhkan semangat kerja sama dan kepedulian terhadap sesama." }
-      ]
-    };
-    const bankTemplateSainsSosial = {
-      "Sains": [
-        { q: "Langkah awal yang dilakukan dalam metode ilmiah untuk menemukan masalah adalah ...", p: ["Observasi (pengamatan)", "Menarik kesimpulan", "Membuat grafik", "Publikasi hasil"], b: 0, bahas: "Observasi adalah pengamatan langsung terhadap fenomena alam." },
-        { q: "Satuan Internasional (SI) untuk besaran suhu adalah ...", p: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], b: 2, bahas: "Dalam sistem SI, satuan standar suhu adalah Kelvin (K)." },
-        { q: "Perubahan wujud benda dari gas menjadi cair seperti terbentuknya embun pagi disebut ...", p: ["Menguap", "Mengembun", "Menyublim", "Membeku"], b: 1, bahas: "Mengembun (kondensasi) adalah perubahan wujud gas menjadi cair." },
-        { q: "Sumber energi terbarukan yang memanfaatkan cahaya matahari untuk menghasilkan listrik adalah ...", p: ["PLTU Batu Bara", "Panel Surya (PLTS)", "PLTD Solar", "PLTG Gas"], b: 1, bahas: "Panel surya mengubah energi cahaya matahari menjadi energi listrik." },
-        { q: "Bagian sel yang berfungsi mengatur seluruh aktivitas sel dan menyimpan materi genetik adalah ...", p: ["Inti sel (Nukleus)", "Dinding sel", "Vakuola", "Sitoplasma"], b: 0, bahas: "Nukleus berperan sebagai pusat kendali sel." },
-        { q: "Perpindahan kalor melalui zat perantara tanpa disertai perpindahan partikel zatnya disebut ...", p: ["Konduksi", "Konveksi", "Radiasi", "Evaporasi"], b: 0, bahas: "Konduksi terjadi pada benda padat seperti logam yang dipanaskan." },
-        { q: "Dalam rantai makanan di sawah, padi berperan sebagai ...", p: ["Produsen", "Konsumen I", "Konsumen II", "Pengurai"], b: 0, bahas: "Tumbuhan hijau mampu membuat makanan sendiri sehingga disebut produsen." },
-        { q: "Gas rumah kaca utama yang dihasilkan dari pembakaran bahan bakar fosil kendaraan bermotor adalah ...", p: ["Oksigen", "Karbon dioksida (CO2)", "Helium", "Neon"], b: 1, bahas: "Emisi CO2 berlebih memicu pemanasan global." },
-        { q: "Gaya yang bekerja berlawanan arah dengan arah gerak benda sehingga memperlambat gerak benda adalah gaya ...", p: ["Gravitasi", "Gesek", "Pegas", "Magnet"], b: 1, bahas: "Gaya gesek terjadi antara dua permukaan benda yang saling bersentuhan." },
-        { q: "Organ pernapasan manusia tempat terjadinya pertukaran oksigen dan karbon dioksida adalah ...", p: ["Trakea", "Alveolus", "Bronkus", "Faring"], b: 1, bahas: "Alveolus dikelilingi kapiler darah untuk difusi gas O2 dan CO2." },
-        { q: "Simbol kimia untuk unsur air murni terdiri dari atom hidrogen dan oksigen dengan rumus ...", p: ["CO2", "H2O", "O2", "NaCl"], b: 1, bahas: "Satu molekul air (H2O) tersusun atas 2 atom Hidrogen dan 1 atom Oksigen." },
-        { q: "Benda yang dapat ditarik kuat oleh magnet disebut benda ...", p: ["Diamagnetik", "Feromagnetik", "Nonmagnetik", "Isolator"], b: 1, bahas: "Contoh benda feromagnetik adalah besi, baja, nikel, dan kobalt." }
+        { q: "Lambang sila keempat Pancasila adalah ...", p: ["Bintang", "Rantai", "Pohon beringin", "Kepala banteng"], b: 3, bahas: "Kepala banteng melambangkan musyawarah." },
+        { q: "Menghargai perbedaan budaya mencerminkan sila ke-...", p: ["Satu", "Dua", "Tiga", "Lima"], b: 2, bahas: "Sila ke-3 adalah Persatuan Indonesia." },
+        { q: "Aturan yang bersumber dari hati nurani disebut norma ...", p: ["Hukum", "Kesusilaan", "Kesopanan", "Agama"], b: 1, bahas: "Norma kesusilaan berasal dari hati nurani." },
+        { q: "Hukum dasar tertulis di Indonesia adalah ...", p: ["KUHP", "UUD NRI 1945", "Peraturan Daerah", "Perpres"], b: 1, bahas: "UUD 1945 adalah konstitusi tertinggi RI." },
+        { q: "Arti semboyan 'Bhinneka Tunggal Ika' adalah ...", p: ["Bersatu kita teguh", "Berbeda-beda tetapi tetap satu jua", "Maju terus", "Adil makmur"], b: 1, bahas: "Berasal dari Kitab Sutasoma." },
+        { q: "Keputusan bersama sebaiknya diambil melalui ...", p: ["Voting sepihak", "Musyawarah mufakat", "Undian", "Perintah ketua"], b: 1, bahas: "Musyawarah mengutamakan kesepakatan." },
+        { q: "Contoh kewajiban pelajar di sekolah adalah ...", p: ["Mendapat nilai", "Mematuhi tata tertib", "Memakai perpustakaan", "Mendapat ilmu"], b: 1, bahas: "Mematuhi aturan adalah kewajiban siswa." },
+        { q: "Hari lahir Pancasila diperingati setiap tanggal ...", p: ["17 Agustus", "1 Juni", "28 Oktober", "10 November"], b: 1, bahas: "1 Juni 1945 adalah hari lahir Pancasila." },
+        { q: "Hak asasi manusia bersifat ...", p: ["Sementara", "Kodrati dan melekat", "Dapat dijual", "Terbatas"], b: 1, bahas: "HAM melekat sejak manusia lahir." },
+        { q: "Sikap yang harus dihindari dalam keberagaman adalah ...", p: ["Toleransi", "Gotong royong", "Etnosentrisme", "Rela berkorban"], b: 2, bahas: "Etnosentrisme memicu perpecahan." },
+        { q: "Lembaga yang berwenang mengubah UUD adalah ...", p: ["MPR", "DPR", "MA", "BPK"], b: 0, bahas: "MPR berwenang mengubah dan menetapkan UUD." },
+        { q: "Gotong royong mencerminkan karakter ...", p: ["Individualis", "Kolaborasi dan peduli", "Persaingan", "Egois"], b: 1, bahas: "Gotong royong melatih kerja sama." }
+      ],
+
+                  "Sains": [
+        { q: "Langkah awal metode ilmiah adalah ...", p: ["Observasi", "Kesimpulan", "Grafik", "Publikasi"], b: 0, bahas: "Observasi adalah pengamatan awal." },
+        { q: "Satuan Internasional (SI) untuk suhu adalah ...", p: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], b: 2, bahas: "Kelvin (K) adalah satuan standar SI suhu." },
+        { q: "Perubahan gas menjadi cair disebut ...", p: ["Menguap", "Mengembun", "Menyublim", "Membeku"], b: 1, bahas: "Mengembun adalah perubahan gas ke cair." },
+        { q: "Pembangkit listrik tenaga surya menggunakan ...", p: ["Batu bara", "Panel Surya", "Solar", "Gas alam"], b: 1, bahas: "Panel surya mengubah cahaya jadi listrik." },
+        { q: "Pusat pengendali seluruh aktivitas sel adalah ...", p: ["Nukleus (Inti sel)", "Dinding sel", "Vakuola", "Sitoplasma"], b: 0, bahas: "Nukleus mengatur kerja sel." },
+        { q: "Perpindahan kalor tanpa perpindahan partikel zat disebut ...", p: ["Konduksi", "Konveksi", "Radiasi", "Evaporasi"], b: 0, bahas: "Konduksi terjadi pada zat padat." },
+        { q: "Dalam rantai makanan, tumbuhan hijau berperan sebagai ...", p: ["Produsen", "Konsumen I", "Konsumen II", "Pengurai"], b: 0, bahas: "Tumbuhan menghasilkan makanan sendiri." },
+        { q: "Gas rumah kaca utama penyebab pemanasan global adalah ...", p: ["Oksigen", "Karbon dioksida (CO2)", "Helium", "Neon"], b: 1, bahas: "CO2 berlebih memerangkap panas bumi." },
+        { q: "Gaya yang menghambat gerak benda saat bersentuhan adalah ...", p: ["Gravitasi", "Gaya gesek", "Pegas", "Magnet"], b: 1, bahas: "Gaya gesek berlawanan dengan arah gerak." },
+        { q: "Tempat pertukaran O2 dan CO2 di paru-paru adalah ...", p: ["Trakea", "Alveolus", "Bronkus", "Faring"], b: 1, bahas: "Alveolus memiliki dinding tipis untuk difusi gas." },
+        { q: "Rumus kimia untuk molekul air adalah ...", p: ["CO2", "H2O", "O2", "NaCl"], b: 1, bahas: "Air terdiri dari 2 atom H dan 1 atom O." },
+        { q: "Benda yang ditarik kuat oleh magnet disebut ...", p: ["Diamagnetik", "Feromagnetik", "Nonmagnetik", "Isolator"], b: 1, bahas: "Besi dan baja bersifat feromagnetik." }
       ],
       "Sosial": [
-        { q: "Kebutuhan manusia yang tidak terbatas sedangkan alat pemuas kebutuhan terbatas disebut masalah ...", p: ["Kelangkaan", "Inflasi", "Distribusi", "Konsumsi"], b: 0, bahas: "Kelangkaan (scarcity) merupakan inti permasalahan dalam ilmu ekonomi." },
-        { q: "Letak Indonesia yang berada di antara dua benua (Asia dan Australia) serta dua samudra disebut letak ...", p: ["Astronomis", "Geografis", "Geologis", "Maritim"], b: 1, bahas: "Letak geografis adalah posisi suatu wilayah dilihat dari kenyataannya di permukaan bumi." },
-        { q: "Kegiatan menyalurkan barang dari produsen hingga sampai ke tangan konsumen disebut ...", p: ["Produksi", "Distribusi", "Konsumsi", "Investasi"], b: 1, bahas: "Distribusi bertujuan memastikan barang sampai kepada pengguna akhir." },
-        { q: "Hubungan timbal balik yang dinamis antara individu dengan individu maupun kelompok disebut ...", p: ["Interaksi sosial", "Mobilitas sosial", "Stratifikasi sosial", "Konflik sosial"], b: 0, bahas: "Interaksi sosial terjadi apabila ada kontak sosial dan komunikasi." },
-        { q: "Garis khayal yang membagi bumi menjadi belahan utara dan selatan adalah garis ...", p: ["Bujur", "Khatulistiwa (Ekuator)", "Meridian", "Wallace"], b: 1, bahas: "Garis khatulistiwa berada pada 0 derajat lintang." },
-        { q: "Hukum permintaan menyatakan bahwa jika harga suatu barang naik, maka jumlah barang yang diminta akan ...", p: ["Naik", "Turun", "Tetap", "Tidak terpengaruh"], b: 1, bahas: "Harga dan jumlah permintaan berbanding terbalik (ceteris paribus)." },
-        { q: "Kerajaan bercorak Hindu tertua di Indonesia yang terletak di Kalimantan Timur adalah ...", p: ["Majapahit", "Kutai", "Sriwijaya", "Tarumanegara"], b: 1, bahas: "Kerajaan Kutai berdiri sekitar abad ke-4 Masehi dengan raja terkenal Mulawarman." },
-        { q: "Sumber daya alam yang dapat diperbarui kembali dalam waktu relatif singkat adalah ...", p: ["Minyak bumi", "Batu bara", "Hutan dan air", "Emas"], b: 2, bahas: "Hutan, air, dan hewan termasuk sumber daya alam yang dapat diperbarui." },
-        { q: "Tempat bertemunya penjual dan pembeli untuk melakukan transaksi barang maupun jasa disebut ...", p: ["Pasar", "Bank", "Koperasi", "Pabrik"], b: 0, bahas: "Pasar dapat berbentuk fisik maupun digital (e-commerce)." },
-        { q: "Peristiwa Sumpah Pemuda yang mempersatukan pemuda seluruh Nusantara terjadi pada tanggal ...", p: ["17 Agustus 1945", "28 Oktober 1928", "20 Mei 1908", "10 November 1945"], b: 1, bahas: "Sumpah Pemuda menegaskan satu tanah air, satu bangsa, dan satu bahasa Indonesia." },
-        { q: "Badan usaha yang beranggotakan orang-seorang dengan berlandaskan asas kekeluargaan adalah ...", p: ["Perseroan Terbatas", "Koperasi", "Firma", "CV"], b: 1, bahas: "Sesuai Pasal 33 UUD 1945, koperasi berasas kekeluargaan." },
-        { q: "Perubahan iklim global dapat berdampak pada sektor ekonomi pertanian berupa ...", p: ["Panen melimpah sepanjang tahun", "Gagal panen akibat cuaca ekstrem", "Harga pupuk gratis", "Berkurangnya hama tanaman"], b: 1, bahas: "Ketidakpastian musim hujan dan kemarau mengganggu jadwal tanam petani." }
+        { q: "Kebutuhan tidak terbatas sedangkan alat pemuas terbatas disebut ...", p: ["Kelangkaan", "Inflasi", "Distribusi", "Konsumsi"], b: 0, bahas: "Kelangkaan adalah masalah pokok ekonomi." },
+        { q: "Posisi Indonesia di antara dua benua dan dua samudra disebut letak ...", p: ["Astronomis", "Geografis", "Geologis", "Maritim"], b: 1, bahas: "Letak geografis dilihat dari permukaan bumi." },
+        { q: "Kegiatan menyalurkan barang dari produsen ke konsumen disebut ...", p: ["Produksi", "Distribusi", "Konsumsi", "Investasi"], b: 1, bahas: "Distribusi menyalurkan barang." },
+        { q: "Hubungan timbal balik antar individu atau kelompok disebut ...", p: ["Interaksi sosial", "Mobilitas", "Stratifikasi", "Konflik"], b: 0, bahas: "Interaksi sosial butuh kontak dan komunikasi." },
+        { q: "Garis khayal yang membagi bumi utara dan selatan adalah ...", p: ["Bujur", "Khatulistiwa", "Meridian", "Wallace"], b: 1, bahas: "Garis khatulistiwa berada di 0 derajat lintang." },
+        { q: "Jika harga barang naik, maka jumlah permintaan akan ...", p: ["Naik", "Turun", "Tetap", "Berlipat"], b: 1, bahas: "Hukum permintaan berbanding terbalik." },
+        { q: "Kerajaan Hindu tertua di Indonesia adalah ...", p: ["Majapahit", "Kutai", "Sriwijaya", "Tarumanegara"], b: 1, bahas: "Kerajaan Kutai terletak di Kalimantan Timur." },
+        { q: "Contoh sumber daya alam yang dapat diperbarui adalah ...", p: ["Minyak bumi", "Batu bara", "Hutan dan air", "Emas"], b: 2, bahas: "Hutan dan air dapat pulih kembali." },
+        { q: "Tempat bertemunya penjual dan pembeli disebut ...", p: ["Pasar", "Bank", "Koperasi", "Pabrik"], b: 0, bahas: "Pasar adalah tempat transaksi ekonomi." },
+        { q: "Sumpah Pemuda diikrarkan pada tanggal ...", p: ["17 Agustus 1945", "28 Oktober 1928", "20 Mei 1908", "10 November 1945"], b: 1, bahas: "28 Oktober 1928 adalah hari Sumpah Pemuda." },
+        { q: "Badan usaha yang berlandaskan asas kekeluargaan adalah ...", p: ["PT", "Koperasi", "Firma", "CV"], b: 1, bahas: "Koperasi berasas kekeluargaan." },
+        { q: "Dampak perubahan iklim ekstrem bagi pertanian adalah ...", p: ["Panen melimpah", "Risiko gagal panen", "Pupuk gratis", "Tanah subur"], b: 1, bahas: "Cuaca ekstrem mengganggu masa tanam." }
       ],
       "KodingAI": [
-        { q: "Urutan langkah logis yang sistematis untuk menyelesaikan suatu masalah disebut ...", p: ["Algoritma", "Hardware", "Browser", "Database"], b: 0, bahas: "Algoritma adalah fondasi utama dalam pemrograman komputer." },
-        { q: "Teknik memecah masalah besar menjadi bagian-bagian kecil yang lebih mudah diselesaikan disebut ...", p: ["Dekomposisi", "Abstraksi", "Enkripsi", "Kompilasi"], b: 0, bahas: "Dekomposisi adalah salah satu pilar berpikir komputasional." },
-        { q: "Kecerdasan Artifisial (AI) belajar mengenali pola dengan cara dilatih menggunakan ...", p: ["Kumpulan data (Dataset)", "Kabel jaringan", "Baterai cadangan", "Layar sentuh"], b: 0, bahas: "Semakin berkualitas dataset yang diberikan, semakin akurat prediksi AI." },
-        { q: "Struktur kontrol dalam pemrograman yang menjalankan perintah secara berulang-ulang disebut ...", p: ["Looping (Perulangan)", "Variabel", "Komentar", "Input"], b: 0, bahas: "Looping (seperti for atau while) menghemat penulisan kode yang berulang." },
-        { q: "Contoh pemanfaatan Kecerdasan Artifisial di bidang kesehatan adalah ...", p: ["Membantu mendeteksi penyakit dari citra rontgen", "Mengukur tinggi badan dengan penggaris", "Menimbang berat badan manual", "Mencatat nama pasien di buku"], b: 0, bahas: "Computer Vision pada AI mampu menganalisis citra medis secara cepat." },
-        { q: "Fokus hanya pada informasi penting dan mengabaikan detail yang tidak relevan disebut ...", p: ["Abstraksi", "Debugging", "Algoritma", "Iterasi"], b: 0, bahas: "Abstraksi menyederhanakan masalah agar fokus pada inti persoalan." },
-        { q: "Proses mencari dan memperbaiki kesalahan (bug) dalam kode program disebut ...", p: ["Debugging", "Uploading", "Streaming", "Formatting"], b: 0, bahas: "Debugging memastikan program berjalan sesuai logika yang diharapkan." },
-        { q: "Informasi pribadi yang TIDAK boleh dibagikan sembarangan ke platform AI publik adalah ...", p: ["Pertanyaan rumus matematika", "NIK, password, dan alamat rumah lengkap", "Ide cerita fiksi", "Terjemahan bahasa Inggris"], b: 1, bahas: "Data sensitif harus dilindungi untuk mencegah penyalahgunaan privasi." },
-        { q: "Fenomena ketika AI generatif memberikan jawaban yang terdengar meyakinkan padahal faktanya salah disebut ...", p: ["Halusinasi AI", "Virus komputer", "Overheating", "Lagging"], b: 0, bahas: "Pengguna wajib memverifikasi kebenaran jawaban AI dari sumber tepercaya." },
-        { q: "Perangkat lunak yang digunakan untuk menulis dan menjalankan kode program disebut ...", p: ["Code Editor / IDE", "Spreadsheet", "Media Player", "Antivirus"], b: 0, bahas: "Contoh IDE adalah VS Code, Scratch, atau Replit." },
-        { q: "Dalam logika pemrograman, tipe data yang hanya memiliki dua nilai yaitu True (Benar) atau False (Salah) adalah ...", p: ["Boolean", "Integer", "String", "Float"], b: 0, bahas: "Boolean digunakan dalam pengambilan keputusan (percabangan if-else)." },
-        { q: "Etika utama dalam memanfaatkan teknologi digital dan AI di lingkungan sekolah adalah ...", p: ["Menggunakannya untuk meningkatkan pemahaman dan kreativitas secara jujur", "Menjiplak karya teman", "Menyebarkan informasi hoaks", "Meretas akun orang lain"], b: 0, bahas: "Integritas akademik tetap menjadi prioritas utama dalam belajar." }
+        { q: "Urutan langkah logis untuk menyelesaikan masalah disebut ...", p: ["Algoritma", "Hardware", "Browser", "Database"], b: 0, bahas: "Algoritma adalah langkah sistematis." },
+        { q: "Memecah masalah besar menjadi bagian kecil disebut ...", p: ["Dekomposisi", "Abstraksi", "Enkripsi", "Kompilasi"], b: 0, bahas: "Dekomposisi menyederhanakan masalah." },
+        { q: "AI belajar mengenali pola menggunakan ...", p: ["Kumpulan data (Dataset)", "Kabel LAN", "Baterai", "Layar"], b: 0, bahas: "Dataset melatih kecerdasan model AI." },
+        { q: "Perintah program yang dijalankan berulang-ulang disebut ...", p: ["Looping", "Variabel", "Komentar", "Input"], b: 0, bahas: "Looping mengulang blok kode." },
+        { q: "Manfaat AI di bidang medis adalah ...", p: ["Mendeteksi penyakit dari citra rontgen", "Mengukur tinggi manual", "Menimbang berat", "Mencatat nama"], b: 0, bahas: "AI menganalisis citra medis secara cepat." },
+        { q: "Fokus pada inti masalah dan mengabaikan detail tidak penting disebut ...", p: ["Abstraksi", "Debugging", "Algoritma", "Iterasi"], b: 0, bahas: "Abstraksi menyaring informasi penting." },
+        { q: "Proses memperbaiki kesalahan pada kode program disebut ...", p: ["Debugging", "Uploading", "Streaming", "Formatting"], b: 0, bahas: "Debugging mencari dan memperbaiki bug." },
+        { q: "Data pribadi yang tidak boleh dibagikan ke AI publik adalah ...", p: ["Rumus matematika", "NIK dan password", "Ide cerita", "Terjemahan"], b: 1, bahas: "NIK dan sandi bersifat rahasia." },
+        { q: "Jawaban AI yang terdengar meyakinkan namun salah disebut ...", p: ["Halusinasi AI", "Virus", "Overheating", "Lagging"], b: 0, bahas: "Pengguna wajib memverifikasi hasil AI." },
+        { q: "Aplikasi untuk menulis kode program disebut ...", p: ["Code Editor / IDE", "Spreadsheet", "Media Player", "Antivirus"], b: 0, bahas: "Contohnya VS Code atau Scratch." },
+        { q: "Tipe data bernilai True atau False adalah ...", p: ["Boolean", "Integer", "String", "Float"], b: 0, bahas: "Boolean untuk logika benar/salah." },
+        { q: "Etika menggunakan AI di sekolah adalah ...", p: ["Untuk membantu belajar secara jujur", "Menjiplak tugas", "Menyebar hoaks", "Meretas akun"], b: 0, bahas: "Kejujuran akademik harus dijaga." }
       ]
     };
+
     function buatSoalMatematika(jenjang, kelas, bab) {
-      const angkaKelas = parseInt(kelas.replace(/\D/g, ""), 10) || 1;
-      const soal = [];
+      const k = parseInt(kelas.replace(/\D/g, ""), 10) || 1;
+      const list = [];
       for (let i = 1; i <= 12; i++) {
-        if (jenjang === "sd" && angkaKelas <= 3) {
-          const a = i * 2 + angkaKelas, b = i + 3, hasil = a + b;
-          soal.push({ q: `[${kelas} • ${bab}] Hasil penjumlahan dari ${a} + ${b} adalah ...`, p: [String(hasil - 1), String(hasil), String(hasil + 2), String(hasil + 1)], b: 1, bahas: `${a} + ${b} = ${hasil}.` });
-        } else if (jenjang === "sd" && angkaKelas >= 4) {
-          const a = (i + 2) * 4, b = i * 3, hasil = a * 2 - b;
-          soal.push({ q: `[${kelas} • ${bab}] Hasil dari (${a} x 2) - ${b} adalah ...`, p: [String(hasil + 4), String(hasil - 2), String(hasil), String(hasil + 6)], b: 2, bahas: `${a} x 2 = ${a * 2}, dikurangi ${b} hasilnya ${hasil}.` });
+        if (jenjang === "sd" && k <= 3) {
+          const a = i * 2 + k, b = i + 3, h = a + b;
+          list.push({ q: `[${kelas}] Hasil dari ${a} + ${b} adalah ...`, p: [String(h - 1), String(h), String(h + 2), String(h + 1)], b: 1, bahas: `${a} + ${b} = ${h}.` });
+        } else if (jenjang === "sd") {
+          const a = (i + 2) * 4, b = i * 3, h = a * 2 - b;
+          list.push({ q: `[${kelas}] Hasil dari (${a} x 2) - ${b} adalah ...`, p: [String(h + 4), String(h - 2), String(h), String(h + 6)], b: 2, bahas: `${a * 2} - ${b} = ${h}.` });
         } else if (jenjang === "smp") {
-          const x = i + 2, konstanta = angkaKelas, total = 3 * x + konstanta;
-          soal.push({ q: `[${kelas} • ${bab}] Jika 3x + ${konstanta} = ${total}, maka nilai x adalah ...`, p: [String(x - 1), String(x), String(x + 1), String(x + 2)], b: 1, bahas: `3x = ${total} - ${konstanta} = ${3 * x}, maka x = ${x}.` });
+          const x = i + 2, tot = 3 * x + k;
+          list.push({ q: `[${kelas}] Jika 3x + ${k} = ${tot}, nilai x adalah ...`, p: [String(x - 1), String(x), String(x + 1), String(x + 2)], b: 1, bahas: `3x = ${tot - k}, maka x = ${x}.` });
         } else {
-          const a = i + 1, b = angkaKelas - 7, hasil = a * a + b;
-          soal.push({ q: `[${kelas} • ${bab}] Diketahui fungsi f(x) = x² + ${b}. Nilai dari f(${a}) adalah ...`, p: [String(hasil - 3), String(hasil + 2), String(hasil), String(hasil + 5)], b: 2, bahas: `f(${a}) = ${a}² + ${b} = ${a * a} + ${b} = ${hasil}.` });
+          const a = i + 1, b = k - 7, h = a * a + b;
+          list.push({ q: `[${kelas}] Jika f(x) = x² + ${b}, nilai f(${a}) adalah ...`, p: [String(h - 3), String(h + 2), String(h), String(h + 5)], b: 2, bahas: `${a}² + ${b} = ${h}.` });
         }
       }
-      return soal;
+      return list;
     }
 
     function dapatkanSoalLengkap(jenjang, kelas, mapel, bab) {
       const kunci = `${jenjang}-${kelas}-${mapel}-${bab}`;
       const soalAdmin = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}")[kunci] || [];
-      let paketBawaan = [];
-      if (mapel === "Matematika") {
-        paketBawaan = buatSoalMatematika(jenjang, kelas, bab);
-      } else if (bankTemplateMapel[mapel]) {
-        paketBawaan = bankTemplateMapel[mapel].map(item => ({ ...item, q: `(${kelas} • ${bab.split(":")}) ${item.q}` }));
-      } else if (["IPAS", "IPA", "Fisika", "Kimia", "Biologi"].includes(mapel)) {
-        paketBawaan = bankTemplateSainsSosial["Sains"].map(item => ({ ...item, q: `(${mapel} ${kelas}) ${item.q}` }));
-      } else if (["IPS", "Ekonomi"].includes(mapel)) {
-        paketBawaan = bankTemplateSainsSosial["Sosial"].map(item => ({ ...item, q: `(${mapel} ${kelas}) ${item.q}` }));
-      } else {
-        paketBawaan = bankTemplateSainsSosial["KodingAI"].map(item => ({ ...item, q: `(${mapel} ${kelas}) ${item.q}` }));
-      }
-      return [...soalAdmin, ...paketBawaan];
+      let bawaan = [];
+      if (mapel === "Matematika") bawaan = buatSoalMatematika(jenjang, kelas, bab);
+      else if (bankSoalMapel[mapel]) bawaan = bankSoalMapel[mapel].map(s => ({ ...s, q: `(${kelas}) ${s.q}` }));
+      else if (["IPAS", "IPA", "Fisika", "Kimia", "Biologi"].includes(mapel)) bawaan = bankSoalMapel["Sains"].map(s => ({ ...s, q: `(${mapel} ${kelas}) ${s.q}` }));
+      else if (["IPS", "Ekonomi"].includes(mapel)) bawaan = bankSoalMapel["Sosial"].map(s => ({ ...s, q: `(${mapel} ${kelas}) ${s.q}` }));
+      else bawaan = bankSoalMapel["KodingAI"].map(s => ({ ...s, q: `(${mapel} ${kelas}) ${s.q}` }));
+      return [...soalAdmin, ...bawaan];
     }
-    let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0;
-    let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "" };
 
+          let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0;
+    let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "" };
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -229,7 +210,7 @@
           <div class="hero-card">
             <span class="hero-badge">KURIKULUM MERDEKA 2026/2027</span>
             <h2>Selamat Datang di RIM CBT</h2>
-            <p>Setiap mata pelajaran dan bab telah dilengkapi paket 12 soal latihan terstruktur untuk jenjang SD, SMP, dan SMA. Pilih jenjangmu di menu bawah untuk memulai!</p>
+            <p>Setiap mata pelajaran dan bab telah dilengkapi paket 12 soal latihan untuk SD, SMP, dan SMA. Pilih jenjangmu di menu bawah untuk memulai!</p>
           </div>
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
@@ -240,10 +221,7 @@
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
-          <div class="form-box">
-            <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Tambah soal baru ke bab mana saja, lihat rekap nilai, atau unduh laporan PDF.</p>
-          </div>
+          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Kelola soal ujian dan rekap nilai siswa.</p></div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Baru</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>📚 Kelola Soal Tambahan</span><span>➔</span></div>
@@ -258,20 +236,20 @@
     function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
       title().innerText = d.judul; sesi.jenjang = jenjang;
-      app().innerHTML = `<div class="form-box"><h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${d.judul}</p></div><div class="list-menu">` +
+      app().innerHTML = `<div class="form-box"><h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3><p style="font-size:0.84rem; color:#64748b;">${d.judul}</p></div><div class="list-menu">` +
         d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function pilihMapel(jenjang, kelas) {
       sesi.tingkat = kelas;
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${kelas}</p></div><div class="list-menu">` +
+      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b;">${kelas}</p></div><div class="list-menu">` +
         dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
     function pilihBab(jenjang, kelas, mapel) {
       sesi.mapel = mapel;
-      const list = babDefaultPerMapel[mapel] || ["Bab 1: Evaluasi Materi Utama", "Bab 2: Pendalaman Konsep"];
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Materi Ujian</h3><p style="font-size:0.84rem; color:#64748b; margin-top:2px;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
+      const list = babDefault[mapel] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"];
+      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Materi Ujian</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
         list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
@@ -282,7 +260,7 @@
         <div class="form-box">
           <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
           <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
-          <p style="font-size:0.84rem; color:#64748b; margin-bottom:16px;">Materi: <b>${esc(bab)}</b> (${jml} Soal)</p>
+          <p style="font-size:0.84rem; color:#64748b; margin-bottom:14px;">Materi: <b>${esc(bab)}</b> (${jml} Soal)</p>
           <label>Nama Lengkap</label><input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
           <label>Asal Sekolah</label><input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
           <label>Kelas Spesifik</label><input type="text" id="inp-kelas" placeholder="Contoh: 7A">
@@ -292,7 +270,7 @@
 
     function mulaiKuis() {
       const nama = document.getElementById("inp-nama").value.trim(), sekolah = document.getElementById("inp-sekolah").value.trim(), kelas = document.getElementById("inp-kelas").value.trim();
-      if (!nama || !sekolah || !kelas) return alert("Harap lengkapi identitas peserta terlebih dahulu!");
+      if (!nama || !sekolah || !kelas) return alert("Lengkapi identitas peserta terlebih dahulu!");
       sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
       soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab);
       idxSoal = 0; skor = 0; riwayat = []; sisaWaktu = WAKTU_KUIS;
@@ -301,7 +279,7 @@
         sisaWaktu--;
         const t = document.getElementById("kuis-timer");
         if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
-        if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu ujian habis!"); selesaiKuis(); }
+        if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu habis!"); selesaiKuis(); }
       }, 1000);
       renderSoal();
     }
@@ -310,11 +288,11 @@
       const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
       app().innerHTML = `
         <div class="form-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-            <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} dari ${soalList.length}</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} / ${soalList.length}</span>
             <span id="kuis-timer" class="timer-badge">⏱️ 10:00</span>
           </div>
-          <p style="font-size:1rem; font-weight:600; margin-bottom:18px; line-height:1.6;">${esc(s.q)}</p>
+          <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
           <div class="list-menu">
             ${s.p.map((pil, i) => `<button class="list-item" style="width:100%; text-align:left;" onclick="jawab(${i})"><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span></button>`).join("")}
           </div>
@@ -328,60 +306,54 @@
       idxSoal++;
       idxSoal < soalList.length ? renderSoal() : selesaiKuis();
     }
-    function selesaiKuis() {
+
+          function selesaiKuis() {
       clearInterval(timer);
       const nilai = Math.round((skor / soalList.length) * 100);
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      rekap.push({ tgl: new Date().toLocaleDateString("id-ID"), nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: sesi.mapel, nilai });
+      rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: sesi.mapel, nilai });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
       app().innerHTML = `
-        <div class="form-box" style="text-align:center; padding:28px 20px;">
+        <div class="form-box" style="text-align:center; padding:24px 18px;">
           <span class="hero-badge" style="background:#eef2ff; color:#4f46e5;">HASIL UJIAN</span>
           <h2 style="margin-top:8px;">Ujian Selesai!</h2>
           <p style="margin-top:4px; color:#64748b; font-size:0.9rem;">Peserta: <b>${esc(sesi.nama)}</b></p>
-          <h1 style="font-size:3.5rem; font-weight:800; color:#4f46e5; margin:12px 0;">${nilai}</h1>
-          <p style="font-size:0.88rem; color:#64748b; margin-bottom:20px;">Jawaban Benar: <b>${skor}</b> dari <b>${soalList.length}</b> soal</p>
+          <h1 style="font-size:3.2rem; font-weight:800; color:#4f46e5; margin:10px 0;">${nilai}</h1>
+          <p style="font-size:0.88rem; color:#64748b; margin-bottom:18px;">Benar <b>${skor}</b> dari <b>${soalList.length}</b> soal</p>
           <button class="btn-primary" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
         </div>
         <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:8px;">📋 Kunci & Pembahasan</h3>
-          ${riwayat.map((r, i) => `
-            <div style="border-bottom:1px solid #e2e8f0; padding:12px 0; font-size:0.9rem; line-height:1.5;">
-              <b>${i + 1}. ${esc(r.q)}</b><br>
-              <span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>
-              ${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}
-              <small style="color:#64748b; display:block; margin-top:4px;">💡 ${esc(r.bahas)}</small>
-            </div>`).join("")}
+          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;"><b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
         </div>`;
     }
 
     function updateDropdownAdmin() {
-      const jenjang = document.getElementById("adm-jenjang").value;
-      document.getElementById("adm-kelas").innerHTML = dataPendidikan[jenjang].kelas.map(k => `<option value="${k}">${k}</option>`).join("");
-      document.getElementById("adm-mapel").innerHTML = dataPendidikan[jenjang].mapel.map(m => `<option value="${m}">${m}</option>`).join("");
+      const j = document.getElementById("adm-jenjang").value;
+      document.getElementById("adm-kelas").innerHTML = dataPendidikan[j].kelas.map(k => `<option value="${k}">${k}</option>`).join("");
+      document.getElementById("adm-mapel").innerHTML = dataPendidikan[j].mapel.map(m => `<option value="${m}">${m}</option>`).join("");
       updateBabAdmin();
     }
 
     function updateBabAdmin() {
-      const mapel = document.getElementById("adm-mapel").value;
-      const list = babDefaultPerMapel[mapel] || ["Bab 1: Evaluasi Materi Utama", "Bab 2: Pendalaman Konsep"];
+      const m = document.getElementById("adm-mapel").value;
+      const list = babDefault[m] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"];
       document.getElementById("adm-bab").innerHTML = list.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
     }
 
     function simpanSoalBaru() {
-      const jenjang = document.getElementById("adm-jenjang").value, kelas = document.getElementById("adm-kelas").value;
-      const mapel = document.getElementById("adm-mapel").value, bab = document.getElementById("adm-bab").value;
+      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value, bab = document.getElementById("adm-bab").value;
       const q = document.getElementById("adm-q").value.trim(), pA = document.getElementById("adm-pa").value.trim();
       const pB = document.getElementById("adm-pb").value.trim(), pC = document.getElementById("adm-pc").value.trim();
       const pD = document.getElementById("adm-pd").value.trim(), b = parseInt(document.getElementById("adm-kunci").value, 10);
-      const bahas = document.getElementById("adm-bahas").value.trim() || "Sesuai konsep materi pada bab ini.";
-      if (!q || !pA || !pB || !pC || !pD) return alert("Harap isi pertanyaan dan keempat pilihan jawaban!");
-
-      const kunci = `${jenjang}-${kelas}-${mapel}-${bab}`;
+      const bahas = document.getElementById("adm-bahas").value.trim() || "Sesuai konsep materi.";
+      if (!q || !pA || !pB || !pC || !pD) return alert("Isi pertanyaan dan semua pilihan jawaban!");
+      const kunci = `${j}-${k}-${m}-${bab}`;
       const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
       if (!tambahan[kunci]) tambahan[kunci] = [];
       tambahan[kunci].push({ q, p: [pA, pB, pC, pD], b, bahas });
       localStorage.setItem("rim_soal_custom", JSON.stringify(tambahan));
-      alert("✅ Soal baru berhasil ditambahkan ke " + kelas + " - " + mapel + "!");
+      alert("✅ Soal baru berhasil disimpan!");
       ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas"].forEach(id => document.getElementById(id).value = "");
     }
 
@@ -408,9 +380,9 @@
     function hapusRekapNilai() {
       const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       if (data.length === 0) return alert("Data rekap nilai sudah kosong.");
-      if (confirm("Yakin ingin menghapus seluruh data rekap nilai siswa?")) {
+      if (confirm("Yakin ingin menghapus seluruh data rekap nilai?")) {
         localStorage.removeItem("rim_rekap");
-        alert("Seluruh rekap nilai berhasil dihapus!");
+        alert("Rekap nilai berhasil dihapus!");
         bukaMenu("saya");
       }
     }
@@ -447,7 +419,7 @@
       } else if (aksi === "rekap") {
         const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
         app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📊 Rekap Nilai Peserta</h3>` +
-          (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Mapel: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
+          (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Mapel: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
           `<button class="btn-pdf" onclick="unduhPDF()">📄 Download Rekap Nilai (PDF)</button><button class="btn-danger" onclick="hapusRekapNilai()">🗑️ Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
       } else if (aksi === "pdf") { unduhPDF(); }
       else if (aksi === "hapus") { hapusRekapNilai(); }
@@ -461,3 +433,4 @@
   </script>
 </body>
 </html>
+
