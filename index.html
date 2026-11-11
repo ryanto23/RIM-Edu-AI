@@ -82,30 +82,22 @@
       document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.dataset.menu === menu));
 
       if (menu === "home") {
-        title().innerText = "RIM Edu";
+        title().innerText = "RIM Edu AI";
         app().innerHTML = `
           <div class="hero-card">
-            <h2>Selamat Datang di RIM Edu 👋</h2>
+            <h2>Selamat Datang di RIM Edu AI</h2>
             <p>Langkah kecil yang kamu lakukan hari ini untuk berlatih dan belajar adalah awal dari kesuksesan besar di masa depan. Tetap semangat dan teruslah berkembang!</p>
-          </div>
-          <div class="quote-box">
-            <p>"Pendidikan adalah senjata paling mematikan di dunia, karena dengan pendidikan kamu dapat mengubah dunia."</p>
-            <small>— Nelson Mandela</small>
           </div>
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
             <small>— Motivasi Belajar</small>
-          </div>
-          <div class="form-box">
-            <h3 style="font-size:1rem; margin-bottom:6px;">📌 Cara Mulai Latihan</h3>
-            <p style="font-size:0.88rem; color:#475569; line-height:1.5;">Pilih jenjang pendidikanmu (<b>SD</b>, <b>SMP</b>, atau <b>SMA</b>) pada menu navigasi di bagian bawah layar untuk mulai mengerjakan latihan soal.</p>
-          </div>`;
+          </div>;
       } else if (dataPendidikan[menu]) {
         pilihKelas(menu);
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
-          <div class="form-box"><h3>🔐 Area Admin (PIN Default: 123456)</h3></div>
+          <div class="form-box"><h3>🔐 Area Admin</h3></div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaAdmin('rekap')"><span>📊 Lihat Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('pin')"><span>🔑 Ubah PIN Admin</span><span>➔</span></div>
