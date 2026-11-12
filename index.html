@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RIM CBT - Solusi Evaluasi Belajar Modern</title>
+  <title>RIM CBT - Sistem Evaluasi Kurikulum Merdeka</title>
   <link href="https://googleapis.com" rel="stylesheet">
   <script src="https://cloudflare.com"></script>
   <script src="https://cloudflare.com"></script>
@@ -24,6 +24,9 @@
     .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
     .btn-pdf { background: #16a34a; color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 10px; }
     .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
+    .btn-sm { padding: 5px 10px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; cursor: pointer; border: none; }
+    .btn-edit { background: #e0e7ff; color: #3730a3; }
+    .btn-del { background: #fee2e2; color: #dc2626; }
     .btn-back { background: #f1f5f9; color: #475569; border: none; padding: 7px 14px; border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem; }
     input, select, textarea { width: 100%; padding: 11px 13px; margin: 5px 0 14px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; background: #f8fafc; }
     label { font-size: 0.82rem; font-weight: 700; color: #334155; display: block; }
@@ -50,7 +53,6 @@
 
     <script>
     const PIN_DEFAULT = "123456";
-    const WAKTU_KUIS = 600;
 
     const dataPendidikan = {
       sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
@@ -73,6 +75,15 @@
       "Biologi": ["Bab 1: Keanekaragaman Hayati", "Bab 2: Sel & Sistem Organ", "Bab 3: Metabolisme & Genetika"],
       "Ekonomi": ["Bab 1: Ilmu Ekonomi & Kelangkaan", "Bab 2: Permintaan & Penawaran", "Bab 3: Kebijakan Moneter & Fiskal"]
     };
+
+    function dapatkanDaftarBab(jenjang, kelas, mapel) {
+      const kunci = `${jenjang}-${kelas}-${mapel}`;
+      const kustom = JSON.parse(localStorage.getItem("rim_bab_custom") || "{}");
+      if (kustom[kunci] && Array.isArray(kustom[kunci]) && kustom[kunci].length > 0) {
+        return kustom[kunci];
+      }
+      return [...(babDefault[mapel] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"])];
+    }
 
           const bankSoalMapel = {
       "Bahasa Indonesia": [
@@ -162,41 +173,56 @@
       ]
     };
 
-    function buatSoalMatematika(jenjang, kelas, bab) {
+    function buatSoalMatematika(jenjang, kelas, label) {
       const k = parseInt(kelas.replace(/\D/g, ""), 10) || 1;
       const list = [];
       for (let i = 1; i <= 12; i++) {
         if (jenjang === "sd" && k <= 3) {
           const a = i * 2 + k, b = i + 3, h = a + b;
-          list.push({ q: `[${kelas}] Hasil dari ${a} + ${b} adalah ...`, p: [String(h - 1), String(h), String(h + 2), String(h + 1)], b: 1, bahas: `${a} + ${b} = ${h}.` });
+          list.push({ q: `[${kelas} • ${label}] Hasil dari ${a} + ${b} adalah ...`, p: [String(h - 1), String(h), String(h + 2), String(h + 1)], b: 1, bahas: `${a} + ${b} = ${h}.` });
         } else if (jenjang === "sd") {
           const a = (i + 2) * 4, b = i * 3, h = a * 2 - b;
-          list.push({ q: `[${kelas}] Hasil dari (${a} x 2) - ${b} adalah ...`, p: [String(h + 4), String(h - 2), String(h), String(h + 6)], b: 2, bahas: `${a * 2} - ${b} = ${h}.` });
+          list.push({ q: `[${kelas} • ${label}] Hasil dari (${a} x 2) - ${b} adalah ...`, p: [String(h + 4), String(h - 2), String(h), String(h + 6)], b: 2, bahas: `${a * 2} - ${b} = ${h}.` });
         } else if (jenjang === "smp") {
           const x = i + 2, tot = 3 * x + k;
-          list.push({ q: `[${kelas}] Jika 3x + ${k} = ${tot}, nilai x adalah ...`, p: [String(x - 1), String(x), String(x + 1), String(x + 2)], b: 1, bahas: `3x = ${tot - k}, maka x = ${x}.` });
+          list.push({ q: `[${kelas} • ${label}] Jika 3x + ${k} = ${tot}, nilai x adalah ...`, p: [String(x - 1), String(x), String(x + 1), String(x + 2)], b: 1, bahas: `3x = ${tot - k}, maka x = ${x}.` });
         } else {
           const a = i + 1, b = k - 7, h = a * a + b;
-          list.push({ q: `[${kelas}] Jika f(x) = x² + ${b}, nilai f(${a}) adalah ...`, p: [String(h - 3), String(h + 2), String(h), String(h + 5)], b: 2, bahas: `${a}² + ${b} = ${h}.` });
+          list.push({ q: `[${kelas} • ${label}] Jika f(x) = x² + ${b}, nilai f(${a}) adalah ...`, p: [String(h - 3), String(h + 2), String(h), String(h + 5)], b: 2, bahas: `${a}² + ${b} = ${h}.` });
         }
       }
       return list;
     }
 
-    function dapatkanSoalLengkap(jenjang, kelas, mapel, bab) {
-      const kunci = `${jenjang}-${kelas}-${mapel}-${bab}`;
-      const soalAdmin = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}")[kunci] || [];
+    function dapatkanSoalLengkap(jenjang, kelas, mapel, bab, mode) {
+      const semuaCustom = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
+      let soalAdmin = [];
+      if (mode === "bab") {
+        soalAdmin = semuaCustom[`${jenjang}-${kelas}-${mapel}-${bab}`] || [];
+      } else {
+        Object.keys(semuaCustom).forEach(k => {
+          if (k.startsWith(`${jenjang}-${kelas}-${mapel}-`)) {
+            soalAdmin = soalAdmin.concat(semuaCustom[k]);
+          }
+        });
+      }
+
+      const tag = mode === "uts" ? "UTS" : mode === "uas" ? "UAS" : bab;
       let bawaan = [];
-      if (mapel === "Matematika") bawaan = buatSoalMatematika(jenjang, kelas, bab);
-      else if (bankSoalMapel[mapel]) bawaan = bankSoalMapel[mapel].map(s => ({ ...s, q: `(${kelas}) ${s.q}` }));
-      else if (["IPAS", "IPA", "Fisika", "Kimia", "Biologi"].includes(mapel)) bawaan = bankSoalMapel["Sains"].map(s => ({ ...s, q: `(${mapel} ${kelas}) ${s.q}` }));
-      else if (["IPS", "Ekonomi"].includes(mapel)) bawaan = bankSoalMapel["Sosial"].map(s => ({ ...s, q: `(${mapel} ${kelas}) ${s.q}` }));
-      else bawaan = bankSoalMapel["KodingAI"].map(s => ({ ...s, q: `(${mapel} ${kelas}) ${s.q}` }));
-      return [...soalAdmin, ...bawaan];
+      if (mapel === "Matematika") bawaan = buatSoalMatematika(jenjang, kelas, tag);
+      else if (bankSoalMapel[mapel]) bawaan = bankSoalMapel[mapel].map(s => ({ ...s, q: `(${kelas} • ${tag}) ${s.q}` }));
+      else if (["IPAS", "IPA", "Fisika", "Kimia", "Biologi"].includes(mapel)) bawaan = bankSoalMapel["Sains"].map(s => ({ ...s, q: `(${mapel} ${kelas} • ${tag}) ${s.q}` }));
+      else if (["IPS", "Ekonomi"].includes(mapel)) bawaan = bankSoalMapel["Sosial"].map(s => ({ ...s, q: `(${mapel} ${kelas} • ${tag}) ${s.q}` }));
+      else bawaan = bankSoalMapel["KodingAI"].map(s => ({ ...s, q: `(${mapel} ${kelas} • ${tag}) ${s.q}` }));
+
+      const gabungan = [...soalAdmin, ...bawaan];
+      if (mode === "uts") return gabungan.slice(0, 15);
+      if (mode === "uas") return gabungan.slice(0, 20);
+      return gabungan;
     }
 
-          let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0;
-    let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "" };
+          let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0, sisaWaktuSoal = 0;
+    let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "", mode: "bab" };
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -210,7 +236,7 @@
           <div class="hero-card">
             <span class="hero-badge">COMPUTER-BASED TEST • KURIKULUM MERDEKA</span>
             <h2>Selamat Datang di RIM CBT</h2>
-            <p>Solusi evaluasi belajar modern untuk SD, SMP, dan SMA. Setiap mata pelajaran dan bab dilengkapi paket 12 soal terstruktur. Pilih jenjangmu di bawah!</p>
+            <p>Pilih jenjang pendidikanmu (SD, SMP, atau SMA) untuk mengakses <b>Latihan Bab</b>, <b>Ujian Tengah Semester (UTS)</b>, dan <b>Ujian Akhir Semester (UAS)</b>.</p>
           </div>
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
@@ -221,14 +247,15 @@
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
-          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Kelola soal ujian dan rekap nilai siswa.</p></div>
+          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Kelola bab kurikulum, bank soal, dan rekap nilai siswa.</p></div>
           <div class="list-menu">
+            <div class="list-item" onclick="bukaAdmin('kelola-bab')" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Kelola Bab Kurikulum</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('ai-soal')" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Buat Soal Otomatis (AI)</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Manual</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>📚 Kelola Soal Tambahan</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>🗑️ Hapus / Kelola Soal Tambahan</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('rekap')"><span>📊 Lihat Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🗑️ Hapus Semua Rekap Nilai</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🧹 Hapus Semua Rekap Nilai</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('pin')"><span>🔑 Ubah PIN Admin</span><span>➔</span></div>
           </div>`;
       }
@@ -238,34 +265,69 @@
       const d = dataPendidikan[jenjang];
       title().innerText = d.judul; sesi.jenjang = jenjang;
       app().innerHTML = `<div class="form-box"><h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3><p style="font-size:0.84rem; color:#64748b;">${d.judul}</p></div><div class="list-menu">` +
-        d.kelas.map(k => `<div class="list-item" onclick="pilihMapel('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
+        d.kelas.map(k => `<div class="list-item" onclick="pilihKategoriUjian('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
     }
 
-    function pilihMapel(jenjang, kelas) {
+    function pilihKategoriUjian(jenjang, kelas) {
       sesi.tingkat = kelas;
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b;">${kelas}</p></div><div class="list-menu">` +
-        dataPendidikan[jenjang].mapel.map(m => `<div class="list-item" onclick="pilihBab('${jenjang}','${kelas}','${m}')"><span>📖 ${m}</span><span>➔</span></div>`).join("") + `</div>`;
+      app().innerHTML = `
+        <div class="form-box">
+          <button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button>
+          <h3 style="font-size:1.05rem;">Pilih Kategori Ujian</h3>
+          <p style="font-size:0.84rem; color:#64748b;">${dataPendidikan[jenjang].judul} • <b>${kelas}</b></p>
+        </div>
+        <div class="list-menu">
+          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','bab')">
+            <div><b>📝 Latihan Bab</b><br><small style="color:#64748b; font-weight:400;">Latihan harian per bab (Maks. 5 menit / soal)</small></div><span>➔</span>
+          </div>
+          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','uts')" style="border-color:#0ea5e9; background:#f0f9ff;">
+            <div><b>📘 UTS (Ujian Tengah Semester)</b><br><small style="color:#0369a1; font-weight:400;">Evaluasi tengah semester (Durasi 90 menit)</small></div><span>➔</span>
+          </div>
+          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','uas')" style="border-color:#7c3aed; background:#f5f3ff;">
+            <div><b>🎓 UAS (Ujian Akhir Semester)</b><br><small style="color:#5b21b6; font-weight:400;">Evaluasi akhir semester (Durasi 90 menit)</small></div><span>➔</span>
+          </div>
+        </div>`;
+    }
+
+    function pilihMapel(jenjang, kelas, mode) {
+      sesi.mode = mode;
+      const labelMode = mode === "uts" ? "UTS" : mode === "uas" ? "UAS" : "Latihan Bab";
+      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKategoriUjian('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • Kategori: <b>${labelMode}</b></p></div><div class="list-menu">` +
+        dataPendidikan[jenjang].mapel.map(m => {
+          const aksiKlik = mode === "bab" ? `pilihBab('${jenjang}','${kelas}','${m}')` : `siapkanUjianSemester('${jenjang}','${kelas}','${m}','${mode}')`;
+          return `<div class="list-item" onclick="${aksiKlik}"><span>📖 ${m}</span><span>➔</span></div>`;
+        }).join("") + `</div>`;
     }
 
     function pilihBab(jenjang, kelas, mapel) {
       sesi.mapel = mapel;
-      const list = babDefault[mapel] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"];
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Materi Ujian</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
+      const list = dapatkanDaftarBab(jenjang, kelas, mapel);
+      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}','bab')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Bab Materi</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
         list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
+    }
+
+    function siapkanUjianSemester(jenjang, kelas, mapel, mode) {
+      sesi.jenjang = jenjang; sesi.tingkat = kelas; sesi.mapel = mapel; sesi.mode = mode;
+      sesi.bab = mode === "uts" ? "Ujian Tengah Semester (UTS)" : "Ujian Akhir Semester (UAS)";
+      formBiodata(sesi.bab);
     }
 
     function formBiodata(bab) {
       sesi.bab = bab;
-      const jml = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, bab).length;
+      const jml = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, bab, sesi.mode).length;
+      const infoWaktu = sesi.mode === "bab" ? "Maks. 5 menit per soal" : "Total 90 menit";
+      const tombolKembali = sesi.mode === "bab"
+        ? `pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')`
+        : `pilihMapel('${sesi.jenjang}','${sesi.tingkat}','${sesi.mode}')`;
       app().innerHTML = `
         <div class="form-box">
-          <button class="btn-back" onclick="pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')">⬅ Kembali</button>
+          <button class="btn-back" onclick="${tombolKembali}">⬅ Kembali</button>
           <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
-          <p style="font-size:0.84rem; color:#64748b; margin-bottom:14px;">Materi: <b>${esc(bab)}</b> (${jml} Soal)</p>
+          <p style="font-size:0.84rem; color:#64748b; margin-bottom:14px;">${sesi.mapel} • <b>${esc(bab)}</b><br>Jumlah: <b>${jml} Soal</b> (${infoWaktu})</p>
           <label>Nama Lengkap</label><input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
           <label>Asal Sekolah</label><input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
           <label>Kelas Spesifik</label><input type="text" id="inp-kelas" placeholder="Contoh: 7A">
-          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian (${jml} Soal)</button>
+          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian Sekarang</button>
         </div>`;
     }
 
@@ -273,25 +335,74 @@
       const nama = document.getElementById("inp-nama").value.trim(), sekolah = document.getElementById("inp-sekolah").value.trim(), kelas = document.getElementById("inp-kelas").value.trim();
       if (!nama || !sekolah || !kelas) return alert("Lengkapi identitas peserta terlebih dahulu!");
       sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
-      soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab);
-      idxSoal = 0; skor = 0; riwayat = []; sisaWaktu = WAKTU_KUIS;
+      soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab, sesi.mode);
+      idxSoal = 0; skor = 0; riwayat = [];
+      sisaWaktu = 90 * 60; // 90 menit untuk UTS/UAS
+      sisaWaktuSoal = 5 * 60; // 5 menit per soal untuk Latihan Bab
+
       clearInterval(timer);
       timer = setInterval(() => {
-        sisaWaktu--;
         const t = document.getElementById("kuis-timer");
-        if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
-        if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu habis!"); selesaiKuis(); }
+        if (sesi.mode === "bab") {
+          sisaWaktuSoal--;
+          if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktuSoal / 60)}:${String(sisaWaktuSoal % 60).padStart(2, "0")} / soal`;
+          if (sisaWaktuSoal <= 0) {
+            riwayat.push({ q: soalList[idxSoal].q, u: "(Waktu Habis)", b: soalList[idxSoal].p[soalList[idxSoal].b], bahas: soalList[idxSoal].bahas, ok: false });
+            idxSoal++;
+            if (idxSoal < soalList.length) { sisaWaktuSoal = 5 * 60; renderSoal(); }
+            else { clearInterval(timer); selesaiKuis(); }
+          }
+        } else {
+          sisaWaktu--;
+          if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
+          if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu ujian 90 menit telah habis!"); selesaiKuis(); }
+        }
       }, 1000);
       renderSoal();
     }
 
     function renderSoal() {
       const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
+      const teksTimerAwal = sesi.mode === "bab" ? "⏱️ 5:00 / soal" : "⏱️ 90:00";
       app().innerHTML = `
         <div class="form-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
             <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} / ${soalList.length}</span>
-            <span id="kuis-timer" class="timer-badge">⏱️ 10:00</span>
+      sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
+      soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab, sesi.mode);
+      idxSoal = 0; skor = 0; riwayat = [];
+      sisaWaktu = 90 * 60;
+      sisaWaktuSoal = 5 * 60;
+
+      clearInterval(timer);
+      timer = setInterval(() => {
+        const t = document.getElementById("kuis-timer");
+        if (sesi.mode === "bab") {
+          sisaWaktuSoal--;
+          if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktuSoal / 60)}:${String(sisaWaktuSoal % 60).padStart(2, "0")} / soal`;
+          if (sisaWaktuSoal <= 0) {
+            riwayat.push({ q: soalList[idxSoal].q, u: "(Waktu Habis)", b: soalList[idxSoal].p[soalList[idxSoal].b], bahas: soalList[idxSoal].bahas, ok: false });
+            idxSoal++;
+            if (idxSoal < soalList.length) { sisaWaktuSoal = 5 * 60; renderSoal(); }
+            else { clearInterval(timer); selesaiKuis(); }
+          }
+        } else {
+          sisaWaktu--;
+          if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
+          if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu ujian 90 menit telah habis!"); selesaiKuis(); }
+        }
+      }, 1000);
+      renderSoal();
+    }
+
+    function renderSoal() {
+      const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
+      const teksTimerAwal = sesi.mode === "bab" ? "⏱️ 5:00 / soal" : "⏱️ 90:00";
+      app().innerHTML = `
+        <div class="form-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} / ${soalList.length}</span>
+            <span id="kuis-timer" class="timer-badge">${teksTimerAwal}</span>
           </div>
           <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
           <div class="list-menu">
@@ -305,14 +416,20 @@
       if (ok) skor++;
       riwayat.push({ q: s.q, u: s.p[i], b: s.p[s.b], bahas: s.bahas, ok });
       idxSoal++;
-      idxSoal < soalList.length ? renderSoal() : selesaiKuis();
+      if (idxSoal < soalList.length) {
+        if (sesi.mode === "bab") sisaWaktuSoal = 5 * 60;
+        renderSoal();
+      } else {
+        selesaiKuis();
+      }
     }
 
-          function selesaiKuis() {
+    function selesaiKuis() {
       clearInterval(timer);
       const nilai = Math.round((skor / soalList.length) * 100);
+      const labelUjian = sesi.mode === "uts" ? `${sesi.mapel} (UTS)` : sesi.mode === "uas" ? `${sesi.mapel} (UAS)` : sesi.mapel;
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: sesi.mapel, nilai });
+      rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
       app().innerHTML = `
         <div class="form-box" style="text-align:center; padding:24px 18px;">
@@ -328,17 +445,87 @@
         </div>`;
     }
 
-    function updateDropdownAdmin() {
+          function updateDropdownAdmin(callback) {
       const j = document.getElementById("adm-jenjang").value;
       document.getElementById("adm-kelas").innerHTML = dataPendidikan[j].kelas.map(k => `<option value="${k}">${k}</option>`).join("");
       document.getElementById("adm-mapel").innerHTML = dataPendidikan[j].mapel.map(m => `<option value="${m}">${m}</option>`).join("");
-      updateBabAdmin();
+      if (callback) callback(); else updateBabAdmin();
     }
 
     function updateBabAdmin() {
+      const j = document.getElementById("adm-jenjang").value;
+      const k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value;
-      const list = babDefault[m] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"];
-      document.getElementById("adm-bab").innerHTML = list.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
+      const selBab = document.getElementById("adm-bab");
+      if (!selBab) return;
+      const list = dapatkanDaftarBab(j, k, m);
+      selBab.innerHTML = list.map(b => `<option value="${esc(b)}">${esc(b)}</option>`).join("");
+    }
+
+    function renderDaftarBabAdmin() {
+      const j = document.getElementById("adm-jenjang").value;
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const list = dapatkanDaftarBab(j, k, m);
+      const wadah = document.getElementById("list-bab-admin");
+      if (!wadah) return;
+      wadah.innerHTML = list.map((b, idx) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; padding:10px 0; border-bottom:1px solid #e2e8f0; font-size:0.88rem;">
+          <span><b>${idx + 1}.</b> ${esc(b)}</span>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button type="button" class="btn-sm btn-edit" onclick="ubahBabAdmin(${idx})">✏️ Ubah</button>
+            <button type="button" class="btn-sm btn-del" onclick="hapusBabAdmin(${idx})">🗑️</button>
+          </div>
+        </div>`).join("");
+    }
+
+    function tambahBabAdmin() {
+      const j = document.getElementById("adm-jenjang").value;
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const namaBaru = document.getElementById("inp-bab-baru").value.trim();
+      if (!namaBaru) return alert("Masukkan nama bab baru terlebih dahulu!");
+      const kunci = `${j}-${k}-${m}`;
+      const list = dapatkanDaftarBab(j, k, m);
+      list.push(namaBaru);
+      const kustom = JSON.parse(localStorage.getItem("rim_bab_custom") || "{}");
+      kustom[kunci] = list;
+      localStorage.setItem("rim_bab_custom", JSON.stringify(kustom));
+      document.getElementById("inp-bab-baru").value = "";
+      renderDaftarBabAdmin();
+      alert("✅ Bab baru berhasil ditambahkan!");
+    }
+
+    function ubahBabAdmin(idx) {
+      const j = document.getElementById("adm-jenjang").value;
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const kunci = `${j}-${k}-${m}`;
+      const list = dapatkanDaftarBab(j, k, m);
+      const namaEdit = prompt("Ubah nama bab:", list[idx]);
+      if (namaEdit && namaEdit.trim()) {
+        list[idx] = namaEdit.trim();
+        const kustom = JSON.parse(localStorage.getItem("rim_bab_custom") || "{}");
+        kustom[kunci] = list;
+        localStorage.setItem("rim_bab_custom", JSON.stringify(kustom));
+        renderDaftarBabAdmin();
+      }
+    }
+
+    function hapusBabAdmin(idx) {
+      const j = document.getElementById("adm-jenjang").value;
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const kunci = `${j}-${k}-${m}`;
+      const list = dapatkanDaftarBab(j, k, m);
+      if (list.length <= 1) return alert("Minimal harus tersisa 1 bab pada mata pelajaran ini.");
+      if (confirm(`Hapus "${list[idx]}" dari daftar bab?`)) {
+        list.splice(idx, 1);
+        const kustom = JSON.parse(localStorage.getItem("rim_bab_custom") || "{}");
+        kustom[kunci] = list;
+        localStorage.setItem("rim_bab_custom", JSON.stringify(kustom));
+        renderDaftarBabAdmin();
+      }
     }
 
     function salinPromptAI() {
@@ -349,10 +536,8 @@
       const jml = document.getElementById("ai-jumlah").value;
       const teksPerintah = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
       navigator.clipboard.writeText(teksPerintah).then(() => {
-        alert("✅ Perintah berhasil disalin! Silakan tempel (Paste) di Gemini atau ChatGPT, lalu salin hasil JSON-nya ke kotak di bawah.");
-      }).catch(() => {
-        prompt("Salin teks perintah di bawah ini secara manual:", teksPerintah);
-      });
+        alert("✅ Perintah berhasil disalin! Tempelkan di Gemini/ChatGPT, lalu salin hasil JSON-nya ke kotak di bawah.");
+      }).catch(() => prompt("Salin perintah ini:", teksPerintah));
     }
 
     function imporSoalJSON() {
@@ -370,10 +555,10 @@
         if (!tambahan[kunci]) tambahan[kunci] = [];
         tambahan[kunci] = tambahan[kunci].concat(daftarBaru);
         localStorage.setItem("rim_soal_custom", JSON.stringify(tambahan));
-        alert(`✅ Sukses! ${daftarBaru.length} soal baru berhasil dimasukkan ke ${k} - ${m}.`);
+        alert(`✅ Sukses! ${daftarBaru.length} soal baru ditambahkan ke ${k} - ${m}.`);
         document.getElementById("ai-json-hasil").value = "";
       } catch (e) {
-        alert("❌ Format teks belum tepat. Pastikan Anda menyalin seluruh hasil dari AI mulai dari tanda [ sampai ].");
+        alert("❌ Format teks belum tepat. Pastikan Anda menyalin mulai dari tanda [ sampai ].");
       }
     }
 
@@ -394,6 +579,40 @@
       ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas"].forEach(id => document.getElementById(id).value = "");
     }
 
+    function hapusSatuSoal(kunciEncoded, idx) {
+      const kunci = decodeURIComponent(kunciEncoded);
+      if (!confirm("Yakin ingin menghapus soal ini?")) return;
+      const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
+      if (tambahan[kunci]) {
+        tambahan[kunci].splice(idx, 1);
+        if (tambahan[kunci].length === 0) delete tambahan[kunci];
+        localStorage.setItem("rim_soal_custom", JSON.stringify(tambahan));
+        tampilkanKelolaSoal();
+      }
+    }
+
+    function tampilkanKelolaSoal() {
+      const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
+      const keys = Object.keys(tambahan);
+      let html = keys.length === 0 ? "<p style='color:#64748b; font-size:0.9rem; margin-top:10px;'>Belum ada soal tambahan yang disimpan.</p>" : "";
+      keys.forEach(k => {
+        const bagian = k.split("-");
+        const labelKategori = `${bagian.at(0).toUpperCase()} • ${bagian.at(1)} • ${bagian.at(2)} • ${bagian.slice(3).join("-")}`;
+        tambahan[k].forEach((s, i) => {
+          html += `
+            <div style="border-bottom:1px solid #e2e8f0; padding:12px 0; font-size:0.86rem; display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+              <div>
+                <small style="color:#4f46e5; font-weight:700;">${esc(labelKategori)}</small><br>
+                <b>${i + 1}. ${esc(s.q)}</b>
+              </div>
+              <button type="button" class="btn-sm btn-del" style="flex-shrink:0;" onclick="hapusSatuSoal('${encodeURIComponent(k)}', ${i})">🗑️ Hapus</button>
+            </div>`;
+        });
+      });
+      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">🗑️ Kelola & Hapus Soal Tambahan</h3>${html}` +
+        (keys.length ? `<button class="btn-danger" onclick="if(confirm('Hapus SEMUA soal tambahan sekaligus?')){localStorage.removeItem('rim_soal_custom');tampilkanKelolaSoal();}">🧹 Hapus Semua Soal Tambahan</button>` : "") + `</div>`;
+    }
+
     function unduhPDF() {
       const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
@@ -405,7 +624,7 @@
       doc.text("Dicetak pada: " + new Date().toLocaleString("id-ID"), 14, 25);
       doc.autoTable({
         startY: 32,
-        head: [["No", "Nama Siswa", "Asal Sekolah", "Kelas", "Mata Pelajaran", "Nilai"]],
+        head: [["No", "Nama Siswa", "Asal Sekolah", "Kelas", "Ujian / Mapel", "Nilai"]],
         body: data.map((d, i) => [i + 1, d.nama, d.sekolah, d.kelas, d.mapel, d.nilai]),
         theme: "grid",
         headStyles: { fillColor: "#4f46e5", textColor: "#ffffff", fontStyle: "bold" },
@@ -427,7 +646,24 @@
     function bukaAdmin(aksi) {
       const pin = prompt("Masukkan PIN Admin:");
       if (pin !== (localStorage.getItem("rim_pin") || PIN_DEFAULT)) return alert("PIN Salah!");
-      if (aksi === "ai-soal") {
+      if (aksi === "kelola-bab") {
+        app().innerHTML = `
+          <div class="form-box">
+            <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
+            <h3 style="font-size:1.05rem; margin-bottom:10px;">🗂️ Kelola Bab Kurikulum</h3>
+            <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin(renderDaftarBabAdmin)"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
+            <label>Kelas</label><select id="adm-kelas" onchange="renderDaftarBabAdmin()"></select>
+            <label>Mata Pelajaran</label><select id="adm-mapel" onchange="renderDaftarBabAdmin()"></select>
+            <label>Tambah Bab Baru</label>
+            <input type="text" id="inp-bab-baru" placeholder="Contoh: Bab 4: Perubahan Iklim Global">
+            <button type="button" class="btn-primary" onclick="tambahBabAdmin()">➕ Tambah Bab</button>
+          </div>
+          <div class="form-box">
+            <h4 style="font-size:0.95rem; margin-bottom:6px;">Daftar Bab Aktif (Klik Ubah / Hapus)</h4>
+            <div id="list-bab-admin"></div>
+          </div>`;
+        updateDropdownAdmin(renderDaftarBabAdmin);
+      } else if (aksi === "ai-soal") {
         app().innerHTML = `
           <div class="form-box">
             <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
@@ -465,17 +701,31 @@
           </div>`;
         updateDropdownAdmin();
       } else if (aksi === "kelola-soal") {
-        const tambahan = JSON.parse(localStorage.getItem("rim_soal_custom") || "{}");
-        const keys = Object.keys(tambahan);
-        let html = keys.length === 0 ? "<p style='color:#64748b; font-size:0.9rem; margin-top:10px;'>Belum ada soal tambahan.</p>" : "";
-        keys.forEach(k => tambahan[k].forEach((s, i) => html += `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.86rem;"><small style="color:#4f46e5; font-weight:700;">${esc(k)}</small><br><b>${i + 1}. ${esc(s.q)}</b></div>`));
-        app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📚 Daftar Soal Tambahan</h3>${html}` +
-          (keys.length ? `<button class="btn-danger" onclick="if(confirm('Hapus semua soal tambahan?')){localStorage.removeItem('rim_soal_custom');bukaMenu('saya');}">🗑️ Hapus Semua Soal Tambahan</button>` : "") + `</div>`;
+        tampilkanKelolaSoal();
       } else if (aksi === "rekap") {
         const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
         app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📊 Rekap Nilai Peserta</h3>` +
-          (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Mapel: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
-          `<button class="btn-pdf" onclick="unduhPDF()">📄 Download Rekap Nilai (PDF)</button><button class="btn-danger" onclick="hapusRekapNilai()">🗑️ Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
+            <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
+            <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
+            <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
+            <label>Bab Materi</label><select id="adm-bab"></select>
+            <label>Pertanyaan</label><textarea id="adm-q" rows="3" placeholder="Tulis pertanyaan..."></textarea>
+            <label>Pilihan A</label><input type="text" id="adm-pa" placeholder="Jawaban A">
+            <label>Pilihan B</label><input type="text" id="adm-pb" placeholder="Jawaban B">
+            <label>Pilihan C</label><input type="text" id="adm-pc" placeholder="Jawaban C">
+            <label>Pilihan D</label><input type="text" id="adm-pd" placeholder="Jawaban D">
+            <label>Kunci Jawaban</label><select id="adm-kunci"><option value="0">Pilihan A</option><option value="1">Pilihan B</option><option value="2">Pilihan C</option><option value="3">Pilihan D</option></select>
+            <label>Pembahasan</label><input type="text" id="adm-bahas" placeholder="Penjelasan singkat">
+            <button type="button" class="btn-primary" onclick="simpanSoalBaru()">💾 Simpan Soal</button>
+          </div>`;
+        updateDropdownAdmin();
+      } else if (aksi === "kelola-soal") {
+        tampilkanKelolaSoal();
+      } else if (aksi === "rekap") {
+        const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+        app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📊 Rekap Nilai Peserta</h3>` +
+          (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Ujian: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
+          `<button class="btn-pdf" onclick="unduhPDF()">📄 Download Rekap Nilai (PDF)</button><button class="btn-danger" onclick="hapusRekapNilai()">🧹 Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
       } else if (aksi === "pdf") { unduhPDF(); }
       else if (aksi === "hapus") { hapusRekapNilai(); }
       else if (aksi === "pin") {
