@@ -35,6 +35,12 @@
     .list-item { background: var(--surface); padding: 14px 16px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid var(--border); font-size: 0.94rem; font-weight: 600; color: var(--text); }
     .list-item:hover { border-color: var(--primary); background: #eef2ff; }
     .timer-badge { background: #fef2f2; color: #dc2626; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; border: 1px solid #fecaca; }
+    .nav-soal-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .num-box { width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid var(--border); background: #fff; font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--text); }
+    .num-box.answered { background: #dcfce7; border-color: #16a34a; color: #15803d; }
+    .num-box.current { background: #4f46e5; border-color: #4f46e5; color: #fff; }
+    .opt-selected { border-color: #4f46e5 !important; background: #eef2ff !important; }
+    .quiz-footer { display: flex; gap: 10px; margin-top: 16px; }
     .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255,255,255,0.95); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
     .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--muted); cursor: pointer; padding: 6px 12px; border-radius: 14px; }
     .nav-item.active { color: var(--primary); background: #eef2ff; font-weight: 800; }
@@ -116,7 +122,7 @@
       return [{ ...contoh, q: `[Contoh ${kelas} • ${label}] ${contoh.q}` }];
     }
 
-          let timer, soalList = [], riwayat = [], idxSoal = 0, skor = 0, sisaWaktu = 0, sisaWaktuSoal = 0;
+          let timer, soalList = [], jawabanUser = [], idxSoal = 0, sisaWaktu = 0, sisaWaktuSoal = 0;
     let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "", mode: "bab" };
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
@@ -231,9 +237,8 @@
       if (!nama || !sekolah || !kelas) return alert("Lengkapi identitas peserta terlebih dahulu!");
       sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
       soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab, sesi.mode);
-      idxSoal = 0; skor = 0; riwayat = [];
-      sisaWaktu = 90 * 60;
-      sisaWaktuSoal = 5 * 60;
+      jawabanUser = new Array(soalList.length).fill(null);
+      idxSoal = 0; sisaWaktu = 90 * 60; sisaWaktuSoal = 5 * 60;
 
       clearInterval(timer);
       timer = setInterval(() => {
@@ -242,56 +247,92 @@
           sisaWaktuSoal--;
           if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktuSoal / 60)}:${String(sisaWaktuSoal % 60).padStart(2, "0")} / soal`;
           if (sisaWaktuSoal <= 0) {
-            riwayat.push({ q: soalList[idxSoal].q, u: "(Waktu Habis)", b: soalList[idxSoal].p[soalList[idxSoal].b], bahas: soalList[idxSoal].bahas, ok: false });
-            idxSoal++;
-            if (idxSoal < soalList.length) { sisaWaktuSoal = 5 * 60; renderSoal(); }
-            else { clearInterval(timer); selesaiKuis(); }
+            if (idxSoal < soalList.length - 1) { idxSoal++; sisaWaktuSoal = 5 * 60; renderSoal(); }
+            else { clearInterval(timer); selesaiKuis(true); }
           }
         } else {
           sisaWaktu--;
           if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
-          if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu ujian 90 menit telah habis!"); selesaiKuis(); }
+          if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu ujian 90 menit telah habis!"); selesaiKuis(true); }
         }
       }, 1000);
       renderSoal();
     }
 
+          function lompatSoal(targetIdx) {
+      if (targetIdx < 0 || targetIdx >= soalList.length) return;
+      idxSoal = targetIdx;
+      if (sesi.mode === "bab") sisaWaktuSoal = 5 * 60;
+      renderSoal();
+    }
+
+    function pilihJawaban(i) {
+      jawabanUser[idxSoal] = i;
+      renderSoal();
+    }
+
     function renderSoal() {
       const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
-      const teksTimerAwal = sesi.mode === "bab" ? "⏱️ 5:00 / soal" : "⏱️ 90:00";
+      const jmlDijawab = jawabanUser.filter(j => j !== null).length;
+      const teksTimerAwal = sesi.mode === "bab"
+        ? `⏱️ ${Math.floor(sisaWaktuSoal / 60)}:${String(sisaWaktuSoal % 60).padStart(2, "0")} / soal`
+        : `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
+
+      const gridNomor = soalList.map((_, idx) => {
+        const cls = idx === idxSoal ? "num-box current" : (jawabanUser[idx] !== null ? "num-box answered" : "num-box");
+        return `<button type="button" class="${cls}" onclick="lompatSoal(${idx})">${idx + 1}</button>`;
+      }).join("");
+
+      const tombolSebelumnya = idxSoal > 0
+        ? `<button type="button" class="btn-back" style="margin:0; flex:1;" onclick="lompatSoal(${idxSoal - 1})">⬅ Sebelumnya</button>`
+        : `<div style="flex:1;"></div>`;
+
+      const tombolSelanjutnya = idxSoal < soalList.length - 1
+        ? `<button type="button" class="btn-primary" style="flex:1;" onclick="lompatSoal(${idxSoal + 1})">Selanjutnya ➔</button>`
+        : `<button type="button" class="btn-pdf" style="margin:0; flex:1;" onclick="selesaiKuis(false)">✅ Selesai Ujian</button>`;
+
       app().innerHTML = `
         <div class="form-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-            <span style="font-size:0.85rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} / ${soalList.length}</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.84rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} / ${soalList.length} (Dijawab: ${jmlDijawab})</span>
             <span id="kuis-timer" class="timer-badge">${teksTimerAwal}</span>
           </div>
+          <div class="nav-soal-grid">${gridNomor}</div>
+          <p style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">🟩 Hijau: Sudah dijawab • ⬜ Putih: Belum dijawab</p>
           <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
           <div class="list-menu">
-            ${s.p.map((pil, i) => `<button class="list-item" style="width:100%; text-align:left;" onclick="jawab(${i})"><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span></button>`).join("")}
+            ${s.p.map((pil, i) => {
+              const terpilih = jawabanUser[idxSoal] === i ? "opt-selected" : "";
+              const ikon = jawabanUser[idxSoal] === i ? "✅" : "";
+              return `<button type="button" class="list-item ${terpilih}" style="width:100%; text-align:left;" onclick="pilihJawaban(${i})"><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span><span>${ikon}</span></button>`;
+            }).join("")}
           </div>
+          <div class="quiz-footer">${tombolSebelumnya}${tombolSelanjutnya}</div>
+          ${idxSoal < soalList.length - 1 ? `<button type="button" class="btn-pdf" onclick="selesaiKuis(false)">🏁 Kumpulkan & Selesai Ujian</button>` : ""}
         </div>`;
     }
 
-    function jawab(i) {
-      const s = soalList[idxSoal], ok = i === s.b;
-      if (ok) skor++;
-      riwayat.push({ q: s.q, u: s.p[i], b: s.p[s.b], bahas: s.bahas, ok });
-      idxSoal++;
-      if (idxSoal < soalList.length) {
-        if (sesi.mode === "bab") sisaWaktuSoal = 5 * 60;
-        renderSoal();
-      } else {
-        selesaiKuis();
+    function selesaiKuis(otomatis) {
+      const belumDijawab = jawabanUser.filter(j => j === null).length;
+      if (!otomatis && belumDijawab > 0) {
+        if (!confirm(`Masih ada ${belumDijawab} soal yang belum dijawab. Yakin ingin menyelesaikan ujian sekarang?`)) return;
       }
-    }
-
-          function selesaiKuis() {
       clearInterval(timer);
+
+      let skor = 0;
+      const riwayat = soalList.map((s, idx) => {
+        const jwb = jawabanUser[idx];
+        const ok = jwb === s.b;
+        if (ok) skor++;
+        return { q: s.q, u: jwb !== null ? s.p[jwb] : "(Tidak Dijawab)", b: s.p[s.b], bahas: s.bahas, ok };
+      });
+
       const nilai = Math.round((skor / soalList.length) * 100);
       const labelUjian = sesi.mode === "uts" ? `${sesi.mapel} (UTS)` : sesi.mode === "uas" ? `${sesi.mapel} (UAS)` : sesi.mapel;
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
+
       app().innerHTML = `
         <div class="form-box" style="text-align:center; padding:24px 18px;">
           <span class="hero-badge" style="background:#eef2ff; color:#4f46e5;">HASIL UJIAN</span>
@@ -305,7 +346,6 @@
           ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;"><b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
         </div>`;
     }
-
     function updateDropdownAdmin(callback) {
       const j = document.getElementById("adm-jenjang").value;
       document.getElementById("adm-kelas").innerHTML = dataPendidikan[j].kelas.map(k => `<option value="${k}">${k}</option>`).join("");
@@ -477,21 +517,42 @@
     function unduhPDF() {
       const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.setFontSize(16); doc.setTextColor("#4f46e5");
-      doc.text("REKAPITULASI NILAI UJIAN - RIM CBT", 14, 18);
-      doc.setFontSize(10); doc.setTextColor("#64748b");
-      doc.text("Dicetak pada: " + new Date().toLocaleString("id-ID"), 14, 25);
-      doc.autoTable({
-        startY: 32,
-        head: [["No", "Nama Siswa", "Asal Sekolah", "Kelas", "Ujian / Mapel", "Nilai"]],
-        body: data.map((d, i) => [i + 1, d.nama, d.sekolah, d.kelas, d.mapel, d.nilai]),
-        theme: "grid",
-        headStyles: { fillColor: "#4f46e5", textColor: "#ffffff", fontStyle: "bold" },
-        styles: { fontSize: 9, cellPadding: 3 }
-      });
-      doc.save("Rekap_Nilai_RIM_CBT.pdf");
+      try {
+        if (!window.jspdf || !window.jspdf.jsPDF) throw new Error("Pustaka PDF belum termuat. Periksa koneksi internet.");
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+        doc.setFontSize(15); doc.setTextColor(79, 70, 229);
+        doc.text("REKAPITULASI NILAI UJIAN - RIM CBT", 14, 18);
+        doc.setFontSize(9); doc.setTextColor(100, 116, 139);
+        doc.text("Dicetak pada: " + new Date().toLocaleString("id-ID"), 14, 24);
+
+        const rows = data.map((d, i) => [String(i + 1), String(d.nama || "-"), String(d.sekolah || "-"), String(d.kelas || "-"), String(d.mapel || "-"), String(d.nilai ?? 0)]);
+        if (typeof doc.autoTable === "function") {
+          doc.autoTable({
+            startY: 30,
+            head: [["No", "Nama Siswa", "Asal Sekolah", "Kelas", "Ujian / Mapel", "Nilai"]],
+            body: rows,
+            theme: "grid",
+            headStyles: { fillColor: "#4f46e5", textColor: "#ffffff", fontStyle: "bold" },
+            styles: { fontSize: 9, cellPadding: 3 }
+          });
+        } else {
+          let y = 34; doc.setFontSize(10); doc.setTextColor(15, 23, 42);
+          rows.forEach(r => { doc.text(`${r.at(0)}. ${r.at(1)} | ${r.at(2)} (${r.at(3)}) | ${r.at(4)} : ${r.at(5)}`, 14, y); y += 7; if (y > 280) { doc.addPage(); y = 20; } });
+        }
+
+        const pdfBlob = doc.output("blob");
+        const url = URL.createObjectURL(pdfBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "Rekap_Nilai_RIM_CBT.pdf";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+      } catch (err) {
+        alert("Gagal membuat PDF: " + err.message);
+      }
     }
 
     function hapusRekapNilai() {
