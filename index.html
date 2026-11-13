@@ -74,7 +74,11 @@
         if (cfg.user && cfg.repo && cfg.token) {
           const urlApi = "https://github.com" + cfg.user + "/" + cfg.repo + "/contents/database.json?ref=main&t=" + Date.now();
           const resApi = await fetch(urlApi, {
-            headers: { "Authorization": "token " + cfg.token, "Accept": "application/vnd.github.v3+json" }
+            headers: {
+              "Authorization": "Bearer " + cfg.token,
+              "Accept": "application/vnd.github+json",
+              "X-GitHub-Api-Version": "2022-11-28"
+            }
           });
           if (resApi.ok) {
             const meta = await resApi.json();
@@ -108,9 +112,12 @@
       if (bar) bar.innerText = "⏳ Menyimpan otomatis ke semua perangkat...";
       try {
         const apiUrl = "https://github.com" + cfg.user + "/" + cfg.repo + "/contents/database.json";
-        const getRes = await fetch(apiUrl, {
-          headers: { "Authorization": "token " + cfg.token, "Accept": "application/vnd.github.v3+json" }
-        });
+        const headers = {
+          "Authorization": "Bearer " + cfg.token,
+          "Accept": "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28"
+        };
+        const getRes = await fetch(apiUrl + "?ref=main&t=" + Date.now(), { headers });
         let sha = undefined;
         if (getRes.ok) {
           const meta = await getRes.json();
@@ -123,18 +130,17 @@
           pin: dbPublik.pin || PIN_DEFAULT
         };
         const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payloadObj, null, 2))));
+        const bodyData = {
+          message: "Auto-update RIM CBT database.json",
+          content: encoded,
+          branch: "main"
+        };
+        if (sha) bodyData.sha = sha;
+
         const putRes = await fetch(apiUrl, {
           method: "PUT",
-          headers: {
-            "Authorization": "token " + cfg.token,
-            "Accept": "application/vnd.github.v3+json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            message: "Auto-update RIM CBT database.json",
-            content: encoded,
-            sha: sha
-          })
+          headers: { ...headers, "Content-Type": "application/json" },
+          body: JSON.stringify(bodyData)
         });
         if (!putRes.ok) {
           const errJson = await putRes.json();
@@ -699,9 +705,9 @@
             <h3 style="font-size:1.05rem; margin-bottom:6px;">⚙️ Pengaturan Auto-Sync GitHub</h3>
             <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Isi sekali saja. Setelah terhubung, setiap soal, bab, dan nilai otomatis tersinkron ke semua HP & Laptop.</p>
             <label>Username GitHub Anda</label>
-            <input type="text" id="gh-user" value="${esc(cfg.user)}" placeholder="Contoh: budisantoso">
+            <input type="text" id="gh-user" value="${esc(cfg.user || "ryanto23")}" placeholder="Contoh: ryanto23">
             <label>Nama Repositori GitHub</label>
-            <input type="text" id="gh-repo" value="${esc(cfg.repo)}" placeholder="Contoh: rim-cbt">
+            <input type="text" id="gh-repo" value="${esc(cfg.repo || "RIM-Edu-AI")}" placeholder="Contoh: RIM-Edu-AI">
             <label>Personal Access Token (ghp_...)</label>
             <input type="password" id="gh-token" value="${esc(cfg.token)}" placeholder="Tempel token ghp_... Anda di sini">
             <button type="button" class="btn-pdf" onclick="simpanPengaturanGitHub()">💾 Simpan & Hubungkan Otomatis</button>
