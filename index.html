@@ -39,6 +39,7 @@
     .num-box.current { background: #4f46e5; border-color: #4f46e5; color: #fff; }
     .opt-selected { border-color: #4f46e5 !important; background: #eef2ff !important; }
     .quiz-footer { display: flex; gap: 10px; margin-top: 16px; }
+    .soal-img { max-width: 100%; max-height: 240px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; display: block; object-fit: contain; background: #f8fafc; }
     .sync-bar { font-size: 0.75rem; text-align: center; padding: 6px; background: #eef2ff; color: #4338ca; font-weight: 700; }
     .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255,255,255,0.95); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
     .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--muted); cursor: pointer; padding: 6px 12px; border-radius: 14px; }
@@ -196,12 +197,12 @@
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
-          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Semua guru dapat mengelola bab dan soal langsung dari HP masing-masing.</p></div>
+          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Semua guru dapat mengelola bab dan soal bergambar langsung dari HP masing-masing.</p></div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaAdmin('kelola-bab')" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Kelola Bab Kurikulum</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('ai-soal')" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Buat Soal Otomatis (AI)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Manual (Bab/UTS/UAS)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>🗑️ Hapus / Kelola Soal</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Manual (+ Gambar)</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>🗑️ Hapus / Kelola Soal (Per Kelas & Mapel)</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('rekap')"><span>📊 Lihat Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🧹 Hapus Semua Rekap Nilai</span><span>➔</span></div>
@@ -344,6 +345,8 @@
         ? `<button type="button" class="btn-primary" style="flex:1;" onclick="lompatSoal(${idxSoal + 1})">Selanjutnya ➔</button>`
         : `<button type="button" class="btn-pdf" style="margin:0; flex:1;" onclick="selesaiKuis(false)">✅ Selesai Ujian</button>`;
 
+      const blokGambar = s.img ? `<img src="${esc(s.img)}" class="soal-img" alt="Gambar Soal">` : "";
+
       app().innerHTML = `
         <div class="form-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -352,6 +355,7 @@
           </div>
           <div class="nav-soal-grid">${gridNomor}</div>
           <p style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">🟩 Hijau: Sudah dijawab • ⬜ Putih: Belum dijawab</p>
+          ${blokGambar}
           <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
           <div class="list-menu">
             ${s.p.map((pil, i) => {
@@ -377,7 +381,7 @@
         const jwb = jawabanUser[idx];
         const ok = jwb === s.b;
         if (ok) skor++;
-        return { q: s.q, u: jwb !== null ? s.p[jwb] : "(Tidak Dijawab)", b: s.p[s.b], bahas: s.bahas, ok };
+        return { q: s.q, img: s.img || "", u: jwb !== null ? s.p[jwb] : "(Tidak Dijawab)", b: s.p[s.b], bahas: s.bahas, ok };
       });
 
       const nilai = Math.round((skor / soalList.length) * 100);
@@ -398,7 +402,7 @@
           <button class="btn-primary" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
         </div>
         <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:8px;">📋 Kunci & Pembahasan</h3>
-          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;"><b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
+          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;">${r.img ? `<img src="${esc(r.img)}" class="soal-img" style="max-height:150px;">` : ""}<b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
         </div>`;
     }
 
@@ -489,7 +493,31 @@
       }
     }
 
-          function salinPromptAI() {
+          let gambarSoalTemp = "";
+
+    function prosesGambarUpload(input) {
+      const file = input.files[0];
+      const prev = document.getElementById("preview-img-soal");
+      if (!file) { gambarSoalTemp = ""; if (prev) prev.style.display = "none"; return; }
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxW = 480;
+          let w = img.width, h = img.height;
+          if (w > maxW) { h = Math.round((h * maxW) / w); w = maxW; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          gambarSoalTemp = canvas.toDataURL("image/jpeg", 0.65);
+          if (prev) { prev.src = gambarSoalTemp; prev.style.display = "block"; }
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function salinPromptAI() {
       const j = document.getElementById("adm-jenjang").value.toUpperCase();
       const k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value;
@@ -533,15 +561,24 @@
       const pB = document.getElementById("adm-pb").value.trim(), pC = document.getElementById("adm-pc").value.trim();
       const pD = document.getElementById("adm-pd").value.trim(), b = parseInt(document.getElementById("adm-kunci").value, 10);
       const bahas = document.getElementById("adm-bahas").value.trim() || "Sesuai konsep materi.";
+      const urlImg = (document.getElementById("adm-img-url")?.value || "").trim();
+      const imgFinal = gambarSoalTemp || urlImg;
       if (!q || !pA || !pB || !pC || !pD) return alert("Isi pertanyaan dan semua pilihan jawaban!");
       await muatDatabasePublik();
       const kunci = `${j}-${k}-${m}-${kat}`;
       if (!dbPublik.soal[kunci]) dbPublik.soal[kunci] = [];
-      dbPublik.soal[kunci].push({ q, p: [pA, pB, pC, pD], b, bahas });
+      const itemSoal = { q, p: [pA, pB, pC, pD], b, bahas };
+      if (imgFinal) itemSoal.img = imgFinal;
+      dbPublik.soal[kunci].push(itemSoal);
       const ok = await simpanOtomatisKeCloud();
       if (ok) {
         alert(`✅ Soal berhasil disimpan otomatis ke semua perangkat (${kat})!`);
-        ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas"].forEach(id => document.getElementById(id).value = "");
+        gambarSoalTemp = "";
+        const prev = document.getElementById("preview-img-soal");
+        if (prev) prev.style.display = "none";
+        ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas", "adm-img-url", "adm-img-file"].forEach(id => {
+          const el = document.getElementById(id); if (el) el.value = "";
+        });
       }
     }
 
@@ -553,40 +590,82 @@
         dbPublik.soal[kunci].splice(idx, 1);
         if (dbPublik.soal[kunci].length === 0) delete dbPublik.soal[kunci];
         const ok = await simpanOtomatisKeCloud();
-        if (ok) tampilkanKelolaSoal();
+        if (ok) renderDaftarSoalTerfilter();
       }
     }
 
-    function tampilkanKelolaSoal() {
-      const semua = dbPublik.soal || {};
-      const keys = Object.keys(semua).filter(k => (semua[k] || []).length > 0);
-      let html = keys.length === 0 ? "<p style='color:#64748b; font-size:0.9rem; margin-top:10px;'>Belum ada soal tambahan yang tersimpan.</p>" : "";
-      keys.forEach(k => {
-        const bagian = k.split("-");
-        const labelKategori = `${bagian.at(0).toUpperCase()} • ${bagian.at(1)} • ${bagian.at(2)} • ${bagian.slice(3).join("-")}`;
-        semua[k].forEach((s, i) => {
-          html += `
-            <div style="border-bottom:1px solid #e2e8f0; padding:12px 0; font-size:0.86rem; display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
-              <div>
-                <small style="color:#4f46e5; font-weight:700;">${esc(labelKategori)}</small><br>
-                <b>${i + 1}. ${esc(s.q)}</b>
-              </div>
-              <button type="button" class="btn-sm btn-del" style="flex-shrink:0;" onclick="hapusSatuSoal('${encodeURIComponent(k)}', ${i})">🗑️ Hapus</button>
-            </div>`;
-        });
-      });
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">🗑️ Kelola & Hapus Soal</h3>${html}` +
-        (keys.length ? `<button class="btn-danger" onclick="hapusSemuaSoalCloud()">🧹 Hapus Semua Soal</button>` : "") + `</div>`;
-    }
-
-    async function hapusSemuaSoalCloud() {
-      if (!confirm("Hapus SEMUA soal di seluruh perangkat?")) return;
-      dbPublik.soal = {};
+    async function hapusSoalPerKategori(kunciEncoded) {
+      const kunci = decodeURIComponent(kunciEncoded);
+      const jml = (dbPublik.soal[kunci] || []).length;
+      if (!confirm(`Hapus SEMUA (${jml} soal) pada kategori ini di seluruh perangkat?`)) return;
+      await muatDatabasePublik();
+      delete dbPublik.soal[kunci];
       const ok = await simpanOtomatisKeCloud();
-      if (ok) tampilkanKelolaSoal();
+      if (ok) renderDaftarSoalTerfilter();
     }
 
-    function bukaModalPDF() {
+    function tampilkanKelolaSoal() {
+      app().innerHTML = `
+        <div class="form-box">
+          <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">🗑️ Kelola & Hapus Soal</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Filter berdasarkan jenjang, kelas, mapel, dan kategori Bab / UTS / UAS.</p>
+          <label>Jenjang</label>
+          <select id="adm-jenjang" onchange="updateDropdownAdmin(() => { updateBabAdmin(); renderDaftarSoalTerfilter(); })">
+            <option value="sd">SD</option>
+            <option value="smp">SMP</option>
+            <option value="sma">SMA / SMK</option>
+          </select>
+          <label>Kelas</label>
+          <select id="adm-kelas" onchange="updateBabAdmin(); renderDaftarSoalTerfilter();"></select>
+          <label>Mata Pelajaran</label>
+          <select id="adm-mapel" onchange="updateBabAdmin(); renderDaftarSoalTerfilter();"></select>
+          <label>Kategori (Bab / UTS / UAS)</label>
+          <select id="adm-bab" onchange="renderDaftarSoalTerfilter()"></select>
+        </div>
+        <div id="wadah-list-soal" class="form-box"></div>`;
+      updateDropdownAdmin(() => {
+        updateBabAdmin();
+        renderDaftarSoalTerfilter();
+      });
+    }
+
+    function renderDaftarSoalTerfilter() {
+      const j = document.getElementById("adm-jenjang").value;
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const kat = document.getElementById("adm-bab").value;
+      const wadah = document.getElementById("wadah-list-soal");
+      if (!wadah) return;
+
+      const kunci = `${j}-${k}-${m}-${kat}`;
+      const daftar = (dbPublik.soal || {})[kunci] || [];
+      const abjad = ["A", "B", "C", "D"];
+
+      if (daftar.length === 0) {
+        wadah.innerHTML = `<p style="color:#64748b; font-size:0.88rem; text-align:center; padding:10px 0;">Belum ada soal tersimpan pada <b>${esc(k)} • ${esc(m)} • ${esc(kat)}</b>.</p>`;
+        return;
+      }
+
+      const listHtml = daftar.map((s, i) => `
+        <div style="border-bottom:1px solid #e2e8f0; padding:12px 0; font-size:0.86rem; display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+          <div>
+            ${s.img ? `<span style="display:inline-block; background:#e0e7ff; color:#3730a3; font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:4px; margin-bottom:4px;">🖼️ Bergambar</span><br>` : ""}
+            <b>${i + 1}. ${esc(s.q)}</b><br>
+            <small style="color:#16a34a; font-weight:600;">Kunci: ${abjad[s.b] || "A"}. ${esc((s.p || [])[s.b] || "")}</small>
+          </div>
+          <button type="button" class="btn-sm btn-del" style="flex-shrink:0;" onclick="hapusSatuSoal('${encodeURIComponent(kunci)}', ${i})">🗑️ Hapus</button>
+        </div>`).join("");
+
+      wadah.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <h4 style="font-size:0.92rem; color:#4f46e5;">Ditemukan ${daftar.length} Soal</h4>
+        </div>
+        ${listHtml}
+        <button type="button" class="btn-danger" onclick="hapusSoalPerKategori('${encodeURIComponent(kunci)}')">🧹 Hapus Semua (${daftar.length}) Soal di Kategori Ini</button>`;
+    }
+
+          function bukaModalPDF() {
       const data = dbPublik.rekap || [];
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
       const daftarKelas = ["SEMUA", ...new Set(data.map(d => String(d.kelas || "-").trim()))];
@@ -672,14 +751,20 @@
       }
 
             else if (aksi === "tambah-soal") {
+        gambarSoalTemp = "";
         app().innerHTML = `
           <div class="form-box">
             <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-            <h3 style="font-size:1.05rem; margin-bottom:12px;">➕ Tambah Soal Manual</h3>
+            <h3 style="font-size:1.05rem; margin-bottom:12px;">➕ Tambah Soal Manual (+ Gambar)</h3>
             <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
             <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
             <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
             <label>Simpan ke Kategori (Bab / UTS / UAS)</label><select id="adm-bab"></select>
+            <label>🖼️ Gambar Soal dari HP / Laptop (Opsional)</label>
+            <input type="file" id="adm-img-file" accept="image/*" onchange="prosesGambarUpload(this)">
+            <img id="preview-img-soal" class="soal-img" style="display:none;" alt="Preview Gambar">
+            <label>Atau Tempel Link Gambar URL (Opsional)</label>
+            <input type="text" id="adm-img-url" placeholder="https://contoh.com">
             <label>Pertanyaan</label><textarea id="adm-q" rows="3" placeholder="Tulis pertanyaan..."></textarea>
             <label>Pilihan A</label><input type="text" id="adm-pa" placeholder="Jawaban A">
             <label>Pilihan B</label><input type="text" id="adm-pb" placeholder="Jawaban B">
