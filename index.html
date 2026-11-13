@@ -48,7 +48,7 @@
 </head>
 <body>
   <header id="header-title">RIM CBT</header>
-  <div id="sync-status" class="sync-bar">🔄 Memuat database...</div>
+  <div id="sync-status" class="sync-bar">🔄 Menghubungkan ke Google Cloud...</div>
   <main id="app-content"></main>
   <nav class="bottom-nav">
     <button type="button" class="nav-item active" data-menu="home" onclick="bukaMenu('home')"><span>🏠</span>Beranda</button>
@@ -59,101 +59,50 @@
   </nav>
 
     <script>
+    const GOOGLE_SCRIPT_URL = "https://google.com";
     const PIN_DEFAULT = "123456";
     let dbPublik = { soal: {}, bab: {}, rekap: [], pin: PIN_DEFAULT };
 
-    function getGitHubCfg() {
-      return JSON.parse(localStorage.getItem("rim_gh_cfg") || '{"user":"ryanto23","repo":"RIM-Edu-AI","token":""}');
-    }
-
     async function muatDatabasePublik() {
       const bar = document.getElementById("sync-status");
-      const cfg = getGitHubCfg();
       try {
-        let json = null;
-        if (cfg.user && cfg.repo && cfg.token) {
-          const urlApi = "https://github.com" + cfg.user + "/" + cfg.repo + "/contents/database.json?ref=main&t=" + Date.now();
-          const resApi = await fetch(urlApi, {
-            headers: { "Authorization": "token " + cfg.token }
-          });
-          if (resApi.ok) {
-            const meta = await resApi.json();
-            const rawText = decodeURIComponent(escape(atob(meta.content.replace(/\n/g, ""))));
-            json = JSON.parse(rawText);
+        const res = await fetch(GOOGLE_SCRIPT_URL + "?t=" + Date.now());
+        if (res.ok) {
+          const json = await res.json();
+          if (json && typeof json === "object") {
+            dbPublik.soal = json.soal || {};
+            dbPublik.bab = json.bab || {};
+            dbPublik.rekap = Array.isArray(json.rekap) ? json.rekap : [];
+            dbPublik.pin = json.pin || PIN_DEFAULT;
           }
         }
-        if (!json) {
-          const resPub = await fetch("database.json?v=" + Date.now());
-          if (resPub.ok) json = await resPub.json();
-        }
-        if (json && typeof json === "object") {
-          dbPublik.soal = json.soal || {};
-          dbPublik.bab = json.bab || {};
-          dbPublik.rekap = Array.isArray(json.rekap) ? json.rekap : [];
-          dbPublik.pin = json.pin || PIN_DEFAULT;
-        }
-        if (bar) bar.innerText = cfg.token ? "🟢 Terhubung Otomatis ke GitHub Cloud" : "🌐 Mode Online • Aktifkan Token di Admin";
+        if (bar) bar.innerText = "🟢 Terhubung Otomatis • Semua Guru & Siswa Tersinkron";
       } catch (e) {
-        if (bar) bar.innerText = "⚠️ Menggunakan data perangkat";
+        if (bar) bar.innerText = "⚠️ Gagal memuat dari Google Sheets";
       }
     }
 
-          async function simpanOtomatisKeGitHub() {
-      const cfg = getGitHubCfg();
+          async function simpanOtomatisKeCloud() {
       const bar = document.getElementById("sync-status");
-      const payloadObj = {
-        soal: dbPublik.soal,
-        bab: dbPublik.bab,
-        rekap: dbPublik.rekap,
-        pin: dbPublik.pin || PIN_DEFAULT
-      };
-      const jsonString = JSON.stringify(payloadObj, null, 2);
-      localStorage.setItem("rim_backup_db", jsonString);
-
-      if (!cfg.user || !cfg.repo || !cfg.token) {
-        alert("⚠️ Pengaturan GitHub belum diisi! Buka menu Admin -> Pengaturan Auto-Sync GitHub.");
-        return false;
-      }
-      if (bar) bar.innerText = "⏳ Menyimpan otomatis ke semua perangkat...";
+      if (bar) bar.innerText = "⏳ Menyimpan otomatis ke semua HP & Laptop...";
       try {
-        const apiUrl = "https://github.com" + cfg.user + "/" + cfg.repo + "/contents/database.json";
-        const getRes = await fetch(apiUrl + "?ref=main&t=" + Date.now(), {
-          headers: { "Authorization": "token " + cfg.token }
-        });
-        let sha = undefined;
-        if (getRes.ok) {
-          const meta = await getRes.json();
-          sha = meta.sha;
-        }
-        const encoded = btoa(unescape(encodeURIComponent(jsonString)));
-        const bodyData = {
-          message: "Auto-update RIM CBT database.json",
-          content: encoded,
-          branch: "main"
+        const payloadObj = {
+          soal: dbPublik.soal,
+          bab: dbPublik.bab,
+          rekap: dbPublik.rekap,
+          pin: dbPublik.pin || PIN_DEFAULT
         };
-        if (sha) bodyData.sha = sha;
-
-        const putRes = await fetch(apiUrl, {
-          method: "PUT",
-          headers: {
-            "Authorization": "token " + cfg.token,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(bodyData)
+        const res = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payloadObj)
         });
-        if (!putRes.ok) {
-          const errJson = await putRes.json();
-          throw new Error(errJson.message || "Gagal menulis ke GitHub");
-        }
-        if (bar) bar.innerText = "🟢 Tersinkronisasi Otomatis ke Semua Perangkat!";
+        if (!res.ok) throw new Error("Server menolak penyimpanan");
+        if (bar) bar.innerText = "🟢 Tersimpan Otomatis di Semua Perangkat!";
         return true;
       } catch (e) {
-        if (bar) bar.innerText = "⚠️ Koneksi API terblokir browser";
-        if (confirm("Browser memblokir koneksi langsung (" + e.message + ").\n\nIngin menyalin kode database secara otomatis agar bisa ditempel langsung ke file database.json di GitHub?")) {
-          navigator.clipboard.writeText(jsonString).then(() => {
-            alert("✅ Kode database berhasil disalin! Silakan tempelkan ke file database.json di GitHub Anda.");
-          }).catch(() => prompt("Salin kode ini ke database.json:", jsonString));
-        }
+        if (bar) bar.innerText = "❌ Gagal menyimpan ke Google Sheets";
+        alert("Gagal menyimpan otomatis: " + e.message);
         return false;
       }
     }
@@ -246,9 +195,8 @@
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
-          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Semua perubahan langsung tersimpan otomatis ke semua perangkat.</p></div>
+          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Semua guru dapat mengelola bab dan soal langsung dari HP masing-masing.</p></div>
           <div class="list-menu">
-            <div class="list-item" onclick="bukaAdmin('setup-github')" style="border-color:#16a34a; background:#f0fdf4; color:#15803d;"><span>⚙️ Pengaturan Auto-Sync GitHub</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('kelola-bab')" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Kelola Bab Kurikulum</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('ai-soal')" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Buat Soal Otomatis (AI)</span><span>➔</span></div>
             <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Manual (Bab/UTS/UAS)</span><span>➔</span></div>
@@ -435,14 +383,9 @@
       const labelUjian = sesi.mode === "bab" ? `${sesi.mapel} (${sesi.bab})` : `${sesi.mapel} (${sesi.mode})`;
       const entriBaru = { nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai };
 
-      const lokalRekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      lokalRekap.push(entriBaru);
-      localStorage.setItem("rim_rekap", JSON.stringify(lokalRekap));
-
       await muatDatabasePublik();
       dbPublik.rekap.push(entriBaru);
-      const cfg = getGitHubCfg();
-      if (cfg.token) await simpanOtomatisKeGitHub();
+      await simpanOtomatisKeCloud();
 
       app().innerHTML = `
         <div class="form-box" style="text-align:center; padding:24px 18px;">
@@ -500,15 +443,16 @@
       const m = document.getElementById("adm-mapel").value;
       const namaBaru = document.getElementById("inp-bab-baru").value.trim();
       if (!namaBaru) return alert("Masukkan nama bab baru terlebih dahulu!");
+      await muatDatabasePublik();
       const kunci = `${j}-${k}-${m}`;
       const list = dapatkanDaftarBab(j, k, m);
       list.push(namaBaru);
       dbPublik.bab[kunci] = list;
-      const ok = await simpanOtomatisKeGitHub();
+      const ok = await simpanOtomatisKeCloud();
       if (ok) {
         document.getElementById("inp-bab-baru").value = "";
         renderDaftarBabAdmin();
-        alert("✅ Bab baru berhasil ditambahkan & tersinkron otomatis ke semua perangkat!");
+        alert("✅ Bab baru berhasil ditambahkan & langsung muncul di semua HP!");
       }
     }
 
@@ -516,13 +460,14 @@
       const j = document.getElementById("adm-jenjang").value;
       const k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value;
+      await muatDatabasePublik();
       const kunci = `${j}-${k}-${m}`;
       const list = dapatkanDaftarBab(j, k, m);
       const namaEdit = prompt("Ubah nama bab:", list[idx]);
       if (namaEdit && namaEdit.trim()) {
         list[idx] = namaEdit.trim();
         dbPublik.bab[kunci] = list;
-        const ok = await simpanOtomatisKeGitHub();
+        const ok = await simpanOtomatisKeCloud();
         if (ok) renderDaftarBabAdmin();
       }
     }
@@ -531,32 +476,19 @@
       const j = document.getElementById("adm-jenjang").value;
       const k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value;
+      await muatDatabasePublik();
       const kunci = `${j}-${k}-${m}`;
       const list = dapatkanDaftarBab(j, k, m);
       if (list.length <= 1) return alert("Minimal harus tersisa 1 bab pada mata pelajaran ini.");
       if (confirm(`Hapus "${list[idx]}" dari daftar bab?`)) {
         list.splice(idx, 1);
         dbPublik.bab[kunci] = list;
-        const ok = await simpanOtomatisKeGitHub();
+        const ok = await simpanOtomatisKeCloud();
         if (ok) renderDaftarBabAdmin();
       }
     }
 
-          async function simpanPengaturanGitHub() {
-      const user = document.getElementById("gh-user").value.trim();
-      const repo = document.getElementById("gh-repo").value.trim();
-      const token = document.getElementById("gh-token").value.trim();
-      if (!user || !repo || !token) return alert("Lengkapi Username GitHub, Nama Repositori, dan Token!");
-      localStorage.setItem("rim_gh_cfg", JSON.stringify({ user, repo, token }));
-      await muatDatabasePublik();
-      const ok = await simpanOtomatisKeGitHub();
-      if (ok) {
-        alert("✅ Koneksi GitHub berhasil! Sekarang setiap perubahan soal, bab, dan nilai akan otomatis tersimpan ke semua HP & Laptop.");
-        bukaMenu("saya");
-      }
-    }
-
-    function salinPromptAI() {
+          function salinPromptAI() {
       const j = document.getElementById("adm-jenjang").value.toUpperCase();
       const k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value;
@@ -579,12 +511,13 @@
         if (awal !== -1 && akhir !== -1) mentah = mentah.slice(awal, akhir + 1);
         const daftarBaru = JSON.parse(mentah);
         if (!Array.isArray(daftarBaru) || daftarBaru.length === 0) throw new Error("Format tidak sesuai");
+        await muatDatabasePublik();
         const kunci = `${j}-${k}-${m}-${kat}`;
         if (!dbPublik.soal[kunci]) dbPublik.soal[kunci] = [];
         dbPublik.soal[kunci] = dbPublik.soal[kunci].concat(daftarBaru);
-        const ok = await simpanOtomatisKeGitHub();
+        const ok = await simpanOtomatisKeCloud();
         if (ok) {
-          alert(`✅ Sukses! ${daftarBaru.length} soal langsung tersimpan otomatis ke semua perangkat (${k} - ${m} • ${kat}).`);
+          alert(`✅ Sukses! ${daftarBaru.length} soal langsung tersimpan otomatis di semua HP (${k} - ${m} • ${kat}).`);
           document.getElementById("ai-json-hasil").value = "";
         }
       } catch (e) {
@@ -600,10 +533,11 @@
       const pD = document.getElementById("adm-pd").value.trim(), b = parseInt(document.getElementById("adm-kunci").value, 10);
       const bahas = document.getElementById("adm-bahas").value.trim() || "Sesuai konsep materi.";
       if (!q || !pA || !pB || !pC || !pD) return alert("Isi pertanyaan dan semua pilihan jawaban!");
+      await muatDatabasePublik();
       const kunci = `${j}-${k}-${m}-${kat}`;
       if (!dbPublik.soal[kunci]) dbPublik.soal[kunci] = [];
       dbPublik.soal[kunci].push({ q, p: [pA, pB, pC, pD], b, bahas });
-      const ok = await simpanOtomatisKeGitHub();
+      const ok = await simpanOtomatisKeCloud();
       if (ok) {
         alert(`✅ Soal berhasil disimpan otomatis ke semua perangkat (${kat})!`);
         ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas"].forEach(id => document.getElementById(id).value = "");
@@ -613,10 +547,11 @@
           async function hapusSatuSoal(kunciEncoded, idx) {
       const kunci = decodeURIComponent(kunciEncoded);
       if (!confirm("Yakin ingin menghapus soal ini dari semua perangkat?")) return;
+      await muatDatabasePublik();
       if (dbPublik.soal[kunci]) {
         dbPublik.soal[kunci].splice(idx, 1);
         if (dbPublik.soal[kunci].length === 0) delete dbPublik.soal[kunci];
-        const ok = await simpanOtomatisKeGitHub();
+        const ok = await simpanOtomatisKeCloud();
         if (ok) tampilkanKelolaSoal();
       }
     }
@@ -646,7 +581,7 @@
     async function hapusSemuaSoalCloud() {
       if (!confirm("Hapus SEMUA soal di seluruh perangkat?")) return;
       dbPublik.soal = {};
-      const ok = await simpanOtomatisKeGitHub();
+      const ok = await simpanOtomatisKeCloud();
       if (ok) tampilkanKelolaSoal();
     }
 
@@ -688,9 +623,7 @@
       if ((dbPublik.rekap || []).length === 0) return alert("Data rekap nilai sudah kosong.");
       if (confirm("Yakin ingin menghapus seluruh data rekap nilai?")) {
         dbPublik.rekap = [];
-        localStorage.removeItem("rim_rekap");
-        const cfg = getGitHubCfg();
-        if (cfg.token) await simpanOtomatisKeGitHub();
+        await simpanOtomatisKeCloud();
         alert("Rekap nilai berhasil dihapus!");
         bukaMenu("saya");
       }
@@ -700,22 +633,7 @@
       await muatDatabasePublik();
       const pin = prompt("Masukkan PIN Admin:");
       if (pin !== (dbPublik.pin || PIN_DEFAULT)) return alert("PIN Salah!");
-      if (aksi === "setup-github") {
-        const cfg = getGitHubCfg();
-        app().innerHTML = `
-          <div class="form-box">
-            <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-            <h3 style="font-size:1.05rem; margin-bottom:6px;">⚙️ Pengaturan Auto-Sync GitHub</h3>
-            <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Isi sekali saja. Setelah terhubung, setiap soal, bab, dan nilai otomatis tersinkron ke semua HP & Laptop.</p>
-            <label>Username GitHub Anda</label>
-            <input type="text" id="gh-user" value="${esc(cfg.user || "ryanto23")}" placeholder="Contoh: ryanto23">
-            <label>Nama Repositori GitHub</label>
-            <input type="text" id="gh-repo" value="${esc(cfg.repo || "RIM-Edu-AI")}" placeholder="Contoh: RIM-Edu-AI">
-            <label>Personal Access Token (ghp_...)</label>
-            <input type="password" id="gh-token" value="${esc(cfg.token)}" placeholder="Tempel token ghp_... Anda di sini">
-            <button type="button" class="btn-pdf" onclick="simpanPengaturanGitHub()">💾 Simpan & Hubungkan Otomatis</button>
-          </div>`;
-      } else if (aksi === "kelola-bab") {
+      if (aksi === "kelola-bab") {
         app().innerHTML = `
           <div class="form-box">
             <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
@@ -750,7 +668,9 @@
             <button type="button" class="btn-primary" onclick="imporSoalJSON()">💾 Simpan Semua Soal Otomatis</button>
           </div>`;
         updateDropdownAdmin();
-      } else if (aksi === "tambah-soal") {
+      }
+
+            else if (aksi === "tambah-soal") {
         app().innerHTML = `
           <div class="form-box">
             <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
@@ -782,8 +702,8 @@
         const baru = prompt("Masukkan PIN baru (min 4 karakter):");
         if (baru && baru.length >= 4) {
           dbPublik.pin = baru;
-          const ok = await simpanOtomatisKeGitHub();
-          if (ok) alert("PIN Admin berhasil diperbarui untuk semua perangkat!");
+          const ok = await simpanOtomatisKeCloud();
+          if (ok) alert("PIN Admin berhasil diperbarui untuk semua guru!");
         }
       }
     }
