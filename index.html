@@ -63,7 +63,7 @@
     let dbPublik = { soal: {}, bab: {}, rekap: [], pin: PIN_DEFAULT };
 
     function getGitHubCfg() {
-      return JSON.parse(localStorage.getItem("rim_gh_cfg") || '{"user":"","repo":"","token":""}');
+      return JSON.parse(localStorage.getItem("rim_gh_cfg") || '{"user":"ryanto23","repo":"RIM-Edu-AI","token":""}');
     }
 
     async function muatDatabasePublik() {
@@ -74,11 +74,7 @@
         if (cfg.user && cfg.repo && cfg.token) {
           const urlApi = "https://github.com" + cfg.user + "/" + cfg.repo + "/contents/database.json?ref=main&t=" + Date.now();
           const resApi = await fetch(urlApi, {
-            headers: {
-              "Authorization": "Bearer " + cfg.token,
-              "Accept": "application/vnd.github+json",
-              "X-GitHub-Api-Version": "2022-11-28"
-            }
+            headers: { "Authorization": "token " + cfg.token }
           });
           if (resApi.ok) {
             const meta = await resApi.json();
@@ -96,40 +92,40 @@
           dbPublik.rekap = Array.isArray(json.rekap) ? json.rekap : [];
           dbPublik.pin = json.pin || PIN_DEFAULT;
         }
-        if (bar) bar.innerText = cfg.token ? "🟢 Terhubung Otomatis ke GitHub Cloud" : "🌐 Mode Online • Aktifkan Token di Admin untuk Auto-Save";
+        if (bar) bar.innerText = cfg.token ? "🟢 Terhubung Otomatis ke GitHub Cloud" : "🌐 Mode Online • Aktifkan Token di Admin";
       } catch (e) {
-        if (bar) bar.innerText = "⚠️ Menggunakan data tersimpan perangkat";
+        if (bar) bar.innerText = "⚠️ Menggunakan data perangkat";
       }
     }
 
           async function simpanOtomatisKeGitHub() {
       const cfg = getGitHubCfg();
       const bar = document.getElementById("sync-status");
+      const payloadObj = {
+        soal: dbPublik.soal,
+        bab: dbPublik.bab,
+        rekap: dbPublik.rekap,
+        pin: dbPublik.pin || PIN_DEFAULT
+      };
+      const jsonString = JSON.stringify(payloadObj, null, 2);
+      localStorage.setItem("rim_backup_db", jsonString);
+
       if (!cfg.user || !cfg.repo || !cfg.token) {
-        alert("⚠️ Pengaturan GitHub belum diisi! Buka menu Admin -> Pengaturan Auto-Sync GitHub terlebih dahulu.");
+        alert("⚠️ Pengaturan GitHub belum diisi! Buka menu Admin -> Pengaturan Auto-Sync GitHub.");
         return false;
       }
       if (bar) bar.innerText = "⏳ Menyimpan otomatis ke semua perangkat...";
       try {
         const apiUrl = "https://github.com" + cfg.user + "/" + cfg.repo + "/contents/database.json";
-        const headers = {
-          "Authorization": "Bearer " + cfg.token,
-          "Accept": "application/vnd.github+json",
-          "X-GitHub-Api-Version": "2022-11-28"
-        };
-        const getRes = await fetch(apiUrl + "?ref=main&t=" + Date.now(), { headers });
+        const getRes = await fetch(apiUrl + "?ref=main&t=" + Date.now(), {
+          headers: { "Authorization": "token " + cfg.token }
+        });
         let sha = undefined;
         if (getRes.ok) {
           const meta = await getRes.json();
           sha = meta.sha;
         }
-        const payloadObj = {
-          soal: dbPublik.soal,
-          bab: dbPublik.bab,
-          rekap: dbPublik.rekap,
-          pin: dbPublik.pin || PIN_DEFAULT
-        };
-        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payloadObj, null, 2))));
+        const encoded = btoa(unescape(encodeURIComponent(jsonString)));
         const bodyData = {
           message: "Auto-update RIM CBT database.json",
           content: encoded,
@@ -139,7 +135,10 @@
 
         const putRes = await fetch(apiUrl, {
           method: "PUT",
-          headers: { ...headers, "Content-Type": "application/json" },
+          headers: {
+            "Authorization": "token " + cfg.token,
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify(bodyData)
         });
         if (!putRes.ok) {
@@ -149,8 +148,12 @@
         if (bar) bar.innerText = "🟢 Tersinkronisasi Otomatis ke Semua Perangkat!";
         return true;
       } catch (e) {
-        if (bar) bar.innerText = "❌ Gagal sinkron ke GitHub";
-        alert("Gagal menyimpan otomatis ke GitHub: " + e.message);
+        if (bar) bar.innerText = "⚠️ Koneksi API terblokir browser";
+        if (confirm("Browser memblokir koneksi langsung (" + e.message + ").\n\nIngin menyalin kode database secara otomatis agar bisa ditempel langsung ke file database.json di GitHub?")) {
+          navigator.clipboard.writeText(jsonString).then(() => {
+            alert("✅ Kode database berhasil disalin! Silakan tempelkan ke file database.json di GitHub Anda.");
+          }).catch(() => prompt("Salin kode ini ke database.json:", jsonString));
+        }
         return false;
       }
     }
