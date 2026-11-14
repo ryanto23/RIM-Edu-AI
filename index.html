@@ -64,12 +64,31 @@
     const PIN_DEFAULT = "123456";
     let dbPublik = JSON.parse(localStorage.getItem("rim_cache_db") || '{"soal":{},"bab":{},"rekap":[],"pin":"123456"}');
 
-    async function muatDatabasePublik() {
+    function muatDatabasePublik() {
       const bar = document.getElementById("sync-status");
-      try {
-        const res = await fetch(GOOGLE_SCRIPT_URL + "?t=" + Date.now());
-        if (res.ok) {
-          const json = await res.json();
+      if (bar) bar.innerText = "🔄 Menyinkronkan data dari Cloud...";
+      return new Promise((resolve) => {
+        const namaFungsi = "rimCallback_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+        const scriptTag = document.createElement("script");
+        let selesai = false;
+
+        const batasWaktu = setTimeout(() => {
+          if (!selesai) {
+            selesai = true;
+            delete window[namaFungsi];
+            if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
+            if (bar) bar.innerText = "⚠️ Koneksi lambat • Menggunakan data tersimpan";
+            resolve();
+          }
+        }, 7000);
+
+        window[namaFungsi] = function(json) {
+          if (selesai) return;
+          selesai = true;
+          clearTimeout(batasWaktu);
+          delete window[namaFungsi];
+          if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
+
           if (json && typeof json === "object") {
             dbPublik.soal = json.soal || {};
             dbPublik.bab = json.bab || {};
@@ -77,14 +96,24 @@
             dbPublik.pin = json.pin || PIN_DEFAULT;
             localStorage.setItem("rim_cache_db", JSON.stringify(dbPublik));
           }
-        }
-        if (bar) bar.innerText = "🟢 Terhubung Otomatis • Semua Guru & Siswa Tersinkron";
-      } catch (e) {
-        if (bar) bar.innerText = "⚠️ Mode Offline • Menggunakan Data Tersimpan";
-      }
-    }
+          if (bar) bar.innerText = "🟢 Tersinkron Otomatis • Semua Guru & Siswa Terhubung";
+          resolve();
+        };
 
-          async function simpanOtomatisKeCloud() {
+        scriptTag.onerror = function() {
+          if (selesai) return;
+          selesai = true;
+          clearTimeout(batasWaktu);
+          delete window[namaFungsi];
+          if (bar) bar.innerText = "⚠️ Gagal memuat Cloud • Cek Deployment Apps Script";
+          resolve();
+        };
+
+        scriptTag.src = GOOGLE_SCRIPT_URL + "?callback=" + namaFungsi + "&t=" + Date.now();
+        document.body.appendChild(scriptTag);
+      });
+    }
+    async function simpanOtomatisKeCloud() {
       const bar = document.getElementById("sync-status");
       if (bar) bar.innerText = "⏳ Menyimpan ke Google Sheets...";
       const payloadObj = {
