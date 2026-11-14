@@ -62,7 +62,7 @@
     <script>
     const GOOGLE_SCRIPT_URL = "https://google.com";
     const PIN_DEFAULT = "123456";
-    let dbPublik = { soal: {}, bab: {}, rekap: [], pin: PIN_DEFAULT };
+    let dbPublik = JSON.parse(localStorage.getItem("rim_cache_db") || '{"soal":{},"bab":{},"rekap":[],"pin":"123456"}');
 
     async function muatDatabasePublik() {
       const bar = document.getElementById("sync-status");
@@ -75,36 +75,51 @@
             dbPublik.bab = json.bab || {};
             dbPublik.rekap = Array.isArray(json.rekap) ? json.rekap : [];
             dbPublik.pin = json.pin || PIN_DEFAULT;
+            localStorage.setItem("rim_cache_db", JSON.stringify(dbPublik));
           }
         }
         if (bar) bar.innerText = "🟢 Terhubung Otomatis • Semua Guru & Siswa Tersinkron";
       } catch (e) {
-        if (bar) bar.innerText = "⚠️ Gagal memuat dari Google Sheets";
+        if (bar) bar.innerText = "⚠️ Mode Offline • Menggunakan Data Tersimpan";
       }
     }
 
           async function simpanOtomatisKeCloud() {
       const bar = document.getElementById("sync-status");
-      if (bar) bar.innerText = "⏳ Menyimpan otomatis ke semua HP & Laptop...";
+      if (bar) bar.innerText = "⏳ Menyimpan ke Google Sheets...";
+      const payloadObj = {
+        soal: dbPublik.soal,
+        bab: dbPublik.bab,
+        rekap: dbPublik.rekap,
+        pin: dbPublik.pin || PIN_DEFAULT
+      };
+      const jsonString = JSON.stringify(payloadObj);
+      localStorage.setItem("rim_cache_db", jsonString);
+
       try {
-        const payloadObj = {
-          soal: dbPublik.soal,
-          bab: dbPublik.bab,
-          rekap: dbPublik.rekap,
-          pin: dbPublik.pin || PIN_DEFAULT
-        };
+        if (jsonString.length < 6000) {
+          const urlSimpan = GOOGLE_SCRIPT_URL + "?action=save&data=" + encodeURIComponent(jsonString) + "&t=" + Date.now();
+          const resGet = await fetch(urlSimpan);
+          if (resGet.ok) {
+            const hasil = await resGet.json();
+            if (hasil.status === "saved") {
+              if (bar) bar.innerText = "🟢 Tersimpan Permanen di Google Sheets!";
+              return true;
+            }
+          }
+        }
         await fetch(GOOGLE_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(payloadObj)
+          body: jsonString
         });
-        await new Promise(r => setTimeout(r, 1200));
+        await new Promise(r => setTimeout(r, 1500));
         if (bar) bar.innerText = "🟢 Tersimpan Otomatis di Semua Perangkat!";
         return true;
       } catch (e) {
-        if (bar) bar.innerText = "❌ Gagal menyimpan ke Google Sheets";
-        alert("Gagal menyimpan otomatis: " + e.message);
+        if (bar) bar.innerText = "❌ Gagal sinkron ke Google Sheets";
+        alert("Gagal menyimpan otomatis ke server: " + e.message);
         return false;
       }
     }
@@ -496,7 +511,7 @@
           let gambarSoalTemp = "";
 
     function prosesGambarUpload(input) {
-      const file = input.files[0];
+      const file = input.files;
       const prev = document.getElementById("preview-img-soal");
       if (!file) { gambarSoalTemp = ""; if (prev) prev.style.display = "none"; return; }
       const reader = new FileReader();
