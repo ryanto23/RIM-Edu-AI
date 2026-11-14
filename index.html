@@ -19,8 +19,7 @@
     .quote-box { background: var(--surface); border-left: 4px solid var(--accent); padding: 14px 16px; border-radius: 12px; margin-bottom: 14px; }
     .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.5; margin-bottom: 4px; }
     .quote-box small { color: var(--muted); font-weight: 700; font-size: 0.78rem; }
-
-        .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
+    .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
     .btn-pdf { background: #16a34a; color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 10px; }
     .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
     .btn-sm { padding: 5px 10px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; cursor: pointer; border: none; }
@@ -60,7 +59,7 @@
   </nav>
 
     <script>
-      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxjyG9p2XtOPLUS31NT3brXfh_j6WysnWN7veDnEwdHxr_g00K_NvAAkktw5GjWRbzW/exec";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxJjyHsAQM92d_L5DDY4cWl7yIlhey0W3gpR5myhAIb8mszboaWIBJTPYTIG7e_tRgJ/exec";
     const PIN_DEFAULT = "123456";
     let dbPublik = JSON.parse(localStorage.getItem("rim_cache_db") || '{"soal":{},"bab":{},"rekap":[],"pin":"123456"}');
 
@@ -113,9 +112,50 @@
         document.body.appendChild(scriptTag);
       });
     }
+
+          function kirimPaketJSONP(paramsObj) {
+      return new Promise((resolve) => {
+        const namaFungsi = "rimSaveCb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+        const scriptTag = document.createElement("script");
+        let selesai = false;
+
+        const batasWaktu = setTimeout(() => {
+          if (!selesai) {
+            selesai = true;
+            delete window[namaFungsi];
+            if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
+            resolve(false);
+          }
+        }, 9000);
+
+        window[namaFungsi] = function(res) {
+          if (selesai) return;
+          selesai = true;
+          clearTimeout(batasWaktu);
+          delete window[namaFungsi];
+          if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
+          resolve(Boolean(res && res.status === "saved"));
+        };
+
+        scriptTag.onerror = function() {
+          if (selesai) return;
+          selesai = true;
+          clearTimeout(batasWaktu);
+          delete window[namaFungsi];
+          resolve(false);
+        };
+
+        const query = Object.keys(paramsObj)
+          .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(paramsObj[k]))
+          .join("&");
+        scriptTag.src = GOOGLE_SCRIPT_URL + "?" + query + "&callback=" + namaFungsi + "&t=" + Date.now();
+        document.body.appendChild(scriptTag);
+      });
+    }
+
     async function simpanOtomatisKeCloud() {
       const bar = document.getElementById("sync-status");
-      if (bar) bar.innerText = "⏳ Menyimpan ke Google Sheets...";
+      if (bar) bar.innerText = "⏳ Menyimpan ke Google Cloud dari perangkat ini...";
       const payloadObj = {
         soal: dbPublik.soal,
         bab: dbPublik.bab,
@@ -125,43 +165,32 @@
       const jsonString = JSON.stringify(payloadObj);
       localStorage.setItem("rim_cache_db", jsonString);
 
-      return new Promise((resolve) => {
-        try {
-          let iframe = document.getElementById("rim-sync-frame");
-          if (!iframe) {
-            iframe = document.createElement("iframe");
-            iframe.id = "rim-sync-frame";
-            iframe.name = "rim-sync-frame";
-            iframe.style.display = "none";
-            document.body.appendChild(iframe);
-          }
+      const ukuranPotongan = 3500;
+      const daftarPotongan = [];
+      for (let i = 0; i < jsonString.length; i += ukuranPotongan) {
+        daftarPotongan.push(jsonString.substring(i, i + ukuranPotongan));
+      }
+      if (daftarPotongan.length === 0) daftarPotongan.push("{}");
 
-          const form = document.createElement("form");
-          form.method = "POST";
-          form.action = GOOGLE_SCRIPT_URL;
-          form.target = "rim-sync-frame";
-          form.style.display = "none";
-
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = "data";
-          input.value = jsonString;
-          form.appendChild(input);
-
-          document.body.appendChild(form);
-          form.submit();
-          document.body.removeChild(form);
-
-          setTimeout(() => {
-            if (bar) bar.innerText = "🟢 Tersimpan Otomatis di Semua Perangkat!";
-            resolve(true);
-          }, 1800);
-        } catch (e) {
-          if (bar) bar.innerText = "❌ Gagal menyimpan ke Google Sheets";
-          alert("Gagal menyimpan: " + e.message);
-          resolve(false);
+      for (let idx = 0; idx < daftarPotongan.length; idx++) {
+        if (bar && daftarPotongan.length > 1) {
+          bar.innerText = `⏳ Mengunggah paket ${idx + 1} dari ${daftarPotongan.length}...`;
         }
-      });
+        const modeKirim = idx === 0 ? "start" : "append";
+        const ok = await kirimPaketJSONP({
+          action: "save",
+          mode: modeKirim,
+          data: daftarPotongan[idx]
+        });
+        if (!ok) {
+          if (bar) bar.innerText = "❌ Gagal menyimpan ke server Cloud";
+          alert("Gagal mengirim data ke Google Sheets. Periksa koneksi internet perangkat ini.");
+          return false;
+        }
+      }
+
+      if (bar) bar.innerText = "🟢 Tersimpan & Tersinkron ke Semua Perangkat!";
+      return true;
     }
 
     const dataPendidikan = {
