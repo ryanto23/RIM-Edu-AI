@@ -262,7 +262,7 @@
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-    function bukaMenu(menu) {
+    async function bukaMenu(menu) {
       clearInterval(timer);
       document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.dataset.menu === menu));
       if (menu === "home") {
@@ -276,8 +276,10 @@
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
             <small>— Motivasi Belajar</small>
-          </div>`;
+          </div>
+          <button type="button" class="btn-back" style="width:100%; text-align:center;" onclick="muatDatabasePublik().then(()=>alert('✅ Data berhasil disegarkan dari Google Cloud!'))">🔄 Segarkan Data Terbaru dari Cloud</button>`;
       } else if (dataPendidikan[menu]) {
+        await muatDatabasePublik();
         pilihKelas(menu);
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
@@ -668,6 +670,18 @@
     }
 
           async function hapusSatuSoal(kunciEncoded, idx) {
+      const kunci = decodeURIComponent(kunciEncoded);
+      if (!confirm("Yakin ingin menghapus soal ini dari semua perangkat?")) return;
+      await muatDatabasePublik();
+      if (dbPublik.soal[kunci]) {
+        dbPublik.soal[kunci].splice(idx, 1);
+        if (dbPublik.soal[kunci].length === 0) delete dbPublik.soal[kunci];
+        const ok = await simpanOtomatisKeCloud();
+        if (ok) renderDaftarSoalTerfilter();
+      }
+    }
+
+       async function hapusSatuSoal(kunciEncoded, idx) {
       const kunci = decodeURIComponent(kunciEncoded);
       if (!confirm("Yakin ingin menghapus soal ini dari semua perangkat?")) return;
       await muatDatabasePublik();
