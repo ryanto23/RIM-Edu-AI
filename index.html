@@ -96,32 +96,43 @@
       const jsonString = JSON.stringify(payloadObj);
       localStorage.setItem("rim_cache_db", jsonString);
 
-      try {
-        if (jsonString.length < 6000) {
-          const urlSimpan = GOOGLE_SCRIPT_URL + "?action=save&data=" + encodeURIComponent(jsonString) + "&t=" + Date.now();
-          const resGet = await fetch(urlSimpan);
-          if (resGet.ok) {
-            const hasil = await resGet.json();
-            if (hasil.status === "saved") {
-              if (bar) bar.innerText = "🟢 Tersimpan Permanen di Google Sheets!";
-              return true;
-            }
+      return new Promise((resolve) => {
+        try {
+          let iframe = document.getElementById("rim-sync-frame");
+          if (!iframe) {
+            iframe = document.createElement("iframe");
+            iframe.id = "rim-sync-frame";
+            iframe.name = "rim-sync-frame";
+            iframe.style.display = "none";
+            document.body.appendChild(iframe);
           }
+
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = GOOGLE_SCRIPT_URL;
+          form.target = "rim-sync-frame";
+          form.style.display = "none";
+
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = "data";
+          input.value = jsonString;
+          form.appendChild(input);
+
+          document.body.appendChild(form);
+          form.submit();
+          document.body.removeChild(form);
+
+          setTimeout(() => {
+            if (bar) bar.innerText = "🟢 Tersimpan Otomatis di Semua Perangkat!";
+            resolve(true);
+          }, 1800);
+        } catch (e) {
+          if (bar) bar.innerText = "❌ Gagal menyimpan ke Google Sheets";
+          alert("Gagal menyimpan: " + e.message);
+          resolve(false);
         }
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: jsonString
-        });
-        await new Promise(r => setTimeout(r, 1500));
-        if (bar) bar.innerText = "🟢 Tersimpan Otomatis di Semua Perangkat!";
-        return true;
-      } catch (e) {
-        if (bar) bar.innerText = "❌ Gagal sinkron ke Google Sheets";
-        alert("Gagal menyimpan otomatis ke server: " + e.message);
-        return false;
-      }
+      });
     }
 
     const dataPendidikan = {
