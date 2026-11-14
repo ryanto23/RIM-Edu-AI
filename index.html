@@ -49,7 +49,7 @@
 </head>
 <body>
   <header id="header-title">RIM CBT</header>
-  <div id="sync-status" class="sync-bar">🔄 Menghubungkan ke Google Cloud...</div>
+  <div id="sync-status" class="sync-bar">🔄 Menghubungkan ke Cloud Database...</div>
   <main id="app-content"></main>
   <nav class="bottom-nav">
     <button type="button" class="nav-item active" data-menu="home" onclick="bukaMenu('home')"><span>🏠</span>Beranda</button>
@@ -60,138 +60,66 @@
   </nav>
 
     <script>
-    const GOOGLE_SCRIPT_URL = "https://google.com";
+    const JSONBIN_BIN_ID = "6af7f70effd5d16053c042b5";
+    const JSONBIN_API_KEY = "$2a$10$H.5ze8j.IuGbXeSKyzuzFe8DKGGaRho/ddja5adbLm5dvrLbGuFou";
+    const JSONBIN_URL = "https://jsonbin.io" + JSONBIN_BIN_ID;
     const PIN_DEFAULT = "123456";
     let dbPublik = JSON.parse(localStorage.getItem("rim_cache_db") || '{"soal":{},"bab":{},"rekap":[],"pin":"123456"}');
 
-    function muatDatabasePublik() {
+    async function muatDatabasePublik() {
       const bar = document.getElementById("sync-status");
       if (bar) bar.innerText = "🔄 Menyinkronkan data dari Cloud...";
-      return new Promise((resolve) => {
-        const namaFungsi = "rimCallback_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
-        const scriptTag = document.createElement("script");
-        let selesai = false;
-
-        const batasWaktu = setTimeout(() => {
-          if (!selesai) {
-            selesai = true;
-            delete window[namaFungsi];
-            if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
-            if (bar) bar.innerText = "⚠️ Koneksi lambat • Menggunakan data tersimpan";
-            resolve();
+      try {
+        const res = await fetch(JSONBIN_URL + "/latest?t=" + Date.now(), {
+          method: "GET",
+          headers: {
+            "X-Master-Key": JSONBIN_API_KEY,
+            "X-Bin-Meta": "false"
           }
-        }, 7000);
-
-        window[namaFungsi] = function(json) {
-          if (selesai) return;
-          selesai = true;
-          clearTimeout(batasWaktu);
-          delete window[namaFungsi];
-          if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
-
-          if (json && typeof json === "object") {
-            dbPublik.soal = json.soal || {};
-            dbPublik.bab = json.bab || {};
-            dbPublik.rekap = Array.isArray(json.rekap) ? json.rekap : [];
-            dbPublik.pin = json.pin || PIN_DEFAULT;
-            localStorage.setItem("rim_cache_db", JSON.stringify(dbPublik));
-          }
-          if (bar) bar.innerText = "🟢 Tersinkron Otomatis • Semua Guru & Siswa Terhubung";
-          resolve();
-        };
-
-        scriptTag.onerror = function() {
-          if (selesai) return;
-          selesai = true;
-          clearTimeout(batasWaktu);
-          delete window[namaFungsi];
-          if (bar) bar.innerText = "⚠️ Gagal memuat Cloud • Cek Deployment Apps Script";
-          resolve();
-        };
-
-        scriptTag.src = GOOGLE_SCRIPT_URL + "?callback=" + namaFungsi + "&t=" + Date.now();
-        document.body.appendChild(scriptTag);
-      });
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const json = await res.json();
+        if (json && typeof json === "object") {
+          dbPublik.soal = json.soal || {};
+          dbPublik.bab = json.bab || {};
+          dbPublik.rekap = Array.isArray(json.rekap) ? json.rekap : [];
+          dbPublik.pin = json.pin || PIN_DEFAULT;
+          localStorage.setItem("rim_cache_db", JSON.stringify(dbPublik));
+        }
+        if (bar) bar.innerText = "🟢 Tersinkron Otomatis • Semua Guru & Siswa Terhubung";
+      } catch (e) {
+        if (bar) bar.innerText = "⚠️ Koneksi lambat • Menggunakan data tersimpan";
+      }
     }
 
-          function kirimPaketJSONP(paramsObj) {
-      return new Promise((resolve) => {
-        const namaFungsi = "rimSaveCb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
-        const scriptTag = document.createElement("script");
-        let selesai = false;
-
-        const batasWaktu = setTimeout(() => {
-          if (!selesai) {
-            selesai = true;
-            delete window[namaFungsi];
-            if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
-            resolve(false);
-          }
-        }, 9000);
-
-        window[namaFungsi] = function(res) {
-          if (selesai) return;
-          selesai = true;
-          clearTimeout(batasWaktu);
-          delete window[namaFungsi];
-          if (scriptTag.parentNode) scriptTag.parentNode.removeChild(scriptTag);
-          resolve(Boolean(res && res.status === "saved"));
-        };
-
-        scriptTag.onerror = function() {
-          if (selesai) return;
-          selesai = true;
-          clearTimeout(batasWaktu);
-          delete window[namaFungsi];
-          resolve(false);
-        };
-
-        const query = Object.keys(paramsObj)
-          .map(k => encodeURIComponent(k) + "=" + encodeURIComponent(paramsObj[k]))
-          .join("&");
-        scriptTag.src = GOOGLE_SCRIPT_URL + "?" + query + "&callback=" + namaFungsi + "&t=" + Date.now();
-        document.body.appendChild(scriptTag);
-      });
-    }
-
-    async function simpanOtomatisKeCloud() {
+          async function simpanOtomatisKeCloud() {
       const bar = document.getElementById("sync-status");
-      if (bar) bar.innerText = "⏳ Menyimpan ke Google Cloud dari perangkat ini...";
+      if (bar) bar.innerText = "⏳ Menyimpan ke Cloud...";
       const payloadObj = {
         soal: dbPublik.soal,
         bab: dbPublik.bab,
         rekap: dbPublik.rekap,
         pin: dbPublik.pin || PIN_DEFAULT
       };
-      const jsonString = JSON.stringify(payloadObj);
-      localStorage.setItem("rim_cache_db", jsonString);
+      localStorage.setItem("rim_cache_db", JSON.stringify(payloadObj));
 
-      const ukuranPotongan = 1000;
-      const daftarPotongan = [];
-      for (let i = 0; i < jsonString.length; i += ukuranPotongan) {
-        daftarPotongan.push(jsonString.substring(i, i + ukuranPotongan));
-      }
-      if (daftarPotongan.length === 0) daftarPotongan.push("{}");
-
-      for (let idx = 0; idx < daftarPotongan.length; idx++) {
-        if (bar) {
-          bar.innerText = `⏳ Mengunggah paket ${idx + 1} dari ${daftarPotongan.length}...`;
-        }
-        const modeKirim = idx === 0 ? "start" : "append";
-        const ok = await kirimPaketJSONP({
-          action: "save",
-          mode: modeKirim,
-          data: daftarPotongan[idx]
+      try {
+        const res = await fetch(JSONBIN_URL, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": JSONBIN_API_KEY
+          },
+          body: JSON.stringify(payloadObj)
         });
-        if (!ok) {
-          if (bar) bar.innerText = "❌ Gagal menyimpan ke server Cloud";
-          alert("Gagal mengirim paket ke-" + (idx + 1) + ". Pastikan Google Apps Script sudah di-deploy ke Versi Baru & akses 'Siapa saja'.");
-          return false;
-        }
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        if (bar) bar.innerText = "🟢 Tersimpan & Tersinkron ke Semua Perangkat!";
+        return true;
+      } catch (e) {
+        if (bar) bar.innerText = "❌ Gagal menyimpan ke Cloud";
+        alert("Gagal menyimpan ke server Cloud: " + e.message);
+        return false;
       }
-
-      if (bar) bar.innerText = "🟢 Tersimpan & Tersinkron ke Semua Perangkat!";
-      return true;
     }
 
     const dataPendidikan = {
@@ -277,7 +205,7 @@
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
             <small>— Motivasi Belajar</small>
           </div>
-          <button type="button" class="btn-back" style="width:100%; text-align:center;" onclick="muatDatabasePublik().then(()=>alert('✅ Data berhasil disegarkan dari Google Cloud!'))">🔄 Segarkan Data Terbaru dari Cloud</button>`;
+          <button type="button" class="btn-back" style="width:100%; text-align:center;" onclick="muatDatabasePublik().then(()=>alert('✅ Data berhasil disegarkan dari Cloud!'))">🔄 Segarkan Data Terbaru dari Cloud</button>`;
       } else if (dataPendidikan[menu]) {
         await muatDatabasePublik();
         pilihKelas(menu);
@@ -670,18 +598,6 @@
     }
 
           async function hapusSatuSoal(kunciEncoded, idx) {
-      const kunci = decodeURIComponent(kunciEncoded);
-      if (!confirm("Yakin ingin menghapus soal ini dari semua perangkat?")) return;
-      await muatDatabasePublik();
-      if (dbPublik.soal[kunci]) {
-        dbPublik.soal[kunci].splice(idx, 1);
-        if (dbPublik.soal[kunci].length === 0) delete dbPublik.soal[kunci];
-        const ok = await simpanOtomatisKeCloud();
-        if (ok) renderDaftarSoalTerfilter();
-      }
-    }
-
-       async function hapusSatuSoal(kunciEncoded, idx) {
       const kunci = decodeURIComponent(kunciEncoded);
       if (!confirm("Yakin ingin menghapus soal ini dari semua perangkat?")) return;
       await muatDatabasePublik();
