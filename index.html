@@ -36,6 +36,7 @@
     .opt-selected { border-color: #4f46e5 !important; background: #eef2ff !important; }
     .quiz-footer { display: flex; gap: 10px; margin-top: 16px; }
     .soal-img { max-width: 100%; max-height: 240px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; display: block; object-fit: contain; background: #f8fafc; }
+    .opsi-img { max-width: 180px; max-height: 120px; border-radius: 8px; border: 1px solid var(--border); margin-top: 6px; display: block; object-fit: contain; background: #fff; }
     .kode-pill { display: inline-block; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; }
     .sync-bar { font-size: 0.75rem; text-align: center; padding: 6px; background: #dcfce7; color: #15803d; font-weight: 700; }
     .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255,255,255,0.95); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
@@ -46,7 +47,7 @@
 </head>
 <body>
   <header id="header-title">RIM CBT</header>
-  <div id="sync-status" class="sync-bar">🟢 Bank Soal GitHub • Terhubung ke data-soal.js</div>
+  <div id="sync-status" class="sync-bar">🟢 Bank Soal GitHub • Siap Digunakan</div>
   <main id="app-content"></main>
   <nav class="bottom-nav">
     <button type="button" class="nav-item active" data-menu="home" onclick="bukaMenu('home')"><span>🏠</span>Beranda</button>
@@ -169,8 +170,7 @@
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
             <small>— Motivasi Belajar</small>
-          </div>
-          <button type="button" class="btn-back" style="width:100%; text-align:center;" onclick="muatFileSoalTerbaru().then(()=>alert('✅ Soal terbaru dari GitHub berhasil dimuat!'))">🔄 Muat Ulang Soal Terbaru (data-soal.js)</button>`;
+          </div>`;
       } else if (dataPendidikan[menu]) {
         await muatFileSoalTerbaru();
         pilihKelas(menu);
@@ -188,10 +188,11 @@
         app().innerHTML = `
           <div class="form-box">
             <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Admin & Generator GitHub</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Buat soal via AI, susun daftar bab untuk <b>data-soal.js</b>, atau filter rekap nilai berdasarkan <b>Kode Unik Ujian</b>.</p>
+            <p style="font-size:0.84rem; color:#64748b;">Buat soal via AI, konversi gambar soal/jawaban, susun daftar bab, atau filter rekap nilai.</p>
           </div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator Soal AI ➔ Kode GitHub</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaKonverterGambar()" style="border-color:#0ea5e9; background:#f0f9ff;"><span>🖼️ Konverter Gambar Soal/Jawaban</span><span>➔</span></div>
             <div class="list-item" onclick="bukaGeneratorBab()" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Generator Daftar Bab ➔ Kode GitHub</span><span>➔</span></div>
             <div class="list-item" onclick="tampilkanRekapTerfilter()"><span>📊 Lihat & Filter Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaModalPDF()"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
@@ -321,7 +322,7 @@
 
       const tombolSebelumnya = idxSoal > 0 ? `<button type="button" class="btn-back" style="margin:0; flex:1;" onclick="lompatSoal(${idxSoal - 1})">⬅ Sebelumnya</button>` : `<div style="flex:1;"></div>`;
       const tombolSelanjutnya = idxSoal < soalList.length - 1 ? `<button type="button" class="btn-primary" style="flex:1;" onclick="lompatSoal(${idxSoal + 1})">Selanjutnya ➔</button>` : `<button type="button" class="btn-pdf" style="margin:0; flex:1;" onclick="selesaiKuis(false)">✅ Selesai Ujian</button>`;
-      const blokGambar = s.img ? `<img src="${esc(s.img)}" class="soal-img" alt="Gambar Soal">` : "";
+      const blokGambarSoal = s.img ? `<img src="${esc(s.img)}" class="soal-img" alt="Gambar Soal">` : "";
 
       app().innerHTML = `
         <div class="form-box">
@@ -331,13 +332,15 @@
           </div>
           <div class="nav-soal-grid">${gridNomor}</div>
           <p style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">🟩 Hijau: Sudah dijawab • ⬜ Putih: Belum dijawab</p>
-          ${blokGambar}
+          ${blokGambarSoal}
           <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
           <div class="list-menu">
             ${s.p.map((pil, i) => {
               const terpilih = jawabanUser[idxSoal] === i ? "opt-selected" : "";
               const ikon = jawabanUser[idxSoal] === i ? "✅" : "";
-              return `<button type="button" class="list-item ${terpilih}" style="width:100%; text-align:left;" onclick="pilihJawaban(${i})"><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span><span>${ikon}</span></button>`;
+              const urlImgOpsi = (Array.isArray(s.pImg) && s.pImg[i]) ? s.pImg[i] : "";
+              const blokImgOpsi = urlImgOpsi ? `<img src="${esc(urlImgOpsi)}" class="opsi-img" alt="Gambar Opsi ${abjad[i]}">` : "";
+              return `<button type="button" class="list-item ${terpilih}" style="width:100%; text-align:left; align-items:flex-start;" onclick="pilihJawaban(${i})"><div><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span>${blokImgOpsi}</div><span>${ikon}</span></button>`;
             }).join("")}
           </div>
           <div class="quiz-footer">${tombolSebelumnya}${tombolSelanjutnya}</div>
@@ -357,7 +360,9 @@
         const jwb = jawabanUser[idx];
         const ok = jwb === s.b;
         if (ok) skor++;
-        return { q: s.q, img: s.img || "", u: jwb !== null ? s.p[jwb] : "(Tidak Dijawab)", b: s.p[s.b], bahas: s.bahas, ok };
+        const uImg = (jwb !== null && Array.isArray(s.pImg) && s.pImg[jwb]) ? s.pImg[jwb] : "";
+        const bImg = (Array.isArray(s.pImg) && s.pImg[s.b]) ? s.pImg[s.b] : "";
+        return { q: s.q, img: s.img || "", u: jwb !== null ? s.p[jwb] : "(Tidak Dijawab)", uImg, b: s.p[s.b], bImg, bahas: s.bahas, ok };
       });
 
       const nilai = Math.round((skor / soalList.length) * 100);
@@ -376,7 +381,7 @@
           <button class="btn-primary" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
         </div>
         <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:8px;">📋 Kunci & Pembahasan</h3>
-          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;">${r.img ? `<img src="${esc(r.img)}" class="soal-img" style="max-height:150px;">` : ""}<b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span><br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b><br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
+          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;">${r.img ? `<img src="${esc(r.img)}" class="soal-img" style="max-height:150px;">` : ""}<b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span>${r.uImg ? `<img src="${esc(r.uImg)}" class="opsi-img" style="max-height:90px;">` : ""}<br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b>${r.bImg ? `<img src="${esc(r.bImg)}" class="opsi-img" style="max-height:90px;">` : ""}<br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
         </div>`;
     }
 
@@ -400,7 +405,7 @@
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
           <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Generator Soal AI ➔ Kode GitHub</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Buat soal lewat AI, lalu sistem menyusun kode siap tempel ke file <b>data-soal.js</b> di GitHub Anda.</p>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Buat soal lewat AI, lalu tempel kodenya ke file <b>data-soal.js</b> di GitHub.</p>
           <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
           <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
           <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
@@ -421,7 +426,7 @@
       const j = document.getElementById("adm-jenjang").value.toUpperCase(), k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
       const topik = document.getElementById("ai-topik").value.trim() || kat, jml = document.getElementById("ai-jumlah").value;
-      const teks = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} untuk kategori "${kat}" topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
+      const teks = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} untuk kategori "${kat}" topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","img":"","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"pImg":["","","",""],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
       navigator.clipboard.writeText(teks).then(() => alert("✅ Perintah disalin! Tempel di AI, lalu tempel hasilnya di kotak nomor 2.")).catch(() => prompt("Salin perintah ini:", teks));
     }
 
@@ -440,13 +445,57 @@
         document.getElementById("out-kode-github").value = kodeSiapTempel;
         navigator.clipboard.writeText(kodeSiapTempel).then(() => {
           alert(`✅ ${arr.length} soal berhasil disusun & disalin otomatis!\n\nBuka file data-soal.js di GitHub, lalu tempel di dalam window.DATABASE_SOAL = { ... }`);
-        }).catch(() => alert("✅ Kode berhasil disusun di kotak bawah! Silakan salin dan tempel ke file data-soal.js di GitHub."));
+        }).catch(() => alert("✅ Kode berhasil disusun di kotak bawah!"));
       } catch (e) {
         alert("❌ Format teks dari AI belum tepat. Pastikan menyalin mulai dari tanda [ sampai ].");
       }
     }
 
-    function bukaGeneratorBab() {
+    function bukaKonverterGambar() {
+      app().innerHTML = `
+        <div class="form-box">
+          <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">🖼️ Konverter Gambar Soal / Jawaban</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:12px;">Pilih gambar dari HP/laptop untuk diubah menjadi kode teks yang bisa ditempel ke <b>"img"</b> (gambar pertanyaan) atau <b>"pImg"</b> (gambar opsi A/B/C/D) di <b>data-soal.js</b>.</p>
+          <label>Pilih File Gambar dari Galeri / Komputer</label>
+          <input type="file" accept="image/*" onchange="konversiGambarKeTeks(this)">
+          <img id="prev-konv-img" class="soal-img" style="display:none;" alt="Preview">
+          <label>Kode Gambar Siap Tempel</label>
+          <textarea id="out-kode-gambar" rows="4" readonly placeholder="Kode gambar akan muncul otomatis di sini..."></textarea>
+          <button type="button" class="btn-primary" onclick="salinKodeGambar()">📋 Salin Kode Gambar</button>
+        </div>`;
+    }
+
+    function konversiGambarKeTeks(input) {
+      const file = input.files;
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement("canvas");
+          const maxW = 420;
+          let w = img.width, h = img.height;
+          if (w > maxW) { h = Math.round((h * maxW) / w); w = maxW; }
+          canvas.width = w; canvas.height = h;
+          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+          const hasilDataUrl = canvas.toDataURL("image/jpeg", 0.65);
+          document.getElementById("out-kode-gambar").value = `"${hasilDataUrl}"`;
+          const prev = document.getElementById("prev-konv-img");
+          prev.src = hasilDataUrl; prev.style.display = "block";
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function salinKodeGambar() {
+      const val = document.getElementById("out-kode-gambar").value;
+      if (!val) return alert("Pilih gambar terlebih dahulu!");
+      navigator.clipboard.writeText(val).then(() => alert("✅ Kode gambar disalin! Tempel pada bagian \"img\": ... atau di dalam \"pImg\": [ ... ] pada file data-soal.js.")).catch(() => prompt("Salin kode gambar ini:", val));
+    }
+
+          function bukaGeneratorBab() {
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
