@@ -63,12 +63,18 @@
     const GH_USER = "ryanto23";
     const GH_REPO = "RIM-Edu-AI";
     const GH_FILE = "database.json";
-    const GH_T1 = "github_pat_11CD5WQEI0MAlJf6FEf9tq_";
-    const GH_T2 = "sKsqgMiZIRcOvDNW81cNqPhQZPygz8sDVECyoPxwPo0LVL7LS4O3dhK0YRb";
-    const GH_TOKEN = GH_T1 + GH_T2;
     const GH_API_URL = `https://github.com{GH_USER}/${GH_REPO}/contents/${GH_FILE}`;
     const PIN_DEFAULT = "123456";
     let dbPublik = JSON.parse(localStorage.getItem("rim_cache_db") || '{"soal":{},"bab":{},"rekap":[],"pin":"123456"}');
+
+    function dapatkanTokenGitHub() {
+      let token = localStorage.getItem("rim_gh_token") || "";
+      if (!token) {
+        token = (prompt("Masukkan Token GitHub (cukup 1 kali di HP ini):") || "").trim();
+        if (token) localStorage.setItem("rim_gh_token", token);
+      }
+      return token;
+    }
 
     async function muatDatabasePublik() {
       const bar = document.getElementById("sync-status");
@@ -90,9 +96,14 @@
       }
     }
 
-
-          async function simpanOtomatisKeCloud() {
+    async function simpanOtomatisKeCloud() {
       const bar = document.getElementById("sync-status");
+      const token = dapatkanTokenGitHub();
+      if (!token) {
+        alert("Token GitHub belum diisi! Pengisian token hanya diperlukan 1 kali pada perangkat admin.");
+        return false;
+      }
+
       if (bar) bar.innerText = "⏳ Menyimpan ke GitHub Cloud...";
       const payloadObj = {
         soal: dbPublik.soal,
@@ -107,10 +118,14 @@
         let shaLama = undefined;
         const cekRes = await fetch(GH_API_URL + "?t=" + Date.now(), {
           headers: {
-            "Authorization": "Bearer " + GH_TOKEN,
+            "Authorization": "token " + token,
             "Accept": "application/vnd.github+json"
           }
         });
+        if (cekRes.status === 401 || cekRes.status === 403) {
+          localStorage.removeItem("rim_gh_token");
+          throw new Error("Token tidak valid atau kedaluwarsa. Silakan tekan Simpan lagi untuk memasukkan token baru.");
+        }
         if (cekRes.ok) {
           const infoLama = await cekRes.json();
           shaLama = infoLama.sha;
@@ -126,21 +141,46 @@
         const putRes = await fetch(GH_API_URL, {
           method: "PUT",
           headers: {
-            "Authorization": "Bearer " + GH_TOKEN,
+            "Authorization": "token " + token,
             "Accept": "application/vnd.github+json",
             "Content-Type": "application/json"
           },
           body: JSON.stringify(bodyKirim)
         });
-        if (!putRes.ok) throw new Error("HTTP " + putRes.status);
+        if (!putRes.ok) {
+          if (putRes.status === 401 || putRes.status === 403) localStorage.removeItem("rim_gh_token");
+          throw new Error("HTTP " + putRes.status);
+        }
         if (bar) bar.innerText = "🟢 Tersimpan & Tersinkron ke Semua Perangkat!";
         return true;
       } catch (e) {
         if (bar) bar.innerText = "❌ Gagal menyimpan ke GitHub Cloud";
-        alert("Gagal menyimpan ke GitHub: " + e.message + "\nPastikan file database.json sudah ada di repositori.");
+        alert("Gagal menyimpan: " + e.message);
         return false;
       }
     }
+
+    const dataPendidikan = {
+      sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
+      smp: { judul: "Sekolah Menengah Pertama (SMP)", kelas: ["Kelas 7", "Kelas 8", "Kelas 9"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"] },
+      sma: { judul: "SMA / SMK", kelas: ["Kelas 10", "Kelas 11", "Kelas 12"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"] }
+    };
+
+    const babDefault = {
+      "Matematika": ["Bab 1: Bilangan & Operasi Hitung", "Bab 2: Aljabar & Geometri", "Bab 3: Statistika & Peluang"],
+      "Bahasa Indonesia": ["Bab 1: Gagasan Utama & Teks", "Bab 2: Kaidah EYD V", "Bab 3: Argumentasi & Sastra"],
+      "Bahasa Inggris": ["Bab 1: Daily Communication", "Bab 2: Grammar & Tenses", "Bab 3: Reading Comprehension"],
+      "IPAS": ["Bab 1: Makhluk Hidup & Ekosistem", "Bab 2: Wujud Zat & Energi", "Bab 3: Geografi & Budaya"],
+      "IPA": ["Bab 1: Metode Ilmiah & Pengukuran", "Bab 2: Zat & Perubahannya", "Bab 3: Sistem Organ & Energi"],
+      "IPS": ["Bab 1: Interaksi Sosial", "Bab 2: Sumber Daya Alam", "Bab 3: Kegiatan Ekonomi"],
+      "Pendidikan Pancasila": ["Bab 1: Nilai Pancasila", "Bab 2: Norma & UUD 1945", "Bab 3: Bhinneka Tunggal Ika"],
+      "Koding & Kecerdasan Artifisial": ["Bab 1: Berpikir Komputasional", "Bab 2: Mengenal AI", "Bab 3: Etika Digital"],
+      "Informatika & KKA": ["Bab 1: Algoritma & Pemrograman", "Bab 2: Machine Learning & AI", "Bab 3: Keamanan Siber"],
+      "Fisika": ["Bab 1: Pengukuran & Vektor", "Bab 2: Gerak, Usaha & Energi", "Bab 3: Kalor, Gelombang & Listrik"],
+      "Kimia": ["Bab 1: Struktur Atom", "Bab 2: Ikatan Kimia", "Bab 3: Asam-Basa & Termokimia"],
+      "Biologi": ["Bab 1: Keanekaragaman Hayati", "Bab 2: Sel & Sistem Organ", "Bab 3: Metabolisme & Genetika"],
+      "Ekonomi": ["Bab 1: Ilmu Ekonomi & Kelangkaan", "Bab 2: Permintaan & Penawaran", "Bab 3: Kebijakan Moneter & Fiskal"]
+    };
 
     const dataPendidikan = {
       sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
