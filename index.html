@@ -36,6 +36,7 @@
     .opt-selected { border-color: #4f46e5 !important; background: #eef2ff !important; }
     .quiz-footer { display: flex; gap: 10px; margin-top: 16px; }
     .soal-img { max-width: 100%; max-height: 240px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; display: block; object-fit: contain; background: #f8fafc; }
+    .kode-pill { display: inline-block; background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 6px; font-size: 0.74rem; font-weight: 800; }
     .sync-bar { font-size: 0.75rem; text-align: center; padding: 6px; background: #dcfce7; color: #15803d; font-weight: 700; }
     .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255,255,255,0.95); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
     .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--muted); cursor: pointer; padding: 6px 12px; border-radius: 14px; }
@@ -71,7 +72,7 @@
           resolve();
         };
         s.onerror = () => {
-          document.getElementById("sync-status").innerText = "⚠️ Buat file data-soal.js di GitHub Anda";
+          document.getElementById("sync-status").innerText = "⚠️ File data-soal.js belum dibuat di GitHub";
           resolve();
         };
         document.body.appendChild(s);
@@ -135,7 +136,7 @@
     }
 
           let timer, soalList = [], jawabanUser = [], idxSoal = 0, sisaWaktu = 0, sisaWaktuSoal = 0;
-    let sesi = { nama: "", sekolah: "", kelasInput: "", jenjang: "", tingkat: "", mapel: "", bab: "", mode: "bab" };
+    let sesi = { nama: "", sekolah: "", kelasInput: "", kodeUjian: "", jenjang: "", tingkat: "", mapel: "", bab: "", mode: "bab" };
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -163,15 +164,14 @@
         title().innerText = "Generator Soal & Rekap";
         app().innerHTML = `
           <div class="form-box">
-            <h3 style="font-size:1.05rem; margin-bottom:4px;">🛠️ Generator Kode GitHub (Via AI)</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Buat soal via AI atau daftar bab, lalu tempel hasilnya ke file <b>data-soal.js</b> di GitHub.</p>
+            <h3 style="font-size:1.05rem; margin-bottom:4px;">🛠️ Panel Guru & Generator GitHub</h3>
+            <p style="font-size:0.84rem; color:#64748b;">Buat soal via AI, susun daftar bab untuk <b>data-soal.js</b>, atau filter rekap nilai berdasarkan <b>Kode Unik Ujian</b>.</p>
           </div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator Soal AI ➔ Kode GitHub</span><span>➔</span></div>
             <div class="list-item" onclick="bukaGeneratorBab()" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Generator Daftar Bab ➔ Kode GitHub</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdminRekap('rekap')"><span>📊 Lihat Rekap Nilai (Perangkat Ini)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdminRekap('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdminRekap('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🧹 Hapus Rekap Nilai</span><span>➔</span></div>
+            <div class="list-item" onclick="tampilkanRekapTerfilter()"><span>📊 Lihat & Filter Rekap Nilai Siswa</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaModalPDF()"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
           </div>`;
       }
     }
@@ -232,6 +232,8 @@
           <button class="btn-back" onclick="${tombolKembali}">⬅ Kembali</button>
           <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
           <p style="font-size:0.84rem; color:#64748b; margin-bottom:14px;">${sesi.mapel} • <b>${esc(kategori)}</b><br>Jumlah: <b>${jml} Soal</b> (${infoWaktu})</p>
+          <label>🔑 Kode Unik Ujian / Sesi (Dari Guru)</label>
+          <input type="text" id="inp-kode-ujian" placeholder="Contoh: MTK7A atau UTS-GANJIL" style="text-transform:uppercase; font-weight:700;">
           <label>Nama Lengkap</label><input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
           <label>Asal Sekolah</label><input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
           <label>Kelas Spesifik</label><input type="text" id="inp-kelas" placeholder="Contoh: 7A">
@@ -240,9 +242,12 @@
     }
 
     function mulaiKuis() {
-      const nama = document.getElementById("inp-nama").value.trim(), sekolah = document.getElementById("inp-sekolah").value.trim(), kelas = document.getElementById("inp-kelas").value.trim();
-      if (!nama || !sekolah || !kelas) return alert("Lengkapi identitas peserta terlebih dahulu!");
-      sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
+      const kodeUjian = document.getElementById("inp-kode-ujian").value.trim().toUpperCase();
+      const nama = document.getElementById("inp-nama").value.trim();
+      const sekolah = document.getElementById("inp-sekolah").value.trim();
+      const kelas = document.getElementById("inp-kelas").value.trim();
+      if (!kodeUjian || !nama || !sekolah || !kelas) return alert("Lengkapi Kode Unik Ujian dan semua identitas peserta terlebih dahulu!");
+      sesi.kodeUjian = kodeUjian; sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
       soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab);
       jawabanUser = new Array(soalList.length).fill(null);
       idxSoal = 0; sisaWaktu = 90 * 60; sisaWaktuSoal = 5 * 60;
@@ -334,14 +339,14 @@
       const nilai = Math.round((skor / soalList.length) * 100);
       const labelUjian = sesi.mode === "bab" ? `${sesi.mapel} (${sesi.bab})` : `${sesi.mapel} (${sesi.mode})`;
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai });
+      rekap.push({ kode: sesi.kodeUjian, nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
 
       app().innerHTML = `
         <div class="form-box" style="text-align:center; padding:24px 18px;">
-          <span class="hero-badge" style="background:#eef2ff; color:#4f46e5;">HASIL UJIAN</span>
+          <span class="hero-badge" style="background:#eef2ff; color:#4f46e5;">KODE UJIAN: ${esc(sesi.kodeUjian)}</span>
           <h2 style="margin-top:8px;">Ujian Selesai!</h2>
-          <p style="margin-top:4px; color:#64748b; font-size:0.9rem;">Peserta: <b>${esc(sesi.nama)}</b></p>
+          <p style="margin-top:4px; color:#64748b; font-size:0.9rem;">Peserta: <b>${esc(sesi.nama)}</b> (${esc(sesi.kelasInput)})</p>
           <h1 style="font-size:3.2rem; font-weight:800; color:#4f46e5; margin:10px 0;">${nilai}</h1>
           <p style="font-size:0.88rem; color:#64748b; margin-bottom:18px;">Benar <b>${skor}</b> dari <b>${soalList.length}</b> soal</p>
           <button class="btn-primary" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
@@ -447,43 +452,111 @@
       }).catch(() => alert("✅ Kode bab berhasil disusun di kotak bawah!"));
     }
 
-          function bukaModalPDF() {
+          function tampilkanRekapTerfilter() {
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      const daftarKode = ["SEMUA", ...new Set(data.map(d => String(d.kode || "TANPA-KODE").trim()))];
+      const daftarKelas = ["SEMUA", ...new Set(data.map(d => String(d.kelas || "-").trim()))];
+      const daftarMapel = ["SEMUA", ...new Set(data.map(d => String(d.mapel || "-").trim()))];
+
+      app().innerHTML = `
+        <div class="form-box">
+          <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">📊 Rekap Nilai Terfilter</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:12px;">Saring hasil ujian siswa berdasarkan <b>Kode Unik Ujian</b>, Kelas, atau Mapel.</p>
+          <label>🔑 Filter Kode Unik Ujian</label>
+          <select id="rek-filter-kode" onchange="renderIsiRekapTerfilter()">${daftarKode.map(kd => `<option value="${esc(kd)}">${kd === "SEMUA" ? "Semua Kode Ujian" : "Kode: " + esc(kd)}</option>`).join("")}</select>
+          <label>Filter Kelas</label>
+          <select id="rek-filter-kelas" onchange="renderIsiRekapTerfilter()">${daftarKelas.map(k => `<option value="${esc(k)}">${k === "SEMUA" ? "Semua Kelas" : "Kelas " + esc(k)}</option>`).join("")}</select>
+          <label>Filter Mata Pelajaran / Ujian</label>
+          <select id="rek-filter-mapel" onchange="renderIsiRekapTerfilter()">${daftarMapel.map(m => `<option value="${esc(m)}">${m === "SEMUA" ? "Semua Mapel" : esc(m)}</option>`).join("")}</select>
+        </div>
+        <div id="wadah-hasil-rekap" class="form-box"></div>`;
+      renderIsiRekapTerfilter();
+    }
+
+    function dapatkanRekapTersaring(idKode, idKelas, idMapel) {
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      const fKode = document.getElementById(idKode).value;
+      const fKelas = document.getElementById(idKelas).value;
+      const fMapel = document.getElementById(idMapel).value;
+      return data.filter(d => {
+        const kdItem = String(d.kode || "TANPA-KODE").trim();
+        const klsItem = String(d.kelas || "-").trim();
+        const mplItem = String(d.mapel || "-").trim();
+        return (fKode === "SEMUA" || kdItem === fKode) && (fKelas === "SEMUA" || klsItem === fKelas) && (fMapel === "SEMUA" || mplItem === fMapel);
+      });
+    }
+
+    function renderIsiRekapTerfilter() {
+      const hasil = dapatkanRekapTersaring("rek-filter-kode", "rek-filter-kelas", "rek-filter-mapel");
+      const wadah = document.getElementById("wadah-hasil-rekap");
+      if (!wadah) return;
+      if (hasil.length === 0) {
+        wadah.innerHTML = `<p style="color:#64748b; font-size:0.88rem; text-align:center;">Tidak ada data nilai pada filter yang dipilih.</p>`;
+        return;
+      }
+      const listHtml = hasil.map((d, i) => `
+        <div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <b>${i + 1}. ${esc(d.nama)}</b>
+            <span class="kode-pill">🔑 ${esc(d.kode || "TANPA-KODE")}</span>
+          </div>
+          <small style="color:#64748b;">${esc(d.sekolah)} • Kelas ${esc(d.kelas)}</small><br>
+          Ujian: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b>
+        </div>`).join("");
+
+      wadah.innerHTML = `
+        <h4 style="font-size:0.92rem; color:#4f46e5; margin-bottom:6px;">Menampilkan ${hasil.length} Peserta</h4>
+        ${listHtml}
+        <button type="button" class="btn-pdf" onclick="eksekusiUnduhPDF('rek-filter-kode','rek-filter-kelas','rek-filter-mapel')">🖨️ Cetak / Download PDF Hasil Filter Ini</button>
+        <button type="button" class="btn-danger" onclick="hapusRekapTerfilter()">🧹 Hapus Data Hasil Filter Ini</button>`;
+    }
+
+    function hapusRekapTerfilter() {
+      const fKode = document.getElementById("rek-filter-kode").value;
+      const fKelas = document.getElementById("rek-filter-kelas").value;
+      const fMapel = document.getElementById("rek-filter-mapel").value;
+      const hasil = dapatkanRekapTersaring("rek-filter-kode", "rek-filter-kelas", "rek-filter-mapel");
+      if (!confirm(`Yakin ingin menghapus ${hasil.length} data nilai yang sedang ditampilkan ini?`)) return;
+
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      const sisa = data.filter(d => {
+        const kdItem = String(d.kode || "TANPA-KODE").trim();
+        const klsItem = String(d.kelas || "-").trim();
+        const mplItem = String(d.mapel || "-").trim();
+        const cocok = (fKode === "SEMUA" || kdItem === fKode) && (fKelas === "SEMUA" || klsItem === fKelas) && (fMapel === "SEMUA" || mplItem === fMapel);
+        return !cocok;
+      });
+      localStorage.setItem("rim_rekap", JSON.stringify(sisa));
+      tampilkanRekapTerfilter();
+    }
+
+    function bukaModalPDF() {
       const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
+      const daftarKode = ["SEMUA", ...new Set(data.map(d => String(d.kode || "TANPA-KODE").trim()))];
       const daftarKelas = ["SEMUA", ...new Set(data.map(d => String(d.kelas || "-").trim()))];
       const daftarMapel = ["SEMUA", ...new Set(data.map(d => String(d.mapel || "-").trim()))];
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
           <h3 style="font-size:1.05rem; margin-bottom:6px;">📄 Download Rekap Nilai (PDF)</h3>
+          <label>🔑 Filter Kode Unik Ujian</label><select id="pdf-filter-kode">${daftarKode.map(kd => `<option value="${esc(kd)}">${kd === "SEMUA" ? "Semua Kode Ujian" : "Kode: " + esc(kd)}</option>`).join("")}</select>
           <label>Filter Kelas</label><select id="pdf-filter-kelas">${daftarKelas.map(k => `<option value="${esc(k)}">${k === "SEMUA" ? "Semua Kelas" : "Kelas " + esc(k)}</option>`).join("")}</select>
           <label>Filter Mata Pelajaran / Ujian</label><select id="pdf-filter-mapel">${daftarMapel.map(m => `<option value="${esc(m)}">${m === "SEMUA" ? "Semua Mata Pelajaran" : esc(m)}</option>`).join("")}</select>
-          <button type="button" class="btn-pdf" onclick="eksekusiUnduhPDF()">🖨️ Cetak / Simpan sebagai PDF</button>
+          <button type="button" class="btn-pdf" onclick="eksekusiUnduhPDF('pdf-filter-kode','pdf-filter-kelas','pdf-filter-mapel')">🖨️ Cetak / Simpan sebagai PDF</button>
         </div>`;
     }
 
-    function eksekusiUnduhPDF() {
-      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      const pilihKelas = document.getElementById("pdf-filter-kelas").value, pilihMapel = document.getElementById("pdf-filter-mapel").value;
-      const hasil = data.filter(d => (pilihKelas === "SEMUA" || String(d.kelas || "-").trim() === pilihKelas) && (pilihMapel === "SEMUA" || String(d.mapel || "-").trim() === pilihMapel));
+    function eksekusiUnduhPDF(idKode, idKelas, idMapel) {
+      const hasil = dapatkanRekapTersaring(idKode, idKelas, idMapel);
       if (hasil.length === 0) return alert("Tidak ada data nilai yang sesuai filter.");
-      const barisTabel = hasil.map((d, i) => `<tr><td style="text-align:center;">${i + 1}</td><td>${esc(d.nama)}</td><td>${esc(d.sekolah)}</td><td style="text-align:center;">${esc(d.kelas)}</td><td>${esc(d.mapel)}</td><td style="text-align:center; font-weight:bold;">${d.nilai}</td></tr>`).join("");
+      const fKode = document.getElementById(idKode).value;
+      const barisTabel = hasil.map((d, i) => `<tr><td style="text-align:center;">${i + 1}</td><td style="text-align:center;"><b>${esc(d.kode || "-")}</b></td><td>${esc(d.nama)}</td><td>${esc(d.sekolah)}</td><td style="text-align:center;">${esc(d.kelas)}</td><td>${esc(d.mapel)}</td><td style="text-align:center; font-weight:bold;">${d.nilai}</td></tr>`).join("");
       const win = window.open("", "_blank");
       if (!win) return alert("Pop-up diblokir browser.");
-      win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rekap_Nilai</title><style>body{font-family:Arial,sans-serif;padding:20px}table{width:100%;border-collapse:collapse;font-size:12px}th{background:#4f46e5;color:#fff;padding:8px;border:1px solid #cbd5e1}td{padding:7px;border:1px solid #cbd5e1}</style></head><body><h2>REKAPITULASI NILAI - RIM CBT</h2><table><thead><tr><th>No</th><th>Nama</th><th>Sekolah</th><th>Kelas</th><th>Ujian</th><th>Nilai</th></tr></thead><tbody>' + barisTabel + '</tbody></table><script>window.onload=function(){window.print();};<' + '/script></body></html>');
+      win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rekap_Nilai_RIM_CBT</title><style>body{font-family:Arial,sans-serif;padding:20px}h2{color:#4f46e5;margin:0 0 4px}p{font-size:12px;color:#475569;margin:0 0 14px}table{width:100%;border-collapse:collapse;font-size:12px}th{background:#4f46e5;color:#fff;padding:8px;border:1px solid #cbd5e1}td{padding:7px;border:1px solid #cbd5e1}</style></head><body><h2>REKAPITULASI NILAI UJIAN - RIM CBT</h2><p>Filter Kode Ujian: ' + esc(fKode) + ' • Dicetak: ' + new Date().toLocaleString("id-ID") + '</p><table><thead><tr><th>No</th><th>Kode Ujian</th><th>Nama Siswa</th><th>Sekolah</th><th>Kelas</th><th>Ujian / Mapel</th><th>Nilai</th></tr></thead><tbody>' + barisTabel + '</tbody></table><script>window.onload=function(){window.print();};<' + '/script></body></html>');
       win.document.close();
-    }
-
-    function bukaAdminRekap(aksi) {
-      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      if (aksi === "rekap") {
-        app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📊 Rekap Nilai Peserta</h3>` +
-          (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Ujian: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
-          `<button class="btn-pdf" onclick="bukaModalPDF()">📄 Filter & Download PDF</button><button class="btn-danger" onclick="bukaAdminRekap('hapus')">🧹 Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
-      } else if (aksi === "pdf") { bukaModalPDF(); }
-      else if (aksi === "hapus") {
-        if (confirm("Hapus seluruh data rekap nilai di perangkat ini?")) { localStorage.removeItem("rim_rekap"); bukaMenu("saya"); }
-      }
     }
 
     (async function mulaiAplikasi() {
