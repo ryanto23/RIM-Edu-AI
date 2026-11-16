@@ -345,6 +345,4 @@ window.DATABASE_SOAL = {
     "bahas": "Susunan A mengurutkan bilangan dari nilai paling kecil ke paling besar, yaitu 3, 5, 8."
   }
 ],
-  
-  
   };
