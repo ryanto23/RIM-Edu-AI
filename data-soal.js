@@ -74,3 +74,60 @@ window.DATABASE_SOAL = {
   }
 ],
 };
+  "sd-Kelas 4-Matematika-Bab 1: Bilangan & Operasi Hitung": [
+  {
+    "q": "Hasil dari 124 × 6 adalah ....",
+    "p": [
+      "724",
+      "744",
+      "764",
+      "784"
+    ],
+    "b": 1,
+    "bahas": "Hitung bersusun: 4 × 6 = 24 (tulis 4, simpan 2); 2 × 6 + 2 = 14 (tulis 4, simpan 1); 1 × 6 + 1 = 7. Jadi hasilnya adalah 744."
+  },
+  {
+    "q": "Pak Budi memanen 35 peti buah mangga. Setiap peti berisi 42 buah mangga. Jumlah seluruh buah mangga yang dipanen Pak Budi adalah ....",
+    "p": [
+      "1.370",
+      "1.450",
+      "1.470",
+      "1.570"
+    ],
+    "b": 2,
+    "bahas": "Jumlah seluruh mangga = 35 × 42. (35 × 2 = 70) + (35 × 40 = 1.400) = 1.470 buah."
+  },
+  {
+    "q": "Bilangan yang tepat untuk melengkapi operasi perkalian 235 × ... = 1.880 adalah ....",
+    "p": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "b": 2,
+    "bahas": "1.880 dibagi 235 sama dengan 8, karena 235 × 8 = 1.880."
+  },
+  {
+    "q": "Sebuah gedung pertunjukan memiliki 28 baris kursi. Jika setiap baris terdapat 36 kursi, maka kapasitas maksimal kursi di gedung tersebut adalah ....",
+    "p": [
+      "908",
+      "988",
+      "1.008",
+      "1.028"
+    ],
+    "b": 2,
+    "bahas": "Kapasitas kursi = 28 × 36. (28 × 6 = 168) + (28 × 30 = 840) = 1.008 kursi."
+  },
+  {
+    "q": "Operasi perkalian di bawah ini yang hasilnya paling besar adalah ....",
+    "p": [
+      "415 × 12",
+      "320 × 15",
+      "245 × 20",
+      "510 × 10"
+    ],
+    "b": 3,
+    "bahas": "415 × 12 = 4.980; 320 × 15 = 4.800; 245 × 20 = 4.900; dan 510 × 10 = 5.100. Jadi yang paling besar adalah 510 × 10."
+  }
+],
