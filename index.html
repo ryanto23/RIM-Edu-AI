@@ -45,14 +45,14 @@
 </head>
 <body>
   <header id="header-title">RIM CBT</header>
-  <div id="sync-status" class="sync-bar">🟢 Bank Soal Aktif • Terhubung ke data-soal.js</div>
+  <div id="sync-status" class="sync-bar">🟢 Bank Soal GitHub • Terhubung ke data-soal.js</div>
   <main id="app-content"></main>
   <nav class="bottom-nav">
     <button type="button" class="nav-item active" data-menu="home" onclick="bukaMenu('home')"><span>🏠</span>Beranda</button>
     <button type="button" class="nav-item" data-menu="sd" onclick="bukaMenu('sd')"><span>🎒</span>SD</button>
     <button type="button" class="nav-item" data-menu="smp" onclick="bukaMenu('smp')"><span>📘</span>SMP</button>
     <button type="button" class="nav-item" data-menu="sma" onclick="bukaMenu('sma')"><span>🎓</span>SMA</button>
-    <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🔐</span>Admin</button>
+    <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🛠️</span>Generator</button>
   </nav>
 
     <script>
@@ -71,7 +71,7 @@
           resolve();
         };
         s.onerror = () => {
-          document.getElementById("sync-status").innerText = "⚠️ File data-soal.js belum ditemukan di GitHub";
+          document.getElementById("sync-status").innerText = "⚠️ Buat file data-soal.js di GitHub Anda";
           resolve();
         };
         document.body.appendChild(s);
@@ -160,9 +160,12 @@
         await muatFileSoalTerbaru();
         pilihKelas(menu);
       } else if (menu === "saya") {
-        title().innerText = "Panel Guru / Admin";
+        title().innerText = "Generator Soal & Rekap";
         app().innerHTML = `
-          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Gunakan Generator AI di bawah untuk menyusun kode Bab & Soal siap tempel ke <b>data-soal.js</b> GitHub.</p></div>
+          <div class="form-box">
+            <h3 style="font-size:1.05rem; margin-bottom:4px;">🛠️ Generator Kode GitHub (Via AI)</h3>
+            <p style="font-size:0.84rem; color:#64748b;">Buat soal via AI atau daftar bab, lalu tempel hasilnya ke file <b>data-soal.js</b> di GitHub.</p>
+          </div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator Soal AI ➔ Kode GitHub</span><span>➔</span></div>
             <div class="list-item" onclick="bukaGeneratorBab()" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Generator Daftar Bab ➔ Kode GitHub</span><span>➔</span></div>
@@ -414,7 +417,7 @@
       }
     }
 
-          function bukaGeneratorBab() {
+    function bukaGeneratorBab() {
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
