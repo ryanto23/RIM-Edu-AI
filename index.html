@@ -59,7 +59,7 @@
     <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🔐</span>Admin</button>
   </nav>
 
-    <script>
+     <script>
     const GH_USER = "ryanto23";
     const GH_REPO = "RIM-Edu-AI";
     const GH_FILE = "database.json";
@@ -70,11 +70,11 @@
     const PIN_DEFAULT = "123456";
     let dbPublik = JSON.parse(localStorage.getItem("rim_cache_db") || '{"soal":{},"bab":{},"rekap":[],"pin":"123456"}');
 
-       async function muatDatabasePublik() {
+    async function muatDatabasePublik() {
       const bar = document.getElementById("sync-status");
       if (bar) bar.innerText = "🔄 Menyinkronkan data dari GitHub...";
       try {
-        const res = await fetch(`https://githubusercontent.com{GH_USER}/${GH_REPO}/main/${GH_FILE}?t=${Date.now()}`);
+        const res = await fetch(`./database.json?t=${Date.now()}`, { cache: "no-store" });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const json = await res.json();
         if (json && typeof json === "object") {
@@ -86,7 +86,7 @@
         }
         if (bar) bar.innerText = "🟢 Tersinkron Otomatis • Semua Guru & Siswa Terhubung";
       } catch (e) {
-        if (bar) bar.innerText = "⚠️ Error (" + e.message + ") • Cek file database.json di GitHub";
+        if (bar) bar.innerText = "⚠️ Error (" + e.message + ") • Pastikan file database.json ada";
       }
     }
 
