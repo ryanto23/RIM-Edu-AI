@@ -134,7 +134,7 @@ window.DATABASE_BAB = {
 
 window.DATABASE_SOAL = {
   // Format kunci: "jenjang-Kelas X-Nama Mapel-Nama Bab atau UTS/UAS"
-      "sd-Kelas 1-Matematika-• Bab 1. Ayo Membilang sampai dengan 10 (menghitung, membaca, menulis, membandingkan, serta mengurai dan menyusun bilangan).": [
+      "sd-Kelas 1-Matematika-• Bab 1.": [
   {
     "q": "Perhatikan gambar buah apel berikut: 🍎 🍎 🍎 🍎 🍎 🍎 🍎. Banyaknya buah apel pada gambar tersebut adalah ....",
     "p": [
