@@ -188,11 +188,10 @@
         app().innerHTML = `
           <div class="form-box">
             <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Admin & Generator GitHub</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Buat soal via AI, konversi gambar soal/jawaban, susun daftar bab, atau filter rekap nilai.</p>
+            <p style="font-size:0.84rem; color:#64748b;">Buat soal teks/bergambar via AI, susun daftar bab untuk <b>data-soal.js</b>, atau filter rekap nilai.</p>
           </div>
           <div class="list-menu">
             <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator Soal AI ➔ Kode GitHub</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaKonverterGambar()" style="border-color:#0ea5e9; background:#f0f9ff;"><span>🖼️ Konverter Gambar Soal/Jawaban</span><span>➔</span></div>
             <div class="list-item" onclick="bukaGeneratorBab()" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Generator Daftar Bab ➔ Kode GitHub</span><span>➔</span></div>
             <div class="list-item" onclick="tampilkanRekapTerfilter()"><span>📊 Lihat & Filter Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaModalPDF()"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
@@ -486,50 +485,6 @@
       } catch (e) {
         alert("❌ Format teks dari AI belum tepat. Pastikan menyalin mulai dari tanda [ sampai ].");
       }
-    }
-
-    function bukaKonverterGambar() {
-      app().innerHTML = `
-        <div class="form-box">
-          <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-          <h3 style="font-size:1.05rem; margin-bottom:6px;">🖼️ Konverter Gambar Manual (Galeri/File)</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:12px;">Jika ingin memakai foto sendiri dari HP/laptop, pilih gambar untuk diubah menjadi kode <b>"img"</b> atau <b>"pImg"</b>.</p>
-          <label>Pilih File Gambar</label>
-          <input type="file" accept="image/*" onchange="konversiGambarKeTeks(this)">
-          <img id="prev-konv-img" class="soal-img" style="display:none;" alt="Preview">
-          <label>Kode Gambar Siap Tempel</label>
-          <textarea id="out-kode-gambar" rows="4" readonly placeholder="Kode gambar akan muncul otomatis di sini..."></textarea>
-          <button type="button" class="btn-primary" onclick="salinKodeGambar()">📋 Salin Kode Gambar</button>
-        </div>`;
-    }
-
-    function konversiGambarKeTeks(input) {
-      const file = input.files;
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement("canvas");
-          const maxW = 420;
-          let w = img.width, h = img.height;
-          if (w > maxW) { h = Math.round((h * maxW) / w); w = maxW; }
-          canvas.width = w; canvas.height = h;
-          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          const hasilDataUrl = canvas.toDataURL("image/jpeg", 0.65);
-          document.getElementById("out-kode-gambar").value = `"${hasilDataUrl}"`;
-          const prev = document.getElementById("prev-konv-img");
-          prev.src = hasilDataUrl; prev.style.display = "block";
-        };
-        img.src = ev.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function salinKodeGambar() {
-      const val = document.getElementById("out-kode-gambar").value;
-      if (!val) return alert("Pilih gambar terlebih dahulu!");
-      navigator.clipboard.writeText(val).then(() => alert("✅ Kode gambar disalin!")).catch(() => prompt("Salin kode gambar ini:", val));
     }
 
           function bukaGeneratorBab() {
