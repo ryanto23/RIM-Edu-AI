@@ -308,6 +308,16 @@
       renderSoal();
     }
 
+    function renderVisual(imgUrl, svgCode, kelasCss) {
+      if (svgCode && String(svgCode).trim().startsWith("<svg")) {
+        return `<div class="${kelasCss}" style="padding:8px; overflow:auto;">${svgCode}</div>`;
+      }
+      if (imgUrl) {
+        return `<img src="${esc(imgUrl)}" class="${kelasCss}" alt="Gambar">`;
+      }
+      return "";
+    }
+
     function renderSoal() {
       const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
       const jmlDijawab = jawabanUser.filter(j => j !== null).length;
@@ -322,7 +332,7 @@
 
       const tombolSebelumnya = idxSoal > 0 ? `<button type="button" class="btn-back" style="margin:0; flex:1;" onclick="lompatSoal(${idxSoal - 1})">⬅ Sebelumnya</button>` : `<div style="flex:1;"></div>`;
       const tombolSelanjutnya = idxSoal < soalList.length - 1 ? `<button type="button" class="btn-primary" style="flex:1;" onclick="lompatSoal(${idxSoal + 1})">Selanjutnya ➔</button>` : `<button type="button" class="btn-pdf" style="margin:0; flex:1;" onclick="selesaiKuis(false)">✅ Selesai Ujian</button>`;
-      const blokGambarSoal = s.img ? `<img src="${esc(s.img)}" class="soal-img" alt="Gambar Soal">` : "";
+      const blokVisualSoal = renderVisual(s.img, s.svg, "soal-img");
 
       app().innerHTML = `
         <div class="form-box">
@@ -332,15 +342,16 @@
           </div>
           <div class="nav-soal-grid">${gridNomor}</div>
           <p style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">🟩 Hijau: Sudah dijawab • ⬜ Putih: Belum dijawab</p>
-          ${blokGambarSoal}
+          ${blokVisualSoal}
           <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
           <div class="list-menu">
             ${s.p.map((pil, i) => {
               const terpilih = jawabanUser[idxSoal] === i ? "opt-selected" : "";
               const ikon = jawabanUser[idxSoal] === i ? "✅" : "";
               const urlImgOpsi = (Array.isArray(s.pImg) && s.pImg[i]) ? s.pImg[i] : "";
-              const blokImgOpsi = urlImgOpsi ? `<img src="${esc(urlImgOpsi)}" class="opsi-img" alt="Gambar Opsi ${abjad[i]}">` : "";
-              return `<button type="button" class="list-item ${terpilih}" style="width:100%; text-align:left; align-items:flex-start;" onclick="pilihJawaban(${i})"><div><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span>${blokImgOpsi}</div><span>${ikon}</span></button>`;
+              const svgOpsi = (Array.isArray(s.pSvg) && s.pSvg[i]) ? s.pSvg[i] : "";
+              const blokVisualOpsi = renderVisual(urlImgOpsi, svgOpsi, "opsi-img");
+              return `<button type="button" class="list-item ${terpilih}" style="width:100%; text-align:left; align-items:flex-start;" onclick="pilihJawaban(${i})"><div><span><b style="color:#4f46e5; margin-right:6px;">${abjad[i]}.</b> ${esc(pil)}</span>${blokVisualOpsi}</div><span>${ikon}</span></button>`;
             }).join("")}
           </div>
           <div class="quiz-footer">${tombolSebelumnya}${tombolSelanjutnya}</div>
@@ -361,8 +372,19 @@
         const ok = jwb === s.b;
         if (ok) skor++;
         const uImg = (jwb !== null && Array.isArray(s.pImg) && s.pImg[jwb]) ? s.pImg[jwb] : "";
+        const uSvg = (jwb !== null && Array.isArray(s.pSvg) && s.pSvg[jwb]) ? s.pSvg[jwb] : "";
         const bImg = (Array.isArray(s.pImg) && s.pImg[s.b]) ? s.pImg[s.b] : "";
-        return { q: s.q, img: s.img || "", u: jwb !== null ? s.p[jwb] : "(Tidak Dijawab)", uImg, b: s.p[s.b], bImg, bahas: s.bahas, ok };
+        const bSvg = (Array.isArray(s.pSvg) && s.pSvg[s.b]) ? s.pSvg[s.b] : "";
+        return {
+          q: s.q,
+          visSoal: renderVisual(s.img, s.svg, "soal-img"),
+          u: jwb !== null ? s.p[jwb] : "(Tidak Dijawab)",
+          visU: renderVisual(uImg, uSvg, "opsi-img"),
+          b: s.p[s.b],
+          visB: renderVisual(bImg, bSvg, "opsi-img"),
+          bahas: s.bahas,
+          ok
+        };
       });
 
       const nilai = Math.round((skor / soalList.length) * 100);
@@ -381,7 +403,7 @@
           <button class="btn-primary" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
         </div>
         <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:8px;">📋 Kunci & Pembahasan</h3>
-          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;">${r.img ? `<img src="${esc(r.img)}" class="soal-img" style="max-height:150px;">` : ""}<b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span>${r.uImg ? `<img src="${esc(r.uImg)}" class="opsi-img" style="max-height:90px;">` : ""}<br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b>${r.bImg ? `<img src="${esc(r.bImg)}" class="opsi-img" style="max-height:90px;">` : ""}<br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
+          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;">${r.visSoal}<b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span>${r.visU}<br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b>${r.visB}<br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
         </div>`;
     }
 
@@ -405,12 +427,18 @@
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
           <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Generator Soal AI ➔ Kode GitHub</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Buat soal lewat AI, lalu tempel kodenya ke file <b>data-soal.js</b> di GitHub.</p>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Pilih mode soal (teks atau bergambar otomatis dari AI), lalu salin kodenya ke file <b>data-soal.js</b>.</p>
           <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
           <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
           <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
           <label>Kategori (Bab / UTS / UAS)</label><select id="adm-bab"></select>
-          <label>Topik Materi</label><input type="text" id="ai-topik" placeholder="Contoh: Ekosistem Sawah atau Kisi-kisi UTS">
+          <label>Topik Materi</label><input type="text" id="ai-topik" placeholder="Contoh: Bangun Datar, Rangkaian Listrik, atau Pecahan">
+          <label>Mode Gambar Soal & Jawaban</label>
+          <select id="ai-mode-gambar">
+            <option value="teks">📝 Soal Teks Biasa (Tanpa Gambar)</option>
+            <option value="gambar-soal">🖼️ Soal Bergambar Otomatis (AI Menggambar Diagram/Ilustrasi)</option>
+            <option value="gambar-opsi">🎨 Soal & Pilihan Jawaban A/B/C/D Bergambar Otomatis</option>
+          </select>
           <label>Jumlah Soal</label><select id="ai-jumlah"><option value="5">5 Soal</option><option value="10">10 Soal</option><option value="15">15 Soal</option><option value="20">20 Soal</option></select>
           <button type="button" class="btn-primary" style="background:#0ea5e9; margin-bottom:16px;" onclick="salinPerintahAI()">1️⃣ Salin Perintah untuk AI (Gemini / ChatGPT)</button>
           <label>2️⃣ Tempel Hasil JSON dari AI di Sini</label>
@@ -426,7 +454,16 @@
       const j = document.getElementById("adm-jenjang").value.toUpperCase(), k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
       const topik = document.getElementById("ai-topik").value.trim() || kat, jml = document.getElementById("ai-jumlah").value;
-      const teks = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} untuk kategori "${kat}" topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","img":"","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"pImg":["","","",""],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
+      const modeGbr = document.getElementById("ai-mode-gambar").value;
+
+      let instruksiGambar = `[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]`;
+      if (modeGbr === "gambar-soal") {
+        instruksiGambar = `[{"q":"Perhatikan gambar berikut! Pertanyaan soal?","svg":"<svg width='240' height='140' viewBox='0 0 240 140' xmlns='http://w3.org'>...</svg>","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nInstruksi SVG: Buat kode SVG vektor sederhana, jelas, berwarna, dan lengkap pada properti "svg" untuk ilustrasi soal.`;
+      } else if (modeGbr === "gambar-opsi") {
+        instruksiGambar = `[{"q":"Pertanyaan soal?","svg":"<svg width='220' height='120' viewBox='0 0 220 120' xmlns='http://w3.org'>...</svg>","p":["Label A","Label B","Label C","Label D"],"pSvg":["<svg width='110' height='80' viewBox='0 0 110 80' xmlns='http://w3.org'>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>"],"b":0,"bahas":"Penjelasan singkat"}]\nInstruksi SVG: Buat kode SVG vektor sederhana dan jelas pada "svg" (jika soal butuh gambar) serta "pSvg" (4 kode SVG untuk masing-masing opsi A, B, C, D).`;
+      }
+
+      const teks = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} untuk kategori "${kat}" topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n${instruksiGambar}\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D). Pastikan tanda kutip di dalam SVG memakai tanda petik tunggal (') agar JSON valid.`;
       navigator.clipboard.writeText(teks).then(() => alert("✅ Perintah disalin! Tempel di AI, lalu tempel hasilnya di kotak nomor 2.")).catch(() => prompt("Salin perintah ini:", teks));
     }
 
@@ -455,9 +492,9 @@
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-          <h3 style="font-size:1.05rem; margin-bottom:6px;">🖼️ Konverter Gambar Soal / Jawaban</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:12px;">Pilih gambar dari HP/laptop untuk diubah menjadi kode teks yang bisa ditempel ke <b>"img"</b> (gambar pertanyaan) atau <b>"pImg"</b> (gambar opsi A/B/C/D) di <b>data-soal.js</b>.</p>
-          <label>Pilih File Gambar dari Galeri / Komputer</label>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">🖼️ Konverter Gambar Manual (Galeri/File)</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:12px;">Jika ingin memakai foto sendiri dari HP/laptop, pilih gambar untuk diubah menjadi kode <b>"img"</b> atau <b>"pImg"</b>.</p>
+          <label>Pilih File Gambar</label>
           <input type="file" accept="image/*" onchange="konversiGambarKeTeks(this)">
           <img id="prev-konv-img" class="soal-img" style="display:none;" alt="Preview">
           <label>Kode Gambar Siap Tempel</label>
@@ -492,7 +529,7 @@
     function salinKodeGambar() {
       const val = document.getElementById("out-kode-gambar").value;
       if (!val) return alert("Pilih gambar terlebih dahulu!");
-      navigator.clipboard.writeText(val).then(() => alert("✅ Kode gambar disalin! Tempel pada bagian \"img\": ... atau di dalam \"pImg\": [ ... ] pada file data-soal.js.")).catch(() => prompt("Salin kode gambar ini:", val));
+      navigator.clipboard.writeText(val).then(() => alert("✅ Kode gambar disalin!")).catch(() => prompt("Salin kode gambar ini:", val));
     }
 
           function bukaGeneratorBab() {
