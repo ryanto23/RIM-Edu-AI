@@ -134,5 +134,217 @@ window.DATABASE_BAB = {
 
 window.DATABASE_SOAL = {
   // Format kunci: "jenjang-Kelas X-Nama Mapel-Nama Bab atau UTS/UAS"
-    
+      "sd-Kelas 1-Matematika-• Bab 1. Ayo Membilang sampai dengan 10 (menghitung, membaca, menulis, membandingkan, serta mengurai dan menyusun bilangan).": [
+  {
+    "q": "Perhatikan gambar buah apel berikut: 🍎 🍎 🍎 🍎 🍎 🍎 🍎. Banyaknya buah apel pada gambar tersebut adalah ....",
+    "p": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "b": 1,
+    "bahas": "Jika dihitung satu per satu dari kiri ke kanan, jumlah buah apel tersebut ada 7 buah."
+  },
+  {
+    "q": "Lambang bilangan dari nama bilangan 'sembilan' adalah ....",
+    "p": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "b": 3,
+    "bahas": "Nama bilangan 'sembilan' ditulis dengan angka atau lambang bilangan 9."
+  },
+  {
+    "q": "Budi memiliki 5 kelereng. Siti memiliki 8 kelereng. Pernyataan perbandingan yang benar adalah ....",
+    "p": [
+      "Kelereng Budi lebih banyak dari kelereng Siti",
+      "Kelereng Budi lebih sedikit dari kelereng Siti",
+      "Kelereng Budi sama banyak dengan kelereng Siti",
+      "Kelereng Siti lebih sedikit dari kelereng Budi"
+    ],
+    "b": 1,
+    "bahas": "Bilangan 5 lebih kecil daripada 8, sehingga 5 kelereng milik Budi lebih sedikit dari 8 kelereng milik Siti."
+  },
+  {
+    "q": "Perhatikan diagram penguraian bilangan berikut: 85? Bilangan yang tepat untuk mengisi tanda tanya (?) adalah ....",
+    "p": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "b": 1,
+    "bahas": "Bilangan 8 dapat diurai menjadi 5 dan 3 karena 5 + 3 = 8."
+  },
+  {
+    "q": "Urutan bilangan berikut dari yang terkecil ke yang terbesar adalah ....",
+    "p": [
+      "4, 2, 7, 5",
+      "7, 5, 4, 2",
+      "2, 4, 5, 7",
+      "2, 5, 4, 7"
+    ],
+    "b": 2,
+    "bahas": "Urutan bilangan dari nilai yang paling sedikit (terkecil) ke yang paling banyak (terbesar) adalah 2, 4, 5, 7."
+  }
+],
+  "sd-Kelas 1-Matematika-• Bab 1. Ayo Membilang sampai dengan 10 (menghitung, membaca, menulis, membandingkan, serta mengurai dan menyusun bilangan).": [
+  {
+    "q": "Perhatikan gambar berikut! Banyaknya balon berwarna pada gambar tersebut adalah ....",
+    "svg": "",
+    "p": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "b": 2,
+    "bahas": "Pada baris atas terdapat 5 balon dan pada baris bawah terdapat 4 balon, sehingga jumlah seluruhnya adalah 9 balon."
+  },
+  {
+    "q": "Perhatikan kartu bilangan berikut! Cara membaca lambang bilangan pada kartu tersebut adalah ....",
+    "svg": "10",
+    "p": [
+      "satu nol",
+      "sepuluh",
+      "sebelas",
+      "seratus"
+    ],
+    "b": 1,
+    "bahas": "Lambang bilangan 10 dibaca 'sepuluh'."
+  },
+  {
+    "q": "Perhatikan gambar perbandingan dua kotak kelereng berikut! Kata perbandingan yang tepat untuk mengisi titik-titik adalah ....",
+    "svg": "Kotak AKotak B",
+    "p": [
+      "Kotak A lebih banyak dari Kotak B",
+      "Kotak A lebih sedikit dari Kotak B",
+      "Kotak A sama banyak dengan Kotak B",
+      "Kotak B lebih sedikit dari Kotak A"
+    ],
+    "b": 1,
+    "bahas": "Kotak A berisi 4 kelereng dan Kotak B berisi 6 kelereng. Karena 4 lebih kecil dari 6, maka kelereng di Kotak A lebih sedikit dari Kotak B."
+  },
+  {
+    "q": "Perhatikan gambar penguraian bilangan berikut! Bilangan yang tepat untuk mengisi lingkaran bertanda tanya (?) adalah ....",
+    "svg": "96?",
+    "p": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "b": 1,
+    "bahas": "Bilangan 9 dapat diurai menjadi 6 dan 3 karena 6 + 3 = 9."
+  },
+  {
+    "q": "Perhatikan gambar deretan batu loncatan bernomor berikut! Bilangan yang tepat untuk melengkapi batu yang kosong secara berurutan adalah ....",
+    "svg": "4?6?8",
+    "p": [
+      "5 dan 7",
+      "5 dan 9",
+      "3 dan 7",
+      "7 dan 9"
+    ],
+    "b": 0,
+    "bahas": "Urutan bilangan maju setelah 4 adalah 5, kemudian 6, lalu 7, dan 8. Jadi batu yang kosong berisi bilangan 5 dan 7."
+  }
+],
+    "sd-Kelas 1-Matematika-• Bab 1. Ayo Membilang sampai dengan 10 (menghitung, membaca, menulis, membandingkan, serta mengurai dan menyusun bilangan).": [
+  {
+    "q": "Manakah gambar yang menunjukkan jumlah lingkaran sebanyak 6 buah?",
+    "svg": "Pilih gambar dengan6 Lingkaran",
+    "p": [
+      "Gambar A",
+      "Gambar B",
+      "Gambar C",
+      "Gambar D"
+    ],
+    "pSvg": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "b": 1,
+    "bahas": "Gambar B memiliki 3 lingkaran hijau di atas dan 3 lingkaran hijau di bawah, sehingga totalnya ada 6 lingkaran."
+  },
+  {
+    "q": "Perhatikan nama bilangan pada papan berikut! Kartu angka manakah yang sesuai dengan nama bilangan tersebut?",
+    "svg": "delapan",
+    "p": [
+      "Kartu A",
+      "Kartu B",
+      "Kartu C",
+      "Kartu D"
+    ],
+    "pSvg": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "b": 2,
+    "bahas": "Nama bilangan 'delapan' ditulis dengan lambang bilangan 8, yaitu pada Kartu C."
+  },
+  {
+    "q": "Perhatikan banyak persegi biru pada gambar! Kelompok segitiga manakah yang jumlahnya LEBIH BANYAK dari persegi biru?",
+    "svg": "Ada 5 Persegi Biru",
+    "p": [
+      "3 Segitiga",
+      "4 Segitiga",
+      "5 Segitiga",
+      "7 Segitiga"
+    ],
+    "pSvg": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "b": 3,
+    "bahas": "Persegi biru berjumlah 5. Bilangan yang lebih banyak dari 5 adalah 7, yaitu pada pilihan D (7 segitiga)."
+  },
+  {
+    "q": "Perhatikan diagram penguraian bilangan 10 berikut! Kartu angka manakah yang tepat untuk mengisi tanda tanya (?)?",
+    "svg": "104?",
+    "p": [
+      "Angka 5",
+      "Angka 6",
+      "Angka 7",
+      "Angka 8"
+    ],
+    "pSvg": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "b": 1,
+    "bahas": "Bilangan 10 dapat diurai menjadi 4 dan 6 karena 4 + 6 = 10."
+  },
+  {
+    "q": "Manakah susunan balok yang berurutan dari bilangan TERKECIL ke TERBESAR?",
+    "svg": "Urutkan BilanganTerkecil → Terbesar",
+    "p": [
+      "Susunan A",
+      "Susunan B",
+      "Susunan C",
+      "Susunan D"
+    ],
+    "pSvg": [
+      "358",
+      "853",
+      "538",
+      "385"
+    ],
+    "b": 0,
+    "bahas": "Susunan A mengurutkan bilangan dari nilai paling kecil ke paling besar, yaitu 3, 5, 8."
+  }
+],
+  
+  
   };
