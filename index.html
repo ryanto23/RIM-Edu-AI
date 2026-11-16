@@ -19,13 +19,9 @@
     .quote-box { background: var(--surface); border-left: 4px solid var(--accent); padding: 14px 16px; border-radius: 12px; margin-bottom: 14px; }
     .quote-box p { font-style: italic; color: #334155; font-size: 0.9rem; line-height: 1.5; margin-bottom: 4px; }
     .quote-box small { color: var(--muted); font-weight: 700; font-size: 0.78rem; }
-
-        .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
+    .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
     .btn-pdf { background: #16a34a; color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 10px; }
     .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
-    .btn-sm { padding: 5px 10px; border-radius: 8px; font-size: 0.76rem; font-weight: 700; cursor: pointer; border: none; }
-    .btn-edit { background: #e0e7ff; color: #3730a3; }
-    .btn-del { background: #fee2e2; color: #dc2626; }
     .btn-back { background: #f1f5f9; color: #475569; border: none; padding: 7px 14px; border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem; }
     input, select, textarea { width: 100%; padding: 11px 13px; margin: 5px 0 14px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; background: #f8fafc; }
     label { font-size: 0.82rem; font-weight: 700; color: #334155; display: block; }
@@ -40,7 +36,7 @@
     .opt-selected { border-color: #4f46e5 !important; background: #eef2ff !important; }
     .quiz-footer { display: flex; gap: 10px; margin-top: 16px; }
     .soal-img { max-width: 100%; max-height: 240px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; display: block; object-fit: contain; background: #f8fafc; }
-    .sync-bar { font-size: 0.75rem; text-align: center; padding: 6px; background: #eef2ff; color: #4338ca; font-weight: 700; }
+    .sync-bar { font-size: 0.75rem; text-align: center; padding: 6px; background: #dcfce7; color: #15803d; font-weight: 700; }
     .bottom-nav { position: fixed; bottom: 12px; left: 16px; right: 16px; max-width: 528px; margin: 0 auto; background: rgba(255,255,255,0.95); display: flex; justify-content: space-around; border: 1px solid var(--border); border-radius: 20px; padding: 8px 4px; z-index: 30; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
     .nav-item { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.72rem; font-weight: 600; color: var(--muted); cursor: pointer; padding: 6px 12px; border-radius: 14px; }
     .nav-item.active { color: var(--primary); background: #eef2ff; font-weight: 800; }
@@ -49,7 +45,7 @@
 </head>
 <body>
   <header id="header-title">RIM CBT</header>
-  <div id="sync-status" class="sync-bar">🔄 Menghubungkan ke GitHub Cloud...</div>
+  <div id="sync-status" class="sync-bar">🟢 Bank Soal Aktif • Terhubung ke data-soal.js</div>
   <main id="app-content"></main>
   <nav class="bottom-nav">
     <button type="button" class="nav-item active" data-menu="home" onclick="bukaMenu('home')"><span>🏠</span>Beranda</button>
@@ -60,107 +56,29 @@
   </nav>
 
     <script>
-    const GH_USER = "ryanto23";
-    const GH_REPO = "RIM-Edu-AI";
-    const GH_FILE = "database.json";
-    const GH_API_URL = `https://github.com{GH_USER}/${GH_REPO}/contents/${GH_FILE}`;
-    const PIN_DEFAULT = "123456";
-    let dbPublik = JSON.parse(localStorage.getItem("rim_cache_db") || '{"soal":{},"bab":{},"rekap":[],"pin":"123456"}');
+    window.DATABASE_BAB = window.DATABASE_BAB || {};
+    window.DATABASE_SOAL = window.DATABASE_SOAL || {};
 
-    function dapatkanTokenGitHub() {
-      let token = localStorage.getItem("rim_gh_token") || "";
-      if (!token) {
-        token = (prompt("Masukkan Token GitHub (cukup 1 kali di HP ini):") || "").trim();
-        if (token) localStorage.setItem("rim_gh_token", token);
-      }
-      return token;
-    }
-
-    async function muatDatabasePublik() {
-      const bar = document.getElementById("sync-status");
-      if (bar) bar.innerText = "🔄 Menyinkronkan data dari GitHub...";
-      try {
-        const res = await fetch(`./database.json?t=${Date.now()}`, { cache: "no-store" });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const json = await res.json();
-        if (json && typeof json === "object") {
-          dbPublik.soal = json.soal || {};
-          dbPublik.bab = json.bab || {};
-          dbPublik.rekap = Array.isArray(json.rekap) ? json.rekap : [];
-          dbPublik.pin = json.pin || PIN_DEFAULT;
-          localStorage.setItem("rim_cache_db", JSON.stringify(dbPublik));
-        }
-        if (bar) bar.innerText = "🟢 Tersinkron Otomatis • Semua Guru & Siswa Terhubung";
-      } catch (e) {
-        if (bar) bar.innerText = "⚠️ Error (" + e.message + ") • Pastikan file database.json ada";
-      }
-    }
-
-    async function simpanOtomatisKeCloud() {
-      const bar = document.getElementById("sync-status");
-      const token = dapatkanTokenGitHub();
-      if (!token) {
-        alert("Token GitHub belum diisi! Pengisian token hanya diperlukan 1 kali pada perangkat admin.");
-        return false;
-      }
-
-      if (bar) bar.innerText = "⏳ Menyimpan ke GitHub Cloud...";
-      const payloadObj = {
-        soal: dbPublik.soal,
-        bab: dbPublik.bab,
-        rekap: dbPublik.rekap,
-        pin: dbPublik.pin || PIN_DEFAULT
-      };
-      const jsonString = JSON.stringify(payloadObj);
-      localStorage.setItem("rim_cache_db", jsonString);
-
-      try {
-        let shaLama = undefined;
-        const cekRes = await fetch(GH_API_URL + "?t=" + Date.now(), {
-          headers: {
-            "Authorization": "token " + token,
-            "Accept": "application/vnd.github+json"
-          }
-        });
-        if (cekRes.status === 401 || cekRes.status === 403) {
-          localStorage.removeItem("rim_gh_token");
-          throw new Error("Token ditolak/kedaluwarsa. Tekan Simpan lagi untuk memasukkan token baru.");
-        }
-        if (cekRes.ok) {
-          const infoLama = await cekRes.json();
-          shaLama = infoLama.sha;
-        }
-
-        const base64Konten = btoa(unescape(encodeURIComponent(jsonString)));
-        const bodyKirim = {
-          message: "Update database RIM CBT",
-          content: base64Konten
+    function muatFileSoalTerbaru() {
+      return new Promise((resolve) => {
+        const lama = document.getElementById("script-data-soal");
+        if (lama) lama.remove();
+        const s = document.createElement("script");
+        s.id = "script-data-soal";
+        s.src = "./data-soal.js?v=" + Date.now();
+        s.onload = () => {
+          document.getElementById("sync-status").innerText = "🟢 Bank Soal Terbarui • Siap Digunakan";
+          resolve();
         };
-        if (shaLama) bodyKirim.sha = shaLama;
-
-        const putRes = await fetch(GH_API_URL, {
-          method: "PUT",
-          headers: {
-            "Authorization": "token " + token,
-            "Accept": "application/vnd.github+json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(bodyKirim)
-        });
-        if (!putRes.ok) {
-          if (putRes.status === 401 || putRes.status === 403) localStorage.removeItem("rim_gh_token");
-          throw new Error("HTTP " + putRes.status);
-        }
-        if (bar) bar.innerText = "🟢 Tersimpan & Tersinkron ke Semua Perangkat!";
-        return true;
-      } catch (e) {
-        if (bar) bar.innerText = "❌ Gagal menyimpan ke GitHub Cloud";
-        alert("Gagal menyimpan: " + e.message);
-        return false;
-      }
+        s.onerror = () => {
+          document.getElementById("sync-status").innerText = "⚠️ File data-soal.js belum ditemukan di GitHub";
+          resolve();
+        };
+        document.body.appendChild(s);
+      });
     }
 
-          const dataPendidikan = {
+    const dataPendidikan = {
       sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
       smp: { judul: "Sekolah Menengah Pertama (SMP)", kelas: ["Kelas 7", "Kelas 8", "Kelas 9"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"] },
       sma: { judul: "SMA / SMK", kelas: ["Kelas 10", "Kelas 11", "Kelas 12"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"] }
@@ -202,17 +120,17 @@
 
     function dapatkanDaftarBab(jenjang, kelas, mapel) {
       const kunci = `${jenjang}-${kelas}-${mapel}`;
-      if (dbPublik.bab[kunci] && Array.isArray(dbPublik.bab[kunci]) && dbPublik.bab[kunci].length > 0) {
-        return [...dbPublik.bab[kunci]];
+      if (window.DATABASE_BAB[kunci] && Array.isArray(window.DATABASE_BAB[kunci]) && window.DATABASE_BAB[kunci].length > 0) {
+        return [...window.DATABASE_BAB[kunci]];
       }
       return [...(babDefault[mapel] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"])];
     }
 
     function dapatkanSoalLengkap(jenjang, kelas, mapel, kategori) {
       const kunci = `${jenjang}-${kelas}-${mapel}-${kategori}`;
-      const soalTersimpan = dbPublik.soal[kunci] || [];
-      if (soalTersimpan.length > 0) return soalTersimpan;
-      const contoh = soalContohPerMapel[mapel] || { q: `Contoh soal ${mapel} (${kelas})`, p: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"], b: 0, bahas: "Belum ada soal pada kategori ini." };
+      const soalGitHub = window.DATABASE_SOAL[kunci] || [];
+      if (soalGitHub.length > 0) return soalGitHub;
+      const contoh = soalContohPerMapel[mapel] || { q: `Contoh soal ${mapel} (${kelas})`, p: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"], b: 0, bahas: "Tambahkan soal pada file data-soal.js di GitHub." };
       return [{ ...contoh, q: `[Contoh ${kelas} • ${kategori}] ${contoh.q}` }];
     }
 
@@ -229,7 +147,7 @@
         title().innerText = "RIM CBT";
         app().innerHTML = `
           <div class="hero-card">
-            <span class="hero-badge">CLOUD CBT • KURIKULUM MERDEKA</span>
+            <span class="hero-badge">KURIKULUM MERDEKA • CBT</span>
             <h2>Selamat Datang di RIM CBT</h2>
             <p>Pilih jenjang pendidikanmu (SD, SMP, atau SMA) untuk mengakses <b>Latihan Bab</b>, <b>UTS & UAS Semester 1</b>, serta <b>UTS & UAS Semester 2</b>.</p>
           </div>
@@ -237,24 +155,20 @@
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
             <small>— Motivasi Belajar</small>
           </div>
-          <button type="button" class="btn-back" style="width:100%; text-align:center;" onclick="muatDatabasePublik().then(()=>alert('✅ Data berhasil disegarkan dari GitHub Cloud!'))">🔄 Segarkan Data Terbaru dari Cloud</button>`;
+          <button type="button" class="btn-back" style="width:100%; text-align:center;" onclick="muatFileSoalTerbaru().then(()=>alert('✅ Soal terbaru dari GitHub berhasil dimuat!'))">🔄 Muat Ulang Soal Terbaru (data-soal.js)</button>`;
       } else if (dataPendidikan[menu]) {
-        await muatDatabasePublik();
+        await muatFileSoalTerbaru();
         pilihKelas(menu);
       } else if (menu === "saya") {
         title().innerText = "Panel Guru / Admin";
         app().innerHTML = `
-          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Kelola bab, soal bergambar, dan rekap nilai langsung dari HP.</p></div>
+          <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Guru & Admin</h3><p style="font-size:0.84rem; color:#64748b;">Gunakan Generator AI di bawah untuk menyusun kode Bab & Soal siap tempel ke <b>data-soal.js</b> GitHub.</p></div>
           <div class="list-menu">
-            <div class="list-item" onclick="bukaAdmin('kelola-bab')" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Kelola Bab Kurikulum</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('ai-soal')" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Buat Soal Otomatis (AI)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('tambah-soal')"><span>➕ Tambah Soal Manual (+ Gambar)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('kelola-soal')"><span>🗑️ Hapus / Kelola Soal (Per Kelas & Mapel)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('rekap')"><span>📊 Lihat Rekap Nilai Siswa</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🧹 Hapus Semua Rekap Nilai</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('pin')"><span>🔑 Ubah PIN Admin</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaAdmin('reset-token')"><span>🔄 Ganti Token GitHub di HP Ini</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator Soal AI ➔ Kode GitHub</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaGeneratorBab()" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Generator Daftar Bab ➔ Kode GitHub</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdminRekap('rekap')"><span>📊 Lihat Rekap Nilai (Perangkat Ini)</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdminRekap('pdf')"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaAdminRekap('hapus')" style="color:#dc2626; border-color:#fecaca;"><span>🧹 Hapus Rekap Nilai</span><span>➔</span></div>
           </div>`;
       }
     }
@@ -283,7 +197,7 @@
         </div>`;
     }
 
-          function pilihMapel(jenjang, kelas, mode) {
+    function pilihMapel(jenjang, kelas, mode) {
       sesi.mode = mode;
       const labelMode = mode === "bab" ? "Latihan Bab" : mode;
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKategoriUjian('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • Kategori: <b>${labelMode}</b></p></div><div class="list-menu">` +
@@ -293,7 +207,7 @@
         }).join("") + `</div>`;
     }
 
-    function pilihBab(jenjang, kelas, mapel) {
+          function pilihBab(jenjang, kelas, mapel) {
       sesi.mapel = mapel;
       const list = dapatkanDaftarBab(jenjang, kelas, mapel);
       app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}','bab')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Bab Materi</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
@@ -349,7 +263,7 @@
       renderSoal();
     }
 
-          function lompatSoal(targetIdx) {
+    function lompatSoal(targetIdx) {
       if (targetIdx < 0 || targetIdx >= soalList.length) return;
       idxSoal = targetIdx;
       if (sesi.mode === "bab") sisaWaktuSoal = 5 * 60;
@@ -399,7 +313,7 @@
         </div>`;
     }
 
-    async function selesaiKuis(otomatis) {
+          function selesaiKuis(otomatis) {
       const belumDijawab = jawabanUser.filter(j => j === null).length;
       if (!otomatis && belumDijawab > 0) {
         if (!confirm(`Masih ada ${belumDijawab} soal yang belum dijawab. Yakin ingin menyelesaikan ujian sekarang?`)) return;
@@ -416,11 +330,9 @@
 
       const nilai = Math.round((skor / soalList.length) * 100);
       const labelUjian = sesi.mode === "bab" ? `${sesi.mapel} (${sesi.bab})` : `${sesi.mapel} (${sesi.mode})`;
-      const entriBaru = { nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai };
-
-      await muatDatabasePublik();
-      dbPublik.rekap.push(entriBaru);
-      await simpanOtomatisKeCloud();
+      const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      rekap.push({ nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai });
+      localStorage.setItem("rim_rekap", JSON.stringify(rekap));
 
       app().innerHTML = `
         <div class="form-box" style="text-align:center; padding:24px 18px;">
@@ -451,173 +363,89 @@
       selBab.innerHTML = `<optgroup label="Daftar Bab Kurikulum">${listBab.map(b => `<option value="${esc(b)}">📝 ${esc(b)}</option>`).join("")}</optgroup><optgroup label="Ujian Semester">${kategoriUjianKhusus.map(u => `<option value="${esc(u)}">📘 ${esc(u)}</option>`).join("")}</optgroup>`;
     }
 
-    function renderDaftarBabAdmin() {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value, m = document.getElementById("adm-mapel").value;
-      const list = dapatkanDaftarBab(j, k, m);
-      const wadah = document.getElementById("list-bab-admin");
-      if (!wadah) return;
-      wadah.innerHTML = list.map((b, idx) => `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; padding:10px 0; border-bottom:1px solid #e2e8f0; font-size:0.88rem;"><span><b>${idx + 1}.</b> ${esc(b)}</span><div style="display:flex; gap:6px;"><button type="button" class="btn-sm btn-edit" onclick="ubahBabAdmin(${idx})">✏️ Ubah</button><button type="button" class="btn-sm btn-del" onclick="hapusBabAdmin(${idx})">🗑️</button></div></div>`).join("");
-    }
-
-    async function tambahBabAdmin() {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value, m = document.getElementById("adm-mapel").value;
-      const namaBaru = document.getElementById("inp-bab-baru").value.trim();
-      if (!namaBaru) return alert("Masukkan nama bab baru terlebih dahulu!");
-      await muatDatabasePublik();
-      const kunci = `${j}-${k}-${m}`, list = dapatkanDaftarBab(j, k, m);
-      list.push(namaBaru); dbPublik.bab[kunci] = list;
-      if (await simpanOtomatisKeCloud()) {
-        document.getElementById("inp-bab-baru").value = "";
-        renderDaftarBabAdmin();
-        alert("✅ Bab baru berhasil disimpan ke GitHub Cloud!");
-      }
-    }
-
-    async function ubahBabAdmin(idx) {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value, m = document.getElementById("adm-mapel").value;
-      await muatDatabasePublik();
-      const kunci = `${j}-${k}-${m}`, list = dapatkanDaftarBab(j, k, m);
-      const namaEdit = prompt("Ubah nama bab:", list[idx]);
-      if (namaEdit && namaEdit.trim()) {
-        list[idx] = namaEdit.trim(); dbPublik.bab[kunci] = list;
-        if (await simpanOtomatisKeCloud()) renderDaftarBabAdmin();
-      }
-    }
-
-    async function hapusBabAdmin(idx) {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value, m = document.getElementById("adm-mapel").value;
-      await muatDatabasePublik();
-      const kunci = `${j}-${k}-${m}`, list = dapatkanDaftarBab(j, k, m);
-      if (list.length <= 1) return alert("Minimal harus tersisa 1 bab pada mata pelajaran ini.");
-      if (confirm(`Hapus "${list[idx]}" dari daftar bab?`)) {
-        list.splice(idx, 1); dbPublik.bab[kunci] = list;
-        if (await simpanOtomatisKeCloud()) renderDaftarBabAdmin();
-      }
-    }
-
-          let gambarSoalTemp = "";
-
-    function prosesGambarUpload(input) {
-      const file = input.files;
-      const prev = document.getElementById("preview-img-soal");
-      if (!file) { gambarSoalTemp = ""; if (prev) prev.style.display = "none"; return; }
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const img = new Image();
-        img.onload = function() {
-          const canvas = document.createElement("canvas");
-          const maxW = 480;
-          let w = img.width, h = img.height;
-          if (w > maxW) { h = Math.round((h * maxW) / w); w = maxW; }
-          canvas.width = w; canvas.height = h;
-          canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-          gambarSoalTemp = canvas.toDataURL("image/jpeg", 0.65);
-          if (prev) { prev.src = gambarSoalTemp; prev.style.display = "block"; }
-        };
-        img.src = ev.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function salinPromptAI() {
-      const j = document.getElementById("adm-jenjang").value.toUpperCase(), k = document.getElementById("adm-kelas").value;
-      const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
-      const topik = document.getElementById("ai-topik").value.trim() || kat, jml = document.getElementById("ai-jumlah").value;
-      const teksPerintah = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} untuk kategori "${kat}" topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
-      navigator.clipboard.writeText(teksPerintah).then(() => alert("✅ Perintah disalin! Tempel di Gemini/ChatGPT, lalu salin hasil JSON ke kotak di bawah.")).catch(() => prompt("Salin perintah ini:", teksPerintah));
-    }
-
-    async function imporSoalJSON() {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value;
-      const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
-      let mentah = document.getElementById("ai-json-hasil").value.trim();
-      if (!mentah) return alert("Tempelkan hasil kode JSON dari AI terlebih dahulu!");
-      try {
-        const awal = mentah.indexOf("["), akhir = mentah.lastIndexOf("]");
-        if (awal !== -1 && akhir !== -1) mentah = mentah.slice(awal, akhir + 1);
-        const daftarBaru = JSON.parse(mentah);
-        if (!Array.isArray(daftarBaru) || daftarBaru.length === 0) throw new Error("Format salah");
-        await muatDatabasePublik();
-        const kunci = `${j}-${k}-${m}-${kat}`;
-        if (!dbPublik.soal[kunci]) dbPublik.soal[kunci] = [];
-        dbPublik.soal[kunci] = dbPublik.soal[kunci].concat(daftarBaru);
-        if (await simpanOtomatisKeCloud()) {
-          alert(`✅ Sukses! ${daftarBaru.length} soal tersimpan ke GitHub Cloud.`);
-          document.getElementById("ai-json-hasil").value = "";
-        }
-      } catch (e) { alert("❌ Format JSON belum tepat. Pastikan menyalin mulai dari [ sampai ]."); }
-    }
-
-    async function simpanSoalBaru() {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value;
-      const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
-      const q = document.getElementById("adm-q").value.trim(), pA = document.getElementById("adm-pa").value.trim();
-      const pB = document.getElementById("adm-pb").value.trim(), pC = document.getElementById("adm-pc").value.trim();
-      const pD = document.getElementById("adm-pd").value.trim(), b = parseInt(document.getElementById("adm-kunci").value, 10);
-      const bahas = document.getElementById("adm-bahas").value.trim() || "Sesuai konsep materi.";
-      const imgFinal = gambarSoalTemp || (document.getElementById("adm-img-url")?.value || "").trim();
-      if (!q || !pA || !pB || !pC || !pD) return alert("Isi pertanyaan dan semua pilihan jawaban!");
-      await muatDatabasePublik();
-      const kunci = `${j}-${k}-${m}-${kat}`;
-      if (!dbPublik.soal[kunci]) dbPublik.soal[kunci] = [];
-      const itemSoal = { q, p: [pA, pB, pC, pD], b, bahas };
-      if (imgFinal) itemSoal.img = imgFinal;
-      dbPublik.soal[kunci].push(itemSoal);
-      if (await simpanOtomatisKeCloud()) {
-        alert(`✅ Soal berhasil disimpan ke GitHub Cloud!`);
-        gambarSoalTemp = "";
-        const prev = document.getElementById("preview-img-soal"); if (prev) prev.style.display = "none";
-        ["adm-q", "adm-pa", "adm-pb", "adm-pc", "adm-pd", "adm-bahas", "adm-img-url", "adm-img-file"].forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
-      }
-    }
-
-          async function hapusSatuSoal(kunciEncoded, idx) {
-      const kunci = decodeURIComponent(kunciEncoded);
-      if (!confirm("Yakin ingin menghapus soal ini dari semua perangkat?")) return;
-      await muatDatabasePublik();
-      if (dbPublik.soal[kunci]) {
-        dbPublik.soal[kunci].splice(idx, 1);
-        if (dbPublik.soal[kunci].length === 0) delete dbPublik.soal[kunci];
-        if (await simpanOtomatisKeCloud()) renderDaftarSoalTerfilter();
-      }
-    }
-
-    async function hapusSoalPerKategori(kunciEncoded) {
-      const kunci = decodeURIComponent(kunciEncoded);
-      const jml = (dbPublik.soal[kunci] || []).length;
-      if (!confirm(`Hapus SEMUA (${jml} soal) pada kategori ini?`)) return;
-      await muatDatabasePublik();
-      delete dbPublik.soal[kunci];
-      if (await simpanOtomatisKeCloud()) renderDaftarSoalTerfilter();
-    }
-
-    function tampilkanKelolaSoal() {
+    function bukaGeneratorAI() {
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-          <h3 style="font-size:1.05rem; margin-bottom:6px;">🗑️ Kelola & Hapus Soal</h3>
-          <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin(() => { updateBabAdmin(); renderDaftarSoalTerfilter(); })"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
-          <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin(); renderDaftarSoalTerfilter();"></select>
-          <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin(); renderDaftarSoalTerfilter();"></select>
-          <label>Kategori (Bab / UTS / UAS)</label><select id="adm-bab" onchange="renderDaftarSoalTerfilter()"></select>
-        </div><div id="wadah-list-soal" class="form-box"></div>`;
-      updateDropdownAdmin(() => { updateBabAdmin(); renderDaftarSoalTerfilter(); });
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Generator Soal AI ➔ Kode GitHub</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Buat soal lewat AI, lalu sistem menyusun kode siap tempel ke file <b>data-soal.js</b> di GitHub Anda.</p>
+          <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
+          <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
+          <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
+          <label>Kategori (Bab / UTS / UAS)</label><select id="adm-bab"></select>
+          <label>Topik Materi</label><input type="text" id="ai-topik" placeholder="Contoh: Ekosistem Sawah atau Kisi-kisi UTS">
+          <label>Jumlah Soal</label><select id="ai-jumlah"><option value="5">5 Soal</option><option value="10">10 Soal</option><option value="15">15 Soal</option><option value="20">20 Soal</option></select>
+          <button type="button" class="btn-primary" style="background:#0ea5e9; margin-bottom:16px;" onclick="salinPerintahAI()">1️⃣ Salin Perintah untuk AI (Gemini / ChatGPT)</button>
+          <label>2️⃣ Tempel Hasil JSON dari AI di Sini</label>
+          <textarea id="ai-json-hasil" rows="4" placeholder='Tempel hasil jawaban AI di sini...'></textarea>
+          <button type="button" class="btn-primary" onclick="susunKodeGitHubSoal()">3️⃣ Susun & Salin Kode untuk data-soal.js</button>
+          <label style="margin-top:14px;">Hasil Kode Siap Tempel ke dalam window.DATABASE_SOAL = { ... }</label>
+          <textarea id="out-kode-github" rows="5" readonly placeholder="Kode siap tempel akan muncul di sini..."></textarea>
+        </div>`;
+      updateDropdownAdmin();
     }
 
-    function renderDaftarSoalTerfilter() {
+    function salinPerintahAI() {
+      const j = document.getElementById("adm-jenjang").value.toUpperCase(), k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
+      const topik = document.getElementById("ai-topik").value.trim() || kat, jml = document.getElementById("ai-jumlah").value;
+      const teks = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} untuk kategori "${kat}" topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D).`;
+      navigator.clipboard.writeText(teks).then(() => alert("✅ Perintah disalin! Tempel di AI, lalu tempel hasilnya di kotak nomor 2.")).catch(() => prompt("Salin perintah ini:", teks));
+    }
+
+    function susunKodeGitHubSoal() {
       const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value;
       const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
-      const wadah = document.getElementById("wadah-list-soal");
-      if (!wadah) return;
-      const kunci = `${j}-${k}-${m}-${kat}`, daftar = (dbPublik.soal || {})[kunci] || [], abjad = ["A", "B", "C", "D"];
-      if (daftar.length === 0) { wadah.innerHTML = `<p style="color:#64748b; font-size:0.88rem; text-align:center;">Belum ada soal pada <b>${esc(k)} • ${esc(m)} • ${esc(kat)}</b>.</p>`; return; }
-      wadah.innerHTML = `<h4 style="font-size:0.92rem; color:#4f46e5; margin-bottom:8px;">Ditemukan ${daftar.length} Soal</h4>` +
-        daftar.map((s, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:12px 0; font-size:0.86rem; display:flex; justify-content:space-between; gap:10px;"><div>${s.img ? `<span style="background:#e0e7ff; color:#3730a3; font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:4px;">🖼️ Bergambar</span><br>` : ""}<b>${i + 1}. ${esc(s.q)}</b><br><small style="color:#16a34a;">Kunci: ${abjad[s.b] || "A"}. ${esc((s.p || [])[s.b] || "")}</small></div><button type="button" class="btn-sm btn-del" onclick="hapusSatuSoal('${encodeURIComponent(kunci)}', ${i})">🗑️ Hapus</button></div>`).join("") +
-        `<button type="button" class="btn-danger" onclick="hapusSoalPerKategori('${encodeURIComponent(kunci)}')">🧹 Hapus Semua (${daftar.length}) Soal</button>`;
+      let mentah = document.getElementById("ai-json-hasil").value.trim();
+      if (!mentah) return alert("Tempelkan hasil JSON dari AI terlebih dahulu!");
+      try {
+        const awal = mentah.indexOf("["), akhir = mentah.lastIndexOf("]");
+        if (awal !== -1 && akhir !== -1) mentah = mentah.slice(awal, akhir + 1);
+        const arr = JSON.parse(mentah);
+        if (!Array.isArray(arr) || arr.length === 0) throw new Error("Kosong");
+        const kunci = `${j}-${k}-${m}-${kat}`;
+        const kodeSiapTempel = `  "${kunci}": ${JSON.stringify(arr, null, 2)},`;
+        document.getElementById("out-kode-github").value = kodeSiapTempel;
+        navigator.clipboard.writeText(kodeSiapTempel).then(() => {
+          alert(`✅ ${arr.length} soal berhasil disusun & disalin otomatis!\n\nBuka file data-soal.js di GitHub, lalu tempel di dalam window.DATABASE_SOAL = { ... }`);
+        }).catch(() => alert("✅ Kode berhasil disusun di kotak bawah! Silakan salin dan tempel ke file data-soal.js di GitHub."));
+      } catch (e) {
+        alert("❌ Format teks dari AI belum tepat. Pastikan menyalin mulai dari tanda [ sampai ].");
+      }
     }
 
-    function bukaModalPDF() {
-      const data = dbPublik.rekap || [];
+          function bukaGeneratorBab() {
+      app().innerHTML = `
+        <div class="form-box">
+          <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">🗂️ Generator Daftar Bab ➔ Kode GitHub</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Tulis daftar bab (1 baris = 1 bab), lalu salin kodenya ke <b>window.DATABASE_BAB</b> di file <b>data-soal.js</b>.</p>
+          <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
+          <label>Kelas</label><select id="adm-kelas"></select>
+          <label>Mata Pelajaran</label><select id="adm-mapel"></select>
+          <label>Daftar Bab (Pisahkan dengan Enter / baris baru)</label>
+          <textarea id="inp-daftar-bab" rows="4" placeholder="Bab 1: Bilangan Bulat&#10;Bab 2: Aljabar Dasar&#10;Bab 3: Persamaan Linear"></textarea>
+          <button type="button" class="btn-primary" onclick="susunKodeGitHubBab()">✨ Susun & Salin Kode Bab untuk data-soal.js</button>
+          <label style="margin-top:14px;">Hasil Kode Siap Tempel ke dalam window.DATABASE_BAB = { ... }</label>
+          <textarea id="out-kode-bab" rows="5" readonly placeholder="Kode bab siap tempel akan muncul di sini..."></textarea>
+        </div>`;
+      updateDropdownAdmin();
+    }
+
+    function susunKodeGitHubBab() {
+      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value, m = document.getElementById("adm-mapel").value;
+      const baris = document.getElementById("inp-daftar-bab").value.split("\n").map(s => s.trim()).filter(Boolean);
+      if (baris.length === 0) return alert("Tulis minimal 1 nama bab terlebih dahulu!");
+      const kunci = `${j}-${k}-${m}`;
+      const kodeBab = `  "${kunci}": ${JSON.stringify(baris, null, 2)},`;
+      document.getElementById("out-kode-bab").value = kodeBab;
+      navigator.clipboard.writeText(kodeBab).then(() => {
+        alert("✅ Kode daftar bab disalin otomatis! Tempelkan di dalam window.DATABASE_BAB = { ... } pada file data-soal.js di GitHub.");
+      }).catch(() => alert("✅ Kode bab berhasil disusun di kotak bawah!"));
+    }
+
+          function bukaModalPDF() {
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
       if (data.length === 0) return alert("Belum ada data nilai untuk diunduh!");
       const daftarKelas = ["SEMUA", ...new Set(data.map(d => String(d.kelas || "-").trim()))];
       const daftarMapel = ["SEMUA", ...new Set(data.map(d => String(d.mapel || "-").trim()))];
@@ -632,7 +460,8 @@
     }
 
     function eksekusiUnduhPDF() {
-      const data = dbPublik.rekap || [], pilihKelas = document.getElementById("pdf-filter-kelas").value, pilihMapel = document.getElementById("pdf-filter-mapel").value;
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      const pilihKelas = document.getElementById("pdf-filter-kelas").value, pilihMapel = document.getElementById("pdf-filter-mapel").value;
       const hasil = data.filter(d => (pilihKelas === "SEMUA" || String(d.kelas || "-").trim() === pilihKelas) && (pilihMapel === "SEMUA" || String(d.mapel || "-").trim() === pilihMapel));
       if (hasil.length === 0) return alert("Tidak ada data nilai yang sesuai filter.");
       const barisTabel = hasil.map((d, i) => `<tr><td style="text-align:center;">${i + 1}</td><td>${esc(d.nama)}</td><td>${esc(d.sekolah)}</td><td style="text-align:center;">${esc(d.kelas)}</td><td>${esc(d.mapel)}</td><td style="text-align:center; font-weight:bold;">${d.nilai}</td></tr>`).join("");
@@ -642,91 +471,20 @@
       win.document.close();
     }
 
-    async function hapusRekapNilai() {
-      if ((dbPublik.rekap || []).length === 0) return alert("Data rekap nilai sudah kosong.");
-      if (confirm("Yakin ingin menghapus seluruh data rekap nilai?")) {
-        dbPublik.rekap = [];
-        if (await simpanOtomatisKeCloud()) { alert("Rekap nilai berhasil dihapus!"); bukaMenu("saya"); }
-      }
-    }
-
-          async function bukaAdmin(aksi) {
-      await muatDatabasePublik();
-      const pin = prompt("Masukkan PIN Admin:");
-      if (pin !== (dbPublik.pin || PIN_DEFAULT)) return alert("PIN Salah!");
-      if (aksi === "kelola-bab") {
-        app().innerHTML = `
-          <div class="form-box">
-            <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-            <h3 style="font-size:1.05rem; margin-bottom:10px;">🗂️ Kelola Bab Kurikulum</h3>
-            <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin(renderDaftarBabAdmin)"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
-            <label>Kelas</label><select id="adm-kelas" onchange="renderDaftarBabAdmin()"></select>
-            <label>Mata Pelajaran</label><select id="adm-mapel" onchange="renderDaftarBabAdmin()"></select>
-            <label>Tambah Bab Baru</label><input type="text" id="inp-bab-baru" placeholder="Contoh: Bab 4: Perubahan Iklim Global">
-            <button type="button" class="btn-primary" onclick="tambahBabAdmin()">➕ Tambah Bab</button>
-          </div>
-          <div class="form-box"><h4 style="font-size:0.95rem; margin-bottom:6px;">Daftar Bab Aktif</h4><div id="list-bab-admin"></div></div>`;
-        updateDropdownAdmin(renderDaftarBabAdmin);
-      } else if (aksi === "ai-soal") {
-        app().innerHTML = `
-          <div class="form-box">
-            <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-            <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Buat Soal Cepat via AI</h3>
-            <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
-            <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
-            <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
-            <label>Simpan ke Kategori</label><select id="adm-bab"></select>
-            <label>Topik Materi</label><input type="text" id="ai-topik" placeholder="Contoh: Ekosistem Sawah">
-            <label>Jumlah Soal</label><select id="ai-jumlah"><option value="5">5 Soal</option><option value="10">10 Soal</option><option value="15">15 Soal</option></select>
-            <button type="button" class="btn-primary" style="background:#0ea5e9; margin-bottom:16px;" onclick="salinPromptAI()">1️⃣ Salin Perintah untuk AI</button>
-            <label>2️⃣ Tempel Hasil JSON dari AI di Sini</label><textarea id="ai-json-hasil" rows="4" placeholder='Tempel hasil jawaban AI di sini...'></textarea>
-            <button type="button" class="btn-primary" onclick="imporSoalJSON()">💾 Simpan Semua Soal Otomatis</button>
-          </div>`;
-        updateDropdownAdmin();
-      }
-
-            else if (aksi === "tambah-soal") {
-        gambarSoalTemp = "";
-        app().innerHTML = `
-          <div class="form-box">
-            <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-            <h3 style="font-size:1.05rem; margin-bottom:12px;">➕ Tambah Soal Manual (+ Gambar)</h3>
-            <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
-            <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
-            <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
-            <label>Simpan ke Kategori</label><select id="adm-bab"></select>
-            <label>🖼️ Gambar Soal (Opsional)</label><input type="file" id="adm-img-file" accept="image/*" onchange="prosesGambarUpload(this)">
-            <img id="preview-img-soal" class="soal-img" style="display:none;" alt="Preview Gambar">
-            <label>Atau Link Gambar URL</label><input type="text" id="adm-img-url" placeholder="https://contoh.com">
-            <label>Pertanyaan</label><textarea id="adm-q" rows="3" placeholder="Tulis pertanyaan..."></textarea>
-            <label>Pilihan A</label><input type="text" id="adm-pa" placeholder="Jawaban A">
-            <label>Pilihan B</label><input type="text" id="adm-pb" placeholder="Jawaban B">
-            <label>Pilihan C</label><input type="text" id="adm-pc" placeholder="Jawaban C">
-            <label>Pilihan D</label><input type="text" id="adm-pd" placeholder="Jawaban D">
-            <label>Kunci Jawaban</label><select id="adm-kunci"><option value="0">Pilihan A</option><option value="1">Pilihan B</option><option value="2">Pilihan C</option><option value="3">Pilihan D</option></select>
-            <label>Pembahasan</label><input type="text" id="adm-bahas" placeholder="Penjelasan singkat">
-            <button type="button" class="btn-primary" onclick="simpanSoalBaru()">💾 Simpan Soal Otomatis</button>
-          </div>`;
-        updateDropdownAdmin();
-      } else if (aksi === "kelola-soal") { tampilkanKelolaSoal(); }
-      else if (aksi === "rekap") {
-        const data = dbPublik.rekap || [];
+    function bukaAdminRekap(aksi) {
+      const data = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
+      if (aksi === "rekap") {
         app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button><h3 style="font-size:1.05rem;">📊 Rekap Nilai Peserta</h3>` +
           (data.length ? data.map((d, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem;"><b>${i + 1}. ${esc(d.nama)}</b> (${esc(d.sekolah)} - ${esc(d.kelas)})<br>Ujian: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b></div>`).join("") +
-          `<button class="btn-pdf" onclick="bukaModalPDF()">📄 Filter & Download PDF</button><button class="btn-danger" onclick="hapusRekapNilai()">🧹 Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
+          `<button class="btn-pdf" onclick="bukaModalPDF()">📄 Filter & Download PDF</button><button class="btn-danger" onclick="bukaAdminRekap('hapus')">🧹 Hapus Semua Rekap Nilai</button>` : "<p style='margin-top:12px; color:#64748b; font-size:0.9rem;'>Belum ada data nilai peserta.</p>") + `</div>`;
       } else if (aksi === "pdf") { bukaModalPDF(); }
-      else if (aksi === "hapus") { hapusRekapNilai(); }
-      else if (aksi === "pin") {
-        const baru = prompt("Masukkan PIN baru (min 4 karakter):");
-        if (baru && baru.length >= 4) { dbPublik.pin = baru; if (await simpanOtomatisKeCloud()) alert("PIN Admin berhasil diperbarui!"); }
-      } else if (aksi === "reset-token") {
-        const tBaru = (prompt("Tempel Token GitHub baru:") || "").trim();
-        if (tBaru) { localStorage.setItem("rim_gh_token", tBaru); alert("✅ Token GitHub berhasil diperbarui di perangkat ini!"); }
+      else if (aksi === "hapus") {
+        if (confirm("Hapus seluruh data rekap nilai di perangkat ini?")) { localStorage.removeItem("rim_rekap"); bukaMenu("saya"); }
       }
     }
 
     (async function mulaiAplikasi() {
-      await muatDatabasePublik();
+      await muatFileSoalTerbaru();
       bukaMenu("home");
     })();
   </script>
