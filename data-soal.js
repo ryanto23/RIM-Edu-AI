@@ -73,7 +73,6 @@ window.DATABASE_SOAL = {
     "bahas": "8 + 8 = 16, sedangkan 9 + 6 = 15, 7 + 8 = 15, dan 10 + 7 = 17."
   }
 ],
-};
   "sd-Kelas 4-Matematika-Bab 1: Bilangan & Operasi Hitung": [
   {
     "q": "Hasil dari 124 × 6 adalah ....",
@@ -131,3 +130,4 @@ window.DATABASE_SOAL = {
     "bahas": "415 × 12 = 4.980; 320 × 15 = 4.800; 245 × 20 = 4.900; dan 510 × 10 = 5.100. Jadi yang paling besar adalah 510 × 10."
   }
 ],
+  };
