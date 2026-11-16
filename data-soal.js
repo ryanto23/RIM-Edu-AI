@@ -133,216 +133,134 @@ window.DATABASE_BAB = {
 };
 
 window.DATABASE_SOAL = {
-  // Format kunci: "jenjang-Kelas X-Nama Mapel-Nama Bab atau UTS/UAS"
-      "sd-Kelas 1-Matematika-• Bab 1.": [
-  {
-    "q": "Perhatikan gambar buah apel berikut: 🍎 🍎 🍎 🍎 🍎 🍎 🍎. Banyaknya buah apel pada gambar tersebut adalah ....",
-    "p": [
-      "6",
-      "7",
-      "8",
-      "9"
-    ],
-    "b": 1,
-    "bahas": "Jika dihitung satu per satu dari kiri ke kanan, jumlah buah apel tersebut ada 7 buah."
-  },
-  {
-    "q": "Lambang bilangan dari nama bilangan 'sembilan' adalah ....",
-    "p": [
-      "6",
-      "7",
-      "8",
-      "9"
-    ],
-    "b": 3,
-    "bahas": "Nama bilangan 'sembilan' ditulis dengan angka atau lambang bilangan 9."
-  },
-  {
-    "q": "Budi memiliki 5 kelereng. Siti memiliki 8 kelereng. Pernyataan perbandingan yang benar adalah ....",
-    "p": [
-      "Kelereng Budi lebih banyak dari kelereng Siti",
-      "Kelereng Budi lebih sedikit dari kelereng Siti",
-      "Kelereng Budi sama banyak dengan kelereng Siti",
-      "Kelereng Siti lebih sedikit dari kelereng Budi"
-    ],
-    "b": 1,
-    "bahas": "Bilangan 5 lebih kecil daripada 8, sehingga 5 kelereng milik Budi lebih sedikit dari 8 kelereng milik Siti."
-  },
-  {
-    "q": "Perhatikan diagram penguraian bilangan berikut: 85? Bilangan yang tepat untuk mengisi tanda tanya (?) adalah ....",
-    "p": [
-      "2",
-      "3",
-      "4",
-      "5"
-    ],
-    "b": 1,
-    "bahas": "Bilangan 8 dapat diurai menjadi 5 dan 3 karena 5 + 3 = 8."
-  },
-  {
-    "q": "Urutan bilangan berikut dari yang terkecil ke yang terbesar adalah ....",
-    "p": [
-      "4, 2, 7, 5",
-      "7, 5, 4, 2",
-      "2, 4, 5, 7",
-      "2, 5, 4, 7"
-    ],
-    "b": 2,
-    "bahas": "Urutan bilangan dari nilai yang paling sedikit (terkecil) ke yang paling banyak (terbesar) adalah 2, 4, 5, 7."
-  }
-],
-  "sd-Kelas 1-Matematika-• Bab 1. Ayo Membilang sampai dengan 10 (menghitung, membaca, menulis, membandingkan, serta mengurai dan menyusun bilangan).": [
-  {
-    "q": "Perhatikan gambar berikut! Banyaknya balon berwarna pada gambar tersebut adalah ....",
-    "svg": "",
-    "p": [
-      "7",
-      "8",
-      "9",
-      "10"
-    ],
-    "b": 2,
-    "bahas": "Pada baris atas terdapat 5 balon dan pada baris bawah terdapat 4 balon, sehingga jumlah seluruhnya adalah 9 balon."
-  },
-  {
-    "q": "Perhatikan kartu bilangan berikut! Cara membaca lambang bilangan pada kartu tersebut adalah ....",
-    "svg": "10",
-    "p": [
-      "satu nol",
-      "sepuluh",
-      "sebelas",
-      "seratus"
-    ],
-    "b": 1,
-    "bahas": "Lambang bilangan 10 dibaca 'sepuluh'."
-  },
-  {
-    "q": "Perhatikan gambar perbandingan dua kotak kelereng berikut! Kata perbandingan yang tepat untuk mengisi titik-titik adalah ....",
-    "svg": "Kotak AKotak B",
-    "p": [
-      "Kotak A lebih banyak dari Kotak B",
-      "Kotak A lebih sedikit dari Kotak B",
-      "Kotak A sama banyak dengan Kotak B",
-      "Kotak B lebih sedikit dari Kotak A"
-    ],
-    "b": 1,
-    "bahas": "Kotak A berisi 4 kelereng dan Kotak B berisi 6 kelereng. Karena 4 lebih kecil dari 6, maka kelereng di Kotak A lebih sedikit dari Kotak B."
-  },
-  {
-    "q": "Perhatikan gambar penguraian bilangan berikut! Bilangan yang tepat untuk mengisi lingkaran bertanda tanya (?) adalah ....",
-    "svg": "96?",
-    "p": [
-      "2",
-      "3",
-      "4",
-      "5"
-    ],
-    "b": 1,
-    "bahas": "Bilangan 9 dapat diurai menjadi 6 dan 3 karena 6 + 3 = 9."
-  },
-  {
-    "q": "Perhatikan gambar deretan batu loncatan bernomor berikut! Bilangan yang tepat untuk melengkapi batu yang kosong secara berurutan adalah ....",
-    "svg": "4?6?8",
-    "p": [
-      "5 dan 7",
-      "5 dan 9",
-      "3 dan 7",
-      "7 dan 9"
-    ],
-    "b": 0,
-    "bahas": "Urutan bilangan maju setelah 4 adalah 5, kemudian 6, lalu 7, dan 8. Jadi batu yang kosong berisi bilangan 5 dan 7."
-  }
-],
-    "sd-Kelas 1-Matematika-• Bab 1. Ayo Membilang sampai dengan 10 (menghitung, membaca, menulis, membandingkan, serta mengurai dan menyusun bilangan).": [
-  {
-    "q": "Manakah gambar yang menunjukkan jumlah lingkaran sebanyak 6 buah?",
-    "svg": "Pilih gambar dengan6 Lingkaran",
-    "p": [
-      "Gambar A",
-      "Gambar B",
-      "Gambar C",
-      "Gambar D"
-    ],
-    "pSvg": [
-      "",
-      "",
-      "",
-      ""
-    ],
-    "b": 1,
-    "bahas": "Gambar B memiliki 3 lingkaran hijau di atas dan 3 lingkaran hijau di bawah, sehingga totalnya ada 6 lingkaran."
-  },
-  {
-    "q": "Perhatikan nama bilangan pada papan berikut! Kartu angka manakah yang sesuai dengan nama bilangan tersebut?",
-    "svg": "delapan",
-    "p": [
-      "Kartu A",
-      "Kartu B",
-      "Kartu C",
-      "Kartu D"
-    ],
-    "pSvg": [
-      "6",
-      "7",
-      "8",
-      "9"
-    ],
-    "b": 2,
-    "bahas": "Nama bilangan 'delapan' ditulis dengan lambang bilangan 8, yaitu pada Kartu C."
-  },
-  {
-    "q": "Perhatikan banyak persegi biru pada gambar! Kelompok segitiga manakah yang jumlahnya LEBIH BANYAK dari persegi biru?",
-    "svg": "Ada 5 Persegi Biru",
-    "p": [
-      "3 Segitiga",
-      "4 Segitiga",
-      "5 Segitiga",
-      "7 Segitiga"
-    ],
-    "pSvg": [
-      "",
-      "",
-      "",
-      ""
-    ],
-    "b": 3,
-    "bahas": "Persegi biru berjumlah 5. Bilangan yang lebih banyak dari 5 adalah 7, yaitu pada pilihan D (7 segitiga)."
-  },
-  {
-    "q": "Perhatikan diagram penguraian bilangan 10 berikut! Kartu angka manakah yang tepat untuk mengisi tanda tanya (?)?",
-    "svg": "104?",
-    "p": [
-      "Angka 5",
-      "Angka 6",
-      "Angka 7",
-      "Angka 8"
-    ],
-    "pSvg": [
-      "5",
-      "6",
-      "7",
-      "8"
-    ],
-    "b": 1,
-    "bahas": "Bilangan 10 dapat diurai menjadi 4 dan 6 karena 4 + 6 = 10."
-  },
-  {
-    "q": "Manakah susunan balok yang berurutan dari bilangan TERKECIL ke TERBESAR?",
-    "svg": "Urutkan BilanganTerkecil → Terbesar",
-    "p": [
-      "Susunan A",
-      "Susunan B",
-      "Susunan C",
-      "Susunan D"
-    ],
-    "pSvg": [
-      "358",
-      "853",
-      "538",
-      "385"
-    ],
-    "b": 0,
-    "bahas": "Susunan A mengurutkan bilangan dari nilai paling kecil ke paling besar, yaitu 3, 5, 8."
-  }
-],
-  };
+  "sd-Kelas 1-Matematika-• Bab 1. Ayo Membilang sampai dengan 10.": [
+    {
+      "q": "Perhatikan gambar buah apel berikut: 🍎 🍎 🍎 🍎 🍎 🍎 🍎. Banyaknya buah apel pada gambar tersebut adalah ....",
+      "p": ["6", "7", "8", "9"],
+      "b": 1,
+      "bahas": "Jika dihitung satu per satu dari kiri ke kanan, jumlah buah apel tersebut ada 7 buah."
+    },
+    {
+      "q": "Lambang bilangan dari nama bilangan 'sembilan' adalah ....",
+      "p": ["6", "7", "8", "9"],
+      "b": 3,
+      "bahas": "Nama bilangan 'sembilan' ditulis dengan angka atau lambang bilangan 9."
+    },
+    {
+      "q": "Budi memiliki 5 kelereng. Siti memiliki 8 kelereng. Pernyataan perbandingan yang benar adalah ....",
+      "p": [
+        "Kelereng Budi lebih banyak dari kelereng Siti",
+        "Kelereng Budi lebih sedikit dari kelereng Siti",
+        "Kelereng Budi sama banyak dengan kelereng Siti",
+        "Kelereng Siti lebih sedikit dari kelereng Budi"
+      ],
+      "b": 1,
+      "bahas": "Bilangan 5 lebih kecil daripada 8, sehingga 5 kelereng milik Budi lebih sedikit dari 8 kelereng milik Siti."
+    },
+    {
+      "q": "Perhatikan diagram penguraian bilangan berikut: 8 diurai menjadi 5 dan (?). Bilangan yang tepat untuk mengisi tanda tanya (?) adalah ....",
+      "p": ["2", "3", "4", "5"],
+      "b": 1,
+      "bahas": "Bilangan 8 dapat diurai menjadi 5 dan 3 karena 5 + 3 = 8."
+    },
+    {
+      "q": "Urutan bilangan berikut dari yang terkecil ke yang terbesar adalah ....",
+      "p": ["4, 2, 7, 5", "7, 5, 4, 2", "2, 4, 5, 7", "2, 5, 4, 7"],
+      "b": 2,
+      "bahas": "Urutan bilangan dari nilai yang paling sedikit (terkecil) ke yang paling banyak (terbesar) adalah 2, 4, 5, 7."
+    },
+
+        {
+      "q": "Perhatikan gambar berikut! Banyaknya balon berwarna pada gambar tersebut adalah ....",
+      "svg": "<svg width='240' height='110' viewBox='0 0 240 110' xmlns='http://w3.org'><circle cx='35' cy='30' r='16' fill='#ef4444'/><circle cx='78' cy='30' r='16' fill='#3b82f6'/><circle cx='121' cy='30' r='16' fill='#22c55e'/><circle cx='164' cy='30' r='16' fill='#f59e0b'/><circle cx='207' cy='30' r='16' fill='#a855f7'/><circle cx='55' cy='78' r='16' fill='#ec4899'/><circle cx='98' cy='78' r='16' fill='#14b8a6'/><circle cx='141' cy='78' r='16' fill='#f97316'/><circle cx='184' cy='78' r='16' fill='#6366f1'/></svg>",
+      "p": ["7", "8", "9", "10"],
+      "b": 2,
+      "bahas": "Pada baris atas terdapat 5 balon dan pada baris bawah terdapat 4 balon, sehingga jumlah seluruhnya adalah 9 balon."
+    },
+    {
+      "q": "Perhatikan kartu bilangan berikut! Cara membaca lambang bilangan pada kartu tersebut adalah ....",
+      "svg": "<svg width='160' height='90' viewBox='0 0 160 90' xmlns='http://w3.org'><rect x='10' y='10' width='140' height='70' rx='12' fill='#eef2ff' stroke='#4f46e5' stroke-width='3'/><text x='80' y='58' font-size='36' font-weight='bold' text-anchor='middle' fill='#1e1b4b'>10</text></svg>",
+      "p": ["satu nol", "sepuluh", "sebelas", "seratus"],
+      "b": 1,
+      "bahas": "Lambang bilangan 10 dibaca 'sepuluh'."
+    },
+    {
+      "q": "Perhatikan gambar perbandingan dua kotak kelereng berikut! Pernyataan yang tepat adalah ....",
+      "svg": "<svg width='240' height='100' viewBox='0 0 240 100' xmlns='http://w3.org'><rect x='10' y='25' width='100' height='65' rx='8' fill='#fef3c7' stroke='#d97706' stroke-width='2'/><text x='60' y='18' font-size='12' font-weight='bold' text-anchor='middle'>Kotak A</text><circle cx='40' cy='48' r='8' fill='#2563eb'/><circle cx='80' cy='48' r='8' fill='#2563eb'/><circle cx='40' cy='72' r='8' fill='#2563eb'/><circle cx='80' cy='72' r='8' fill='#2563eb'/><rect x='130' y='25' width='100' height='65' rx='8' fill='#dcfce7' stroke='#16a34a' stroke-width='2'/><text x='180' y='18' font-size='12' font-weight='bold' text-anchor='middle'>Kotak B</text><circle cx='152' cy='48' r='8' fill='#dc2626'/><circle cx='180' cy='48' r='8' fill='#dc2626'/><circle cx='208' cy='48' r='8' fill='#dc2626'/><circle cx='152' cy='72' r='8' fill='#dc2626'/><circle cx='180' cy='72' r='8' fill='#dc2626'/><circle cx='208' cy='72' r='8' fill='#dc2626'/></svg>",
+      "p": [
+        "Kotak A lebih banyak dari Kotak B",
+        "Kotak A lebih sedikit dari Kotak B",
+        "Kotak A sama banyak dengan Kotak B",
+        "Kotak B lebih sedikit dari Kotak A"
+      ],
+      "b": 1,
+      "bahas": "Kotak A berisi 4 kelereng dan Kotak B berisi 6 kelereng. Karena 4 lebih kecil dari 6, maka kelereng di Kotak A lebih sedikit dari Kotak B."
+    },
+    {
+      "q": "Perhatikan gambar penguraian bilangan berikut! Bilangan yang tepat untuk mengisi lingkaran bertanda tanya (?) adalah ....",
+      "svg": "<svg width='200' height='120' viewBox='0 0 200 120' xmlns='http://w3.org'><line x1='100' y1='30' x2='55' y2='90' stroke='#64748b' stroke-width='3'/><line x1='100' y1='30' x2='145' y2='90' stroke='#64748b' stroke-width='3'/><circle cx='100' cy='30' r='20' fill='#4f46e5'/><text x='100' y='36' font-size='18' font-weight='bold' text-anchor='middle' fill='#fff'>9</text><circle cx='55' cy='90' r='20' fill='#16a34a'/><text x='55' y='96' font-size='18' font-weight='bold' text-anchor='middle' fill='#fff'>6</text><circle cx='145' cy='90' r='20' fill='#f59e0b'/><text x='145' y='96' font-size='18' font-weight='bold' text-anchor='middle' fill='#fff'>?</text></svg>",
+      "p": ["2", "3", "4", "5"],
+      "b": 1,
+      "bahas": "Bilangan 9 dapat diurai menjadi 6 dan 3 karena 6 + 3 = 9."
+    },
+    {
+      "q": "Perhatikan gambar deretan batu loncatan bernomor berikut! Bilangan yang tepat untuk melengkapi batu yang kosong secara berurutan adalah ....",
+      "svg": "<svg width='250' height='70' viewBox='0 0 250 70' xmlns='http://w3.org'><circle cx='30' cy='35' r='20' fill='#e0e7ff' stroke='#4f46e5' stroke-width='2'/><text x='30' y='41' font-size='16' font-weight='bold' text-anchor='middle'>4</text><circle cx='78' cy='35' r='20' fill='#fef3c7' stroke='#f59e0b' stroke-width='2'/><text x='78' y='41' font-size='16' font-weight='bold' text-anchor='middle'>?</text><circle cx='126' cy='35' r='20' fill='#e0e7ff' stroke='#4f46e5' stroke-width='2'/><text x='126' y='41' font-size='16' font-weight='bold' text-anchor='middle'>6</text><circle cx='174' cy='35' r='20' fill='#fef3c7' stroke='#f59e0b' stroke-width='2'/><text x='174' y='41' font-size='16' font-weight='bold' text-anchor='middle'>?</text><circle cx='222' cy='35' r='20' fill='#e0e7ff' stroke='#4f46e5' stroke-width='2'/><text x='222' y='41' font-size='16' font-weight='bold' text-anchor='middle'>8</text></svg>",
+      "p": ["5 dan 7", "5 dan 9", "3 dan 7", "7 dan 9"],
+      "b": 0,
+      "bahas": "Urutan bilangan maju setelah 4 adalah 5, kemudian 6, lalu 7, dan 8. Jadi batu yang kosong berisi bilangan 5 dan 7."
+    },
+
+        {
+      "q": "Manakah gambar yang menunjukkan jumlah lingkaran sebanyak 6 buah?",
+      "p": ["Gambar A", "Gambar B", "Gambar C", "Gambar D"],
+      "pSvg": [
+        "<svg width='110' height='60' viewBox='0 0 110 60' xmlns='http://w3.org'><circle cx='20' cy='20' r='8' fill='#3b82f6'/><circle cx='45' cy='20' r='8' fill='#3b82f6'/><circle cx='70' cy='20' r='8' fill='#3b82f6'/><circle cx='20' cy='42' r='8' fill='#3b82f6'/></svg>",
+        "<svg width='110' height='60' viewBox='0 0 110 60' xmlns='http://w3.org'><circle cx='20' cy='20' r='8' fill='#16a34a'/><circle cx='45' cy='20' r='8' fill='#16a34a'/><circle cx='70' cy='20' r='8' fill='#16a34a'/><circle cx='20' cy='42' r='8' fill='#16a34a'/><circle cx='45' cy='42' r='8' fill='#16a34a'/><circle cx='70' cy='42' r='8' fill='#16a34a'/></svg>",
+        "<svg width='110' height='60' viewBox='0 0 110 60' xmlns='http://w3.org'><circle cx='20' cy='20' r='8' fill='#f59e0b'/><circle cx='45' cy='20' r='8' fill='#f59e0b'/><circle cx='70' cy='20' r='8' fill='#f59e0b'/><circle cx='20' cy='42' r='8' fill='#f59e0b'/><circle cx='45' cy='42' r='8' fill='#f59e0b'/></svg>",
+        "<svg width='110' height='60' viewBox='0 0 110 60' xmlns='http://w3.org'><circle cx='20' cy='20' r='8' fill='#ef4444'/><circle cx='45' cy='20' r='8' fill='#ef4444'/><circle cx='70' cy='20' r='8' fill='#ef4444'/><circle cx='95' cy='20' r='8' fill='#ef4444'/><circle cx='20' cy='42' r='8' fill='#ef4444'/><circle cx='45' cy='42' r='8' fill='#ef4444'/><circle cx='70' cy='42' r='8' fill='#ef4444'/></svg>"
+      ],
+      "b": 1,
+      "bahas": "Gambar B memiliki 3 lingkaran hijau di atas dan 3 lingkaran hijau di bawah, sehingga totalnya ada 6 lingkaran."
+    },
+    {
+      "q": "Perhatikan nama bilangan pada papan berikut! Kartu angka manakah yang sesuai dengan nama bilangan tersebut?",
+      "svg": "<svg width='170' height='60' viewBox='0 0 170 60' xmlns='http://w3.org'><rect x='5' y='5' width='160' height='50' rx='10' fill='#fef3c7' stroke='#f59e0b' stroke-width='2'/><text x='85' y='37' font-size='22' font-weight='bold' text-anchor='middle' fill='#92400e'>delapan</text></svg>",
+      "p": ["Kartu A", "Kartu B", "Kartu C", "Kartu D"],
+      "pSvg": [
+        "<svg width='70' height='50' viewBox='0 0 70 50' xmlns='http://w3.org'><rect x='5' y='5' width='60' height='40' rx='8' fill='#eef2ff' stroke='#4f46e5' stroke-width='2'/><text x='35' y='33' font-size='22' font-weight='bold' text-anchor='middle'>6</text></svg>",
+        "<svg width='70' height='50' viewBox='0 0 70 50' xmlns='http://w3.org'><rect x='5' y='5' width='60' height='40' rx='8' fill='#eef2ff' stroke='#4f46e5' stroke-width='2'/><text x='35' y='33' font-size='22' font-weight='bold' text-anchor='middle'>7</text></svg>",
+        "<svg width='70' height='50' viewBox='0 0 70 50' xmlns='http://w3.org'><rect x='5' y='5' width='60' height='40' rx='8' fill='#eef2ff' stroke='#4f46e5' stroke-width='2'/><text x='35' y='33' font-size='22' font-weight='bold' text-anchor='middle'>8</text></svg>",
+        "<svg width='70' height='50' viewBox='0 0 70 50' xmlns='http://w3.org'><rect x='5' y='5' width='60' height='40' rx='8' fill='#eef2ff' stroke='#4f46e5' stroke-width='2'/><text x='35' y='33' font-size='22' font-weight='bold' text-anchor='middle'>9</text></svg>"
+      ],
+      "b": 2,
+      "bahas": "Nama bilangan 'delapan' ditulis dengan lambang bilangan 8, yaitu pada Kartu C."
+    },
+    {
+      "q": "Perhatikan banyak persegi biru pada gambar! Kelompok segitiga manakah yang jumlahnya LEBIH BANYAK dari persegi biru?",
+      "svg": "<svg width='200' height='50' viewBox='0 0 200 50' xmlns='http://w3.org'><rect x='15' y='15' width='20' height='20' fill='#2563eb'/><rect x='45' y='15' width='20' height='20' fill='#2563eb'/><rect x='75' y='15' width='20' height='20' fill='#2563eb'/><rect x='105' y='15' width='20' height='20' fill='#2563eb'/><rect x='135' y='15' width='20' height='20' fill='#2563eb'/></svg>",
+      "p": ["3 Segitiga", "4 Segitiga", "5 Segitiga", "7 Segitiga"],
+      "b": 3,
+      "bahas": "Persegi biru berjumlah 5. Bilangan yang lebih banyak dari 5 adalah 7, yaitu pada pilihan D (7 segitiga)."
+    },
+    {
+      "q": "Perhatikan diagram penguraian bilangan 10 berikut! Kartu angka manakah yang tepat untuk mengisi tanda tanya (?)?",
+      "svg": "<svg width='180' height='100' viewBox='0 0 180 100' xmlns='http://w3.org'><line x1='90' y1='25' x2='50' y2='75' stroke='#64748b' stroke-width='2'/><line x1='90' y1='25' x2='130' y2='75' stroke='#64748b' stroke-width='2'/><circle cx='90' cy='25' r='18' fill='#4f46e5'/><text x='90' y='31' font-size='16' font-weight='bold' text-anchor='middle' fill='#fff'>10</text><circle cx='50' cy='75' r='18' fill='#16a34a'/><text x='50' y='81' font-size='16' font-weight='bold' text-anchor='middle' fill='#fff'>4</text><circle cx='130' cy='75' r='18' fill='#f59e0b'/><text x='130' y='81' font-size='16' font-weight='bold' text-anchor='middle' fill='#fff'>?</text></svg>",
+      "p": ["Angka 5", "Angka 6", "Angka 7", "Angka 8"],
+      "b": 1,
+      "bahas": "Bilangan 10 dapat diurai menjadi 4 dan 6 karena 4 + 6 = 10."
+    },
+    {
+      "q": "Manakah susunan balok yang berurutan dari bilangan TERKECIL ke TERBESAR?",
+      "p": ["Susunan A", "Susunan B", "Susunan C", "Susunan D"],
+      "pSvg": [
+        "<svg width='120' height='44' viewBox='0 0 120 44' xmlns='http://w3.org'><rect x='6' y='6' width='32' height='32' rx='6' fill='#dcfce7' stroke='#16a34a'/><text x='22' y='28' font-size='16' font-weight='bold' text-anchor='middle'>3</text><rect x='44' y='6' width='32' height='32' rx='6' fill='#dcfce7' stroke='#16a34a'/><text x='60' y='28' font-size='16' font-weight='bold' text-anchor='middle'>5</text><rect x='82' y='6' width='32' height='32' rx='6' fill='#dcfce7' stroke='#16a34a'/><text x='98' y='28' font-size='16' font-weight='bold' text-anchor='middle'>8</text></svg>",
+        "<svg width='120' height='44' viewBox='0 0 120 44' xmlns='http://w3.org'><rect x='6' y='6' width='32' height='32' rx='6' fill='#fee2e2' stroke='#dc2626'/><text x='22' y='28' font-size='16' font-weight='bold' text-anchor='middle'>8</text><rect x='44' y='6' width='32' height='32' rx='6' fill='#fee2e2' stroke='#dc2626'/><text x='60' y='28' font-size='16' font-weight='bold' text-anchor='middle'>5</text><rect x='82' y='6' width='32' height='32' rx='6' fill='#fee2e2' stroke='#dc2626'/><text x='98' y='28' font-size='16' font-weight='bold' text-anchor='middle'>3</text></svg>",
+        "<svg width='120' height='44' viewBox='0 0 120 44' xmlns='http://w3.org'><rect x='6' y='6' width='32' height='32' rx='6' fill='#fef3c7' stroke='#d97706'/><text x='22' y='28' font-size='16' font-weight='bold' text-anchor='middle'>5</text><rect x='44' y='6' width='32' height='32' rx='6' fill='#fef3c7' stroke='#d97706'/><text x='60' y='28' font-size='16' font-weight='bold' text-anchor='middle'>3</text><rect x='82' y='6' width='32' height='32' rx='6' fill='#fef3c7' stroke='#d97706'/><text x='98' y='28' font-size='16' font-weight='bold' text-anchor='middle'>8</text></svg>",
+        "<svg width='120' height='44' viewBox='0 0 120 44' xmlns='http://w3.org'><rect x='6' y='6' width='32' height='32' rx='6' fill='#e0e7ff' stroke='#4f46e5'/><text x='22' y='28' font-size='16' font-weight='bold' text-anchor='middle'>3</text><rect x='44' y='6' width='32' height='32' rx='6' fill='#e0e7ff' stroke='#4f46e5'/><text x='60' y='28' font-size='16' font-weight='bold' text-anchor='middle'>8</text><rect x='82' y='6' width='32' height='32' rx='6' fill='#e0e7ff' stroke='#4f46e5'/><text x='98' y='28' font-size='16' font-weight='bold' text-anchor='middle'>5</text></svg>"
+      ],
+      "b": 0,
+      "bahas": "Susunan A mengurutkan bilangan dari nilai paling kecil ke paling besar, yaitu 3, 5, 8."
+    }
+  ]
+};
