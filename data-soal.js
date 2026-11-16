@@ -4,11 +4,14 @@
 
 window.DATABASE_BAB = {
   // Format kunci: "jenjang-Kelas X-Nama Mapel"
-  "sd-Kelas 1-Matematika": [
-    "Bab 1: Bilangan & Operasi Hitung",
-    "Bab 2: Pengukuran Panjang & Berat",
-    "Bab 3: Bangun Datar Sederhana"
-  ]
+   "sd-Kelas 1-Matematika": [
+  "bab.1 a",
+  "bab.2 b",
+  "c",
+  "d",
+  "e",
+  "f"
+],
 };
 
 window.DATABASE_SOAL = {
