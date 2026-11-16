@@ -53,7 +53,7 @@
     <button type="button" class="nav-item" data-menu="sd" onclick="bukaMenu('sd')"><span>🎒</span>SD</button>
     <button type="button" class="nav-item" data-menu="smp" onclick="bukaMenu('smp')"><span>📘</span>SMP</button>
     <button type="button" class="nav-item" data-menu="sma" onclick="bukaMenu('sma')"><span>🎓</span>SMA</button>
-    <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🛠️</span>Generator</button>
+    <button type="button" class="nav-item" data-menu="saya" onclick="bukaMenu('saya')"><span>🔐</span>Admin</button>
   </nav>
 
     <script>
@@ -136,13 +136,27 @@
     }
 
           let timer, soalList = [], jawabanUser = [], idxSoal = 0, sisaWaktu = 0, sisaWaktuSoal = 0;
+    let adminTerbuka = false;
     let sesi = { nama: "", sekolah: "", kelasInput: "", kodeUjian: "", jenjang: "", tingkat: "", mapel: "", bab: "", mode: "bab" };
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
+    function dapatkanPinAdmin() {
+      return localStorage.getItem("rim_admin_pin") || "123456";
+    }
+
+    function ubahPinAdmin() {
+      const baru = (prompt("Masukkan Password / PIN Admin baru (minimal 4 karakter):") || "").trim();
+      if (!baru) return;
+      if (baru.length < 4) return alert("Password minimal 4 karakter!");
+      localStorage.setItem("rim_admin_pin", baru);
+      alert("✅ Password / PIN Admin berhasil diperbarui!");
+    }
+
     async function bukaMenu(menu) {
       clearInterval(timer);
+      if (menu !== "saya") adminTerbuka = false;
       document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.dataset.menu === menu));
       if (menu === "home") {
         title().innerText = "RIM CBT";
@@ -161,10 +175,19 @@
         await muatFileSoalTerbaru();
         pilihKelas(menu);
       } else if (menu === "saya") {
-        title().innerText = "Generator Soal & Rekap";
+        if (!adminTerbuka) {
+          const pinInput = prompt("🔐 Masukkan Password / PIN Admin:");
+          if (pinInput === null) return bukaMenu("home");
+          if (pinInput !== dapatkanPinAdmin()) {
+            alert("❌ Password Admin Salah! Akses ditolak.");
+            return bukaMenu("home");
+          }
+          adminTerbuka = true;
+        }
+        title().innerText = "Panel Admin & Generator";
         app().innerHTML = `
           <div class="form-box">
-            <h3 style="font-size:1.05rem; margin-bottom:4px;">🛠️ Panel Guru & Generator GitHub</h3>
+            <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Admin & Generator GitHub</h3>
             <p style="font-size:0.84rem; color:#64748b;">Buat soal via AI, susun daftar bab untuk <b>data-soal.js</b>, atau filter rekap nilai berdasarkan <b>Kode Unik Ujian</b>.</p>
           </div>
           <div class="list-menu">
@@ -172,6 +195,7 @@
             <div class="list-item" onclick="bukaGeneratorBab()" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Generator Daftar Bab ➔ Kode GitHub</span><span>➔</span></div>
             <div class="list-item" onclick="tampilkanRekapTerfilter()"><span>📊 Lihat & Filter Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaModalPDF()"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
+            <div class="list-item" onclick="ubahPinAdmin()"><span>🔑 Ubah Password / PIN Admin</span><span>➔</span></div>
           </div>`;
       }
     }
