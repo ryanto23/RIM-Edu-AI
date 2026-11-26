@@ -23,23 +23,25 @@
     }
     @keyframes melayangHalus {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
+      50% { transform: translateY(-4px); }
     }
     .motivasi-animasi {
       background: linear-gradient(120deg, #ff6b6b, #f59e0b, #10b981, #06b6d4, #8b5cf6);
       background-size: 300% 300%;
-      animation: gradasiCerah 7s ease infinite, melayangHalus 3.5s ease-in-out infinite;
+      animation: gradasiCerah 14s ease infinite, melayangHalus 6s ease-in-out infinite;
       color: #ffffff;
       padding: 18px 16px;
       border-radius: 18px;
       margin-bottom: 14px;
-      box-shadow: 0 10px 22px rgba(245, 158, 11, 0.25);
+      box-shadow: 0 10px 22px rgba(245, 158, 11, 0.22);
       text-align: center;
     }
-    .motivasi-animasi p { font-size: 0.95rem; font-weight: 700; line-height: 1.5; margin-bottom: 6px; transition: opacity 0.4s ease; }
+    .motivasi-animasi p { font-size: 0.95rem; font-weight: 700; line-height: 1.5; margin-bottom: 6px; transition: opacity 0.8s ease; }
     .motivasi-animasi small { display: inline-block; background: rgba(255,255,255,0.24); padding: 3px 12px; border-radius: 20px; font-weight: 800; font-size: 0.74rem; }
     .form-box { background: var(--surface); padding: 18px; border-radius: 16px; margin-bottom: 14px; border: 1px solid var(--border); }
+    .alert-kosong { background: #fef2f2; border: 1.5px solid #fecaca; color: #b91c1c; padding: 16px; border-radius: 14px; text-align: center; margin: 12px 0; }
     .btn-primary { background: #4f46e5; color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; width: 100%; }
+    .btn-disabled { background: #cbd5e1; color: #64748b; border: none; padding: 13px; border-radius: 12px; font-weight: 700; cursor: not-allowed; font-size: 0.95rem; width: 100%; }
     .btn-pdf { background: #16a34a; color: #fff; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.9rem; width: 100%; margin-top: 10px; }
     .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 11px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem; width: 100%; margin-top: 8px; }
     .btn-back { background: #f1f5f9; color: #475569; border: none; padding: 7px 14px; border-radius: 10px; cursor: pointer; margin-bottom: 12px; font-weight: 700; font-size: 0.82rem; }
@@ -80,101 +82,692 @@
     <script>
     window.BANK_SOAL_AKTIF = [];
 
-    const dataPendidikan = {
+    const kurikulumSekolah = {
       sd: {
         judul: "Sekolah Dasar (SD)",
-        kelas: [
-          { nomor: 1, label: "Kelas 1" },
-          { nomor: 2, label: "Kelas 2" },
-          { nomor: 3, label: "Kelas 3" },
-          { nomor: 4, label: "Kelas 4" },
-          { nomor: 5, label: "Kelas 5" },
-          { nomor: 6, label: "Kelas 6" }
-        ],
-        mapel: [
-          { kode: "mtk", nama: "Matematika" },
-          { kode: "bind", nama: "Bahasa Indonesia" },
-          { kode: "ipas", nama: "IPAS" },
-          { kode: "pancasila", nama: "Pendidikan Pancasila" },
-          { kode: "bing", nama: "Bahasa Inggris" },
-          { kode: "kka", nama: "Koding & Kecerdasan Artifisial" }
-        ]
+        kelas: {
+          1: {
+            label: "Kelas 1",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Ayo Membilang sampai dengan 10",
+                "Bab 2: Penjumlahan sampai dengan 10",
+                "Bab 3: Pengurangan sampai dengan 10",
+                "Bab 4: Mengenal Bentuk Bangun",
+                "Bab 5: Ayo Membilang sampai dengan 20",
+                "Bab 6: Penjumlahan & Pengurangan sampai dengan 20",
+                "Bab 7: Mengukur Panjang Benda",
+                "Bab 8: Mengenal Diagram"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Bunyi Apa?",
+                "Bab 2: Ayo Bermain!",
+                "Bab 3: Awas Kuman!",
+                "Bab 4: Aku Bisa!",
+                "Bab 5: Teman Baru",
+                "Bab 6: Berbeda Itu Tak Apa",
+                "Bab 7: Aku Ingin",
+                "Bab 8: Di Sekitar Rumah"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Aku Cinta Pancasila",
+                "Bab 2: Aku Anak yang Patuh Aturan",
+                "Bab 3: Ayo Mengenal Diriku dan Temanku",
+                "Bab 4: Aku Cinta Lingkungan Sekitar"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: How Are You?",
+                "Bab 2: Hi, I Am Kimi",
+                "Bab 3: My Name Is Joshua",
+                "Bab 4: My Number Is Ten",
+                "Bab 5: I Have Four Books",
+                "Bab 6: My Garden Is Colorful",
+                "Bab 7: It Is a Big Circle",
+                "Bab 8: I Have Two Pencils"
+              ]}
+            ]
+          },
+          2: {
+            label: "Kelas 2",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Ayo Membilang sampai dengan 50",
+                "Bab 2: Penjumlahan dan Pengurangan",
+                "Bab 3: Bentuk di Sekitar Kita",
+                "Bab 4: Posisi Benda dan Pola di Sekitar Kita",
+                "Bab 5: Pecahan",
+                "Bab 6: Pengukuran Berat dan Waktu",
+                "Bab 7: Ayo Membilang sampai dengan 100",
+                "Bab 8: Berbagai Diagram"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Mengenal Perasaan",
+                "Bab 2: Menjaga Kesehatan",
+                "Bab 3: Berhati-hati di Mana Saja",
+                "Bab 4: Keluargaku Unik",
+                "Bab 5: Berteman dalam Keragaman",
+                "Bab 6: Bijak Memakai Uang",
+                "Bab 7: Sayang Lingkungan",
+                "Bab 8: Hobi yang Jadi Prestasi"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Pancasila Dasar Negaraku",
+                "Bab 2: Menaati Aturan di Sekitarku",
+                "Bab 3: Kita Beragam tetapi Tetap Satu",
+                "Bab 4: Negara Kesatuan Republik Indonesia"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: Do You Like Apples?",
+                "Bab 2: My Father Likes Watermelon",
+                "Bab 3: Where Is My Pen?",
+                "Bab 4: How Many Books Are There?",
+                "Bab 5: Where Is My Cow?",
+                "Bab 6: She Is My Sister",
+                "Bab 7: She Is Tall",
+                "Bab 8: The Elephant Is Big"
+              ]}
+            ]
+          },
+          3: {
+            label: "Kelas 3",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Bilangan Cacah sampai 1.000",
+                "Bab 2: Kalimat Matematika",
+                "Bab 3: Pengukuran Panjang dan Berat",
+                "Bab 4: Unsur-Unsur Bangun Datar",
+                "Bab 5: Penyajian Data dalam Tabel"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Ayo, Main!",
+                "Bab 2: Kawan Seiring",
+                "Bab 3: Pengobar Semangat",
+                "Bab 4: Senyum di Sekitarku",
+                "Bab 5: Bola-Bola Cokelat",
+                "Bab 6: Tersesat",
+                "Bab 7: Aku dan Si Merah",
+                "Bab 8: Sahabat dari Seberang"
+              ]},
+              { kode: "ipas", nama: "IPAS", bab: [
+                "Bab 1: Mari Kenali Hewan di Sekitar Kita",
+                "Bab 2: Ayo, Mengenal Siklus pada Makhluk Hidup",
+                "Bab 3: Hidup Bersama Alam",
+                "Bab 4: Berkenalan dengan Energi",
+                "Bab 5: Aku dan Lingkungan Sekitarku",
+                "Bab 6: Aku Bagian dari Masyarakat",
+                "Bab 7: Cerita dari Kampung Halaman",
+                "Bab 8: Bentang Alam Indonesia"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Aku Anak Indonesia",
+                "Bab 2: Aku Patuh Aturan",
+                "Bab 3: Berbeda Itu Indah",
+                "Bab 4: Ayo Mengenal Pancasila"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: I Like Mi Aceh",
+                "Bab 2: I Don't Like Rice",
+                "Bab 3: I Have Fried Chicken for Breakfast",
+                "Bab 4: Do You Like Swimming?",
+                "Bab 5: I Like Riding a Bike on Sunday",
+                "Bab 6: Is It the Canteen?",
+                "Bab 7: My Class Is Behind the Office",
+                "Bab 8: I Drink Orange Juice in the Canteen"
+              ]}
+            ]
+          },
+
+                    4: {
+            label: "Kelas 4",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Bilangan Cacah sampai 10.000",
+                "Bab 2: Pecahan",
+                "Bab 3: Pola Gambar dan Pola Bilangan",
+                "Bab 4: Pengukuran Luas dan Volume",
+                "Bab 5: Bangun Datar",
+                "Bab 6: Piktogram dan Diagram Batang"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Sudah Besar",
+                "Bab 2: Di Bawah Atap",
+                "Bab 3: Lihat Sekitar",
+                "Bab 4: Meliuk dan Menerjang",
+                "Bab 5: Bertukar atau Membayar",
+                "Bab 6: Satu Titik",
+                "Bab 7: Asal-Usul",
+                "Bab 8: Sehatlah Ragaku"
+              ]},
+              { kode: "ipas", nama: "IPAS", bab: [
+                "Bab 1: Mengubah Bentuk Energi",
+                "Bab 2: Gaya di Sekitar Kita",
+                "Bab 3: Di Sini Tempat Tinggalku!",
+                "Bab 4: Iklim dan Perubahannya",
+                "Bab 5: Ini Khas Daerahku!",
+                "Bab 6: Peranku di Lingkungan Sekolah & Masyarakat",
+                "Bab 7: Keragaman Budaya dan Kearifan Lokal",
+                "Bab 8: Menjadi Pahlawan Lingkungan"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Pancasila sebagai Nilai Kehidupan",
+                "Bab 2: Konstitusi dan Norma di Masyarakat",
+                "Bab 3: Membangun Jati Diri dalam Kebinekaan",
+                "Bab 4: Negaraku Indonesia"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: What Are You Doing?",
+                "Bab 2: There Are 67 English Books",
+                "Bab 3: My Living Room Is Beside Kitchen",
+                "Bab 4: Cici Cooks in the Kitchen",
+                "Bab 5: Where Is My Pencil?",
+                "Bab 6: The Stove Is in the Kitchen",
+                "Bab 7: I Can Make Fried Egg in the Kitchen",
+                "Bab 8: Be On Time!"
+              ]}
+            ]
+          },
+          5: {
+            label: "Kelas 5",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Bilangan Cacah sampai 100.000",
+                "Bab 2: KPK dan FPB",
+                "Bab 3: Bilangan Pecahan",
+                "Bab 4: Keliling Bangun Datar",
+                "Bab 5: Luas Daerah Bangun Datar",
+                "Bab 6: Sudut",
+                "Bab 7: Membandingkan Ciri-Ciri Bangun Datar",
+                "Bab 8: Data dan Bilangan Cacah sampai 1.000.000"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Aku yang Unik",
+                "Bab 2: Buku Jendela Dunia",
+                "Bab 3: Ekspresi Diri melalui Hobi",
+                "Bab 4: Belajar Berwirausaha",
+                "Bab 5: Menjadi Warga Dunia",
+                "Bab 6: Cinta Indonesia",
+                "Bab 7: Sayangi Bumi",
+                "Bab 8: Bergerak Bersama"
+              ]},
+              { kode: "ipas", nama: "IPAS", bab: [
+                "Bab 1: Melihat karena Cahaya, Mendengar karena Bunyi",
+                "Bab 2: Harmoni dalam Ekosistem",
+                "Bab 3: Magnet, Listrik, dan Teknologi untuk Kehidupan",
+                "Bab 4: Ayo Berkenalan dengan Bumi Kita",
+                "Bab 5: Bagaimana Kita Hidup dan Bertumbuh",
+                "Bab 6: Indonesiaku Kaya Raya",
+                "Bab 7: Daerahku Kebanggaanku",
+                "Bab 8: Bumiku Sayang, Bumiku Malang"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Pancasila dalam Kehidupanku",
+                "Bab 2: Norma dalam Kehidupanku",
+                "Bab 3: Keragaman Budaya Indonesiaku",
+                "Bab 4: Aku dan Lingkungan Sekitarku"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: What Delicious Bakso!",
+                "Bab 2: I Want an Ice Cream Cone",
+                "Bab 3: How Much Is It?",
+                "Bab 4: I've Got a Stomachache",
+                "Bab 5: What a Nice Skirt!",
+                "Bab 6: Parts of Our Body That Work Together",
+                "Bab 7: How Tall Are You?",
+                "Bab 8: The Giraffe Is Taller than the Deer"
+              ]},
+              { kode: "kka", nama: "Koding & Kecerdasan Artifisial", bab: [
+                "Bab 1: Berpikir Komputasional dalam Kehidupan",
+                "Bab 2: Logika Algoritma & Pemrograman Blok",
+                "Bab 3: Mengenal Kecerdasan Artifisial (AI)",
+                "Bab 4: Etika Digital & Keamanan Internet"
+              ]}
+            ]
+          },
+          6: {
+            label: "Kelas 6",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Pecahan dan Desimal",
+                "Bab 2: Rasio",
+                "Bab 3: Kubus dan Balok",
+                "Bab 4: Peluang"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Bangga Menjadi Anak Indonesia",
+                "Bab 2: Musisi Indonesia di Pentas Dunia",
+                "Bab 3: Taman Nasional dan Situs Warisan Dunia",
+                "Bab 4: Jeda untuk Iklim",
+                "Bab 5: Anak-Anak yang Mengubah Dunia",
+                "Bab 6: Liburan Perpisahan Kelas",
+                "Bab 7: Aku Bisa Berempati",
+                "Bab 8: Aman di Dunia Maya"
+              ]},
+              { kode: "ipas", nama: "IPAS", bab: [
+                "Bab 1: Bagaimana Tubuh Kita Bergerak?",
+                "Bab 2: Cerita tentang Indonesia Kita",
+                "Bab 3: Pelesir Keliling Dunia",
+                "Bab 4: Indonesia dan Masyarakat Dunia",
+                "Bab 5: Menjelajahi Bumi dan Antariksa",
+                "Bab 6: Gawat! Benarkah Energi di Bumi Akan Habis?",
+                "Bab 7: Bumi Kita Terancam Bahaya",
+                "Bab 8: Proyek Akhir IPAS"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Belajar Pancasila dengan Menyenangkan",
+                "Bab 2: Mengamalkan Pancasila untuk Kebahagiaan Bersama",
+                "Bab 3: Mengenal Norma, Hak, dan Kewajiban",
+                "Bab 4: Belajar Bermusyawarah",
+                "Bab 5: Menghormati Perbedaan Budaya dan Agama",
+                "Bab 6: Provinsiku Bagian dari Wilayah NKRI",
+                "Bab 7: Menjaga Persatuan dengan Gotong Royong"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: I Studied Last Night, but My Sister Didn't",
+                "Bab 2: We Went to a Museum Last Week",
+                "Bab 3: I Was in Bali Last Week",
+                "Bab 4: How Did Cici Feel Yesterday?",
+                "Bab 5: What Did You Do Yesterday?",
+                "Bab 6: My Friend's Experience",
+                "Bab 7: I Will Go to Bromo",
+                "Bab 8: I Will Go to Dufan"
+              ]},
+              { kode: "kka", nama: "Koding & Kecerdasan Artifisial", bab: [
+                "Bab 1: Dekomposisi Masalah & Abstraksi Data",
+                "Bab 2: Perulangan & Percabangan dalam Koding",
+                "Bab 3: Cara Kerja Kecerdasan Artifisial (AI)",
+                "Bab 4: Proyek Kreatif Koding & Literasi Digital"
+              ]}
+            ]
+          }
+        }
       },
-      smp: {
+
+            smp: {
         judul: "Sekolah Menengah Pertama (SMP)",
-        kelas: [
-          { nomor: 7, label: "Kelas 7" },
-          { nomor: 8, label: "Kelas 8" },
-          { nomor: 9, label: "Kelas 9" }
-        ],
-        mapel: [
-          { kode: "mtk", nama: "Matematika" },
-          { kode: "bind", nama: "Bahasa Indonesia" },
-          { kode: "bing", nama: "Bahasa Inggris" },
-          { kode: "ipa", nama: "IPA" },
-          { kode: "ips", nama: "IPS" },
-          { kode: "pancasila", nama: "Pendidikan Pancasila" },
-          { kode: "informatika", nama: "Informatika & KKA" }
-        ]
+        kelas: {
+          7: {
+            label: "Kelas 7",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Bilangan Bulat",
+                "Bab 2: Bilangan Rasional",
+                "Bab 3: Rasio",
+                "Bab 4: Bentuk Aljabar",
+                "Bab 5: Kesebangunan",
+                "Bab 6: Data dan Diagram"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Jelajah Nusantara",
+                "Bab 2: Berkelana di Dunia Imajinasi",
+                "Bab 3: Hal yang Baik bagi Tubuh",
+                "Bab 4: Aksi Nyata Para Pelindung Bumi",
+                "Bab 5: Membuka Gerbang Dunia",
+                "Bab 6: Sampaikan melalui Surat"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: About Me",
+                "Bab 2: Culinary and Me",
+                "Bab 3: Home Sweet Home",
+                "Bab 4: My School Activities",
+                "Bab 5: This Is My School"
+              ]},
+              { kode: "ipa", nama: "IPA", bab: [
+                "Bab 1: Hakikat Ilmu Sains dan Metode Ilmiah",
+                "Bab 2: Zat dan Perubahannya",
+                "Bab 3: Suhu, Kalor, dan Pemuaian",
+                "Bab 4: Gerak dan Gaya",
+                "Bab 5: Klasifikasi Makhluk Hidup",
+                "Bab 6: Ekologi dan Keanekaragaman Hayati Indonesia",
+                "Bab 7: Bumi dan Tata Surya"
+              ]},
+              { kode: "ips", nama: "IPS", bab: [
+                "Bab 1: Keluarga Awal Kehidupan",
+                "Bab 2: Keberagaman Lingkungan Sekitar",
+                "Bab 3: Potensi Ekonomi Lingkungan",
+                "Bab 4: Pemberdayaan Masyarakat"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Sejarah Kelahiran Pancasila",
+                "Bab 2: Penerapan Nilai-Nilai Pancasila",
+                "Bab 3: Patuh terhadap Norma",
+                "Bab 4: Keberagaman Bangsa Indonesia dalam Bingkai Bhinneka Tunggal Ika",
+                "Bab 5: Wilayah Negara Kesatuan Republik Indonesia"
+              ]},
+              { kode: "informatika", nama: "Informatika & KKA", bab: [
+                "Bab 1: Informatika dan Keterampilan Generik",
+                "Bab 2: Berpikir Komputasional",
+                "Bab 3: Teknologi Informasi dan Komunikasi",
+                "Bab 4: Sistem Komputer",
+                "Bab 5: Jaringan Komputer dan Internet",
+                "Bab 6: Analisis Data",
+                "Bab 7: Algoritma dan Pemrograman",
+                "Bab 8: Dampak Sosial Informatika & Kecerdasan Artifisial"
+              ]}
+            ]
+          },
+          8: {
+            label: "Kelas 8",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Bilangan Berpangkat",
+                "Bab 2: Teorema Pythagoras",
+                "Bab 3: Persamaan Linear dan Pertidaksamaan Linear Satu Variabel",
+                "Bab 4: Relasi dan Fungsi",
+                "Bab 5: Persamaan Garis Lurus",
+                "Bab 6: Statistika"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Menulis Teks Laporan Hasil Observasi",
+                "Bab 2: Membuat Iklan, Slogan, dan Poster",
+                "Bab 3: Menulis Artikel Ilmiah Populer",
+                "Bab 4: Mengulas Karya Fiksi",
+                "Bab 5: Menciptakan Puisi",
+                "Bab 6: Menulis Teks Pidato"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: Celebrating Independence Day",
+                "Bab 2: Kindness Begins with Me",
+                "Bab 3: Love Our World",
+                "Bab 4: No Littering",
+                "Bab 5: Embrace Yourself"
+              ]},
+              { kode: "ipa", nama: "IPA", bab: [
+                "Bab 1: Pengenalan Sel",
+                "Bab 2: Struktur dan Fungsi Tubuh Makhluk Hidup",
+                "Bab 3: Usaha, Energi, dan Pesawat Sederhana",
+                "Bab 4: Getaran, Gelombang, dan Cahaya",
+                "Bab 5: Unsur, Senyawa, dan Campuran",
+                "Bab 6: Struktur Bumi dan Perkembangannya"
+              ]},
+              { kode: "ips", nama: "IPS", bab: [
+                "Bab 1: Kondisi Geografis dan Pelestarian Sumber Daya Alam",
+                "Bab 2: Kemajemukan Masyarakat Indonesia",
+                "Bab 3: Nasionalisme dan Jati Diri Bangsa",
+                "Bab 4: Pembangunan Perekonomian Indonesia"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Pancasila dalam Kehidupan Bangsaku",
+                "Bab 2: Pedoman Negaraku (UUD NRI Tahun 1945)",
+                "Bab 3: Peraturan di Negaraku",
+                "Bab 4: Melestarikan Budaya Bangsaku",
+                "Bab 5: Merawat Keutuhan Bangsa dan Negaraku"
+              ]},
+              { kode: "informatika", nama: "Informatika & KKA", bab: [
+                "Bab 1: Informatika dan Pembelajarannya",
+                "Bab 2: Berpikir Komputasional",
+                "Bab 3: Teknologi Informasi dan Komunikasi",
+                "Bab 4: Sistem Komputer",
+                "Bab 5: Jaringan Komputer dan Internet",
+                "Bab 6: Analisis Data",
+                "Bab 7: Algoritma dan Pemrograman",
+                "Bab 8: Dampak Sosial Informatika & Kecerdasan Artifisial"
+              ]}
+            ]
+          },
+          9: {
+            label: "Kelas 9",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Sistem Persamaan Linear Dua Variabel",
+                "Bab 2: Bangun Ruang",
+                "Bab 3: Transformasi Geometri",
+                "Bab 4: Peluang dan Pemilihan Sampel"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Demi Keluarga",
+                "Bab 2: Buku-Buku Berbicara",
+                "Bab 3: Komunikasi Ujung Jari",
+                "Bab 4: Dari Hobi Menjadi Pundi-Pundi",
+                "Bab 5: Menuju Laut",
+                "Bab 6: Merencanakan Masa Depan"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: Exploring Fauna of Indonesia",
+                "Bab 2: Taking Trips",
+                "Bab 3: Journey to Fantasy Worlds",
+                "Bab 4: Upcycling Used Materials",
+                "Bab 5: Digital Life"
+              ]},
+              { kode: "ipa", nama: "IPA", bab: [
+                "Bab 1: Pertumbuhan dan Perkembangan",
+                "Bab 2: Sistem Koordinasi, Reproduksi, dan Homeostasis Manusia",
+                "Bab 3: Tekanan",
+                "Bab 4: Listrik, Magnet, dan Sumber Energi Alternatif",
+                "Bab 5: Reaksi-Reaksi Kimia dan Dinamikanya",
+                "Bab 6: Pewarisan Sifat dan Bioteknologi",
+                "Bab 7: Isu-Isu Lingkungan"
+              ]},
+              { kode: "ips", nama: "IPS", bab: [
+                "Bab 1: Manusia dan Perubahan",
+                "Bab 2: Perkembangan Ekonomi Digital",
+                "Bab 3: Tantangan Pembangunan Indonesia",
+                "Bab 4: Kerja Sama Dunia"
+              ]},
+              { kode: "pancasila", nama: "Pendidikan Pancasila", bab: [
+                "Bab 1: Hubungan Pancasila dengan UUD NRI Tahun 1945, Bhinneka Tunggal Ika, dan NKRI",
+                "Bab 2: Hak dan Kewajiban Warga Negara",
+                "Bab 3: Kemerdekaan Berpendapat Warga Negara pada Era Keterbukaan Informasi",
+                "Bab 4: Menjaga dan Melestarikan Tradisi, Kearifan Lokal, serta Budaya dalam Masyarakat Global",
+                "Bab 5: Menjaga Keutuhan Wilayah Negara Kesatuan Republik Indonesia"
+              ]},
+              { kode: "informatika", nama: "Informatika & KKA", bab: [
+                "Bab 1: Informatika dan Kecerdasan Artifisial",
+                "Bab 2: Berpikir Komputasional",
+                "Bab 3: Teknologi Informasi dan Komunikasi",
+                "Bab 4: Sistem Komputer",
+                "Bab 5: Jaringan Komputer dan Internet",
+                "Bab 6: Analisis Data",
+                "Bab 7: Algoritma dan Pemrograman",
+                "Bab 8: Dampak Sosial Informatika & Etika AI"
+              ]}
+            ]
+          }
+        }
       },
-      sma: {
+
+            sma: {
         judul: "SMA / SMK",
-        kelas: [
-          { nomor: 10, label: "Kelas 10" },
-          { nomor: 11, label: "Kelas 11" },
-          { nomor: 12, label: "Kelas 12" }
-        ],
-        mapel: [
-          { kode: "mtk", nama: "Matematika" },
-          { kode: "bind", nama: "Bahasa Indonesia" },
-          { kode: "bing", nama: "Bahasa Inggris" },
-          { kode: "fisika", nama: "Fisika" },
-          { kode: "kimia", nama: "Kimia" },
-          { kode: "biologi", nama: "Biologi" },
-          { kode: "ekonomi", nama: "Ekonomi" },
-          { kode: "informatika", nama: "Informatika & KKA" }
-        ]
+        kelas: {
+          10: {
+            label: "Kelas 10",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Eksponen dan Logaritma",
+                "Bab 2: Barisan dan Deret",
+                "Bab 3: Vektor dan Operasinya",
+                "Bab 4: Trigonometri",
+                "Bab 5: Sistem Persamaan dan Pertidaksamaan Linear",
+                "Bab 6: Fungsi Kuadrat",
+                "Bab 7: Statistika",
+                "Bab 8: Peluang"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Mengungkap Fakta Alam secara Objektif",
+                "Bab 2: Mengungkapkan Kritik lewat Senyuman",
+                "Bab 3: Menyusuri Nilai dalam Cerita Lintas Zaman",
+                "Bab 4: Belajar Menjadi Negosiator Ulung",
+                "Bab 5: Memetik Keteladanan dari Biografi Pahlawan",
+                "Bab 6: Berkarya dan Berekspresi melalui Puisi"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: Great Athletes",
+                "Bab 2: Sports Events",
+                "Bab 3: Sports and Health",
+                "Bab 4: Healthy Foods",
+                "Bab 5: Graffiti",
+                "Bab 6: Fractured Stories"
+              ]},
+              { kode: "fisika", nama: "Fisika", bab: [
+                "Bab 1: Pengukuran dalam Kerja Ilmiah",
+                "Bab 2: Energi Terbarukan",
+                "Bab 3: Pemanasan Global: Konsep dan Solusi"
+              ]},
+              { kode: "kimia", nama: "Kimia", bab: [
+                "Bab 1: Kimia Hijau dalam Pembangunan Berkelanjutan 2030",
+                "Bab 2: Struktur Atom dan Sistem Periodik Unsur",
+                "Bab 3: Hukum Dasar Kimia di Sekitar Kita"
+              ]},
+              { kode: "biologi", nama: "Biologi", bab: [
+                "Bab 1: Keanekaragaman Makhluk Hidup, Interaksi, dan Peranannya di Alam",
+                "Bab 2: Virus dan Peranannya",
+                "Bab 3: Inovasi Teknologi Biologi",
+                "Bab 4: Perubahan dan Pelestarian Lingkungan Hidup"
+              ]},
+              { kode: "ekonomi", nama: "Ekonomi", bab: [
+                "Bab 1: Pengantar Ilmu Ekonomi",
+                "Bab 2: Kegiatan Ekonomi, Pelaku Ekonomi, dan Pasar",
+                "Bab 3: Lembaga Jasa Keuangan dan Literasi Finansial"
+              ]},
+              { kode: "informatika", nama: "Informatika & KKA", bab: [
+                "Bab 1: Informatika dan Keterampilan Generik",
+                "Bab 2: Berpikir Komputasional",
+                "Bab 3: Teknologi Informasi dan Komunikasi",
+                "Bab 4: Sistem Komputer",
+                "Bab 5: Jaringan Komputer dan Internet",
+                "Bab 6: Analisis Data",
+                "Bab 7: Algoritma dan Pemrograman",
+                "Bab 8: Dampak Sosial Informatika & Kecerdasan Artifisial"
+              ]}
+            ]
+          },
+          11: {
+            label: "Kelas 11",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Komposisi Fungsi dan Fungsi Invers",
+                "Bab 2: Lingkaran",
+                "Bab 3: Statistika (Regresi dan Korelasi)"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Mengenalkan dan Mempromosikan Produk Pangan Lokal Indonesia",
+                "Bab 2: Menyajikan Berita Inovasi yang Menghibur",
+                "Bab 3: Menggali Nilai Sejarah Bangsa lewat Cerita Pendek",
+                "Bab 4: Menulis Puisi yang Menginspirasikan Adanya Kesempatan untuk Semua",
+                "Bab 5: Mengenal Keberagaman Indonesia lewat Pertunjukan Drama",
+                "Bab 6: Berperan dalam Konservasi Alam Indonesia lewat Karya Ilmiah"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: Digital Literacies and My Identities",
+                "Bab 2: Love Your Environment",
+                "Bab 3: Healthy Life for a Healthy Future",
+                "Bab 4: Indonesian Environmental Figures",
+                "Bab 5: Personal Money Management"
+              ]},
+              { kode: "fisika", nama: "Fisika", bab: [
+                "Bab 1: Vektor",
+                "Bab 2: Kinematika",
+                "Bab 3: Dinamika Gerak Partikel",
+                "Bab 4: Fluida",
+                "Bab 5: Gelombang, Bunyi, dan Cahaya",
+                "Bab 6: Kalor",
+                "Bab 7: Termodinamika"
+              ]},
+              { kode: "kimia", nama: "Kimia", bab: [
+                "Bab 1: Struktur Atom dan Sistem Periodik Unsur",
+                "Bab 2: Ikatan Kimia",
+                "Bab 3: Stoikiometri",
+                "Bab 4: Hidrokarbon",
+                "Bab 5: Termokimia",
+                "Bab 6: Laju Reaksi",
+                "Bab 7: Kesetimbangan Kimia"
+              ]},
+              { kode: "biologi", nama: "Biologi", bab: [
+                "Bab 1: Menjelajah Sel",
+                "Bab 2: Pergerakan Zat melalui Membran Sel",
+                "Bab 3: Proses Pengaturan pada Tumbuhan",
+                "Bab 4: Transpor dan Pertukaran Zat pada Manusia",
+                "Bab 5: Sistem Pertahanan Tubuh terhadap Penyakit",
+                "Bab 6: Mobilitas pada Manusia",
+                "Bab 7: Hormon dalam Reproduksi Manusia",
+                "Bab 8: Tumbuh Kembang Makhluk Hidup"
+              ]},
+              { kode: "ekonomi", nama: "Ekonomi", bab: [
+                "Bab 1: Badan Usaha dalam Perekonomian",
+                "Bab 2: Pendapatan Nasional dan Kesenjangan Ekonomi",
+                "Bab 3: Ketenagakerjaan",
+                "Bab 4: Teori Uang, Indeks Harga, dan Inflasi",
+                "Bab 5: Kebijakan Moneter dan Kebijakan Fiskal"
+              ]},
+              { kode: "informatika", nama: "Informatika & KKA", bab: [
+                "Bab 1: Tentang Informatika dan Kecerdasan Artifisial",
+                "Bab 2: Strategi Algoritmik dan Pemrograman",
+                "Bab 3: Berpikir Kritis dan Dampak Sosial Informatika",
+                "Bab 4: Jaringan Komputer dan Internet",
+                "Bab 5: Pengembangan Aplikasi Mobile dan Kecerdasan Artifisial"
+              ]}
+            ]
+          },
+          12: {
+            label: "Kelas 12",
+            mapel: [
+              { kode: "mtk", nama: "Matematika", bab: [
+                "Bab 1: Transformasi Fungsi",
+                "Bab 2: Busur dan Juring Lingkaran",
+                "Bab 3: Kombinatorika"
+              ]},
+              { kode: "bind", nama: "Bahasa Indonesia", bab: [
+                "Bab 1: Mengkritisi Informasi dari Berbagai Sumber",
+                "Bab 2: Menimbang dan Mempresentasikan Ide Kewirausahaan",
+                "Bab 3: Memahami dan Mendiskusikan Fenomena Kecerdasan Buatan",
+                "Bab 4: Menyampaikan Opini tentang Perundungan",
+                "Bab 5: Mengungkapkan Kekaguman dalam Narasi Kearifan Lokal",
+                "Bab 6: Menulis Praktik Baik dan Cerita tentang Lingkungan"
+              ]},
+              { kode: "bing", nama: "Bahasa Inggris", bab: [
+                "Bab 1: Narrative Text: The Story of a Friendly Future",
+                "Bab 2: Argumentative Text: E-Money",
+                "Bab 3: Hortatory Exposition: Netiquette",
+                "Bab 4: Discussion Text: Carbon Footprint"
+              ]},
+              { kode: "fisika", nama: "Fisika", bab: [
+                "Bab 1: Listrik Statis",
+                "Bab 2: Listrik Arus Searah",
+                "Bab 3: Kemagnetan",
+                "Bab 4: Arus Bolak-Balik",
+                "Bab 5: Gelombang Elektromagnetik",
+                "Bab 6: Pengantar Instrumentasi Digital",
+                "Bab 7: Relativitas",
+                "Bab 8: Gejala Kuantum dan Fisika Inti"
+              ]},
+              { kode: "kimia", nama: "Kimia", bab: [
+                "Bab 1: Larutan dan Koloid",
+                "Bab 2: Elektrokimia",
+                "Bab 3: Gugus Fungsi dalam Senyawa Karbon",
+                "Bab 4: Makromolekul Organik"
+              ]},
+              { kode: "biologi", nama: "Biologi", bab: [
+                "Bab 1: Enzim dan Metabolisme",
+                "Bab 2: Genetik dan Pewarisan Sifat",
+                "Bab 3: Evolusi",
+                "Bab 4: Inovasi Bioteknologi"
+              ]},
+              { kode: "ekonomi", nama: "Ekonomi", bab: [
+                "Bab 1: Pertumbuhan dan Pembangunan Ekonomi",
+                "Bab 2: Ekonomi Internasional",
+                "Bab 3: Anggaran Pendapatan dan Belanja Negara/Daerah (APBN/APBD)",
+                "Bab 4: Akuntansi Perusahaan Jasa dan Dagang"
+              ]},
+              { kode: "informatika", nama: "Informatika & KKA", bab: [
+                "Bab 1: Informatika Sekarang dan Masa Depan",
+                "Bab 2: Sistem Komputer dan Arsitektur AI",
+                "Bab 3: Berpikir Komputasional dan Algoritma Lanjut",
+                "Bab 4: Jaringan Komputer, Keamanan Siber dan Internet",
+                "Bab 5: Dampak Sosial Informatika & Etika AI Global"
+              ]}
+            ]
+          }
+        }
       }
     };
 
-    const daftarBabKurikulum = {
-      sd: {
-        "mtk": ["Bab 1: Bilangan Cacah & Operasi Hitung", "Bab 2: Pecahan, Pengukuran & Waktu", "Bab 3: Bangun Datar, Ruang & Penyajian Data"],
-        "bind": ["Bab 1: Menyimak, Membaca & Kosakata", "Bab 2: Kalimat Efektif & Ejaan (EYD V)", "Bab 3: Teks Narasi, Deskripsi & Informasi"],
-        "ipas": ["Bab 1: Makhluk Hidup & Ekosistem Sekitar", "Bab 2: Wujud Zat, Energi & Perubahannya", "Bab 3: Kenampakan Alam & Keragaman Budaya"],
-        "pancasila": ["Bab 1: Simbol & Nilai Sila Pancasila", "Bab 2: Aturan, Hak & Kewajiban Anak", "Bab 3: Persatuan dalam Keberagaman"],
-        "bing": ["Bab 1: Greetings, Numbers & Colors", "Bab 2: Family, School & Daily Activities", "Bab 3: Simple Sentences & Short Stories"],
-        "kka": ["Bab 1: Berpikir Komputasional & Pola Logika", "Bab 2: Urutan Instruksi & Algoritma Dasar", "Bab 3: Mengenal Kecerdasan Artifisial & Etika"]
-      },
-      smp: {
-        "mtk": ["Bab 1: Bilangan Bulat, Rasional & Aljabar", "Bab 2: Persamaan Linear, Fungsi & Perbandingan", "Bab 3: Geometri, Pythagoras, Statistika & Peluang"],
-        "bind": ["Bab 1: Teks Deskripsi, Narasi & Prosedur", "Bab 2: Teks Berita, Eksposisi & Persuasi", "Bab 3: Teks Tanggapan, Diskusi & Karya Sastra"],
-        "bing": ["Bab 1: Self-Introduction & Descriptive Text", "Bab 2: Recount, Narrative & Procedure Text", "Bab 3: Report Text, Tenses & Functional Grammar"],
-        "ipa": ["Bab 1: Pengukuran, Zat & Perubahannya", "Bab 2: Sistem Organisasi Kehidupan & Ekosistem", "Bab 3: Gaya, Gerak, Energi, Getaran & Listrik"],
-        "ips": ["Bab 1: Kondisi Geografis & Interaksi Sosial", "Bab 2: Sejarah Peradaban & Perubahan Sosial", "Bab 3: Kegiatan Ekonomi, Pasar & Pembangunan"],
-        "pancasila": ["Bab 1: Sejarah Kelahiran & Kedudukan Pancasila", "Bab 2: Norma, UUD NRI 1945 & Tata Perundangan", "Bab 3: Bhinneka Tunggal Ika & Keutuhan NKRI"],
-        "informatika": ["Bab 1: Berpikir Komputasional & Algoritma", "Bab 2: Sistem Komputer, Jaringan & Analisis Data", "Bab 3: Pemrograman & Kecerdasan Artifisial (KKA)"]
-      },
-      sma: {
-        "mtk": ["Bab 1: Eksponen, Logaritma & Sistem Persamaan", "Bab 2: Fungsi, Trigonometri & Matriks", "Bab 3: Kalkulus Dasar, Kombinatorika & Statistika"],
-        "bind": ["Bab 1: Teks Laporan Hasil Observasi & Eksposisi", "Bab 2: Teks Negosiasi, Debat & Karya Ilmiah", "Bab 3: Resensi, Editorial & Apresiasi Sastra"],
-        "bing": ["Bab 1: Analytical & Hortatory Exposition", "Bab 2: Narrative, Explanation & Discussion Text", "Bab 3: Complex Grammar, Clauses & Academic Reading"],
-        "fisika": ["Bab 1: Pengukuran, Vektor & Kinematika Gerak", "Bab 2: Dinamika Newton, Usaha, Energi & Momentum", "Bab 3: Fluida, Termodinamika, Gelombang & Listrik"],
-        "kimia": ["Bab 1: Struktur Atom, Sistem Periodik & Ikatan Kimia", "Bab 2: Hukum Dasar Kimia, Stoikiometri & Larutan", "Bab 3: Termokimia, Laju Reaksi, Kesetimbangan & Redoks"],
-        "biologi": ["Bab 1: Keanekaragaman Hayati, Virus & Ekosistem", "Bab 2: Struktur Sel, Jaringan & Sistem Organ Manusia", "Bab 3: Metabolisme Enzim, Genetika & Evolusi"],
-        "ekonomi": ["Bab 1: Konsep Ilmu Ekonomi, Kelangkaan & Pasar", "Bab 2: Pendapatan Nasional, Inflasi & Kebijakan Moneter", "Bab 3: Perdagangan Internasional & Akuntansi Dasar"],
-        "informatika": ["Bab 1: Algoritma Lanjut & Struktur Data", "Bab 2: Jaringan Komputer, Keamanan Siber & Basis Data", "Bab 3: Kecerdasan Artifisial (AI) & Machine Learning"]
-      }
-    };
-
-    const daftarKutipanMotivasi = [
+          const daftarKutipanMotivasi = [
       { teks: "Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru.", tokoh: "Motivasi Belajar" },
       { teks: "Setiap soal yang kamu kerjakan hari ini adalah langkah nyata menuju masa depan gemilang.", tokoh: "Semangat Juara" },
       { teks: "Kesuksesan tidak datang dari apa yang kamu lakukan sesekali, tetapi dari apa yang kamu latih setiap hari.", tokoh: "Konsistensi Belajar" },
       { teks: "Percaya pada kemampuan dirimu sendiri—kamu jauh lebih hebat dari yang kamu bayangkan!", tokoh: "Inspirasi Siswa" }
     ];
 
-          const dataTesKhusus = {
+    const dataTesKhusus = {
       tka: {
         judul: "Tes Kemampuan Akademik (TKA)",
         subjudul: "Pilih bidang kemampuan untuk memulai latihan 5 sesi",
@@ -211,28 +804,6 @@
       { nomor: 5, nama: "Sesi 5", ket: "Paket 5 • 20 Soal Pilihan Ganda (Acak)" }
     ];
 
-    const soalContohPerMapel = {
-      "mtk": { q: "Hasil operasi hitung dari 15 + 25 x 2 adalah ...", p: ["80", "65", "55", "40"], b: 1, bahas: "Perkalian didahulukan: 25 x 2 = 50, lalu 15 + 50 = 65." },
-      "bind": { q: "Inti pembicaraan utama dalam sebuah paragraf disebut ...", p: ["Gagasan pokok", "Kalimat penjelas", "Kata penghubung", "Judul bacaan"], b: 0, bahas: "Gagasan pokok merupakan ide utama yang mendasari paragraf." },
-      "bing": { q: "She ... to school by bicycle every morning.", p: ["go", "goes", "going", "went"], b: 1, bahas: "Subjek orang ketiga tunggal (She) pada Simple Present memakai akhiran -es (goes)." },
-      "ipas": { q: "Proses tumbuhan membuat makanan sendiri dengan bantuan cahaya matahari disebut ...", p: ["Respirasi", "Fotosintesis", "Adaptasi", "Transpirasi"], b: 1, bahas: "Fotosintesis berlangsung di daun yang memiliki klorofil." },
-      "ipa": { q: "Satuan Internasional (SI) untuk besaran suhu adalah ...", p: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], b: 2, bahas: "Kelvin (K) merupakan satuan standar SI untuk suhu." },
-      "ips": { q: "Kebutuhan manusia tidak terbatas sedangkan alat pemuas terbatas disebut ...", p: ["Kelangkaan", "Inflasi", "Distribusi", "Konsumsi"], b: 0, bahas: "Kelangkaan adalah inti permasalahan dalam ilmu ekonomi." },
-      "pancasila": { q: "Lambang sila keempat Pancasila adalah ...", p: ["Bintang", "Rantai emas", "Pohon beringin", "Kepala banteng"], b: 3, bahas: "Kepala banteng melambangkan semangat musyawarah mufakat." },
-      "kka": { q: "Urutan langkah logis dan sistematis untuk menyelesaikan masalah disebut ...", p: ["Algoritma", "Perangkat keras", "Peramban", "Basis data"], b: 0, bahas: "Algoritma adalah instruksi berurutan untuk memecahkan persoalan." },
-      "informatika": { q: "Teknik memecah masalah besar menjadi bagian kecil yang mudah dikelola disebut ...", p: ["Dekomposisi", "Abstraksi", "Enkripsi", "Kompilasi"], b: 0, bahas: "Dekomposisi adalah pilar utama berpikir komputasional." },
-      "fisika": { q: "Besaran berikut yang termasuk kelompok besaran pokok adalah ...", p: ["Kecepatan dan gaya", "Panjang, massa, dan waktu", "Luas dan volume", "Usaha dan daya"], b: 1, bahas: "Panjang, massa, dan waktu termasuk 7 besaran pokok SI." },
-      "kimia": { q: "Rumus kimia untuk molekul air murni adalah ...", p: ["CO2", "H2O", "O2", "NaCl"], b: 1, bahas: "Air tersusun atas 2 atom Hidrogen dan 1 atom Oksigen." },
-      "biologi": { q: "Organel sel yang berfungsi sebagai pusat pengendali seluruh aktivitas sel adalah ...", p: ["Nukleus (Inti sel)", "Dinding sel", "Vakuola", "Sitoplasma"], b: 0, bahas: "Nukleus mengatur metabolisme dan menyimpan materi genetik." },
-      "ekonomi": { q: "Hukum permintaan menyatakan jika harga barang naik, maka jumlah permintaan akan ...", p: ["Naik", "Turun", "Tetap", "Berlipat ganda"], b: 1, bahas: "Harga dan jumlah barang yang diminta berbanding terbalik." },
-      "literasi": { q: "Simpulan yang paling tepat dari sebuah teks bacaan harus memuat ...", p: ["Seluruh kalimat penjelas", "Gagasan utama yang mewakili keseluruhan isi teks", "Pendapat pribadi pembaca", "Judul bacaan saja"], b: 1, bahas: "Simpulan merangkum gagasan utama seluruh bacaan secara ringkas dan tepat." },
-      "numerasi": { q: "Jika harga 3 buku adalah Rp18.000, maka harga 5 buku yang sama adalah ...", p: ["Rp25.000", "Rp30.000", "Rp32.000", "Rp36.000"], b: 1, bahas: "Harga 1 buku = 18.000 : 3 = Rp6.000. Harga 5 buku = 5 x 6.000 = Rp30.000." },
-      "twk": { q: "Kedudukan Pancasila sebagai sumber dari segala sumber hukum negara tercantum dalam ...", p: ["TAP MPRS No. XX/MPRS/1966", "Pasal 1 UUD 1945", "Sumpah Pemuda 1928", "Piagam Jakarta"], b: 0, bahas: "TAP MPRS No. XX/MPRS/1966 menegaskan Pancasila sebagai sumber dari segala sumber hukum." },
-      "tiu": { q: "Semua dokter memakai jas putih. Sebagian peserta seminar adalah dokter. Simpulan yang tepat adalah ...", p: ["Semua peserta seminar memakai jas putih", "Sebagian peserta seminar memakai jas putih", "Tidak ada peserta seminar yang memakai jas putih", "Semua yang memakai jas putih adalah peserta seminar"], b: 1, bahas: "Karena sebagian peserta seminar adalah dokter dan semua dokter berjas putih, maka sebagian peserta seminar memakai jas putih." },
-      "tkp": { q: "Saat rekan kerja kesulitan menyelesaikan tugas mendekati tenggat waktu, sikap Anda adalah ...", p: ["Membiarkannya karena bukan tugas saya", "Membantu semampunya setelah pekerjaan utama saya selesai", "Melaporkannya ke atasan langsung", "Mengambil alih seluruh pekerjaannya tanpa izin"], b: 1, bahas: "Menunjukkan kepedulian dan kolaborasi tim tanpa mengabaikan tanggung jawab utama." },
-      "cat": { q: "Bhinneka Tunggal Ika pertama kali ditulis oleh Mpu Tantular dalam kitab ...", p: ["Negarakertagama", "Sutasoma", "Arjunawiwaha", "Bharatayuddha"], b: 1, bahas: "Semboyan Bhinneka Tunggal Ika berasal dari Kitab Sutasoma karangan Mpu Tantular." }
-    };
-
     function acakArray(arr) {
       const hasil = [...arr];
       for (let i = hasil.length - 1; i > 0; i--) {
@@ -263,7 +834,7 @@
       });
     }
 
-          function buatNamaFileSoalSekolah(nomorKelas, kodeMapel, nomorBab, nomorSesi) {
+    function buatNamaFileSoalSekolah(nomorKelas, kodeMapel, nomorBab, nomorSesi) {
       return `kls${nomorKelas}_${kodeMapel}_bab${nomorBab}_sesi${nomorSesi}.js`;
     }
 
@@ -271,7 +842,7 @@
       return `${jenisTes}_${kodeKategori}_sesi${nomorSesi}.js`;
     }
 
-    function muatFileSoalDariNama(namaFile, kodeFallback) {
+    function muatFileSoalDariNama(namaFile) {
       return new Promise((resolve) => {
         window.BANK_SOAL_AKTIF = [];
         const pathFile = `./soal/${namaFile}`;
@@ -284,25 +855,13 @@
         s.src = `${pathFile}?v=${Date.now()}`;
         s.onload = () => {
           const daftar = Array.isArray(window.BANK_SOAL_AKTIF) ? window.BANK_SOAL_AKTIF : [];
-          if (daftar.length > 0) {
-            resolve({ tersedia: true, namaFile, soal: daftar });
-          } else {
-            resolve({ tersedia: false, namaFile, soal: buatFallback20Soal(kodeFallback, namaFile) });
-          }
+          resolve({ tersedia: daftar.length > 0, namaFile, soal: daftar });
         };
         s.onerror = () => {
-          resolve({ tersedia: false, namaFile, soal: buatFallback20Soal(kodeFallback, namaFile) });
+          resolve({ tersedia: false, namaFile, soal: [] });
         };
         document.body.appendChild(s);
       });
-    }
-
-    function buatFallback20Soal(kodeMapel, namaFile) {
-      const dasar = soalContohPerMapel[kodeMapel] || soalContohPerMapel["mtk"];
-      return Array.from({ length: 20 }, (_, i) => ({
-        ...dasar,
-        q: `[Simulasi Soal ${i + 1} • Upload soal/${namaFile}] ${dasar.q}`
-      }));
     }
 
     let timer, timerMotivasi, idxMotivasi = 0;
@@ -332,7 +891,7 @@
       alert("✅ Password / PIN Admin berhasil diperbarui!");
     }
 
-    function jalankanAnimasiMotivasi() {
+          function jalankanAnimasiMotivasi() {
       clearInterval(timerMotivasi);
       timerMotivasi = setInterval(() => {
         const elTeks = document.getElementById("teks-motivasi");
@@ -345,8 +904,8 @@
           elTeks.innerText = `"${daftarKutipanMotivasi[idxMotivasi].teks}"`;
           elTokoh.innerText = `✨ ${daftarKutipanMotivasi[idxMotivasi].tokoh}`;
           elTeks.style.opacity = "1";
-        }, 350);
-      }, 4500);
+        }, 700);
+      }, 9000);
     }
 
     function bukaMenu(menu) {
@@ -361,7 +920,7 @@
         app().innerHTML = `
           <div class="hero-photo-card">
             <div class="hero-photo-wrap">
-              <img src="https://unsplash.com" alt="Belajar RIM CBT">
+              <img src="./banner.jpg" onerror="this.onerror=null; this.src='https://unsplash.com';" alt="">
             </div>
             <h2>Selamat Datang di RIM CBT</h2>
             <p>Gunakan menu di bagian bawah untuk memilih jenjang atau simulasi ujian.</p>
@@ -371,7 +930,7 @@
             <small id="tokoh-motivasi">✨ ${awalMot.tokoh}</small>
           </div>`;
         jalankanAnimasiMotivasi();
-      } else if (dataPendidikan[menu]) {
+      } else if (kurikulumSekolah[menu]) {
         pilihKelas(menu);
       } else if (dataTesKhusus[menu]) {
         pilihKategoriTesKhusus(menu);
@@ -401,57 +960,64 @@
     }
 
     function pilihKelas(jenjang) {
-      const d = dataPendidikan[jenjang];
+      const d = kurikulumSekolah[jenjang];
       title().innerText = d.judul;
       sesi.tipe = "sekolah";
       sesi.jenjang = jenjang;
+      const daftarNomorKelas = Object.keys(d.kelas);
+
       app().innerHTML = `
         <div class="form-box">
           <h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3>
           <p style="font-size:0.84rem; color:#64748b;">${d.judul} • Kurikulum 2026/2027</p>
         </div>
         <div class="list-menu">` +
-        d.kelas.map(k => `
-          <div class="list-item" onclick="pilihMapel('${jenjang}', ${k.nomor}, '${k.label}')">
-            <span>📚 ${k.label}</span>
-            <span>➔</span>
-          </div>`).join("") + `</div>`;
+        daftarNomorKelas.map(no => {
+          const k = d.kelas[no];
+          return `
+            <div class="list-item" onclick="pilihMapel('${jenjang}', ${no})">
+              <span>📚 ${k.label}</span>
+              <span>➔</span>
+            </div>`;
+        }).join("") + `</div>`;
     }
 
-    function pilihMapel(jenjang, nomorKelas, labelKelas) {
+    function pilihMapel(jenjang, nomorKelas) {
+      const dKelas = kurikulumSekolah[jenjang].kelas[nomorKelas];
       sesi.jenjang = jenjang;
       sesi.nomorKelas = nomorKelas;
-      sesi.labelKelas = labelKelas;
-      title().innerText = `${labelKelas} • Pilih Mapel`;
+      sesi.labelKelas = dKelas.label;
+      title().innerText = `${dKelas.label} • Pilih Mapel`;
+
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali ke Daftar Kelas</button>
-          <h3 style="font-size:1.05rem;">Mata Pelajaran (${labelKelas})</h3>
+          <h3 style="font-size:1.05rem;">Mata Pelajaran (${dKelas.label})</h3>
           <p style="font-size:0.84rem; color:#64748b;">Kurikulum 2026/2027 • Pilih mapel untuk melihat Bab Materi</p>
         </div>
         <div class="list-menu">` +
-        dataPendidikan[jenjang].mapel.map(m => `
-          <div class="list-item" onclick="pilihBab('${m.kode}', '${esc(m.nama)}')">
+        dKelas.mapel.map(m => `
+          <div class="list-item" onclick="pilihBab('${m.kode}')">
             <span>📖 ${esc(m.nama)}</span>
             <span>➔</span>
           </div>`).join("") + `</div>`;
     }
 
-    function pilihBab(kodeMapel, namaMapel) {
+    function pilihBab(kodeMapel) {
+      const dKelas = kurikulumSekolah[sesi.jenjang].kelas[sesi.nomorKelas];
+      const dMapel = dKelas.mapel.find(m => m.kode === kodeMapel);
       sesi.kodeMapel = kodeMapel;
-      sesi.namaMapel = namaMapel;
-      title().innerText = `${sesi.labelKelas} • ${namaMapel}`;
-      const babJenjang = daftarBabKurikulum[sesi.jenjang] || {};
-      const listBab = babJenjang[kodeMapel] || ["Bab 1: Materi Pokok 1", "Bab 2: Materi Pokok 2", "Bab 3: Materi Pokok 3"];
+      sesi.namaMapel = dMapel.nama;
+      title().innerText = `${sesi.labelKelas} • ${dMapel.nama}`;
 
       app().innerHTML = `
         <div class="form-box">
-          <button class="btn-back" onclick="pilihMapel('${sesi.jenjang}', ${sesi.nomorKelas}, '${sesi.labelKelas}')">⬅ Kembali ke Daftar Mapel</button>
-          <h3 style="font-size:1.05rem;">Pilih Bab Materi</h3>
-          <p style="font-size:0.84rem; color:#64748b;">${sesi.labelKelas} • <b>${esc(namaMapel)}</b></p>
+          <button class="btn-back" onclick="pilihMapel('${sesi.jenjang}', ${sesi.nomorKelas})">⬅ Kembali ke Daftar Mapel</button>
+          <h3 style="font-size:1.05rem;">Pilih Bab Materi (${dMapel.bab.length} Bab)</h3>
+          <p style="font-size:0.84rem; color:#64748b;">${sesi.labelKelas} • <b>${esc(dMapel.nama)}</b></p>
         </div>
         <div class="list-menu">` +
-        listBab.map((judulBab, idx) => {
+        dMapel.bab.map((judulBab, idx) => {
           const nomorBab = idx + 1;
           return `
             <div class="list-item" onclick="pilihSesiSekolah(${nomorBab}, '${esc(judulBab)}')">
@@ -467,7 +1033,7 @@
       title().innerText = `Bab ${nomorBab} • ${sesi.namaMapel}`;
       app().innerHTML = `
         <div class="form-box">
-          <button class="btn-back" onclick="pilihBab('${sesi.kodeMapel}', '${esc(sesi.namaMapel)}')">⬅ Kembali ke Daftar Bab</button>
+          <button class="btn-back" onclick="pilihBab('${sesi.kodeMapel}')">⬅ Kembali ke Daftar Bab</button>
           <h3 style="font-size:1.05rem;">Pilih Sesi Ujian</h3>
           <p style="font-size:0.84rem; color:#64748b;">${sesi.labelKelas} • ${esc(sesi.namaMapel)}<br><b>${esc(namaBab)}</b></p>
         </div>
@@ -491,14 +1057,15 @@
       sesi.namaSesi = namaSesi;
       const namaFile = buatNamaFileSoalSekolah(sesi.nomorKelas, sesi.kodeMapel, sesi.nomorBab, nomorSesi);
 
-      app().innerHTML = `<div class="form-box" style="text-align:center; padding:30px;">⏳ Memuat soal <b>${sesi.labelKelas} • ${esc(sesi.namaMapel)} (${namaSesi})</b>...</div>`;
-      const hasil = await muatFileSoalDariNama(namaFile, sesi.kodeMapel);
+      app().innerHTML = `<div class="form-box" style="text-align:center; padding:30px;">⏳ Memeriksa ketersediaan soal <b>${sesi.labelKelas} • ${esc(sesi.namaMapel)} (${namaSesi})</b>...</div>`;
+      const hasil = await muatFileSoalDariNama(namaFile);
       sesi.namaFile = hasil.namaFile;
       bankSoalMentah = hasil.soal;
 
       tampilkanFormNama(
         `pilihSesiSekolah(${sesi.nomorBab}, '${esc(sesi.namaBab)}')`,
-        `${sesi.labelKelas} • ${esc(sesi.namaMapel)} • Bab ${sesi.nomorBab} (${namaSesi})`
+        `${sesi.labelKelas} • ${esc(sesi.namaMapel)} • Bab ${sesi.nomorBab} (${namaSesi})`,
+        hasil.tersedia
       );
     }
 
@@ -554,18 +1121,36 @@
       sesi.namaSesi = namaSesi;
       const namaFile = buatNamaFileSoalKhusus(jenisTes, sesi.kodeMapel, nomorSesi);
 
-      app().innerHTML = `<div class="form-box" style="text-align:center; padding:30px;">⏳ Memuat soal <b>${esc(sesi.namaMapel)} (${namaSesi})</b>...</div>`;
-      const hasil = await muatFileSoalDariNama(namaFile, sesi.kodeMapel);
+      app().innerHTML = `<div class="form-box" style="text-align:center; padding:30px;">⏳ Memeriksa ketersediaan soal <b>${esc(sesi.namaMapel)} (${namaSesi})</b>...</div>`;
+      const hasil = await muatFileSoalDariNama(namaFile);
       sesi.namaFile = hasil.namaFile;
       bankSoalMentah = hasil.soal;
 
       tampilkanFormNama(
         `pilihSesiTesKhusus('${jenisTes}', '${sesi.kodeMapel}', '${esc(sesi.namaMapel)}')`,
-        `${jenisTes.toUpperCase()} • ${esc(sesi.namaMapel)} (${namaSesi})`
+        `${jenisTes.toUpperCase()} • ${esc(sesi.namaMapel)} (${namaSesi})`,
+        hasil.tersedia
       );
     }
 
-    function tampilkanFormNama(aksiKembali, keteranganUjian) {
+    function tampilkanFormNama(aksiKembali, keteranganUjian, soalTersedia) {
+      if (!soalTersedia || bankSoalMentah.length === 0) {
+        app().innerHTML = `
+          <div class="form-box">
+            <button class="btn-back" onclick="${aksiKembali}">⬅ Kembali</button>
+            <h3 style="font-size:1.08rem; margin-bottom:4px;">${keteranganUjian}</h3>
+            <div class="alert-kosong">
+              <div style="font-size:2rem; margin-bottom:6px;">🔒</div>
+              <b style="font-size:1rem;">Soal belum diunggah</b>
+              <p style="font-size:0.83rem; margin-top:6px; line-height:1.45;">
+                Bank soal untuk sesi ini (<code>soal/${sesi.namaFile}</code>) belum tersedia di server GitHub. Silakan hubungi Admin/Guru atau pilih sesi lain yang sudah terisi.
+              </p>
+            </div>
+            <button type="button" class="btn-disabled" disabled>🔒 Mulai Ujian Terkunci</button>
+          </div>`;
+        return;
+      }
+
       const jumlahTampil = Math.min(bankSoalMentah.length, 20);
       app().innerHTML = `
         <div class="form-box">
@@ -767,9 +1352,10 @@
       const kat = document.getElementById("adm-kategori").value;
       const blokBab = document.getElementById("blok-adm-bab");
 
-      if (dataPendidikan[kat]) {
-        document.getElementById("adm-kelas").innerHTML = dataPendidikan[kat].kelas.map(k => `<option value="${k.nomor}">${k.label}</option>`).join("");
-        document.getElementById("adm-mapel").innerHTML = dataPendidikan[kat].mapel.map(m => `<option value="${m.kode}">${m.nama}</option>`).join("");
+      if (kurikulumSekolah[kat]) {
+        const daftarNo = Object.keys(kurikulumSekolah[kat].kelas);
+        document.getElementById("adm-kelas").innerHTML = daftarNo.map(no => `<option value="${no}">${kurikulumSekolah[kat].kelas[no].label}</option>`).join("");
+        updateMapelAdmin();
         document.getElementById("adm-sesi").innerHTML = `<option value="1">Sesi 1</option><option value="2">Sesi 2</option><option value="3">Sesi 3</option>`;
         blokBab.style.display = "block";
       } else {
@@ -778,7 +1364,28 @@
         document.getElementById("adm-mapel").innerHTML = dKhusus.kategori.map(m => `<option value="${m.kode}">${m.nama}</option>`).join("");
         document.getElementById("adm-sesi").innerHTML = `<option value="1">Sesi 1</option><option value="2">Sesi 2</option><option value="3">Sesi 3</option><option value="4">Sesi 4</option><option value="5">Sesi 5</option>`;
         blokBab.style.display = "none";
+        updateInfoNamaFileAdmin();
       }
+    }
+
+    function updateMapelAdmin() {
+      const kat = document.getElementById("adm-kategori").value;
+      if (!kurikulumSekolah[kat]) return updateInfoNamaFileAdmin();
+
+      const noKelas = document.getElementById("adm-kelas").value;
+      const dKelas = kurikulumSekolah[kat].kelas[noKelas];
+      document.getElementById("adm-mapel").innerHTML = dKelas.mapel.map(m => `<option value="${m.kode}">${m.nama}</option>`).join("");
+      updateBabAdmin();
+    }
+
+    function updateBabAdmin() {
+      const kat = document.getElementById("adm-kategori").value;
+      if (!kurikulumSekolah[kat]) return updateInfoNamaFileAdmin();
+
+      const noKelas = document.getElementById("adm-kelas").value;
+      const kodeMapel = document.getElementById("adm-mapel").value;
+      const dMapel = kurikulumSekolah[kat].kelas[noKelas].mapel.find(m => m.kode === kodeMapel);
+      document.getElementById("adm-bab").innerHTML = dMapel.bab.map((judul, i) => `<option value="${i + 1}">${judul}</option>`).join("");
       updateInfoNamaFileAdmin();
     }
 
@@ -791,7 +1398,7 @@
       const infoEl = document.getElementById("adm-nama-file");
       if (!infoEl) return;
 
-      const namaFile = dataPendidikan[kat]
+      const namaFile = kurikulumSekolah[kat]
         ? buatNamaFileSoalSekolah(k, m, b, s)
         : buatNamaFileSoalKhusus(kat, m, s);
       infoEl.innerText = `soal/${namaFile}`;
@@ -802,7 +1409,7 @@
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
           <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Generator File Soal (.js) ➔ GitHub</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Buat isi file soal untuk SD, SMP, SMA, TKA, atau CPNS. Simpan di folder <b>soal/</b> pada repositori GitHub Anda.</p>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Buat isi file soal sesuai kelas, mapel, dan bab Kurikulum 2026/2027. Simpan di folder <b>soal/</b> pada GitHub Anda.</p>
 
           <label>Kategori Ujian</label>
           <select id="adm-kategori" onchange="updateDropdownAdmin()">
@@ -814,18 +1421,14 @@
           </select>
 
           <label>Tingkat / Program</label>
-          <select id="adm-kelas" onchange="updateInfoNamaFileAdmin()"></select>
+          <select id="adm-kelas" onchange="updateMapelAdmin()"></select>
 
           <label>Mata Pelajaran / Subtes</label>
-          <select id="adm-mapel" onchange="updateInfoNamaFileAdmin()"></select>
+          <select id="adm-mapel" onchange="updateBabAdmin()"></select>
 
           <div id="blok-adm-bab">
-            <label>Bab Materi</label>
-            <select id="adm-bab" onchange="updateInfoNamaFileAdmin()">
-              <option value="1">Bab 1</option>
-              <option value="2">Bab 2</option>
-              <option value="3">Bab 3</option>
-            </select>
+            <label>Bab Materi (Sesuai Kurikulum 2026/2027)</label>
+            <select id="adm-bab" onchange="updateInfoNamaFileAdmin()"></select>
           </div>
 
           <label>Sesi Ujian</label>
@@ -835,8 +1438,8 @@
             📁 Target Nama File di GitHub: <b id="adm-nama-file">soal/kls1_mtk_bab1_sesi1.js</b>
           </div>
 
-          <label>Topik Materi</label>
-          <input type="text" id="ai-topik" placeholder="Contoh: Pecahan, Penalaran Numerik, Pilar Kebangsaan, dll.">
+          <label>Topik Materi Spesifik (Opsional)</label>
+          <input type="text" id="ai-topik" placeholder="Kosongkan untuk otomatis memakai judul Bab di atas">
 
           <label>Mode Gambar Soal & Jawaban</label>
           <select id="ai-mode-gambar">
@@ -864,16 +1467,18 @@
       updateDropdownAdmin();
     }
 
-    function salinPerintahAI() {
+          function salinPerintahAI() {
       const kat = document.getElementById("adm-kategori").value;
       const selKelas = document.getElementById("adm-kelas");
       const selMapel = document.getElementById("adm-mapel");
+      const selBab = document.getElementById("adm-bab");
       const kLabel = selKelas.options[selKelas.selectedIndex].text;
       const mLabel = selMapel.options[selMapel.selectedIndex].text;
-      const b = document.getElementById("adm-bab").value;
+      const babLabel = selBab && selBab.options[selBab.selectedIndex] ? selBab.options[selBab.selectedIndex].text : "";
       const s = document.getElementById("adm-sesi").value;
-      const konteks = dataPendidikan[kat] ? `${kLabel} Bab ${b} Sesi ${s}` : `${kLabel} Sesi ${s}`;
-      const topik = document.getElementById("ai-topik").value.trim() || `${mLabel} (${konteks})`;
+
+      const konteks = kurikulumSekolah[kat] ? `${kLabel} (${babLabel}) Sesi ${s}` : `${kLabel} Sesi ${s}`;
+      const topik = document.getElementById("ai-topik").value.trim() || `${mLabel} - ${konteks}`;
       const jml = document.getElementById("ai-jumlah").value;
       const modeGbr = document.getElementById("ai-mode-gambar").value;
 
@@ -884,7 +1489,7 @@
         instruksiGambar = `[{"q":"Pertanyaan soal?","svg":"<svg width='220' height='120' viewBox='0 0 220 120' xmlns='http://w3.org'>...</svg>","p":["Label A","Label B","Label C","Label D"],"pSvg":["<svg width='110' height='80' viewBox='0 0 110 80' xmlns='http://w3.org'>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>"],"b":0,"bahas":"Penjelasan singkat"}]\nInstruksi SVG: Buat kode SVG vektor pada "svg" dan "pSvg" (4 kode SVG untuk masing-masing opsi A, B, C, D).`;
       }
 
-      const teks = `Buatkan ${jml} soal pilihan ganda standar Kurikulum 2026/2027 untuk ${konteks} bidang ${mLabel} topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n${instruksiGambar}\nCatatan: "b" adalah indeks jawaban benar (0=A, 1=B, 2=C, 3=D). Pastikan tanda kutip di dalam SVG memakai petik tunggal (') agar JSON valid.`;
+      const teks = `Buatkan ${jml} soal pilihan ganda standar Kurikulum Nasional 2026/2027 untuk ${konteks} mata pelajaran ${mLabel} topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n${instruksiGambar}\nCatatan: "b" adalah indeks jawaban benar (0=A, 1=B, 2=C, 3=D). Pastikan tanda kutip di dalam SVG memakai petik tunggal (') agar JSON valid.`;
       navigator.clipboard.writeText(teks).then(() => alert("✅ Perintah AI disalin! Tempel di AI, lalu tempel hasilnya di kotak nomor 2.")).catch(() => prompt("Salin perintah ini:", teks));
     }
 
@@ -894,7 +1499,7 @@
       const m = document.getElementById("adm-mapel").value;
       const b = document.getElementById("adm-bab").value;
       const s = document.getElementById("adm-sesi").value;
-      const namaFile = dataPendidikan[kat]
+      const namaFile = kurikulumSekolah[kat]
         ? buatNamaFileSoalSekolah(k, m, b, s)
         : buatNamaFileSoalKhusus(kat, m, s);
 
