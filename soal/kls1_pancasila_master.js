@@ -2,7 +2,7 @@
 // Master Bank Soal Pendidikan Pancasila Kelas 1 SD (Bab 2 - Bab 4, Sesi 2 & 3)
 window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
 
-window.BANK_SOAL_MASTER["kls1_ppkn_bab2_sesi2"] = [
+window.BANK_SOAL_MASTER["kls1_pancasila_bab2_sesi2"] = [
   {
     q: "Perhatikan kartu aturan belajar berikut! Saat belajar di rumah pada malam hari, televisi sebaiknya ...",
     svg: "<svg width='210' height='80' viewBox='0 0 210 80' xmlns='http://w3.org'><rect x='15' y='15' width='180' height='50' rx='12' fill='#2563eb'/><text x='36' y='47' font-size='20' font-weight='bold' fill='#ffffff'>WAKTU BELAJAR</text></svg>",
@@ -135,7 +135,7 @@ window.BANK_SOAL_MASTER["kls1_ppkn_bab2_sesi2"] = [
     bahas: "Tata tertib adalah aturan yang wajib dipatuhi demi ketertiban bersama."
   }
 ];
-window.BANK_SOAL_MASTER["kls1_ppkn_bab2_sesi3"] = [
+window.BANK_SOAL_MASTER["kls1_pancasila_bab2_sesi3"] = [
   {
     q: "Perhatikan kartu aturan kantin berikut! Saat membeli makanan di kantin sekolah pada jam istirahat, siswa harus ...",
     svg: "<svg width='210' height='80' viewBox='0 0 210 80' xmlns='http://w3.org'><rect x='15' y='15' width='180' height='50' rx='12' fill='#f59e0b'/><text x='42' y='47' font-size='20' font-weight='bold' fill='#ffffff'>ANTRI TERTIB</text></svg>",
@@ -268,7 +268,7 @@ window.BANK_SOAL_MASTER["kls1_ppkn_bab2_sesi3"] = [
     bahas: "Tanggung jawab adalah kesadaran diri untuk melaksanakan tugas dan kewajiban dengan sebaik-baiknya."
   }
 ];
-window.BANK_SOAL_MASTER["kls1_ppkn_bab3_sesi2"] = [
+window.BANK_SOAL_MASTER["kls1_pancasila_bab3_sesi2"] = [
   {
     q: "Perhatikan kartu keluarga berikut! Orang tua dari ayah dan ibu kita dipanggil dengan sebutan ...",
     svg: "<svg width='210' height='80' viewBox='0 0 210 80' xmlns='http://w3.org'><rect x='15' y='15' width='180' height='50' rx='12' fill='#7c3aed'/><text x='36' y='47' font-size='20' font-weight='bold' fill='#ffffff'>KAKEK & NENEK</text></svg>",
@@ -401,7 +401,7 @@ window.BANK_SOAL_MASTER["kls1_ppkn_bab3_sesi2"] = [
     bahas: "Kerukunan adalah hidup berdampingan secara damai, rukun, dan saling menyayangi."
   }
 ];
-window.BANK_SOAL_MASTER["kls1_ppkn_bab3_sesi3"] = [
+window.BANK_SOAL_MASTER["kls1_pancasila_bab3_sesi3"] = [
   {
     q: "Perhatikan kartu identitas berikut! Keterangan tempat tinggal kita yang mencakup nama jalan dan nomor rumah disebut ...",
     svg: "<svg width='210' height='80' viewBox='0 0 210 80' xmlns='http://w3.org'><rect x='15' y='15' width='180' height='50' rx='12' fill='#0284c7'/><text x='36' y='47' font-size='20' font-weight='bold' fill='#ffffff'>ALAMAT RUMAH</text></svg>",
@@ -534,7 +534,7 @@ window.BANK_SOAL_MASTER["kls1_ppkn_bab3_sesi3"] = [
     bahas: "Keberagaman suku, agama, dan budaya adalah kekayaan bangsa Indonesia yang mempersatukan kita."
   }
 ];
-window.BANK_SOAL_MASTER["kls1_ppkn_bab4_sesi2"] = [
+window.BANK_SOAL_MASTER["kls1_pancasila_bab4_sesi2"] = [
   {
     q: "Perhatikan kartu bagian rumah berikut! Bagian rumah yang digunakan untuk beristirahat dan tidur pada malam hari adalah ...",
     svg: "<svg width='210' height='80' viewBox='0 0 210 80' xmlns='http://w3.org'><rect x='15' y='15' width='180' height='50' rx='12' fill='#4f46e5'/><text x='42' y='47' font-size='20' font-weight='bold' fill='#ffffff'>KAMAR TIDUR</text></svg>",
@@ -667,7 +667,7 @@ window.BANK_SOAL_MASTER["kls1_ppkn_bab4_sesi2"] = [
     bahas: "Menjaga lingkungan sehat adalah kewajiban bersama seluruh warga."
   }
 ];
-window.BANK_SOAL_MASTER["kls1_ppkn_bab4_sesi3"] = [
+window.BANK_SOAL_MASTER["kls1_pancasila_bab4_sesi3"] = [
   {
     q: "Perhatikan kartu bagian rumah berikut! Bagian depan rumah yang biasa digunakan untuk bersantai bersama keluarga pada sore hari adalah ...",
     svg: "<svg width='210' height='80' viewBox='0 0 210 80' xmlns='http://w3.org'><rect x='15' y='15' width='180' height='50' rx='12' fill='#0284c7'/><text x='42' y='47' font-size='20' font-weight='bold' fill='#ffffff'>TERAS RUMAH</text></svg>",
