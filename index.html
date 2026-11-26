@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RIM CBT - Sistem Evaluasi Kurikulum Merdeka</title>
+  <title>RIM CBT - Sistem Evaluasi Kurikulum 2026/2027</title>
   <link href="https://googleapis.com" rel="stylesheet">
   <style>
     :root { --primary: #4f46e5; --accent: #f59e0b; --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; }
@@ -26,7 +26,7 @@
     input, select, textarea { width: 100%; padding: 11px 13px; margin: 5px 0 14px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.92rem; background: #f8fafc; }
     label { font-size: 0.82rem; font-weight: 700; color: #334155; display: block; }
     .list-menu { display: flex; flex-direction: column; gap: 10px; }
-    .list-item { background: var(--surface); padding: 14px 16px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid var(--border); font-size: 0.94rem; font-weight: 600; color: var(--text); }
+    .list-item { background: var(--surface); padding: 14px 16px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1.5px solid var(--border); font-size: 0.94rem; font-weight: 600; color: var(--text); transition: all 0.15s ease; }
     .list-item:hover { border-color: var(--primary); background: #eef2ff; }
     .timer-badge { background: #fef2f2; color: #dc2626; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 800; border: 1px solid #fecaca; }
     .nav-soal-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
@@ -47,7 +47,7 @@
 </head>
 <body>
   <header id="header-title">RIM CBT</header>
-  <div id="sync-status" class="sync-bar">🟢 Bank Soal GitHub • Siap Digunakan</div>
+  <div id="sync-status" class="sync-bar">🟢 Bank Soal GitHub • Kurikulum 2026/2027 Siap Digunakan</div>
   <main id="app-content"></main>
   <nav class="bottom-nav">
     <button type="button" class="nav-item active" data-menu="home" onclick="bukaMenu('home')"><span>🏠</span>Beranda</button>
@@ -58,87 +58,174 @@
   </nav>
 
     <script>
-    window.DATABASE_BAB = window.DATABASE_BAB || {};
-    window.DATABASE_SOAL = window.DATABASE_SOAL || {};
+    window.BANK_SOAL_AKTIF = [];
 
-    function muatFileSoalTerbaru() {
+    const dataPendidikan = {
+      sd: {
+        judul: "Sekolah Dasar (SD)",
+        kelas: [
+          { nomor: 1, label: "Kelas 1" },
+          { nomor: 2, label: "Kelas 2" },
+          { nomor: 3, label: "Kelas 3" },
+          { nomor: 4, label: "Kelas 4" },
+          { nomor: 5, label: "Kelas 5" },
+          { nomor: 6, label: "Kelas 6" }
+        ],
+        mapel: [
+          { kode: "mtk", nama: "Matematika" },
+          { kode: "bind", nama: "Bahasa Indonesia" },
+          { kode: "ipas", nama: "IPAS" },
+          { kode: "pancasila", nama: "Pendidikan Pancasila" },
+          { kode: "bing", nama: "Bahasa Inggris" },
+          { kode: "kka", nama: "Koding & Kecerdasan Artifisial" }
+        ]
+      },
+      smp: {
+        judul: "Sekolah Menengah Pertama (SMP)",
+        kelas: [
+          { nomor: 7, label: "Kelas 7" },
+          { nomor: 8, label: "Kelas 8" },
+          { nomor: 9, label: "Kelas 9" }
+        ],
+        mapel: [
+          { kode: "mtk", nama: "Matematika" },
+          { kode: "bind", nama: "Bahasa Indonesia" },
+          { kode: "bing", nama: "Bahasa Inggris" },
+          { kode: "ipa", nama: "IPA" },
+          { kode: "ips", nama: "IPS" },
+          { kode: "pancasila", nama: "Pendidikan Pancasila" },
+          { kode: "informatika", nama: "Informatika & KKA" }
+        ]
+      },
+      sma: {
+        judul: "SMA / SMK",
+        kelas: [
+          { nomor: 10, label: "Kelas 10" },
+          { nomor: 11, label: "Kelas 11" },
+          { nomor: 12, label: "Kelas 12" }
+        ],
+        mapel: [
+          { kode: "mtk", nama: "Matematika" },
+          { kode: "bind", nama: "Bahasa Indonesia" },
+          { kode: "bing", nama: "Bahasa Inggris" },
+          { kode: "fisika", nama: "Fisika" },
+          { kode: "kimia", nama: "Kimia" },
+          { kode: "biologi", nama: "Biologi" },
+          { kode: "ekonomi", nama: "Ekonomi" },
+          { kode: "informatika", nama: "Informatika & KKA" }
+        ]
+      }
+    };
+
+    const daftarSesiUjian = [
+      { nomor: 1, nama: "Sesi 1", ket: "Evaluasi Tahap 1 • 20 Soal Pilihan Ganda (Acak)" },
+      { nomor: 2, nama: "Sesi 2", ket: "Evaluasi Tahap 2 • 20 Soal Pilihan Ganda (Acak)" },
+      { nomor: 3, nama: "Sesi 3", ket: "Evaluasi Tahap 3 • 20 Soal Pilihan Ganda (Acak)" }
+    ];
+
+    const soalContohPerMapel = {
+      "mtk": { q: "Hasil operasi hitung dari 15 + 25 x 2 adalah ...", p: ["80", "65", "55", "40"], b: 1, bahas: "Perkalian didahulukan: 25 x 2 = 50, lalu 15 + 50 = 65." },
+      "bind": { q: "Inti pembicaraan utama dalam sebuah paragraf disebut ...", p: ["Gagasan pokok", "Kalimat penjelas", "Kata penghubung", "Judul bacaan"], b: 0, bahas: "Gagasan pokok merupakan ide utama yang mendasari paragraf." },
+      "bing": { q: "She ... to school by bicycle every morning.", p: ["go", "goes", "going", "went"], b: 1, bahas: "Subjek orang ketiga tunggal (She) pada Simple Present memakai akhiran -es (goes)." },
+      "ipas": { q: "Proses tumbuhan membuat makanan sendiri dengan bantuan cahaya matahari disebut ...", p: ["Respirasi", "Fotosintesis", "Adaptasi", "Transpirasi"], b: 1, bahas: "Fotosintesis berlangsung di daun yang memiliki klorofil." },
+      "ipa": { q: "Satuan Internasional (SI) untuk besaran suhu adalah ...", p: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], b: 2, bahas: "Kelvin (K) merupakan satuan standar SI untuk suhu." },
+      "ips": { q: "Kebutuhan manusia tidak terbatas sedangkan alat pemuas terbatas disebut ...", p: ["Kelangkaan", "Inflasi", "Distribusi", "Konsumsi"], b: 0, bahas: "Kelangkaan adalah inti permasalahan dalam ilmu ekonomi." },
+      "pancasila": { q: "Lambang sila keempat Pancasila adalah ...", p: ["Bintang", "Rantai emas", "Pohon beringin", "Kepala banteng"], b: 3, bahas: "Kepala banteng melambangkan semangat musyawarah mufakat." },
+      "kka": { q: "Urutan langkah logis dan sistematis untuk menyelesaikan masalah disebut ...", p: ["Algoritma", "Perangkat keras", "Peramban", "Basis data"], b: 0, bahas: "Algoritma adalah instruksi berurutan untuk memecahkan persoalan." },
+      "informatika": { q: "Teknik memecah masalah besar menjadi bagian kecil yang mudah dikelola disebut ...", p: ["Dekomposisi", "Abstraksi", "Enkripsi", "Kompilasi"], b: 0, bahas: "Dekomposisi adalah pilar utama berpikir komputasional." },
+      "fisika": { q: "Besaran berikut yang termasuk kelompok besaran pokok adalah ...", p: ["Kecepatan dan gaya", "Panjang, massa, dan waktu", "Luas dan volume", "Usaha dan daya"], b: 1, bahas: "Panjang, massa, dan waktu termasuk 7 besaran pokok SI." },
+      "kimia": { q: "Rumus kimia untuk molekul air murni adalah ...", p: ["CO2", "H2O", "O2", "NaCl"], b: 1, bahas: "Air tersusun atas 2 atom Hidrogen dan 1 atom Oksigen." },
+      "biologi": { q: "Organel sel yang berfungsi sebagai pusat pengendali seluruh aktivitas sel adalah ...", p: ["Nukleus (Inti sel)", "Dinding sel", "Vakuola", "Sitoplasma"], b: 0, bahas: "Nukleus mengatur metabolisme dan menyimpan materi genetik." },
+      "ekonomi": { q: "Hukum permintaan menyatakan jika harga barang naik, maka jumlah permintaan akan ...", p: ["Naik", "Turun", "Tetap", "Berlipat ganda"], b: 1, bahas: "Harga dan jumlah barang yang diminta berbanding terbalik." }
+    };
+
+          function acakArray(arr) {
+      const hasil = [...arr];
+      for (let i = hasil.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [hasil[i], hasil[j]] = [hasil[j], hasil[i]];
+      }
+      return hasil;
+    }
+
+    function siapkanSoalAcak(daftarMentah, maksimalSoal = 20) {
+      const soalTeracak = acakArray(daftarMentah).slice(0, maksimalSoal);
+      return soalTeracak.map((item) => {
+        const indeksOpsi = item.p.map((_, idx) => idx);
+        const indeksOpsiAcak = acakArray(indeksOpsi);
+
+        const pBaru = indeksOpsiAcak.map(idx => item.p[idx]);
+        const bBaru = indeksOpsiAcak.indexOf(item.b);
+        const pImgBaru = Array.isArray(item.pImg) ? indeksOpsiAcak.map(idx => item.pImg[idx] || "") : undefined;
+        const pSvgBaru = Array.isArray(item.pSvg) ? indeksOpsiAcak.map(idx => item.pSvg[idx] || "") : undefined;
+
+        return {
+          ...item,
+          p: pBaru,
+          b: bBaru,
+          ...(pImgBaru ? { pImg: pImgBaru } : {}),
+          ...(pSvgBaru ? { pSvg: pSvgBaru } : {})
+        };
+      });
+    }
+
+    function buatNamaFileSoal(nomorKelas, kodeMapel, nomorSesi) {
+      return `kls${nomorKelas}_${kodeMapel}_sesi${nomorSesi}.js`;
+    }
+
+    function muatFileSoalSesi(nomorKelas, kodeMapel, nomorSesi) {
       return new Promise((resolve) => {
-        const lama = document.getElementById("script-data-soal");
+        window.BANK_SOAL_AKTIF = [];
+        const namaFile = buatNamaFileSoal(nomorKelas, kodeMapel, nomorSesi);
+        const pathFile = `./soal/${namaFile}`;
+        const statusEl = document.getElementById("sync-status");
+
+        const lama = document.getElementById("script-soal-sesi");
         if (lama) lama.remove();
+
         const s = document.createElement("script");
-        s.id = "script-data-soal";
-        s.src = "./data-soal.js?v=" + Date.now();
+        s.id = "script-soal-sesi";
+        s.src = `${pathFile}?v=${Date.now()}`;
         s.onload = () => {
-          document.getElementById("sync-status").innerText = "🟢 Bank Soal Terbarui • Siap Digunakan";
-          resolve();
+          const daftar = Array.isArray(window.BANK_SOAL_AKTIF) ? window.BANK_SOAL_AKTIF : [];
+          if (daftar.length > 0) {
+            statusEl.style.background = "#dcfce7";
+            statusEl.style.color = "#15803d";
+            statusEl.innerText = `🟢 File soal/${namaFile} termuat (${daftar.length} soal • Mode Acak Aktif)`;
+            resolve({ tersedia: true, namaFile, soal: daftar });
+          } else {
+            statusEl.style.background = "#fef3c7";
+            statusEl.style.color = "#92400e";
+            statusEl.innerText = `⚠️ File soal/${namaFile} masih kosong • Menggunakan soal contoh`;
+            resolve({ tersedia: false, namaFile, soal: buatFallback20Soal(nomorKelas, kodeMapel, nomorSesi, namaFile) });
+          }
         };
         s.onerror = () => {
-          document.getElementById("sync-status").innerText = "⚠️ File data-soal.js belum dibuat di GitHub";
-          resolve();
+          statusEl.style.background = "#fef3c7";
+          statusEl.style.color = "#92400e";
+          statusEl.innerText = `⚠️ File soal/${namaFile} belum dibuat di GitHub • Menampilkan simulasi`;
+          resolve({ tersedia: false, namaFile, soal: buatFallback20Soal(nomorKelas, kodeMapel, nomorSesi, namaFile) });
         };
         document.body.appendChild(s);
       });
     }
 
-    const dataPendidikan = {
-      sd: { judul: "Sekolah Dasar (SD)", kelas: ["Kelas 1", "Kelas 2", "Kelas 3", "Kelas 4", "Kelas 5", "Kelas 6"], mapel: ["Matematika", "Bahasa Indonesia", "IPAS", "Pendidikan Pancasila", "Bahasa Inggris", "Koding & Kecerdasan Artifisial"] },
-      smp: { judul: "Sekolah Menengah Pertama (SMP)", kelas: ["Kelas 7", "Kelas 8", "Kelas 9"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "IPA", "IPS", "Pendidikan Pancasila", "Informatika & KKA"] },
-      sma: { judul: "SMA / SMK", kelas: ["Kelas 10", "Kelas 11", "Kelas 12"], mapel: ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Ekonomi", "Informatika & KKA"] }
-    };
-
-    const babDefault = {
-      "Matematika": ["Bab 1: Bilangan & Operasi Hitung", "Bab 2: Aljabar & Geometri", "Bab 3: Statistika & Peluang"],
-      "Bahasa Indonesia": ["Bab 1: Gagasan Utama & Teks", "Bab 2: Kaidah EYD V", "Bab 3: Argumentasi & Sastra"],
-      "Bahasa Inggris": ["Bab 1: Daily Communication", "Bab 2: Grammar & Tenses", "Bab 3: Reading Comprehension"],
-      "IPAS": ["Bab 1: Makhluk Hidup & Ekosistem", "Bab 2: Wujud Zat & Energi", "Bab 3: Geografi & Budaya"],
-      "IPA": ["Bab 1: Metode Ilmiah & Pengukuran", "Bab 2: Zat & Perubahannya", "Bab 3: Sistem Organ & Energi"],
-      "IPS": ["Bab 1: Interaksi Sosial", "Bab 2: Sumber Daya Alam", "Bab 3: Kegiatan Ekonomi"],
-      "Pendidikan Pancasila": ["Bab 1: Nilai Pancasila", "Bab 2: Norma & UUD 1945", "Bab 3: Bhinneka Tunggal Ika"],
-      "Koding & Kecerdasan Artifisial": ["Bab 1: Berpikir Komputasional", "Bab 2: Mengenal AI", "Bab 3: Etika Digital"],
-      "Informatika & KKA": ["Bab 1: Algoritma & Pemrograman", "Bab 2: Machine Learning & AI", "Bab 3: Keamanan Siber"],
-      "Fisika": ["Bab 1: Pengukuran & Vektor", "Bab 2: Gerak, Usaha & Energi", "Bab 3: Kalor, Gelombang & Listrik"],
-      "Kimia": ["Bab 1: Struktur Atom", "Bab 2: Ikatan Kimia", "Bab 3: Asam-Basa & Termokimia"],
-      "Biologi": ["Bab 1: Keanekaragaman Hayati", "Bab 2: Sel & Sistem Organ", "Bab 3: Metabolisme & Genetika"],
-      "Ekonomi": ["Bab 1: Ilmu Ekonomi & Kelangkaan", "Bab 2: Permintaan & Penawaran", "Bab 3: Kebijakan Moneter & Fiskal"]
-    };
-
-    const soalContohPerMapel = {
-      "Matematika": { q: "Hasil operasi hitung dari 15 + 25 x 2 adalah ...", p: ["80", "65", "55", "40"], b: 1, bahas: "Perkalian didahulukan: 25 x 2 = 50, lalu 15 + 50 = 65." },
-      "Bahasa Indonesia": { q: "Inti pembicaraan utama dalam sebuah paragraf disebut ...", p: ["Gagasan pokok", "Kalimat penjelas", "Kata penghubung", "Judul bacaan"], b: 0, bahas: "Gagasan pokok merupakan ide utama yang mendasari paragraf." },
-      "Bahasa Inggris": { q: "She ... to school by bicycle every morning.", p: ["go", "goes", "going", "went"], b: 1, bahas: "Subjek orang ketiga tunggal (She) pada Simple Present memakai akhiran -es (goes)." },
-      "IPAS": { q: "Proses tumbuhan membuat makanan sendiri dengan bantuan cahaya matahari disebut ...", p: ["Respirasi", "Fotosintesis", "Adaptasi", "Transpirasi"], b: 1, bahas: "Fotosintesis berlangsung di daun yang memiliki klorofil." },
-      "IPA": { q: "Satuan Internasional (SI) untuk besaran suhu adalah ...", p: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], b: 2, bahas: "Kelvin (K) merupakan satuan standar SI untuk suhu." },
-      "IPS": { q: "Kebutuhan manusia tidak terbatas sedangkan alat pemuas terbatas disebut ...", p: ["Kelangkaan", "Inflasi", "Distribusi", "Konsumsi"], b: 0, bahas: "Kelangkaan adalah inti permasalahan dalam ilmu ekonomi." },
-      "Pendidikan Pancasila": { q: "Lambang sila keempat Pancasila adalah ...", p: ["Bintang", "Rantai emas", "Pohon beringin", "Kepala banteng"], b: 3, bahas: "Kepala banteng melambangkan semangat musyawarah mufakat." },
-      "Koding & Kecerdasan Artifisial": { q: "Urutan langkah logis dan sistematis untuk menyelesaikan masalah disebut ...", p: ["Algoritma", "Perangkat keras", "Peramban", "Basis data"], b: 0, bahas: "Algoritma adalah instruksi berurutan untuk memecahkan persoalan." },
-      "Informatika & KKA": { q: "Teknik memecah masalah besar menjadi bagian kecil yang mudah dikelola disebut ...", p: ["Dekomposisi", "Abstraksi", "Enkripsi", "Kompilasi"], b: 0, bahas: "Dekomposisi adalah pilar utama berpikir komputasional." },
-      "Fisika": { q: "Besaran berikut yang termasuk kelompok besaran pokok adalah ...", p: ["Kecepatan dan gaya", "Panjang, massa, dan waktu", "Luas dan volume", "Usaha dan daya"], b: 1, bahas: "Panjang, massa, dan waktu termasuk 7 besaran pokok SI." },
-      "Kimia": { q: "Rumus kimia untuk molekul air murni adalah ...", p: ["CO2", "H2O", "O2", "NaCl"], b: 1, bahas: "Air tersusun atas 2 atom Hidrogen dan 1 atom Oksigen." },
-      "Biologi": { q: "Organel sel yang berfungsi sebagai pusat pengendali seluruh aktivitas sel adalah ...", p: ["Nukleus (Inti sel)", "Dinding sel", "Vakuola", "Sitoplasma"], b: 0, bahas: "Nukleus mengatur metabolisme dan menyimpan materi genetik." },
-      "Ekonomi": { q: "Hukum permintaan menyatakan jika harga barang naik, maka jumlah permintaan akan ...", p: ["Naik", "Turun", "Tetap", "Berlipat ganda"], b: 1, bahas: "Harga dan jumlah barang yang diminta berbanding terbalik." }
-    };
-
-    const kategoriUjianKhusus = ["UTS Semester 1", "UAS Semester 1", "UTS Semester 2", "UAS Semester 2"];
-
-    function dapatkanDaftarBab(jenjang, kelas, mapel) {
-      const kunci = `${jenjang}-${kelas}-${mapel}`;
-      if (window.DATABASE_BAB[kunci] && Array.isArray(window.DATABASE_BAB[kunci]) && window.DATABASE_BAB[kunci].length > 0) {
-        return [...window.DATABASE_BAB[kunci]];
-      }
-      return [...(babDefault[mapel] || ["Bab 1: Evaluasi Materi", "Bab 2: Pendalaman Konsep"])];
+    function buatFallback20Soal(nomorKelas, kodeMapel, nomorSesi, namaFile) {
+      const dasar = soalContohPerMapel[kodeMapel] || soalContohPerMapel["mtk"];
+      return Array.from({ length: 20 }, (_, i) => ({
+        ...dasar,
+        q: `[Simulasi Soal ${i + 1} • Upload soal/${namaFile}] ${dasar.q}`
+      }));
     }
 
-    function dapatkanSoalLengkap(jenjang, kelas, mapel, kategori) {
-      const kunci = `${jenjang}-${kelas}-${mapel}-${kategori}`;
-      const soalGitHub = window.DATABASE_SOAL[kunci] || [];
-      if (soalGitHub.length > 0) return soalGitHub;
-      const contoh = soalContohPerMapel[mapel] || { q: `Contoh soal ${mapel} (${kelas})`, p: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"], b: 0, bahas: "Tambahkan soal pada file data-soal.js di GitHub." };
-      return [{ ...contoh, q: `[Contoh ${kelas} • ${kategori}] ${contoh.q}` }];
-    }
-
-          let timer, soalList = [], jawabanUser = [], idxSoal = 0, sisaWaktu = 0, sisaWaktuSoal = 0;
+    let timer, bankSoalMentah = [], soalList = [], jawabanUser = [], idxSoal = 0, sisaWaktu = 0;
     let adminTerbuka = false;
-    let sesi = { nama: "", sekolah: "", kelasInput: "", kodeUjian: "", jenjang: "", tingkat: "", mapel: "", bab: "", mode: "bab" };
+    let sesi = {
+      nama: "", sekolah: "", kelasInput: "", kodeUjian: "",
+      jenjang: "", nomorKelas: 1, labelKelas: "",
+      kodeMapel: "", namaMapel: "", nomorSesi: 1, namaSesi: "", namaFile: ""
+    };
+
     const app = () => document.getElementById("app-content");
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
@@ -155,24 +242,27 @@
       alert("✅ Password / PIN Admin berhasil diperbarui!");
     }
 
-    async function bukaMenu(menu) {
+    function bukaMenu(menu) {
       clearInterval(timer);
       if (menu !== "saya") adminTerbuka = false;
       document.querySelectorAll(".nav-item").forEach(el => el.classList.toggle("active", el.dataset.menu === menu));
+
       if (menu === "home") {
         title().innerText = "RIM CBT";
+        document.getElementById("sync-status").style.background = "#dcfce7";
+        document.getElementById("sync-status").style.color = "#15803d";
+        document.getElementById("sync-status").innerText = "🟢 Bank Soal GitHub • Kurikulum 2026/2027 Siap Digunakan";
         app().innerHTML = `
           <div class="hero-card">
             <span class="hero-badge">KURIKULUM MERDEKA • CBT</span>
             <h2>Selamat Datang di RIM CBT</h2>
-            <p>Pilih jenjang pendidikanmu (SD, SMP, atau SMA) untuk mengakses <b>Latihan Bab</b>, <b>UTS & UAS Semester 1</b>, serta <b>UTS & UAS Semester 2</b>.</p>
+            <p>Pilih jenjang pendidikanmu (SD, SMP, atau SMA) untuk mengakses evaluasi <b>Sesi 1</b>, <b>Sesi 2</b>, dan <b>Sesi 3</b> sesuai mata pelajaran masing-masing kelas.</p>
           </div>
           <div class="quote-box">
             <p>"Jangan pernah berhenti belajar, karena hidup tak pernah berhenti mengajarkan hal baru."</p>
             <small>— Motivasi Belajar</small>
           </div>`;
       } else if (dataPendidikan[menu]) {
-        await muatFileSoalTerbaru();
         pilihKelas(menu);
       } else if (menu === "saya") {
         if (!adminTerbuka) {
@@ -184,121 +274,150 @@
           }
           adminTerbuka = true;
         }
-        title().innerText = "Panel Admin & Generator";
+        title().innerText = "Panel Admin & Rekap";
         app().innerHTML = `
           <div class="form-box">
-            <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Admin & Generator GitHub</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Buat soal teks/bergambar via AI, susun daftar bab untuk <b>data-soal.js</b>, atau filter rekap nilai.</p>
+            <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Admin & Generator File Soal</h3>
+            <p style="font-size:0.84rem; color:#64748b;">Buat file soal modular (<b>kls1_mtk_sesi1.js</b> s/d <b>kls12</b>) atau lihat rekap nilai ujian siswa.</p>
           </div>
           <div class="list-menu">
-            <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator Soal AI ➔ Kode GitHub</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaGeneratorBab()" style="border-color:#f59e0b; background:#fffbeb;"><span>🗂️ Generator Daftar Bab ➔ Kode GitHub</span><span>➔</span></div>
-            <div class="list-item" onclick="tampilkanRekapTerfilter()"><span>📊 Lihat & Filter Rekap Nilai Siswa</span><span>➔</span></div>
+            <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator File Soal Sesi (.js) ➔ GitHub</span><span>➔</span></div>
+            <div class="list-item" onclick="tampilkanRekapTerfilter()" style="border-color:#16a34a; background:#f0fdf4;"><span>📊 Lihat & Filter Rekap Nilai Siswa</span><span>➔</span></div>
             <div class="list-item" onclick="bukaModalPDF()"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
             <div class="list-item" onclick="ubahPinAdmin()"><span>🔑 Ubah Password / PIN Admin</span><span>➔</span></div>
           </div>`;
       }
     }
 
-    function pilihKelas(jenjang) {
+          function pilihKelas(jenjang) {
       const d = dataPendidikan[jenjang];
-      title().innerText = d.judul; sesi.jenjang = jenjang;
-      app().innerHTML = `<div class="form-box"><h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3><p style="font-size:0.84rem; color:#64748b;">${d.judul}</p></div><div class="list-menu">` +
-        d.kelas.map(k => `<div class="list-item" onclick="pilihKategoriUjian('${jenjang}','${k}')"><span>📚 ${k}</span><span>➔</span></div>`).join("") + `</div>`;
-    }
-
-    function pilihKategoriUjian(jenjang, kelas) {
-      sesi.tingkat = kelas;
+      title().innerText = d.judul;
+      sesi.jenjang = jenjang;
       app().innerHTML = `
         <div class="form-box">
-          <button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali</button>
-          <h3 style="font-size:1.05rem;">Pilih Kategori Ujian</h3>
-          <p style="font-size:0.84rem; color:#64748b;">${dataPendidikan[jenjang].judul} • <b>${kelas}</b></p>
+          <h3 style="font-size:1.05rem;">Pilih Tingkat Kelas</h3>
+          <p style="font-size:0.84rem; color:#64748b;">${d.judul} • Kurikulum 2026/2027</p>
         </div>
-        <div class="list-menu">
-          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','bab')"><div><b>📝 Latihan Bab</b><br><small style="color:#64748b; font-weight:400;">Latihan per bab (Maks. 5 menit / soal)</small></div><span>➔</span></div>
-          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','UTS Semester 1')" style="border-color:#0ea5e9; background:#f0f9ff;"><div><b>📘 UTS Semester 1</b><br><small style="color:#0369a1; font-weight:400;">Ujian Tengah Semester Ganjil (90 menit)</small></div><span>➔</span></div>
-          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','UAS Semester 1')" style="border-color:#0284c7; background:#e0f2fe;"><div><b>🎓 UAS Semester 1</b><br><small style="color:#075985; font-weight:400;">Ujian Akhir Semester Ganjil (90 menit)</small></div><span>➔</span></div>
-          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','UTS Semester 2')" style="border-color:#8b5cf6; background:#f5f3ff;"><div><b>📙 UTS Semester 2</b><br><small style="color:#5b21b6; font-weight:400;">Ujian Tengah Semester Genap (90 menit)</small></div><span>➔</span></div>
-          <div class="list-item" onclick="pilihMapel('${jenjang}','${kelas}','UAS Semester 2')" style="border-color:#7c3aed; background:#ede9fe;"><div><b>🏆 UAS Semester 2</b><br><small style="color:#4c1d95; font-weight:400;">Ujian Akhir Semester Genap (90 menit)</small></div><span>➔</span></div>
-        </div>`;
+        <div class="list-menu">` +
+        d.kelas.map(k => `
+          <div class="list-item" onclick="pilihMapel('${jenjang}', ${k.nomor}, '${k.label}')">
+            <span>📚 ${k.label}</span>
+            <span>➔</span>
+          </div>`).join("") + `</div>`;
     }
 
-    function pilihMapel(jenjang, kelas, mode) {
-      sesi.mode = mode;
-      const labelMode = mode === "bab" ? "Latihan Bab" : mode;
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihKategoriUjian('${jenjang}','${kelas}')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Mata Pelajaran</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • Kategori: <b>${labelMode}</b></p></div><div class="list-menu">` +
-        dataPendidikan[jenjang].mapel.map(m => {
-          const aksiKlik = mode === "bab" ? `pilihBab('${jenjang}','${kelas}','${m}')` : `siapkanUjianSemester('${jenjang}','${kelas}','${m}','${mode}')`;
-          return `<div class="list-item" onclick="${aksiKlik}"><span>📖 ${m}</span><span>➔</span></div>`;
+    function pilihMapel(jenjang, nomorKelas, labelKelas) {
+      sesi.jenjang = jenjang;
+      sesi.nomorKelas = nomorKelas;
+      sesi.labelKelas = labelKelas;
+      title().innerText = `${labelKelas} • Pilih Mapel`;
+      app().innerHTML = `
+        <div class="form-box">
+          <button class="btn-back" onclick="pilihKelas('${jenjang}')">⬅ Kembali ke Daftar Kelas</button>
+          <h3 style="font-size:1.05rem;">Mata Pelajaran (${labelKelas})</h3>
+          <p style="font-size:0.84rem; color:#64748b;">Kurikulum 2026/2027 • Pilih mapel untuk melihat 3 Sesi Ujian</p>
+        </div>
+        <div class="list-menu">` +
+        dataPendidikan[jenjang].mapel.map(m => `
+          <div class="list-item" onclick="pilihSesiUjian('${m.kode}', '${esc(m.nama)}')">
+            <span>📖 ${esc(m.nama)}</span>
+            <span>➔</span>
+          </div>`).join("") + `</div>`;
+    }
+
+    function pilihSesiUjian(kodeMapel, namaMapel) {
+      sesi.kodeMapel = kodeMapel;
+      sesi.namaMapel = namaMapel;
+      title().innerText = `${sesi.labelKelas} • ${namaMapel}`;
+      app().innerHTML = `
+        <div class="form-box">
+          <button class="btn-back" onclick="pilihMapel('${sesi.jenjang}', ${sesi.nomorKelas}, '${sesi.labelKelas}')">⬅ Kembali ke Daftar Mapel</button>
+          <h3 style="font-size:1.05rem;">Pilih Sesi Ujian</h3>
+          <p style="font-size:0.84rem; color:#64748b;">${sesi.labelKelas} • <b>${esc(namaMapel)}</b> (Masing-masing 20 Soal PG Acak)</p>
+        </div>
+        <div class="list-menu">` +
+        daftarSesiUjian.map(s => {
+          const namaFile = buatNamaFileSoal(sesi.nomorKelas, kodeMapel, s.nomor);
+          return `
+            <div class="list-item" onclick="siapkanSesi(${s.nomor}, '${s.nama}')">
+              <div>
+                <b>📝 ${s.nama} — ${esc(namaMapel)}</b><br>
+                <small style="color:#64748b; font-weight:400;">${s.ket} • File: <code>soal/${namaFile}</code></small>
+              </div>
+              <span>➔</span>
+            </div>`;
         }).join("") + `</div>`;
     }
 
-          function pilihBab(jenjang, kelas, mapel) {
-      sesi.mapel = mapel;
-      const list = dapatkanDaftarBab(jenjang, kelas, mapel);
-      app().innerHTML = `<div class="form-box"><button class="btn-back" onclick="pilihMapel('${jenjang}','${kelas}','bab')">⬅ Kembali</button><h3 style="font-size:1.05rem;">Pilih Bab Materi</h3><p style="font-size:0.84rem; color:#64748b;">${kelas} • ${mapel}</p></div><div class="list-menu">` +
-        list.map(b => `<div class="list-item" onclick="formBiodata('${esc(b)}')"><span>📝 ${esc(b)}</span><span>➔</span></div>`).join("") + `</div>`;
-    }
+    async function siapkanSesi(nomorSesi, namaSesi) {
+      sesi.nomorSesi = nomorSesi;
+      sesi.namaSesi = namaSesi;
+      app().innerHTML = `<div class="form-box" style="text-align:center; padding:30px;">⏳ Memuat & mengacak bank soal <b>${sesi.labelKelas} • ${esc(sesi.namaMapel)} (${namaSesi})</b>...</div>`;
 
-    function siapkanUjianSemester(jenjang, kelas, mapel, mode) {
-      sesi.jenjang = jenjang; sesi.tingkat = kelas; sesi.mapel = mapel; sesi.mode = mode;
-      formBiodata(mode);
-    }
+      const hasil = await muatFileSoalSesi(sesi.nomorKelas, sesi.kodeMapel, nomorSesi);
+      sesi.namaFile = hasil.namaFile;
+      bankSoalMentah = hasil.soal;
+      const jumlahTampil = Math.min(bankSoalMentah.length, 20);
 
-    function formBiodata(kategori) {
-      sesi.bab = kategori;
-      const jml = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, kategori).length;
-      const infoWaktu = sesi.mode === "bab" ? "Maks. 5 menit per soal" : "Total 90 menit";
-      const tombolKembali = sesi.mode === "bab" ? `pilihBab('${sesi.jenjang}','${sesi.tingkat}','${sesi.mapel}')` : `pilihMapel('${sesi.jenjang}','${sesi.tingkat}','${sesi.mode}')`;
       app().innerHTML = `
         <div class="form-box">
-          <button class="btn-back" onclick="${tombolKembali}">⬅ Kembali</button>
+          <button class="btn-back" onclick="pilihSesiUjian('${sesi.kodeMapel}', '${esc(sesi.namaMapel)}')">⬅ Kembali ke Pilihan Sesi</button>
           <h3 style="font-size:1.1rem; margin-bottom:4px;">Identitas Peserta Ujian</h3>
-          <p style="font-size:0.84rem; color:#64748b; margin-bottom:14px;">${sesi.mapel} • <b>${esc(kategori)}</b><br>Jumlah: <b>${jml} Soal</b> (${infoWaktu})</p>
-          <label>🔑 Kode Unik Ujian / Sesi (Dari Guru)</label>
-          <input type="text" id="inp-kode-ujian" placeholder="Contoh: MTK7A atau UTS-GANJIL" style="text-transform:uppercase; font-weight:700;">
-          <label>Nama Lengkap</label><input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
-          <label>Asal Sekolah</label><input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
-          <label>Kelas Spesifik</label><input type="text" id="inp-kelas" placeholder="Contoh: 7A">
-          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Ujian Sekarang</button>
+          <p style="font-size:0.84rem; color:#64748b; margin-bottom:14px;">
+            ${sesi.labelKelas} • <b>${esc(sesi.namaMapel)} (${namaSesi})</b><br>
+            Jumlah Soal: <b>${jumlahTampil} Soal PG Acak</b> (Waktu: 45 Menit)<br>
+            Sumber Bank Soal: <code>soal/${sesi.namaFile}</code> (${bankSoalMentah.length} soal tersedia)
+          </p>
+          <label>🔑 Kode Unik Kelas / Ujian (Opsional / Dari Guru)</label>
+          <input type="text" id="inp-kode-ujian" placeholder="Contoh: KLS${sesi.nomorKelas}-${sesi.kodeMapel.toUpperCase()}" style="text-transform:uppercase; font-weight:700;">
+          <label>Nama Lengkap Siswa</label>
+          <input type="text" id="inp-nama" placeholder="Masukkan nama lengkap">
+          <label>Asal Sekolah</label>
+          <input type="text" id="inp-sekolah" placeholder="Masukkan nama sekolah">
+          <label>Kelas Spesifik (Rombel)</label>
+          <input type="text" id="inp-kelas" placeholder="Contoh: ${sesi.nomorKelas}A">
+          <button type="button" class="btn-primary" onclick="mulaiKuis()">🚀 Mulai Kerjakan ${namaSesi}</button>
         </div>`;
     }
 
     function mulaiKuis() {
-      const kodeUjian = document.getElementById("inp-kode-ujian").value.trim().toUpperCase();
+      const kodeInput = document.getElementById("inp-kode-ujian").value.trim().toUpperCase();
       const nama = document.getElementById("inp-nama").value.trim();
       const sekolah = document.getElementById("inp-sekolah").value.trim();
       const kelas = document.getElementById("inp-kelas").value.trim();
-      if (!kodeUjian || !nama || !sekolah || !kelas) return alert("Lengkapi Kode Unik Ujian dan semua identitas peserta terlebih dahulu!");
-      sesi.kodeUjian = kodeUjian; sesi.nama = nama; sesi.sekolah = sekolah; sesi.kelasInput = kelas;
-      soalList = dapatkanSoalLengkap(sesi.jenjang, sesi.tingkat, sesi.mapel, sesi.bab);
+
+      if (!nama || !sekolah || !kelas) {
+        return alert("Lengkapi Nama Lengkap, Asal Sekolah, dan Kelas Spesifik terlebih dahulu!");
+      }
+
+      sesi.kodeUjian = kodeInput || `KLS${sesi.nomorKelas}-${sesi.kodeMapel.toUpperCase()}-S${sesi.nomorSesi}`;
+      sesi.nama = nama;
+      sesi.sekolah = sekolah;
+      sesi.kelasInput = kelas;
+
+      soalList = siapkanSoalAcak(bankSoalMentah, 20);
       jawabanUser = new Array(soalList.length).fill(null);
-      idxSoal = 0; sisaWaktu = 90 * 60; sisaWaktuSoal = 5 * 60;
+      idxSoal = 0;
+      sisaWaktu = 45 * 60;
 
       clearInterval(timer);
       timer = setInterval(() => {
         const t = document.getElementById("kuis-timer");
-        if (sesi.mode === "bab") {
-          sisaWaktuSoal--;
-          if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktuSoal / 60)}:${String(sisaWaktuSoal % 60).padStart(2, "0")} / soal`;
-          if (sisaWaktuSoal <= 0) {
-            if (idxSoal < soalList.length - 1) { idxSoal++; sisaWaktuSoal = 5 * 60; renderSoal(); }
-            else { clearInterval(timer); selesaiKuis(true); }
-          }
-        } else {
-          sisaWaktu--;
-          if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
-          if (sisaWaktu <= 0) { clearInterval(timer); alert("Waktu ujian 90 menit telah habis!"); selesaiKuis(true); }
+        sisaWaktu--;
+        if (t) t.innerText = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
+        if (sisaWaktu <= 0) {
+          clearInterval(timer);
+          alert("Waktu ujian telah habis! Jawaban otomatis dikumpulkan.");
+          selesaiKuis(true);
         }
       }, 1000);
+
       renderSoal();
     }
 
     function lompatSoal(targetIdx) {
       if (targetIdx < 0 || targetIdx >= soalList.length) return;
       idxSoal = targetIdx;
-      if (sesi.mode === "bab") sisaWaktuSoal = 5 * 60;
       renderSoal();
     }
 
@@ -307,7 +426,7 @@
       renderSoal();
     }
 
-    function renderVisual(imgUrl, svgCode, kelasCss) {
+          function renderVisual(imgUrl, svgCode, kelasCss) {
       if (svgCode && String(svgCode).trim().startsWith("<svg")) {
         return `<div class="${kelasCss}" style="padding:8px; overflow:auto;">${svgCode}</div>`;
       }
@@ -320,27 +439,31 @@
     function renderSoal() {
       const s = soalList[idxSoal], abjad = ["A", "B", "C", "D"];
       const jmlDijawab = jawabanUser.filter(j => j !== null).length;
-      const teksTimerAwal = sesi.mode === "bab"
-        ? `⏱️ ${Math.floor(sisaWaktuSoal / 60)}:${String(sisaWaktuSoal % 60).padStart(2, "0")} / soal`
-        : `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
+      const teksTimer = `⏱️ ${Math.floor(sisaWaktu / 60)}:${String(sisaWaktu % 60).padStart(2, "0")}`;
 
       const gridNomor = soalList.map((_, idx) => {
         const cls = idx === idxSoal ? "num-box current" : (jawabanUser[idx] !== null ? "num-box answered" : "num-box");
         return `<button type="button" class="${cls}" onclick="lompatSoal(${idx})">${idx + 1}</button>`;
       }).join("");
 
-      const tombolSebelumnya = idxSoal > 0 ? `<button type="button" class="btn-back" style="margin:0; flex:1;" onclick="lompatSoal(${idxSoal - 1})">⬅ Sebelumnya</button>` : `<div style="flex:1;"></div>`;
-      const tombolSelanjutnya = idxSoal < soalList.length - 1 ? `<button type="button" class="btn-primary" style="flex:1;" onclick="lompatSoal(${idxSoal + 1})">Selanjutnya ➔</button>` : `<button type="button" class="btn-pdf" style="margin:0; flex:1;" onclick="selesaiKuis(false)">✅ Selesai Ujian</button>`;
+      const tombolSebelumnya = idxSoal > 0
+        ? `<button type="button" class="btn-back" style="margin:0; flex:1;" onclick="lompatSoal(${idxSoal - 1})">⬅ Sebelumnya</button>`
+        : `<div style="flex:1;"></div>`;
+
+      const tombolSelanjutnya = idxSoal < soalList.length - 1
+        ? `<button type="button" class="btn-primary" style="flex:1;" onclick="lompatSoal(${idxSoal + 1})">Selanjutnya ➔</button>`
+        : `<button type="button" class="btn-pdf" style="margin:0; flex:1;" onclick="selesaiKuis(false)">✅ Selesai & Lihat Nilai</button>`;
+
       const blokVisualSoal = renderVisual(s.img, s.svg, "soal-img");
 
       app().innerHTML = `
         <div class="form-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <span style="font-size:0.84rem; font-weight:700; color:#4f46e5;">Soal ${idxSoal + 1} / ${soalList.length} (Dijawab: ${jmlDijawab})</span>
-            <span id="kuis-timer" class="timer-badge">${teksTimerAwal}</span>
+            <span style="font-size:0.84rem; font-weight:700; color:#4f46e5;">${sesi.namaSesi} • Soal ${idxSoal + 1} / ${soalList.length} (Dijawab: ${jmlDijawab})</span>
+            <span id="kuis-timer" class="timer-badge">${teksTimer}</span>
           </div>
           <div class="nav-soal-grid">${gridNomor}</div>
-          <p style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">🟩 Hijau: Sudah dijawab • ⬜ Putih: Belum dijawab</p>
+          <p style="font-size:0.75rem; color:#64748b; margin-bottom:12px;">🟩 Hijau: Sudah dijawab • ⬜ Putih: Belum dijawab • 🔀 Soal Acak</p>
           ${blokVisualSoal}
           <p style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.5;">${esc(s.q)}</p>
           <div class="list-menu">
@@ -358,7 +481,7 @@
         </div>`;
     }
 
-          function selesaiKuis(otomatis) {
+    function selesaiKuis(otomatis) {
       const belumDijawab = jawabanUser.filter(j => j === null).length;
       if (!otomatis && belumDijawab > 0) {
         if (!confirm(`Masih ada ${belumDijawab} soal yang belum dijawab. Yakin ingin menyelesaikan ujian sekarang?`)) return;
@@ -381,140 +504,183 @@
           visU: renderVisual(uImg, uSvg, "opsi-img"),
           b: s.p[s.b],
           visB: renderVisual(bImg, bSvg, "opsi-img"),
-          bahas: s.bahas,
+          bahas: s.bahas || "Tidak ada pembahasan tambahan.",
           ok
         };
       });
 
       const nilai = Math.round((skor / soalList.length) * 100);
-      const labelUjian = sesi.mode === "bab" ? `${sesi.mapel} (${sesi.bab})` : `${sesi.mapel} (${sesi.mode})`;
+      const labelUjian = `${sesi.labelKelas} • ${sesi.namaMapel} (${sesi.namaSesi})`;
+      const waktuSelesai = new Date().toLocaleString("id-ID");
+
       const rekap = JSON.parse(localStorage.getItem("rim_rekap") || "[]");
-      rekap.push({ kode: sesi.kodeUjian, nama: sesi.nama, sekolah: sesi.sekolah, kelas: sesi.kelasInput, mapel: labelUjian, nilai });
+      rekap.push({
+        kode: sesi.kodeUjian,
+        nama: sesi.nama,
+        sekolah: sesi.sekolah,
+        kelas: sesi.kelasInput,
+        mapel: labelUjian,
+        sesi: sesi.namaSesi,
+        nilai: nilai,
+        benar: skor,
+        total: soalList.length,
+        waktu: waktuSelesai
+      });
       localStorage.setItem("rim_rekap", JSON.stringify(rekap));
 
       app().innerHTML = `
         <div class="form-box" style="text-align:center; padding:24px 18px;">
-          <span class="hero-badge" style="background:#eef2ff; color:#4f46e5;">KODE UJIAN: ${esc(sesi.kodeUjian)}</span>
-          <h2 style="margin-top:8px;">Ujian Selesai!</h2>
-          <p style="margin-top:4px; color:#64748b; font-size:0.9rem;">Peserta: <b>${esc(sesi.nama)}</b> (${esc(sesi.kelasInput)})</p>
-          <h1 style="font-size:3.2rem; font-weight:800; color:#4f46e5; margin:10px 0;">${nilai}</h1>
-          <p style="font-size:0.88rem; color:#64748b; margin-bottom:18px;">Benar <b>${skor}</b> dari <b>${soalList.length}</b> soal</p>
-          <button class="btn-primary" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
+          <span class="hero-badge" style="background:#dcfce7; color:#15803d;">✅ NILAI OTOMATIS DIREKAP</span>
+          <h2 style="margin-top:8px;">${esc(sesi.namaSesi)} Selesai!</h2>
+          <p style="margin-top:4px; color:#64748b; font-size:0.9rem;">
+            Peserta: <b>${esc(sesi.nama)}</b> (${esc(sesi.kelasInput)})<br>
+            ${esc(labelUjian)}
+          </p>
+          <h1 style="font-size:3.5rem; font-weight:800; color:#4f46e5; margin:10px 0;">${nilai}</h1>
+          <p style="font-size:0.9rem; color:#334155; margin-bottom:18px;">
+            Jawaban Benar: <b>${skor}</b> dari <b>${soalList.length}</b> soal
+          </p>
+          <div style="display:flex; gap:8px; flex-direction:column;">
+            <button class="btn-primary" onclick="siapkanSesi(${sesi.nomorSesi}, '${sesi.namaSesi}')">🔄 Ulangi ${sesi.namaSesi} (Soal Diacak Baru)</button>
+            <button class="btn-primary" style="background:#0ea5e9;" onclick="pilihSesiUjian('${sesi.kodeMapel}', '${esc(sesi.namaMapel)}')">📝 Pilih Sesi Lainnya</button>
+            <button class="btn-back" style="margin:0; padding:12px;" onclick="bukaMenu('home')">🏠 Kembali ke Beranda</button>
+          </div>
         </div>
-        <div class="form-box"><h3 style="font-size:1.05rem; margin-bottom:8px;">📋 Kunci & Pembahasan</h3>
-          ${riwayat.map((r, i) => `<div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;">${r.visSoal}<b>${i + 1}. ${esc(r.q)}</b><br><span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span>${r.visU}<br>${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b>${r.visB}<br></span>` : ""}<small style="color:#64748b;">💡 ${esc(r.bahas)}</small></div>`).join("")}
+        <div class="form-box">
+          <h3 style="font-size:1.05rem; margin-bottom:8px;">📋 Kunci Jawaban & Pembahasan</h3>
+          ${riwayat.map((r, i) => `
+            <div style="border-bottom:1px solid #e2e8f0; padding:10px 0; font-size:0.88rem; line-height:1.5;">
+              ${r.visSoal}
+              <b>${i + 1}. ${esc(r.q)}</b><br>
+              <span style="color:${r.ok ? "#16a34a" : "#dc2626"}; font-weight:600;">Jawabanmu: ${esc(r.u)} (${r.ok ? "Benar" : "Salah"})</span>${r.visU}<br>
+              ${!r.ok ? `<span>Jawaban Benar: <b style="color:#16a34a;">${esc(r.b)}</b>${r.visB}<br></span>` : ""}
+              <small style="color:#64748b;">💡 ${esc(r.bahas)}</small>
+            </div>`).join("")}
         </div>`;
     }
 
-          function updateDropdownAdmin(callback) {
+    function updateDropdownAdmin() {
       const j = document.getElementById("adm-jenjang").value;
-      document.getElementById("adm-kelas").innerHTML = dataPendidikan[j].kelas.map(k => `<option value="${k}">${k}</option>`).join("");
-      document.getElementById("adm-mapel").innerHTML = dataPendidikan[j].mapel.map(m => `<option value="${m}">${m}</option>`).join("");
-      if (callback) callback(); else updateBabAdmin();
+      document.getElementById("adm-kelas").innerHTML = dataPendidikan[j].kelas.map(k => `<option value="${k.nomor}">${k.label}</option>`).join("");
+      document.getElementById("adm-mapel").innerHTML = dataPendidikan[j].mapel.map(m => `<option value="${m.kode}">${m.nama}</option>`).join("");
+      updateInfoNamaFileAdmin();
     }
 
-    function updateBabAdmin() {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value, m = document.getElementById("adm-mapel").value;
-      const selBab = document.getElementById("adm-bab");
-      if (!selBab) return;
-      const listBab = dapatkanDaftarBab(j, k, m);
-      selBab.innerHTML = `<optgroup label="Daftar Bab Kurikulum">${listBab.map(b => `<option value="${esc(b)}">📝 ${esc(b)}</option>`).join("")}</optgroup><optgroup label="Ujian Semester">${kategoriUjianKhusus.map(u => `<option value="${esc(u)}">📘 ${esc(u)}</option>`).join("")}</optgroup>`;
+    function updateInfoNamaFileAdmin() {
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const s = document.getElementById("adm-sesi").value;
+      const infoEl = document.getElementById("adm-nama-file");
+      if (infoEl) infoEl.innerText = `soal/${buatNamaFileSoal(k, m, s)}`;
     }
 
-    function bukaGeneratorAI() {
+          function bukaGeneratorAI() {
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-          <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Generator Soal AI ➔ Kode GitHub</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Pilih mode soal (teks atau bergambar otomatis dari AI), lalu salin kodenya ke file <b>data-soal.js</b>.</p>
-          <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
-          <label>Kelas</label><select id="adm-kelas" onchange="updateBabAdmin()"></select>
-          <label>Mata Pelajaran</label><select id="adm-mapel" onchange="updateBabAdmin()"></select>
-          <label>Kategori (Bab / UTS / UAS)</label><select id="adm-bab"></select>
-          <label>Topik Materi</label><input type="text" id="ai-topik" placeholder="Contoh: Bangun Datar, Rangkaian Listrik, atau Pecahan">
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">✨ Generator File Soal Sesi (.js)</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Buat isi file soal per kelas, mapel, dan sesi. Simpan di folder <b>soal/</b> pada repositori GitHub Anda.</p>
+
+          <label>Jenjang</label>
+          <select id="adm-jenjang" onchange="updateDropdownAdmin()">
+            <option value="sd">SD</option>
+            <option value="smp">SMP</option>
+            <option value="sma">SMA / SMK</option>
+          </select>
+
+          <label>Kelas</label>
+          <select id="adm-kelas" onchange="updateInfoNamaFileAdmin()"></select>
+
+          <label>Mata Pelajaran</label>
+          <select id="adm-mapel" onchange="updateInfoNamaFileAdmin()"></select>
+
+          <label>Sesi Ujian</label>
+          <select id="adm-sesi" onchange="updateInfoNamaFileAdmin()">
+            <option value="1">Sesi 1 (20 Soal PG)</option>
+            <option value="2">Sesi 2 (20 Soal PG)</option>
+            <option value="3">Sesi 3 (20 Soal PG)</option>
+          </select>
+
+          <div style="background:#eef2ff; padding:10px 12px; border-radius:10px; margin-bottom:14px; font-size:0.82rem; color:#3730a3;">
+            📁 Target Nama File di GitHub: <b id="adm-nama-file">soal/kls1_mtk_sesi1.js</b>
+          </div>
+
+          <label>Topik Materi</label>
+          <input type="text" id="ai-topik" placeholder="Contoh: Pecahan, Aljabar, Ekosistem, dll.">
+
           <label>Mode Gambar Soal & Jawaban</label>
           <select id="ai-mode-gambar">
             <option value="teks">📝 Soal Teks Biasa (Tanpa Gambar)</option>
-            <option value="gambar-soal">🖼️ Soal Bergambar Otomatis (AI Menggambar Diagram/Ilustrasi)</option>
-            <option value="gambar-opsi">🎨 Soal & Pilihan Jawaban A/B/C/D Bergambar Otomatis</option>
+            <option value="gambar-soal">🖼️ Soal Bergambar Otomatis (Diagram SVG)</option>
+            <option value="gambar-opsi">🎨 Soal & Pilihan Jawaban A/B/C/D Bergambar</option>
           </select>
-          <label>Jumlah Soal</label><select id="ai-jumlah"><option value="5">5 Soal</option><option value="10">10 Soal</option><option value="15">15 Soal</option><option value="20">20 Soal</option></select>
+
+          <label>Jumlah Soal</label>
+          <select id="ai-jumlah">
+            <option value="20" selected>20 Soal (Standar 1 Sesi)</option>
+            <option value="10">10 Soal (Untuk Dicicil / Ditambah di Bawah)</option>
+            <option value="5">5 Soal (Tambahan ke Bagian Bawah)</option>
+          </select>
+
           <button type="button" class="btn-primary" style="background:#0ea5e9; margin-bottom:16px;" onclick="salinPerintahAI()">1️⃣ Salin Perintah untuk AI (Gemini / ChatGPT)</button>
-          <label>2️⃣ Tempel Hasil JSON dari AI di Sini</label>
-          <textarea id="ai-json-hasil" rows="4" placeholder='Tempel hasil jawaban AI di sini...'></textarea>
-          <button type="button" class="btn-primary" onclick="susunKodeGitHubSoal()">3️⃣ Susun & Salin Kode untuk data-soal.js</button>
-          <label style="margin-top:14px;">Hasil Kode Siap Tempel ke dalam window.DATABASE_SOAL = { ... }</label>
-          <textarea id="out-kode-github" rows="5" readonly placeholder="Kode siap tempel akan muncul di sini..."></textarea>
+
+          <label>2️⃣ Tempel Hasil JSON Array dari AI di Sini</label>
+          <textarea id="ai-json-hasil" rows="4" placeholder='Tempel hasil jawaban AI [ { ... } ] di sini...'></textarea>
+          <button type="button" class="btn-primary" onclick="susunKodeFileJS()">3️⃣ Susun Kode File .js Siap Upload</button>
+
+          <label style="margin-top:14px;">Hasil Kode Lengkap untuk File <span id="label-file-output" style="color:#4f46e5;"></span></label>
+          <textarea id="out-kode-github" rows="6" readonly placeholder="Kode lengkap file .js akan muncul di sini..."></textarea>
         </div>`;
       updateDropdownAdmin();
     }
 
     function salinPerintahAI() {
-      const j = document.getElementById("adm-jenjang").value.toUpperCase(), k = document.getElementById("adm-kelas").value;
-      const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
-      const topik = document.getElementById("ai-topik").value.trim() || kat, jml = document.getElementById("ai-jumlah").value;
+      const selKelas = document.getElementById("adm-kelas");
+      const selMapel = document.getElementById("adm-mapel");
+      const kLabel = selKelas.options[selKelas.selectedIndex].text;
+      const mLabel = selMapel.options[selMapel.selectedIndex].text;
+      const s = document.getElementById("adm-sesi").value;
+      const topik = document.getElementById("ai-topik").value.trim() || `Materi ${mLabel} ${kLabel} Sesi ${s}`;
+      const jml = document.getElementById("ai-jumlah").value;
       const modeGbr = document.getElementById("ai-mode-gambar").value;
 
       let instruksiGambar = `[{"q":"Pertanyaan soal?","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]`;
       if (modeGbr === "gambar-soal") {
-        instruksiGambar = `[{"q":"Perhatikan gambar berikut! Pertanyaan soal?","svg":"<svg width='240' height='140' viewBox='0 0 240 140' xmlns='http://w3.org'>...</svg>","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nInstruksi SVG: Buat kode SVG vektor sederhana, jelas, berwarna, dan lengkap pada properti "svg" untuk ilustrasi soal.`;
+        instruksiGambar = `[{"q":"Perhatikan gambar berikut! Pertanyaan soal?","svg":"<svg width='240' height='140' viewBox='0 0 240 140' xmlns='http://w3.org'>...</svg>","p":["Opsi A","Opsi B","Opsi C","Opsi D"],"b":0,"bahas":"Penjelasan singkat"}]\nInstruksi SVG: Buat kode SVG vektor sederhana, jelas, berwarna, dan lengkap pada properti "svg".`;
       } else if (modeGbr === "gambar-opsi") {
-        instruksiGambar = `[{"q":"Pertanyaan soal?","svg":"<svg width='220' height='120' viewBox='0 0 220 120' xmlns='http://w3.org'>...</svg>","p":["Label A","Label B","Label C","Label D"],"pSvg":["<svg width='110' height='80' viewBox='0 0 110 80' xmlns='http://w3.org'>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>"],"b":0,"bahas":"Penjelasan singkat"}]\nInstruksi SVG: Buat kode SVG vektor sederhana dan jelas pada "svg" (jika soal butuh gambar) serta "pSvg" (4 kode SVG untuk masing-masing opsi A, B, C, D).`;
+        instruksiGambar = `[{"q":"Pertanyaan soal?","svg":"<svg width='220' height='120' viewBox='0 0 220 120' xmlns='http://w3.org'>...</svg>","p":["Label A","Label B","Label C","Label D"],"pSvg":["<svg width='110' height='80' viewBox='0 0 110 80' xmlns='http://w3.org'>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>","<svg ...>...</svg>"],"b":0,"bahas":"Penjelasan singkat"}]\nInstruksi SVG: Buat kode SVG vektor pada "svg" dan "pSvg" (4 kode SVG untuk masing-masing opsi A, B, C, D).`;
       }
 
-      const teks = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka tingkat ${k} (${j}) mata pelajaran ${m} untuk kategori "${kat}" topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n${instruksiGambar}\nCatatan: "b" adalah urutan jawaban benar (0=A, 1=B, 2=C, 3=D). Pastikan tanda kutip di dalam SVG memakai tanda petik tunggal (') agar JSON valid.`;
-      navigator.clipboard.writeText(teks).then(() => alert("✅ Perintah disalin! Tempel di AI, lalu tempel hasilnya di kotak nomor 2.")).catch(() => prompt("Salin perintah ini:", teks));
+      const teks = `Buatkan ${jml} soal pilihan ganda Kurikulum Merdeka 2026/2027 tingkat ${kLabel} mata pelajaran ${mLabel} untuk Sesi ${s} topik "${topik}". Berikan jawaban HANYA dalam format JSON array murni seperti contoh ini tanpa teks pembuka/penutup:\n${instruksiGambar}\nCatatan: "b" adalah indeks jawaban benar (0=A, 1=B, 2=C, 3=D). Pastikan tanda kutip di dalam SVG memakai petik tunggal (') agar JSON valid.`;
+      navigator.clipboard.writeText(teks).then(() => alert("✅ Perintah AI disalin! Tempel di AI, lalu tempel hasilnya di kotak nomor 2.")).catch(() => prompt("Salin perintah ini:", teks));
     }
 
-    function susunKodeGitHubSoal() {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value;
-      const m = document.getElementById("adm-mapel").value, kat = document.getElementById("adm-bab").value;
+    function susunKodeFileJS() {
+      const k = document.getElementById("adm-kelas").value;
+      const m = document.getElementById("adm-mapel").value;
+      const s = document.getElementById("adm-sesi").value;
+      const namaFile = buatNamaFileSoal(k, m, s);
+
       let mentah = document.getElementById("ai-json-hasil").value.trim();
       if (!mentah) return alert("Tempelkan hasil JSON dari AI terlebih dahulu!");
+
       try {
         const awal = mentah.indexOf("["), akhir = mentah.lastIndexOf("]");
         if (awal !== -1 && akhir !== -1) mentah = mentah.slice(awal, akhir + 1);
         const arr = JSON.parse(mentah);
         if (!Array.isArray(arr) || arr.length === 0) throw new Error("Kosong");
-        const kunci = `${j}-${k}-${m}-${kat}`;
-        const kodeSiapTempel = `  "${kunci}": ${JSON.stringify(arr, null, 2)},`;
-        document.getElementById("out-kode-github").value = kodeSiapTempel;
-        navigator.clipboard.writeText(kodeSiapTempel).then(() => {
-          alert(`✅ ${arr.length} soal berhasil disusun & disalin otomatis!\n\nBuka file data-soal.js di GitHub, lalu tempel di dalam window.DATABASE_SOAL = { ... }`);
+
+        const objekSoalStr = arr.map((item, idx) => `  // Soal ${idx + 1}\n  ${JSON.stringify(item)}`).join(",\n\n");
+        const kodeLengkap = `// File: soal/${namaFile}\n// Tambah soal baru cukup tempel di bagian paling bawah sebelum tanda ];\nwindow.BANK_SOAL_AKTIF = [\n${objekSoalStr}\n];`;
+
+        document.getElementById("label-file-output").innerText = `soal/${namaFile}`;
+        document.getElementById("out-kode-github").value = kodeLengkap;
+        navigator.clipboard.writeText(kodeLengkap).then(() => {
+          alert(`✅ ${arr.length} soal disusun & disalin otomatis!\n\nSimpan dengan nama file: soal/${namaFile} di GitHub Anda.`);
         }).catch(() => alert("✅ Kode berhasil disusun di kotak bawah!"));
       } catch (e) {
-        alert("❌ Format teks dari AI belum tepat. Pastikan menyalin mulai dari tanda [ sampai ].");
+        alert("❌ Format JSON dari AI belum valid. Pastikan menyalin mulai dari tanda [ sampai ].");
       }
-    }
-
-          function bukaGeneratorBab() {
-      app().innerHTML = `
-        <div class="form-box">
-          <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-          <h3 style="font-size:1.05rem; margin-bottom:6px;">🗂️ Generator Daftar Bab ➔ Kode GitHub</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Tulis daftar bab (1 baris = 1 bab), lalu salin kodenya ke <b>window.DATABASE_BAB</b> di file <b>data-soal.js</b>.</p>
-          <label>Jenjang</label><select id="adm-jenjang" onchange="updateDropdownAdmin()"><option value="sd">SD</option><option value="smp">SMP</option><option value="sma">SMA / SMK</option></select>
-          <label>Kelas</label><select id="adm-kelas"></select>
-          <label>Mata Pelajaran</label><select id="adm-mapel"></select>
-          <label>Daftar Bab (Pisahkan dengan Enter / baris baru)</label>
-          <textarea id="inp-daftar-bab" rows="4" placeholder="Bab 1: Bilangan Bulat&#10;Bab 2: Aljabar Dasar&#10;Bab 3: Persamaan Linear"></textarea>
-          <button type="button" class="btn-primary" onclick="susunKodeGitHubBab()">✨ Susun & Salin Kode Bab untuk data-soal.js</button>
-          <label style="margin-top:14px;">Hasil Kode Siap Tempel ke dalam window.DATABASE_BAB = { ... }</label>
-          <textarea id="out-kode-bab" rows="5" readonly placeholder="Kode bab siap tempel akan muncul di sini..."></textarea>
-        </div>`;
-      updateDropdownAdmin();
-    }
-
-    function susunKodeGitHubBab() {
-      const j = document.getElementById("adm-jenjang").value, k = document.getElementById("adm-kelas").value, m = document.getElementById("adm-mapel").value;
-      const baris = document.getElementById("inp-daftar-bab").value.split("\n").map(s => s.trim()).filter(Boolean);
-      if (baris.length === 0) return alert("Tulis minimal 1 nama bab terlebih dahulu!");
-      const kunci = `${j}-${k}-${m}`;
-      const kodeBab = `  "${kunci}": ${JSON.stringify(baris, null, 2)},`;
-      document.getElementById("out-kode-bab").value = kodeBab;
-      navigator.clipboard.writeText(kodeBab).then(() => {
-        alert("✅ Kode daftar bab disalin otomatis! Tempelkan di dalam window.DATABASE_BAB = { ... } pada file data-soal.js di GitHub.");
-      }).catch(() => alert("✅ Kode bab berhasil disusun di kotak bawah!"));
     }
 
           function tampilkanRekapTerfilter() {
@@ -526,14 +692,14 @@
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
-          <h3 style="font-size:1.05rem; margin-bottom:6px;">📊 Rekap Nilai Terfilter</h3>
-          <p style="font-size:0.82rem; color:#64748b; margin-bottom:12px;">Saring hasil ujian siswa berdasarkan <b>Kode Unik Ujian</b>, Kelas, atau Mapel.</p>
-          <label>🔑 Filter Kode Unik Ujian</label>
+          <h3 style="font-size:1.05rem; margin-bottom:6px;">📊 Rekap Nilai Ujian Otomatis</h3>
+          <p style="font-size:0.82rem; color:#64748b; margin-bottom:12px;">Semua nilai sesi ujian siswa otomatis direkap di sini.</p>
+          <label>🔑 Filter Kode Ujian</label>
           <select id="rek-filter-kode" onchange="renderIsiRekapTerfilter()">${daftarKode.map(kd => `<option value="${esc(kd)}">${kd === "SEMUA" ? "Semua Kode Ujian" : "Kode: " + esc(kd)}</option>`).join("")}</select>
           <label>Filter Kelas</label>
           <select id="rek-filter-kelas" onchange="renderIsiRekapTerfilter()">${daftarKelas.map(k => `<option value="${esc(k)}">${k === "SEMUA" ? "Semua Kelas" : "Kelas " + esc(k)}</option>`).join("")}</select>
-          <label>Filter Mata Pelajaran / Ujian</label>
-          <select id="rek-filter-mapel" onchange="renderIsiRekapTerfilter()">${daftarMapel.map(m => `<option value="${esc(m)}">${m === "SEMUA" ? "Semua Mapel" : esc(m)}</option>`).join("")}</select>
+          <label>Filter Mata Pelajaran & Sesi</label>
+          <select id="rek-filter-mapel" onchange="renderIsiRekapTerfilter()">${daftarMapel.map(m => `<option value="${esc(m)}">${m === "SEMUA" ? "Semua Mapel & Sesi" : esc(m)}</option>`).join("")}</select>
         </div>
         <div id="wadah-hasil-rekap" class="form-box"></div>`;
       renderIsiRekapTerfilter();
@@ -557,7 +723,7 @@
       const wadah = document.getElementById("wadah-hasil-rekap");
       if (!wadah) return;
       if (hasil.length === 0) {
-        wadah.innerHTML = `<p style="color:#64748b; font-size:0.88rem; text-align:center;">Tidak ada data nilai pada filter yang dipilih.</p>`;
+        wadah.innerHTML = `<p style="color:#64748b; font-size:0.88rem; text-align:center;">Belum ada data nilai pada filter yang dipilih.</p>`;
         return;
       }
       const listHtml = hasil.map((d, i) => `
@@ -566,8 +732,8 @@
             <b>${i + 1}. ${esc(d.nama)}</b>
             <span class="kode-pill">🔑 ${esc(d.kode || "TANPA-KODE")}</span>
           </div>
-          <small style="color:#64748b;">${esc(d.sekolah)} • Kelas ${esc(d.kelas)}</small><br>
-          Ujian: ${esc(d.mapel)} • Skor: <b style="color:#4f46e5;">${d.nilai}</b>
+          <small style="color:#64748b;">${esc(d.sekolah)} • Kelas ${esc(d.kelas)} ${d.waktu ? "• " + esc(d.waktu) : ""}</small><br>
+          Ujian: <b>${esc(d.mapel)}</b> • Skor: <b style="color:#4f46e5; font-size:1rem;">${d.nilai}</b>
         </div>`).join("");
 
       wadah.innerHTML = `
@@ -606,9 +772,9 @@
         <div class="form-box">
           <button class="btn-back" onclick="bukaMenu('saya')">⬅ Kembali</button>
           <h3 style="font-size:1.05rem; margin-bottom:6px;">📄 Download Rekap Nilai (PDF)</h3>
-          <label>🔑 Filter Kode Unik Ujian</label><select id="pdf-filter-kode">${daftarKode.map(kd => `<option value="${esc(kd)}">${kd === "SEMUA" ? "Semua Kode Ujian" : "Kode: " + esc(kd)}</option>`).join("")}</select>
+          <label>🔑 Filter Kode Ujian</label><select id="pdf-filter-kode">${daftarKode.map(kd => `<option value="${esc(kd)}">${kd === "SEMUA" ? "Semua Kode Ujian" : "Kode: " + esc(kd)}</option>`).join("")}</select>
           <label>Filter Kelas</label><select id="pdf-filter-kelas">${daftarKelas.map(k => `<option value="${esc(k)}">${k === "SEMUA" ? "Semua Kelas" : "Kelas " + esc(k)}</option>`).join("")}</select>
-          <label>Filter Mata Pelajaran / Ujian</label><select id="pdf-filter-mapel">${daftarMapel.map(m => `<option value="${esc(m)}">${m === "SEMUA" ? "Semua Mata Pelajaran" : esc(m)}</option>`).join("")}</select>
+          <label>Filter Mata Pelajaran & Sesi</label><select id="pdf-filter-mapel">${daftarMapel.map(m => `<option value="${esc(m)}">${m === "SEMUA" ? "Semua Mapel & Sesi" : esc(m)}</option>`).join("")}</select>
           <button type="button" class="btn-pdf" onclick="eksekusiUnduhPDF('pdf-filter-kode','pdf-filter-kelas','pdf-filter-mapel')">🖨️ Cetak / Simpan sebagai PDF</button>
         </div>`;
     }
@@ -620,14 +786,11 @@
       const barisTabel = hasil.map((d, i) => `<tr><td style="text-align:center;">${i + 1}</td><td style="text-align:center;"><b>${esc(d.kode || "-")}</b></td><td>${esc(d.nama)}</td><td>${esc(d.sekolah)}</td><td style="text-align:center;">${esc(d.kelas)}</td><td>${esc(d.mapel)}</td><td style="text-align:center; font-weight:bold;">${d.nilai}</td></tr>`).join("");
       const win = window.open("", "_blank");
       if (!win) return alert("Pop-up diblokir browser.");
-      win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rekap_Nilai_RIM_CBT</title><style>body{font-family:Arial,sans-serif;padding:20px}h2{color:#4f46e5;margin:0 0 4px}p{font-size:12px;color:#475569;margin:0 0 14px}table{width:100%;border-collapse:collapse;font-size:12px}th{background:#4f46e5;color:#fff;padding:8px;border:1px solid #cbd5e1}td{padding:7px;border:1px solid #cbd5e1}</style></head><body><h2>REKAPITULASI NILAI UJIAN - RIM CBT</h2><p>Filter Kode Ujian: ' + esc(fKode) + ' • Dicetak: ' + new Date().toLocaleString("id-ID") + '</p><table><thead><tr><th>No</th><th>Kode Ujian</th><th>Nama Siswa</th><th>Sekolah</th><th>Kelas</th><th>Ujian / Mapel</th><th>Nilai</th></tr></thead><tbody>' + barisTabel + '</tbody></table><script>window.onload=function(){window.print();};<' + '/script></body></html>');
+      win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rekap_Nilai_RIM_CBT</title><style>body{font-family:Arial,sans-serif;padding:20px}h2{color:#4f46e5;margin:0 0 4px}p{font-size:12px;color:#475569;margin:0 0 14px}table{width:100%;border-collapse:collapse;font-size:12px}th{background:#4f46e5;color:#fff;padding:8px;border:1px solid #cbd5e1}td{padding:7px;border:1px solid #cbd5e1}</style></head><body><h2>REKAPITULASI NILAI UJIAN - RIM CBT</h2><p>Filter Kode Ujian: ' + esc(fKode) + ' • Dicetak: ' + new Date().toLocaleString("id-ID") + '</p><table><thead><tr><th>No</th><th>Kode Ujian</th><th>Nama Siswa</th><th>Sekolah</th><th>Kelas</th><th>Ujian / Mapel & Sesi</th><th>Nilai</th></tr></thead><tbody>' + barisTabel + '</tbody></table><script>window.onload=function(){window.print();};<' + '/script></body></html>');
       win.document.close();
     }
 
-    (async function mulaiAplikasi() {
-      await muatFileSoalTerbaru();
-      bukaMenu("home");
-    })();
+    bukaMenu("home");
   </script>
 </body>
 </html>
