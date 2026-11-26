@@ -879,27 +879,69 @@
       return `${jenisTes}_${kodeKategori}_sesi${nomorSesi}.js`;
     }
 
+       window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
+
     function muatFileSoalDariNama(namaFile) {
       return new Promise((resolve) => {
-        window.BANK_SOAL_AKTIF = [];
-        const pathFile = `./soal/${namaFile}`;
+        const kunci = namaFile.replace(/\.js$/i, "");
 
+        // 1. Cek apakah soal sudah tersedia di BANK_SOAL_MASTER
+        if (Array.isArray(window.BANK_SOAL_MASTER[kunci]) && window.BANK_SOAL_MASTER[kunci].length > 0) {
+          resolve({ tersedia: true, namaFile, soal: window.BANK_SOAL_MASTER[kunci] });
+          return;
+        }
+
+        // 2. Coba muat file satuan lama (contoh: kls1_mtk_bab1_sesi1.js)
+        window.BANK_SOAL_AKTIF = [];
         const lama = document.getElementById("script-soal-sesi");
         if (lama) lama.remove();
 
         const s = document.createElement("script");
         s.id = "script-soal-sesi";
-        s.src = `${pathFile}?v=${Date.now()}`;
+        s.src = `./soal/${namaFile}?v=${Date.now()}`;
         s.onload = () => {
           const daftar = Array.isArray(window.BANK_SOAL_AKTIF) ? window.BANK_SOAL_AKTIF : [];
-          resolve({ tersedia: daftar.length > 0, namaFile, soal: daftar });
+          if (daftar.length > 0) {
+            resolve({ tersedia: true, namaFile, soal: daftar });
+          } else {
+            cobaMuatMasterMapel(namaFile, kunci, resolve);
+          }
         };
         s.onerror = () => {
-          resolve({ tersedia: false, namaFile, soal: [] });
+          // 3. Jika file satuan tidak ada, otomatis muat File Master Mapel (contoh: kls1_ppkn_master.js)
+          cobaMuatMasterMapel(namaFile, kunci, resolve);
         };
         document.body.appendChild(s);
       });
     }
+
+    function cobaMuatMasterMapel(namaFile, kunci, resolve) {
+      const namaMaster = kunci.replace(/_bab\d+_sesi\d+$/i, "_master.js");
+      if (namaMaster === kunci) {
+        resolve({ tersedia: false, namaFile, soal: [] });
+        return;
+      }
+
+      const idMaster = "script-master-" + namaMaster.replace(/[^a-z0-9]/gi, "_");
+      if (document.getElementById(idMaster)) {
+        const hasil = window.BANK_SOAL_MASTER[kunci] || [];
+        resolve({ tersedia: hasil.length > 0, namaFile, soal: hasil });
+        return;
+      }
+
+      const sm = document.createElement("script");
+      sm.id = idMaster;
+      sm.src = `./soal/${namaMaster}?v=${Date.now()}`;
+      sm.onload = () => {
+        const hasil = window.BANK_SOAL_MASTER[kunci] || [];
+        resolve({ tersedia: hasil.length > 0, namaFile, soal: hasil });
+      };
+      sm.onerror = () => {
+        resolve({ tersedia: false, namaFile, soal: [] });
+      };
+      document.body.appendChild(sm);
+    }
+
 
     let timerMotivasi, idxMotivasi = 0;
     let bankSoalMentah = [], soalList = [], jawabanUser = [], idxSoal = 0;
