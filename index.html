@@ -1166,7 +1166,7 @@
     }
 
     function cobaMuatMasterMapel(namaFile, kunci, resolve) {
-      const namaMaster = kunci.replace(/_bab\d+_sesi\d+$/i, "_master.js");
+     const namaMaster = kunci.replace(/(_bab\d+)?_sesi\d+$/i, "_master.js");
       if (namaMaster === kunci) {
         resolve({ tersedia: false, namaFile, soal: [] });
         return;
