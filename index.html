@@ -1047,7 +1047,7 @@
     const dataTesKhusus = {
       tka: {
         judul: "Tes Kemampuan Akademik (TKA)",
-        subjudul: "Pilih bidang kemampuan untuk memulai latihan 5 sesi",
+        subjudul: "Pilih bidang kemampuan untuk memulai latihan 10 sesi",
         kategori: [
           { kode: "literasi", nama: "Literasi", ikon: "📖", ket: "Pemahaman bacaan, penalaran teks & informasi" },
           { kode: "numerasi", nama: "Numerasi", ikon: "🔢", ket: "Penalaran matematika, logika angka & data" }
@@ -1056,7 +1056,7 @@
       },
       cpns: {
         judul: "Seleksi Kompetensi Dasar (CPNS)",
-        subjudul: "Pilih subtes CAT CPNS untuk memulai latihan 5 sesi",
+        subjudul: "Pilih subtes CAT CPNS untuk memulai latihan 15 sesi",
         kategori: [
           { kode: "twk", nama: "TWK (Tes Wawasan Kebangsaan)", ikon: "🇮🇩", ket: "Pancasila, UUD 1945, NKRI & Bhinneka Tunggal Ika" },
           { kode: "tiu", nama: "TIU (Tes Intelegensia Umum)", ikon: "🧩", ket: "Kemampuan verbal, numerik & figural" },
@@ -1067,7 +1067,7 @@
       },
       toefl: {
         judul: "TOEFL Preparation Test",
-        subjudul: "Pilih section TOEFL ITP untuk memulai latihan 5 sesi",
+        subjudul: "Pilih section TOEFL ITP untuk memulai latihan 15 sesi",
         kategori: [
           { kode: "listening", nama: "Listening Comprehension", ikon: "🎧", ket: "Short conversations, long conversations & talks" },
           { kode: "structure", nama: "Structure & Written Expression", ikon: "✍️", ket: "Sentence completion & error identification" },
@@ -1077,19 +1077,18 @@
       }
     };
 
-    const daftarSesiSekolah = [
-      { nomor: 1, nama: "Sesi 1", ket: "20 Soal Pilihan Ganda (Acak)" },
-      { nomor: 2, nama: "Sesi 2", ket: "20 Soal Pilihan Ganda (Acak)" },
-      { nomor: 3, nama: "Sesi 3", ket: "20 Soal Pilihan Ganda (Acak)" }
+       const daftarSesiSekolah = [
+      { nomor: 1, nama: "Sesi 1", ket: "" },
+      { nomor: 2, nama: "Sesi 2", ket: "" },
+      { nomor: 3, nama: "Sesi 3", ket: "" }
     ];
 
-    const daftarSesiKhusus = [
-      { nomor: 1, nama: "Sesi 1", ket: "Paket 1 • 20 Soal Pilihan Ganda (Acak)" },
-      { nomor: 2, nama: "Sesi 2", ket: "Paket 2 • 20 Soal Pilihan Ganda (Acak)" },
-      { nomor: 3, nama: "Sesi 3", ket: "Paket 3 • 20 Soal Pilihan Ganda (Acak)" },
-      { nomor: 4, nama: "Sesi 4", ket: "Paket 4 • 20 Soal Pilihan Ganda (Acak)" },
-      { nomor: 5, nama: "Sesi 5", ket: "Paket 5 • 20 Soal Pilihan Ganda (Acak)" }
-    ];
+    const daftarSesiKhusus = Array.from({ length: 15 }, (_, i) => ({
+      nomor: i + 1,
+      nama: `Sesi ${i + 1}`,
+      ket: ""
+    }));
+
 
     function acakArray(arr) {
       const hasil = [...arr];
