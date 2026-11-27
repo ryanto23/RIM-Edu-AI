@@ -1208,18 +1208,6 @@
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-    function dapatkanPinAdmin() {
-      return localStorage.getItem("rim_admin_pin") || "123456";
-    }
-
-    function ubahPinAdmin() {
-      const baru = (prompt("Masukkan Password / PIN Admin baru (minimal 4 karakter):") || "").trim();
-      if (!baru) return;
-      if (baru.length < 4) return alert("Password minimal 4 karakter!");
-      localStorage.setItem("rim_admin_pin", baru);
-      alert("✅ Password / PIN Admin berhasil diperbarui!");
-    }
-
     function jalankanAnimasiMotivasi() {
       clearInterval(timerMotivasi);
       timerMotivasi = setInterval(() => {
@@ -1262,28 +1250,9 @@
         pilihKelas(menu);
       } else if (dataTesKhusus[menu]) {
         pilihKategoriTesKhusus(menu);
-      } else if (menu === "saya") {
-        if (!adminTerbuka) {
-          const pinInput = prompt("🔐 Masukkan Password / PIN Admin:");
-          if (pinInput === null) return bukaMenu("home");
-          if (pinInput !== dapatkanPinAdmin()) {
-            alert("❌ Password Admin Salah! Akses ditolak.");
-            return bukaMenu("home");
-          }
-          adminTerbuka = true;
-        }
-        title().innerText = "Panel Admin & Rekap";
-        app().innerHTML = `
-          <div class="form-box">
-            <h3 style="font-size:1.05rem; margin-bottom:4px;">🔐 Area Admin & Generator File Soal</h3>
-            <p style="font-size:0.84rem; color:#64748b;">Buat file soal modular (SD, SMP, SMA, TKA, CPNS, maupun TOEFL) atau kelola rekap nilai peserta.</p>
-          </div>
-          <div class="list-menu">
-            <div class="list-item" onclick="bukaGeneratorAI()" style="border-color:#4f46e5; background:#eef2ff;"><span>✨ Generator File Soal (.js) ➔ GitHub</span><span>➔</span></div>
-            <div class="list-item" onclick="tampilkanRekapTerfilter()" style="border-color:#16a34a; background:#f0fdf4;"><span>📊 Lihat & Filter Rekap Nilai Peserta</span><span>➔</span></div>
-            <div class="list-item" onclick="bukaModalPDF()"><span>📄 Download Rekap Nilai (PDF)</span><span>➔</span></div>
-            <div class="list-item" onclick="ubahPinAdmin()"><span>🔑 Ubah Password / PIN Admin</span><span>➔</span></div>
-          </div>`;
+           } else if (menu === "saya") {
+        title().innerText = "Rekap Nilai Peserta";
+        tampilkanRekapTerfilter();
       }
     }
 
