@@ -1386,29 +1386,27 @@
           </div>`).join("") + `</div>`;
     }
 
-          function pilihSesiTesKhusus(jenisTes, kodeKategori, namaKategori) {
+            function pilihSesiTesKhusus(jenisTes, kodeKategori, namaKategori) {
       sesi.tipe = jenisTes;
       sesi.kodeMapel = kodeKategori;
       sesi.namaMapel = namaKategori;
+      const totalSesi = (dataTesKhusus[jenisTes] && dataTesKhusus[jenisTes].jumlahSesi) || 15;
       title().innerText = `${jenisTes.toUpperCase()} • ${namaKategori}`;
       app().innerHTML = `
         <div class="form-box">
           <button class="btn-back" onclick="pilihKategoriTesKhusus('${jenisTes}')">⬅ Kembali ke Pilihan Tes</button>
-          <h3 style="font-size:1.05rem;">Pilih Sesi Latihan (5 Sesi)</h3>
+          <h3 style="font-size:1.05rem;">Pilih Sesi Latihan (${totalSesi} Sesi)</h3>
           <p style="font-size:0.84rem; color:#64748b;"><b>${esc(namaKategori)}</b> • Masing-masing 20 Soal Pilihan Ganda</p>
         </div>
         <div class="list-menu">` +
-        daftarSesiKhusus.map(s => {
-          const namaFile = buatNamaFileSoalKhusus(jenisTes, kodeKategori, s.nomor);
-          return `
+        daftarSesiKhusus.slice(0, totalSesi).map(s => `
             <div class="list-item" onclick="siapkanSesiKhusus('${jenisTes}', ${s.nomor}, '${s.nama}')">
               <div>
-                <b>📝 ${s.nama} — ${esc(namaKategori)}</b><br>
-                <small style="color:#64748b; font-weight:400;">${s.ket} • File: <code>soal/${namaFile}</code></small>
+                <b>📝 ${s.nama}</b>
               </div>
               <span>➔</span>
-            </div>`;
-        }).join("") + `</div>`;
+            </div>`
+        ).join("") + `</div>`;
     }
 
     async function siapkanSesiKhusus(jenisTes, nomorSesi, namaSesi) {
