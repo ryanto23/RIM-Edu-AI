@@ -1207,18 +1207,19 @@
     const title = () => document.getElementById("header-title");
     const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-    function jalankanAnimasiMotivasi() {
+      function jalankanAnimasiMotivasi() {
       clearInterval(timerMotivasi);
       timerMotivasi = setInterval(() => {
         const elTeks = document.getElementById("teks-motivasi");
-          const elTokoh = document.getElementById("tokoh-motivasi");
-        if (!elTeks || !elTokoh) return clearInterval(timerMotivasi);
+        if (!elTeks) return clearInterval(timerMotivasi);
 
         elTeks.style.opacity = "0";
         setTimeout(() => {
           idxMotivasi = (idxMotivasi + 1) % daftarKutipanMotivasi.length;
-          elTeks.innerText = `"${daftarKutipanMotivasi[idxMotivasi].teks}"`;
-          elTokoh.innerText = `✨ ${daftarKutipanMotivasi[idxMotivasi].tokoh}`;
+          const kutipanBerikutnya = daftarKutipanMotivasi.at(idxMotivasi);
+          if (kutipanBerikutnya) {
+            elTeks.innerText = `"${kutipanBerikutnya.teks}"`;
+          }
           elTeks.style.opacity = "1";
         }, 700);
       }, 9000);
@@ -1231,7 +1232,7 @@
 
       if (menu === "home") {
         title().innerText = "BISMILLAH";
-        const awalMot = daftarKutipanMotivasi[idxMotivasi];
+        const awalMot = daftarKutipanMotivasi.at(idxMotivasi) || { teks: "" };
         app().innerHTML = `
           <div class="hero-photo-card">
             <div class="hero-photo-wrap">
@@ -1248,11 +1249,12 @@
         pilihKelas(menu);
       } else if (dataTesKhusus[menu]) {
         pilihKategoriTesKhusus(menu);
-           } else if (menu === "saya") {
+      } else if (menu === "saya") {
         title().innerText = "Rekap Nilai Peserta";
         tampilkanRekapTerfilter();
       }
     }
+
 
           function pilihKelas(jenjang) {
       const d = kurikulumSekolah[jenjang];
