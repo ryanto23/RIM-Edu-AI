@@ -248,3 +248,66 @@ window.BANK_SOAL_MASTER["toefl_reading_sesi2"] = [
   }
 ];
 
+window.BANK_SOAL_MASTER["toefl_reading_sesi3"] = [
+  {
+    q: "[PASSAGE 1 - The Silk Road Trade Network]\nEstablished during the Han Dynasty around 130 BCE, the Silk Road was an extensive network of overland trade routes linking East Asia with the Mediterranean world. Although named after lucrative Chinese silk, merchants along these routes also transported spices, glassware, paper, and precious metals. Equally significant was the cultural and technological exchange that accompanied commerce: religions such as Buddhism spread from India into China, while innovations like papermaking and gunpowder gradually reached Europe, reshaping global history.\n\n1. What is the main idea of Passage 1?",
+    p: ["Why Chinese silk was the most expensive fabric in Rome", "The Silk Road facilitated both commercial trade and profound cultural and technological exchange between East and West", "How the Han Dynasty defeated nomadic tribes", "Why maritime routes replaced overland trade"],
+    b: 1,
+    bahas: "Teks menekankan bahwa Jalur Sutra bukan hanya jalur perdagangan barang, melainkan juga pertukaran budaya, agama, dan teknologi antara Timur dan Barat."
+  },
+  {
+    q: "[PASSAGE 1 - The Silk Road Trade Network]\n2. The word 'lucrative' in line 2 is closest in meaning to ...",
+    p: ["fragile", "profitable", "heavy", "colorful"],
+    b: 1,
+    bahas: "'Lucrative' berarti sangat menguntungkan secara finansial ('profitable')."
+  },
+  {
+    q: "[PASSAGE 1 - The Silk Road Trade Network]\n3. Which of the following was NOT mentioned as a commodity traded along the Silk Road?",
+    p: ["Spices", "Glassware", "Paper", "Coffee beans"],
+    b: 3,
+    bahas: "Biji kopi ('coffee beans') tidak disebutkan; yang disebutkan adalah sutra, rempah-rempah, barang pecah belah, kertas, dan logam mulia."
+  },
+  {
+    q: "[PASSAGE 1 - The Silk Road Trade Network]\n4. According to the passage, how did Buddhism reach China?",
+    p: ["Via maritime expeditions from Japan", "Through cultural exchanges along the Silk Road from India", "By imperial decree of Roman emperors", "Through European missionaries"],
+    b: 1,
+    bahas: "Kalimat ketiga menyebutkan agama Buddha menyebar dari India ke Tiongkok melalui pertukaran budaya di sepanjang Jalur Sutra."
+  },
+  {
+    q: "[PASSAGE 1 - The Silk Road Trade Network]\n5. Which Chinese inventions gradually spread westward to Europe via the Silk Road?",
+    p: ["Glassware and wool", "Papermaking and gunpowder", "Bronze coins and olive oil", "Telescopes and clocks"],
+    b: 1,
+    bahas: "Kalimat terakhir menyebutkan inovasi seperti pembuatan kertas ('papermaking') dan mesiu ('gunpowder')."
+  },
+  {
+    q: "[PASSAGE 2 - Echolocation in Nocturnal Bats]\nAlthough the expression 'blind as a bat' is common, all bat species actually possess functional eyes. Nevertheless, nocturnal insect-eating bats rely primarily on echolocation rather than vision to navigate and hunt in complete darkness. By emitting rapid bursts of ultrasonic clicks through their mouths or noses and analyzing the returning echoes, bats construct a detailed acoustic map of their surroundings. This biological sonar enables them to detect obstacles as thin as a human hair and capture flying moths mid-air.\n\n6. What misconception about bats does the author correct in the first sentence?",
+    p: ["That bats only hunt during daylight hours", "That bats are completely blind", "That bats eat fruit instead of insects", "That bats cannot fly in rainy weather"],
+    b: 1,
+    bahas: "Penulis meluruskan ungkapan 'blind as a bat' dengan menyatakan semua spesies kelelawar sebenarnya memiliki mata yang berfungsi."
+  },
+  {
+    q: "[PASSAGE 2 - Echolocation in Nocturnal Bats]\n7. How do nocturnal bats create an acoustic map of their environment?",
+    p: ["By flapping their wings against cave walls", "By emitting ultrasonic clicks and interpreting the returning echoes", "By sensing body heat from distant prey", "By following moonlight reflections"],
+    b: 1,
+    bahas: "Kelelawar memancarkan bunyi ultrasonik melalui mulut atau hidung lalu menganalisis gema ('returning echoes') yang memantul kembali."
+  },
+  {
+    q: "[PASSAGE 2 - Echolocation in Nocturnal Bats]\n8. The word 'emitting' in line 3 is closest in meaning to ...",
+    p: ["absorbing", "sending out", "silencing", "hiding"],
+    b: 1,
+    bahas: "'Emitting' berarti memancarkan atau mengeluarkan gelombang suara ('sending out')."
+  },
+  {
+    q: "[PASSAGE 2 - Echolocation in Nocturnal Bats]\n9. The word 'them' in the last sentence refers to ...",
+    p: ["obstacles", "echoes", "bats", "moths"],
+    b: 2,
+    bahas: "'Enables them to detect obstacles...' merujuk pada subjek utama yaitu 'bats' (kelelawar)."
+  },
+  {
+    q: "[PASSAGE 2 - Echolocation in Nocturnal Bats]\n10. What does the reference to 'a human hair' illustrate about bat echolocation?",
+    p: ["Bats prefer nesting in human dwellings", "Bat echolocation is extraordinarily precise", "Bats cannot detect objects larger than a moth", "Human hair blocks ultrasonic waves"],
+    b: 1,
+    bahas: "Kemampuan mendeteksi benda setipis rambut manusia menunjukkan betapa sangat presisi dan tajamnya sonar biologis kelelawar."
+  },
+
+  
