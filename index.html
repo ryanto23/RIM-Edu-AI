@@ -1211,6 +1211,7 @@
       clearInterval(timerMotivasi);
       timerMotivasi = setInterval(() => {
         const elTeks = document.getElementById("teks-motivasi");
+          const elTokoh = document.getElementById("tokoh-motivasi");
         if (!elTeks || !elTokoh) return clearInterval(timerMotivasi);
 
         elTeks.style.opacity = "0";
@@ -1241,7 +1242,6 @@
           </div>
           <div class="motivasi-animasi">
             <p id="teks-motivasi">"${awalMot.teks}"</p>
-            <small id="tokoh-motivasi">✨ ${awalMot.tokoh}</small>
           </div>`;
         jalankanAnimasiMotivasi();
       } else if (kurikulumSekolah[menu]) {
