@@ -1211,7 +1211,6 @@
       clearInterval(timerMotivasi);
       timerMotivasi = setInterval(() => {
         const elTeks = document.getElementById("teks-motivasi");
-        const elTokoh = document.getElementById("tokoh-motivasi");
         if (!elTeks || !elTokoh) return clearInterval(timerMotivasi);
 
         elTeks.style.opacity = "0";
