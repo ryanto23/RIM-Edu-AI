@@ -618,3 +618,126 @@ window.BANK_SOAL_MASTER["toefl_structure_sesi5"] = [
   }
 ];
 
+window.BANK_SOAL_MASTER["toefl_structure_sesi6"] = [
+  {
+    q: "_____ the outer planets of our solar system, Jupiter and Saturn are composed primarily of hydrogen and helium.",
+    p: ["Like", "Alike", "Likely", "As"],
+    b: 0,
+    bahas: "Preposisi 'Like' digunakan di awal kalimat sebelum noun phrase ('the outer planets') untuk menyatakan kemiripan."
+  },
+  {
+    q: "Not only _____ essential for regulating body temperature, but water also transports vital nutrients to cells.",
+    p: ["is it", "it is", "being", "is"],
+    b: 0,
+    bahas: "Ekspresi negatif 'Not only' di awal kalimat mewajibkan inversi kata kerja bantu sebelum subjek: 'is it'."
+  },
+  {
+    q: "The invention of the printing press by Johannes Gutenberg made books _____ to the general public than ever before.",
+    p: ["more accessible", "most accessible", "as accessible", "accessibility"],
+    b: 0,
+    bahas: "Karena terdapat kata 'than', bentuk comparative yang tepat adalah 'more accessible'."
+  },
+  {
+    q: "By the end of the nineteenth century, electric streetcars _____ horse-drawn carriages in most major American cities.",
+    p: ["have replaced", "had replaced", "were replacing", "replace"],
+    b: 1,
+    bahas: "Frasa waktu 'By the end of + waktu lampau' menggunakan Past Perfect Tense ('had replaced')."
+  },
+  {
+    q: "Geologists study the layers of sedimentary rock _____ reconstruct the Earth's climatic history over millions of years.",
+    p: ["so that", "in order to", "for", "because"],
+    b: 1,
+    bahas: "Frasa 'in order to' diikuti langsung oleh kata kerja bentuk dasar ('reconstruct') untuk menyatakan tujuan."
+  },
+  {
+    q: "_____ his groundbreaking research on radioactivity, Pierre Curie shared the 1903 Nobel Prize in Physics with his wife Marie.",
+    p: ["Because", "For", "Although", "Since"],
+    b: 1,
+    bahas: "Preposisi 'For' tepat diikuti frasa benda ('his groundbreaking research') untuk menyatakan alasan penghargaan."
+  },
+  {
+    q: "The museum's conservation department insists that every antique painting _____ stored at a constant humidity level.",
+    p: ["is", "be", "was", "has been"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'insists that' selalu menggunakan bare infinitive ('be')."
+  },
+  {
+    q: "Neither the solar panels nor the backup battery system _____ damaged during the severe thunderstorm last night.",
+    p: ["were", "was", "have been", "are"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('system' = tunggal), sehingga memakai 'was'."
+  },
+  {
+    q: "_____ the chameleon changes its skin color depends largely on temperature, light, and emotional state.",
+    p: ["Why", "What", "Which", "Whom"],
+    b: 0,
+    bahas: "Noun clause sebagai subjek kalimat yang menanyakan alasan/sebab menggunakan kata tanya 'Why'."
+  },
+  {
+    q: "Seldom _____ a more comprehensive exhibition of Renaissance sculptures outside of Florence.",
+    p: ["art historians have seen", "have art historians seen", "art historians saw", "did art historians saw"],
+    b: 1,
+    bahas: "Adverb negatif 'Seldom' di awal kalimat memicu inversi Present Perfect ('have + subject + V3')."
+  },
+  {
+    q: "Photosynthesis occurs primarily in the leaves of vascular plants, _____ contain high concentrations of chlorophyll.",
+    p: ["that", "which", "where", "who"],
+    b: 1,
+    bahas: "Non-defining relative clause yang diawali tanda koma wajib menggunakan 'which', bukan 'that'."
+  },
+  {
+    q: "The heavier an object is, _____ gravitational force is required to lift it off the ground.",
+    p: ["the greatest", "the greater", "greater than", "as great as"],
+    b: 1,
+    bahas: "Double comparative menggunakan struktur sejajar: 'The heavier ..., the greater ...'."
+  },
+  {
+    q: "Constructed entirely without mortar, the ancient stone walls of Machu Picchu _____ withstood centuries of earthquakes.",
+    p: ["has", "have", "is", "was"],
+    b: 1,
+    bahas: "Subjek utama kalimat adalah 'walls' (jamak), sehingga kata kerja bantu yang tepat adalah 'have'."
+  },
+  {
+    q: "_____ to migrate thousands of miles each autumn, monarch butterflies rely on an internal circadian compass.",
+    p: ["Able", "Ability", "Enabling", "Are able"],
+    b: 0,
+    bahas: "Adjective phrase 'Able to migrate...' di awal kalimat menerangkan subjek 'monarch butterflies'."
+  },
+  {
+    q: "Had the meteorological station issued the tsunami warning ten minutes earlier, hundreds of coastal homes _____ evacuated safely.",
+    p: ["will be", "could have been", "can be", "had been"],
+    b: 1,
+    bahas: "Inversi Conditional Type 3 ('Had + S + V3') berpasangan dengan modal perfect pasif 'could have been'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe Amazon rainforest is (A) 'home' to more than ten (B) 'percent' of all (C) 'know' species of plants and (D) 'animals' on Earth.",
+    p: ["(A) home", "(B) percent", "(C) know", "(D) animals"],
+    b: 2,
+    bahas: "Kata benda 'species' harus diterangkan oleh past participle pasif 'known' ('spesies yang diketahui'), bukan 'know'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nEach of the (A) 'planets' in our solar system (B) 'orbit' the Sun along (C) 'an' elliptical path determined (D) 'by' gravity.",
+    p: ["(A) planets", "(B) orbit", "(C) an", "(D) by"],
+    b: 1,
+    bahas: "Subjek kalimat adalah 'Each' (tunggal), sehingga kata kerjanya harus menggunakan akhiran -s: 'orbits'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nDespite (A) 'their' thick coats of fur, polar bears (B) 'rely' heavily on a layer of blubber (C) 'for' insulate against freezing Arctic (D) 'waters'.",
+    p: ["(A) their", "(B) rely", "(C) for", "(D) waters"],
+    b: 2,
+    bahas: "Untuk menyatakan fungsi dengan infinitive ('insulate'), gunakan 'to insulate', bukan 'for insulate'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe symphony's second movement (A) 'is' characterized by (B) 'a' gentle melody played (C) 'soft' by the string (D) 'section'.",
+    p: ["(A) is", "(B) a", "(C) soft", "(D) section"],
+    b: 2,
+    bahas: "Untuk menerangkan kata kerja 'played', diperlukan adverb 'softly', bukan kata sifat 'soft'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nNeither the (A) 'chemists' nor the lead researcher (B) 'were' satisfied with the initial (C) 'results' of the synthesis (D) 'experiment'.",
+    p: ["(A) chemists", "(B) were", "(C) results", "(D) experiment"],
+    b: 1,
+    bahas: "Pada 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('the lead researcher' = tunggal), sehingga seharusnya 'was'."
+  }
+];
+
