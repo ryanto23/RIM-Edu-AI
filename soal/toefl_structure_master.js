@@ -741,3 +741,1110 @@ window.BANK_SOAL_MASTER["toefl_structure_sesi6"] = [
   }
 ];
 
+window.BANK_SOAL_MASTER["toefl_structure_sesi7"] = [
+  {
+    q: "_____ the first transcontinental railroad in 1869, travel across the United States was reduced from months to less than a week.",
+    p: ["Following", "Followed", "It followed", "To follow"],
+    b: 0,
+    bahas: "Preposisi 'Following' (setelah) tepat diikuti frasa benda 'the first transcontinental railroad in 1869'."
+  },
+  {
+    q: "The giant sequoia, _____ native to the western slopes of the Sierra Nevada mountains, ranks among the largest living organisms on Earth.",
+    p: ["is", "which is", "it is", "being is"],
+    b: 1,
+    bahas: "Non-defining relative clause yang diapit koma memerlukan relative pronoun 'which' beserta kata kerja 'is'."
+  },
+  {
+    q: "Little _____ when he began studying mold cultures that his observation would lead to the discovery of modern antibiotics.",
+    p: ["Alexander Fleming knew", "did Alexander Fleming know", "knew Alexander Fleming", "Alexander Fleming did know"],
+    b: 1,
+    bahas: "Adverb negatif 'Little' di awal kalimat mewajibkan inversi auxiliary 'did' sebelum subjek: 'did Alexander Fleming know'."
+  },
+  {
+    q: "Unlike terrestrial plants, seaweeds lack true roots, stems, and leaves, _____ instead absorb nutrients directly from surrounding seawater.",
+    p: ["and", "but", "or", "for"],
+    b: 0,
+    bahas: "Konjungsi koordinatif 'and' menghubungkan dua predikat sejajar milik subjek 'seaweeds' ('lack ... and ... absorb')."
+  },
+  {
+    q: "The federal judge ordered that all confidential documents _____ sealed until the preliminary hearing concluded.",
+    p: ["remain", "remains", "remained", "remaining"],
+    b: 0,
+    bahas: "Subjunctive mood setelah 'ordered that' selalu menggunakan bare infinitive ('remain') tanpa akhiran -s."
+  },
+  {
+    q: "_____ of the three satellites launched during the mission successfully transmitted high-resolution images back to Earth.",
+    p: ["All", "Both", "Either", "Neither"],
+    b: 0,
+    bahas: "Karena merujuk pada tiga satelit ('of the three satellites'), kata ganti yang tepat adalah 'All', bukan 'Both/Either/Neither' yang hanya untuk dua."
+  },
+  {
+    q: "The atmospheric pressure at sea level is roughly twice _____ at the summit of Mount Rainier.",
+    p: ["as high as", "higher than", "as high than", "highest as"],
+    b: 0,
+    bahas: "Perbandingan kelipatan ('twice') menggunakan struktur baku 'as + adjective + as' ('as high as')."
+  },
+  {
+    q: "_____ the fierce winter storms in the North Sea, offshore wind turbines continue generating clean electricity.",
+    p: ["Although", "In spite of", "Because", "Whereas"],
+    b: 1,
+    bahas: "'In spite of' adalah preposisi yang diikuti frasa benda ('the fierce winter storms...'), sedangkan 'Although' membutuhkan klausa."
+  },
+  {
+    q: "Should the volcano _____ signs of imminent eruption, local authorities will immediately evacuate nearby villages.",
+    p: ["exhibit", "exhibits", "exhibited", "exhibiting"],
+    b: 0,
+    bahas: "Inversi Conditional Type 1 ('Should + S + V1') selalu menggunakan bentuk dasar 'exhibit'."
+  },
+  {
+    q: "Neither the playwright nor the theater directors _____ anticipated how enthusiastically critics would praise the experimental drama.",
+    p: ["has", "have", "was", "is"],
+    b: 1,
+    bahas: "Pada 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('directors' = jamak), sehingga memakai 'have'."
+  },
+  {
+    q: "A spectroscope separates white light into its component colors, _____ astronomers to determine the chemical composition of distant stars.",
+    p: ["enabled", "enabling", "enables", "is enabling"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('enabling astronomers...') menyatakan akibat langsung dari klausa sebelumnya."
+  },
+  {
+    q: "Rarely _____ such an extraordinary concentration of dinosaur footprints preserved in a single limestone riverbed.",
+    p: ["geologists discover", "do geologists discover", "geologists are discovering", "discovered geologists"],
+    b: 1,
+    bahas: "Adverb negatif 'Rarely' di awal kalimat memicu inversi dengan auxiliary 'do' sebelum subjek."
+  },
+  {
+    q: "The deeper root systems of prairie grasses grow, _____ resistant the plants become to prolonged summer droughts.",
+    p: ["the most", "the more", "more than", "as much"],
+    b: 1,
+    bahas: "Double comparative menggunakan struktur sejajar: 'The deeper ..., the more ...'."
+  },
+  {
+    q: "_____ an accurate method for measuring longitude at sea, eighteenth-century navigators often miscalculated their ships' positions.",
+    p: ["Lacking", "Lacked", "They lacked", "To lack"],
+    b: 0,
+    bahas: "Present participial phrase aktif ('Lacking an accurate method...') menerangkan subjek 'eighteenth-century navigators'."
+  },
+  {
+    q: "No one knows for certain _____ the ancient builders of Stonehenge transported the massive bluestones over such long distances.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menanyakan cara ('bagaimana cara mereka mengangkut batu') menggunakan kata tanya 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nA number of rare orchids (A) 'found' in the cloud forest (B) 'is' currently threatened (C) 'by' illegal harvesting and habitat (D) 'loss'.",
+    p: ["(A) found", "(B) is", "(C) by", "(D) loss"],
+    b: 1,
+    bahas: "Subjek 'A number of rare orchids' bersifat jamak, sehingga kata kerjanya harus 'are', bukan 'is'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nBefore (A) 'the' development of refrigeration, people (B) 'preserved' perishable foods (C) 'by' salting, drying, or (D) 'to smoke' them.",
+    p: ["(A) the", "(B) preserved", "(C) by", "(D) to smoke"],
+    b: 3,
+    bahas: "Parallel structure setelah preposisi 'by' memerlukan tiga gerund sejajar: 'salting, drying, or smoking'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe dolphin's echolocation system is (A) 'so' sensitive (B) 'that' it can detect (C) 'a' small fish from more (D) 'as' a hundred meters away.",
+    p: ["(A) so", "(B) that", "(C) a", "(D) as"],
+    b: 3,
+    bahas: "Pasangan komparatif dari 'more' adalah 'than' ('more than a hundred meters'), bukan 'as'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAlike (A) 'their' terrestrial relatives, sea turtles must return (B) 'to' sandy beaches (C) 'in order' to lay (D) 'their' eggs.",
+    p: ["(A) their", "(B) to", "(C) in order", "(D) their"],
+    b: 0,
+    bahas: "Di awal kalimat sebelum noun phrase ('their terrestrial relatives'), gunakan preposisi 'Like', bukan 'Alike'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe architect's proposal (A) 'for' the new civic center (B) 'was' both (C) 'economically' viable and (D) 'environment' sustainable.",
+    p: ["(A) for", "(B) was", "(C) economically", "(D) environment"],
+    b: 3,
+    bahas: "Untuk menerangkan kata sifat 'sustainable' secara paralel dengan 'economically viable', diperlukan adverb 'environmentally'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi8"] = [
+  {
+    q: "_____ the invention of the steam locomotive, overland freight transportation depended heavily on horse-drawn wagons and canals.",
+    p: ["Prior to", "In spite of", "Because", "While"],
+    b: 0,
+    bahas: "Preposisi 'Prior to' (sebelum) tepat diikuti frasa benda 'the invention of the steam locomotive'."
+  },
+  {
+    q: "The Mariana Trench, _____ in the western Pacific Ocean, reaches a maximum known depth of nearly eleven thousand meters.",
+    p: ["locating", "located", "is located", "which locates"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause pasif ('which is located') diringkas menjadi past participle 'located'."
+  },
+  {
+    q: "Not once _____ his commitment to ethical journalism, even when threatened with severe legal consequences.",
+    p: ["the editor compromised", "did the editor compromise", "compromised the editor", "the editor did compromise"],
+    b: 1,
+    bahas: "Frasa negatif 'Not once' di awal kalimat mewajibkan inversi auxiliary 'did' sebelum subjek: 'did the editor compromise'."
+  },
+  {
+    q: "Bats are the only mammals capable of true sustained flight, _____ gliding mammals such as flying squirrels.",
+    p: ["unlike", "alike", "dislike", "likely"],
+    b: 0,
+    bahas: "Preposisi 'unlike' (berbeda dengan) tepat digunakan sebelum noun phrase 'gliding mammals'."
+  },
+  {
+    q: "The university senate stipulated that every doctoral candidate _____ a comprehensive oral examination before defending a dissertation.",
+    p: ["passes", "pass", "passed", "passing"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'stipulated that' menggunakan bare infinitive ('pass') tanpa akhiran -s."
+  },
+  {
+    q: "_____ of the two experimental vaccines demonstrated sufficient immunity during the preliminary clinical trial.",
+    p: ["All", "Neither", "None", "Many"],
+    b: 1,
+    bahas: "Untuk menyatakan 'tidak satu pun dari dua' ('of the two experimental vaccines') dengan kata kerja tunggal, digunakan 'Neither'."
+  },
+  {
+    q: "Sound travels through steel approximately fifteen times _____ through dry air at room temperature.",
+    p: ["faster than", "as fast as", "as fast than", "more fast as"],
+    b: 1,
+    bahas: "Perbandingan kelipatan ('fifteen times') menggunakan pola baku 'as + adjective + as' ('as fast as')."
+  },
+  {
+    q: "_____ its reputation as an arid wasteland, the Sonoran Desert supports a remarkably diverse community of cacti, reptiles, and birds.",
+    p: ["Although", "Despite", "Because of", "In spite"],
+    b: 1,
+    bahas: "Preposisi 'Despite' tepat diikuti oleh frasa nomina 'its reputation as an arid wasteland'."
+  },
+  {
+    q: "Had the ancient library of Alexandria _____ destroyed by fire, countless classical manuscripts might have survived to the present day.",
+    p: ["never been", "never was", "not being", "never be"],
+    b: 0,
+    bahas: "Inversi Conditional Type 3 pasif ('Had + S + never been + V3') berpasangan dengan 'might have survived'."
+  },
+  {
+    q: "Neither the chief geologist nor the field technicians _____ able to explain the sudden spike in seismic activity.",
+    p: ["was", "were", "has been", "is"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('technicians' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Chlorophyll absorbs sunlight primarily in the blue and red wavelengths, _____ green light to be reflected back to our eyes.",
+    p: ["caused", "causing", "causes", "is causing"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('causing green light...') menyatakan akibat langsung dari klausa sebelumnya."
+  },
+  {
+    q: "Scarcely _____ the ancient tomb when archaeologists noticed intricate murals covering every wall.",
+    p: ["they had entered", "had they entered", "they entered", "did they entered"],
+    b: 1,
+    bahas: "Adverb negatif 'Scarcely' di awal kalimat memicu inversi Past Perfect ('had + S + V3') sebelum 'when'."
+  },
+  {
+    q: "The closer a planet orbits to its parent star, _____ it must travel to maintain a stable orbit.",
+    p: ["the fastest", "the faster", "faster than", "as fast as"],
+    b: 1,
+    bahas: "Double comparative menggunakan struktur sejajar: 'The closer ..., the faster ...'."
+  },
+  {
+    q: "_____ from volcanic ash and mineral-rich lava, the soils surrounding Mount Vesuvius are exceptionally fertile for agriculture.",
+    p: ["Formed", "Forming", "They formed", "To form"],
+    b: 0,
+    bahas: "Reduced passive adverbial clause ('Because they were formed...') diringkas menjadi past participle 'Formed'."
+  },
+  {
+    q: "Marine biologists are investigating _____ deep-sea anglerfish produce bioluminescent light to attract prey in total darkness.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menanyakan proses atau cara ('bagaimana ikan tersebut menghasilkan cahaya') menggunakan 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe number of (A) 'satellites' orbiting the Earth (B) 'have' increased dramatically (C) 'over' the past twenty (D) 'years'.",
+    p: ["(A) satellites", "(B) have", "(C) over", "(D) years"],
+    b: 1,
+    bahas: "Frasa subjek 'The number of + plural noun' dianggap tunggal, sehingga kata kerjanya harus 'has', bukan 'have'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nPioneering aviator Amelia Earhart (A) 'was' celebrated for her (B) 'courageous', determination, and (C) 'skill' in long-distance (D) 'flight'.",
+    p: ["(A) was", "(B) courageous", "(C) skill", "(D) flight"],
+    b: 1,
+    bahas: "Parallel structure memerlukan tiga kata benda sejajar: 'courage, determination, and skill', bukan kata sifat 'courageous'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nWhales and dolphins (A) 'are' warm-blooded mammals (B) 'who' must surface (C) 'periodically' to breathe (D) 'air'.",
+    p: ["(A) are", "(B) who", "(C) periodically", "(D) air"],
+    b: 1,
+    bahas: "Relative pronoun 'who' hanya dipakai untuk manusia; untuk hewan ('mammals') gunakan 'which' atau 'that'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe symposium was (A) 'such' well attended (B) 'that' organizers had to open (C) 'an' adjacent auditorium (D) 'for' latecomers.",
+    p: ["(A) such", "(B) that", "(C) an", "(D) for"],
+    b: 0,
+    bahas: "Sebelum adverb + adjective ('well attended'), gunakan 'so' ('so well attended that...'), bukan 'such'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nEvery (A) 'student' participating in the chemistry lab (B) 'must' wear protective goggles (C) 'and' a laboratory coat at all (D) 'time'.",
+    p: ["(A) student", "(B) must", "(C) and", "(D) time"],
+    b: 3,
+    bahas: "Idiom baku bahasa Inggris untuk 'setiap saat / selalu' adalah bentuk jamak 'at all times', bukan 'at all time'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi9"] = [
+  {
+    q: "_____ the nineteenth century, industrialization transformed predominantly agrarian societies into major urban manufacturing centers.",
+    p: ["During", "While", "When", "Since"],
+    b: 0,
+    bahas: "Preposisi waktu 'During' tepat diikuti frasa benda ('the nineteenth century'), sedangkan 'While' dan 'When' membutuhkan klausa."
+  },
+  {
+    q: "The Suez Canal, _____ the Mediterranean Sea to the Red Sea, drastically shortened maritime trade routes between Europe and Asia.",
+    p: ["connects", "connecting", "connected", "is connecting"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause aktif ('which connects') diringkas menjadi present participle 'connecting'."
+  },
+  {
+    q: "Not only _____ a brilliant inventor, but Nikola Tesla also pioneered the development of alternating-current electrical systems.",
+    p: ["he was", "was he", "he is", "being he"],
+    b: 1,
+    bahas: "Ekspresi negatif 'Not only' di awal kalimat mewajibkan inversi kata kerja sebelum subjek: 'was he'."
+  },
+  {
+    q: "Desert cacti store large quantities of water in their thick stems, _____ enables them to survive months without rainfall.",
+    p: ["that", "which", "what", "who"],
+    b: 1,
+    bahas: "Relative pronoun 'which' setelah tanda koma merujuk pada keseluruhan gagasan pada klausa sebelumnya."
+  },
+  {
+    q: "The municipal council recommended that the historic courthouse _____ restored rather than demolished.",
+    p: ["is", "be", "was", "has been"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'recommended that' selalu menggunakan bare infinitive ('be')."
+  },
+  {
+    q: "_____ of the two proposals submitted to the engineering committee adequately addressed the issue of seismic retrofitting.",
+    p: ["None", "Neither", "All", "Both"],
+    b: 1,
+    bahas: "Untuk membandingkan dua hal ('of the two proposals') dalam makna negatif dengan kata kerja tunggal, digunakan 'Neither'."
+  },
+  {
+    q: "Light travels through a vacuum nearly a million times _____ sound travels through air.",
+    p: ["faster than", "as fast as", "as fast than", "more fast than"],
+    b: 1,
+    bahas: "Perbandingan kelipatan ('a million times') menggunakan pola baku 'as + adverb + as' ('as fast as')."
+  },
+  {
+    q: "_____ its small size, the hummingbird has the highest metabolic rate of any warm-blooded vertebrate.",
+    p: ["Although", "In spite of", "Because", "Even though"],
+    b: 1,
+    bahas: "'In spite of' adalah preposisi yang diikuti frasa nomina ('its small size'), sedangkan 'Although' membutuhkan klausa."
+  },
+  {
+    q: "Were the polar ice caps _____ completely, global sea levels would rise by more than sixty meters.",
+    p: ["melt", "to melt", "melted", "melting"],
+    b: 1,
+    bahas: "Inversi Conditional Type 2 untuk peristiwa hipotetis masa depan menggunakan pola 'Were + S + to + V1' ('Were ... to melt')."
+  },
+  {
+    q: "Neither the playwright nor the actors _____ aware that the theater's lighting system was malfunctioning before curtain time.",
+    p: ["was", "were", "is", "has been"],
+    b: 1,
+    bahas: "Pada 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('actors' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Earthworms aerate the soil as they burrow underground, _____ water and nutrients to penetrate deeper toward plant roots.",
+    p: ["allowed", "allowing", "allows", "is allowing"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('allowing water and nutrients...') menyatakan hasil langsung dari klausa utama."
+  },
+  {
+    q: "Seldom _____ a solar storm powerful enough to disrupt satellite communications across multiple continents simultaneously.",
+    p: ["astronomers observe", "do astronomers observe", "astronomers are observing", "observed astronomers"],
+    b: 1,
+    bahas: "Adverb negatif 'Seldom' di awal kalimat memicu inversi auxiliary 'do' sebelum subjek jamak 'astronomers'."
+  },
+  {
+    q: "The more densely populated a metropolitan area becomes, _____ urgent the need for efficient public transit grows.",
+    p: ["the most", "the more", "more than", "as much"],
+    b: 1,
+    bahas: "Double comparative menggunakan pola paralel: 'The more ..., the more ...'."
+  },
+  {
+    q: "_____ from pure carbon under immense heat and pressure deep within the Earth's mantle, diamonds are the hardest known natural mineral.",
+    p: ["Crystallized", "Crystallizing", "They crystallized", "To crystallize"],
+    b: 0,
+    bahas: "Reduced passive adverbial clause ('Because they are crystallized...') diringkas menjadi past participle 'Crystallized'."
+  },
+  {
+    q: "Linguists still debate _____ early human populations first migrated across the Bering land bridge into North America.",
+    p: ["when", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menanyakan waktu migrasi ('kapan populasi manusia awal bermigrasi') menggunakan kata tanya 'when'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nEach of the (A) 'volcanoes' along the Pacific Ring of Fire (B) 'pose' a potential hazard (C) 'to' nearby coastal (D) 'communities'.",
+    p: ["(A) volcanoes", "(B) pose", "(C) to", "(D) communities"],
+    b: 1,
+    bahas: "Subjek kalimat adalah 'Each' (tunggal), sehingga kata kerjanya harus menggunakan akhiran -s: 'poses'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe documentary film (A) 'explores' the history, culture, (B) 'and' daily life of nomadic herders (C) 'lived' in the Mongolian (D) 'steppe'.",
+    p: ["(A) explores", "(B) and", "(C) lived", "(D) steppe"],
+    b: 2,
+    bahas: "Reduced relative clause aktif ('who live') untuk menerangkan 'nomadic herders' harus memakai present participle 'living', bukan 'lived'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nDespite (A) 'of' repeated warnings from meteorologists, several fishing vessels (B) 'departed' the harbor (C) 'shortly' before the gale (D) 'struck'.",
+    p: ["(A) of", "(B) departed", "(C) shortly", "(D) struck"],
+    b: 0,
+    bahas: "'Despite' tidak pernah diikuti preposisi 'of' (gunakan 'Despite' saja atau 'In spite of')."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe museum's ancient coin collection (A) 'is' remarkable not only (B) 'for' its rarity (C) 'but' also because its pristine (D) 'condition'.",
+    p: ["(A) is", "(B) for", "(C) but", "(D) condition"],
+    b: 3,
+    bahas: "Parallel structure setelah 'not only for + noun phrase' membutuhkan 'but also for + noun phrase' ('but also for its pristine condition'), bukan 'because'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAstronomers have discovered (A) 'that' some neutron stars rotate (B) 'so' rapid (C) 'that' they complete hundreds of revolutions (D) 'per' second.",
+    p: ["(A) that", "(B) so", "(C) that", "(D) per"],
+    b: 1,
+    bahas: "Untuk menerangkan kata kerja 'rotate', diperlukan kata keterangan 'so rapidly', bukan kata sifat 'so rapid'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi10"] = [
+  {
+    q: "_____ the invention of the electron microscope in the 1930s, biologists could finally observe viruses and cellular organelles in detail.",
+    p: ["With", "Because", "Although", "While"],
+    b: 0,
+    bahas: "Preposisi 'With' tepat diikuti frasa benda ('the invention of the electron microscope...') untuk menyatakan sarana atau penyebab."
+  },
+  {
+    q: "The Panama Canal, _____ the Atlantic and Pacific Oceans, saves ships thousands of miles of hazardous travel around South America.",
+    p: ["links", "linking", "linked", "is linking"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause aktif ('which links') diringkas menjadi present participle 'linking'."
+  },
+  {
+    q: "Never before _____ such an extensive network of underground aqueducts in an arid desert region.",
+    p: ["archaeologists had uncovered", "had archaeologists uncovered", "archaeologists uncovered", "uncovered archaeologists"],
+    b: 1,
+    bahas: "Ekspresi negatif 'Never before' di awal kalimat mewajibkan inversi Past Perfect: 'had archaeologists uncovered'."
+  },
+  {
+    q: "Unlike most metals, mercury remains liquid at room temperature, _____ makes it useful in thermometers and barometers.",
+    p: ["that", "which", "what", "who"],
+    b: 1,
+    bahas: "Relative pronoun 'which' setelah tanda koma merujuk pada keseluruhan fakta pada klausa sebelumnya."
+  },
+  {
+    q: "The environmental agency mandated that every industrial facility _____ its wastewater before discharging it into local rivers.",
+    p: ["treats", "treat", "treated", "treating"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'mandated that' selalu menggunakan bare infinitive ('treat') tanpa akhiran -s."
+  },
+  {
+    q: "_____ of the two lunar eclipses visible this year will occur during clear autumn skies in the Northern Hemisphere.",
+    p: ["All", "Both", "None", "Every"],
+    b: 1,
+    bahas: "Karena merujuk pada dua gerhana bulan ('of the two lunar eclipses') dengan kata kerja jamak ('will occur'), digunakan 'Both'."
+  },
+  {
+    q: "A diamond is roughly five times _____ natural corundum, the mineral second to it on the Mohs hardness scale.",
+    p: ["harder than", "as hard as", "as hard than", "more hard as"],
+    b: 1,
+    bahas: "Perbandingan kelipatan ('five times') menggunakan struktur baku 'as + adjective + as' ('as hard as')."
+  },
+  {
+    q: "_____ its fragile appearance, spider silk has a tensile strength comparable to that of high-grade alloy steel.",
+    p: ["Although", "Despite", "Because of", "In spite"],
+    b: 1,
+    bahas: "Preposisi 'Despite' tepat diikuti oleh frasa nomina ('its fragile appearance')."
+  },
+  {
+    q: "Had the early astronomers possessed modern radio telescopes, they _____ pulsars and quasars centuries earlier.",
+    p: ["will discover", "would have discovered", "discovered", "had discovered"],
+    b: 1,
+    bahas: "Inversi Conditional Type 3 ('Had + S + V3') berpasangan dengan 'would have + V3' ('would have discovered')."
+  },
+  {
+    q: "Neither the museum director nor the senior curators _____ willing to lend the fragile manuscript to an overseas exhibition.",
+    p: ["was", "were", "is", "has been"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('curators' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Mangrove forests stabilize tropical coastlines with their dense tangle of prop roots, _____ juvenile fish from ocean predators.",
+    p: ["protected", "protecting", "protects", "is protecting"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('protecting juvenile fish...') menjelaskan fungsi langsung dari hutan bakau."
+  },
+  {
+    q: "Rarely _____ a comet bright enough to be seen clearly with the naked eye during daylight hours.",
+    p: ["does appear", "does a comet appear", "a comet appears", "appears a comet"],
+    b: 1,
+    bahas: "Adverb negatif 'Rarely' di awal kalimat memicu inversi auxiliary 'does' sebelum subjek tunggal ('does a comet appear')."
+  },
+  {
+    q: "The further north an observer travels during summer, _____ the daylight hours become.",
+    p: ["the longest", "the longer", "longer than", "as long as"],
+    b: 1,
+    bahas: "Double comparative menggunakan struktur sejajar: 'The further ..., the longer ...'."
+  },
+  {
+    q: "_____ in the late nineteenth century, the Impressionist movement emphasized capturing the fleeting effects of natural light.",
+    p: ["Originating", "Originated", "It originated", "To originate"],
+    b: 0,
+    bahas: "Kata kerja 'originate' bersifat intransitif aktif, sehingga bentuk participial phrase di awal kalimat adalah 'Originating'."
+  },
+  {
+    q: "Neuroscientists are still discovering _____ sleep consolidates newly acquired memories in the human brain.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menjelaskan mekanisme atau cara ('bagaimana tidur memperkuat ingatan') menggunakan 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nA large percentage of (A) 'the' world's fresh water (B) 'are' locked (C) 'in' glaciers and polar (D) 'ice' caps.",
+    p: ["(A) the", "(B) are", "(C) in", "(D) ice"],
+    b: 1,
+    bahas: "Frasa 'A percentage of + uncountable noun ('fresh water')' dianggap tunggal, sehingga kata kerjanya harus 'is', bukan 'are'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe architect designed (A) 'a' library that combines (B) 'modern' acoustics, natural lighting, (C) 'and' spaces that are (D) 'comfortably'.",
+    p: ["(A) a", "(B) modern", "(C) and", "(D) comfortably"],
+    b: 3,
+    bahas: "Setelah linking verb 'are', diperlukan kata sifat 'comfortable', bukan kata keterangan 'comfortably'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAlike (A) 'human' fingerprints, the stripe patterns on every zebra (B) 'are' completely unique (C) 'to' each (D) 'individual'.",
+    p: ["(A) human", "(B) are", "(C) to", "(D) individual"],
+    b: 0,
+    bahas: "Di awal kalimat sebelum noun phrase ('human fingerprints'), gunakan preposisi 'Like', bukan 'Alike'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe committee insisted (A) 'that' the new safety guidelines (B) 'are' distributed (C) 'to' every laboratory technician (D) 'immediately'.",
+    p: ["(A) that", "(B) are", "(C) to", "(D) immediately"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'insisted that' mewajibkan bare infinitive 'be' ('be distributed'), bukan 'are'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nOctopuses possess (A) 'three' hearts, blue blood, (B) 'and' a nervous system (C) 'more' complex than (D) 'those' of any other invertebrate.",
+    p: ["(A) three", "(B) and", "(C) more", "(D) those"],
+    b: 3,
+    bahas: "Kata ganti penunjuk harus merujuk pada kata benda tunggal 'a nervous system', sehingga seharusnya 'that', bukan 'those'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi11"] = [
+  {
+    q: "_____ the invention of the compass, sailors had to rely primarily on the position of the sun and stars for navigation.",
+    p: ["Before", "While", "Although", "Since"],
+    b: 0,
+    bahas: "Preposisi waktu 'Before' tepat diikuti frasa benda ('the invention of the compass'), sedangkan 'While' dan 'Although' membutuhkan klausa."
+  },
+  {
+    q: "The Galápagos Islands, _____ roughly six hundred miles off the coast of Ecuador, are famous for their endemic wildlife.",
+    p: ["locating", "located", "are located", "which locates"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause pasif ('which are located') diringkas menjadi past participle 'located'."
+  },
+  {
+    q: "No sooner _____ the ancient scroll than the delicate papyrus began to crumble upon exposure to dry air.",
+    p: ["the conservator unrolled", "had the conservator unrolled", "the conservator had unrolled", "did the conservator unrolled"],
+    b: 1,
+    bahas: "Ekspresi negatif 'No sooner' di awal kalimat mewajibkan inversi Past Perfect: 'had + subject + V3', diikuti 'than'."
+  },
+  {
+    q: "Chlorophyll is the green pigment in plants _____ absorbs light energy necessary for photosynthesis.",
+    p: ["who", "that", "whom", "whose"],
+    b: 1,
+    bahas: "Relative pronoun 'that' (atau 'which') berfungsi sebagai subjek klausa sifat yang merujuk pada benda ('the green pigment')."
+  },
+  {
+    q: "The international aviation authority requires that every commercial pilot _____ regular simulator training every six months.",
+    p: ["undergoes", "undergo", "underwent", "undergoing"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'requires that' selalu menggunakan bare infinitive ('undergo') tanpa akhiran -s."
+  },
+  {
+    q: "_____ of the two archaeological excavations yielded any evidence of Roman settlement in the northern valley.",
+    p: ["All", "Neither", "None", "Both"],
+    b: 1,
+    bahas: "Untuk menyatakan 'tidak satu pun dari dua' ('of the two archaeological excavations'), kata ganti yang tepat adalah 'Neither'."
+  },
+  {
+    q: "A blue whale's heart is approximately four hundred times _____ a human heart.",
+    p: ["heavier than", "as heavy as", "as heavy than", "more heavy as"],
+    b: 1,
+    bahas: "Perbandingan kelipatan ('four hundred times') menggunakan struktur baku 'as + adjective + as' ('as heavy as')."
+  },
+  {
+    q: "_____ its arid climate, the Nile Valley supported one of the most prosperous agricultural civilizations of the ancient world.",
+    p: ["Although", "Despite", "Because of", "In spite"],
+    b: 1,
+    bahas: "Preposisi 'Despite' tepat diikuti oleh frasa nomina 'its arid climate'."
+  },
+  {
+    q: "Should the river water level _____ above the flood warning mark, emergency teams will immediately reinforce the levees.",
+    p: ["rise", "rises", "rose", "rising"],
+    b: 0,
+    bahas: "Inversi Conditional Type 1 ('Should + S + V1') selalu menggunakan bentuk dasar 'rise'."
+  },
+  {
+    q: "Neither the lead architect nor the structural engineers _____ convinced that the proposed glass dome could withstand hurricane winds.",
+    p: ["was", "were", "has been", "is"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('engineers' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Volcanic eruptions inject vast quantities of ash and sulfur dioxide high into the stratosphere, _____ global temperatures for several years.",
+    p: ["lowered", "lowering", "lowers", "is lowering"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('lowering global temperatures...') menyatakan akibat langsung dari klausa utama."
+  },
+  {
+    q: "Never before _____ such a clear correlation between ocean acidification and the bleaching of deep-water corals.",
+    p: ["marine scientists had documented", "had marine scientists documented", "marine scientists documented", "documented marine scientists"],
+    b: 1,
+    bahas: "Ekspresi negatif 'Never before' di awal kalimat memicu inversi Past Perfect: 'had marine scientists documented'."
+  },
+  {
+    q: "The more efficiently an engine converts fuel into mechanical energy, _____ exhaust emissions it produces.",
+    p: ["the fewest", "the fewer", "fewer than", "as few as"],
+    b: 1,
+    bahas: "Double comparative untuk kata benda jamak dapat dihitung ('exhaust emissions') menggunakan 'the fewer'."
+  },
+  {
+    q: "_____ by tectonic forces millions of years ago, the Himalayan mountain range continues to rise by a few millimeters each year.",
+    p: ["Uplifted", "Uplifting", "It uplifted", "To uplift"],
+    b: 0,
+    bahas: "Reduced passive adverbial clause ('Because it was uplifted...') diringkas menjadi past participle 'Uplifted'."
+  },
+  {
+    q: "Astronomers are investigating _____ supermassive black holes influence the formation of stars in young galaxies.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menanyakan cara atau mekanisme ('bagaimana lubang hitam memengaruhi pembentukan bintang') menggunakan 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nA large proportion of (A) 'the' ancient manuscripts in the monastery library (B) 'was' written (C) 'on' parchment made from (D) 'sheepskin'.",
+    p: ["(A) the", "(B) was", "(C) on", "(D) sheepskin"],
+    b: 1,
+    bahas: "Frasa 'A proportion of + plural noun ('manuscripts')' dianggap jamak, sehingga kata kerjanya harus 'were', bukan 'was'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe botanist spent (A) 'three' decades cataloguing, photographing, (B) 'and' to classify (C) 'rare' medicinal plants in (D) 'Borneo'.",
+    p: ["(A) three", "(B) and", "(C) rare", "(D) Borneo"],
+    b: 1,
+    bahas: "Parallel structure memerlukan tiga gerund sejajar: 'cataloguing, photographing, and classifying', bukan 'to classify'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAlike (A) 'their' modern descendants, ancient sea crocodiles possessed (B) 'streamlined' bodies adapted (C) 'for' rapid swimming in open (D) 'oceans'.",
+    p: ["(A) their", "(B) streamlined", "(C) for", "(D) oceans"],
+    b: 0,
+    bahas: "Di awal kalimat sebelum noun phrase ('their modern descendants'), gunakan preposisi 'Like', bukan 'Alike'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe research director insisted (A) 'that' every laboratory assistant (B) 'records' the exact temperature (C) 'of' each chemical solution (D) 'hourly'.",
+    p: ["(A) that", "(B) records", "(C) of", "(D) hourly"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'insisted that' mewajibkan bare infinitive 'record' tanpa akhiran -s."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe lifespan of a giant tortoise (A) 'is' considerably longer (B) 'than' (C) 'those' of almost any other land (D) 'vertebrate'.",
+    p: ["(A) is", "(B) than", "(C) those", "(D) vertebrate"],
+    b: 2,
+    bahas: "Kata ganti penunjuk harus merujuk pada kata benda tunggal 'The lifespan', sehingga seharusnya 'that', bukan 'those'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi12"] = [
+  {
+    q: "_____ the invention of the telegraph in the 1830s, long-distance messages had to be carried physically by couriers on horseback or ships.",
+    p: ["Prior to", "In addition", "Because", "Although"],
+    b: 0,
+    bahas: "Preposisi 'Prior to' (sebelum) tepat diikuti frasa benda 'the invention of the telegraph in the 1830s'."
+  },
+  {
+    q: "The Atacama Desert, _____ primarily in northern Chile, is widely recognized as the driest nonpolar desert in the world.",
+    p: ["locating", "located", "is located", "which locates"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause pasif ('which is located') diringkas menjadi past participle 'located'."
+  },
+  {
+    q: "Not only _____ a pioneering mathematician, but Ada Lovelace also wrote the world's first algorithm intended for a computing machine.",
+    p: ["she was", "was she", "she is", "being she"],
+    b: 1,
+    bahas: "Ekspresi negatif 'Not only' di awal kalimat mewajibkan inversi kata kerja bantu sebelum subjek: 'was she'."
+  },
+  {
+    q: "Bioluminescence is a natural phenomenon _____ allows deep-sea organisms to produce light through internal chemical reactions.",
+    p: ["who", "that", "whom", "whose"],
+    b: 1,
+    bahas: "Relative pronoun 'that' (atau 'which') berfungsi sebagai subjek klausa sifat untuk benda ('a natural phenomenon')."
+  },
+  {
+    q: "The wildlife conservation board recommended that the coastal estuary _____ designated as a protected bird sanctuary.",
+    p: ["is", "be", "was", "has been"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'recommended that' selalu menggunakan bare infinitive ('be')."
+  },
+  {
+    q: "_____ of the two bridges spanning the wide river was built with reinforced steel capable of withstanding severe earthquakes.",
+    p: ["All", "Each", "None", "Many"],
+    b: 1,
+    bahas: "Untuk merujuk pada masing-masing dari dua jembatan ('of the two bridges') dengan kata kerja tunggal ('was built'), digunakan 'Each'."
+  },
+  {
+    q: "A cheetah can accelerate from zero to sixty miles per hour nearly three times _____ an average passenger automobile.",
+    p: ["faster than", "as fast as", "as fast than", "more fast as"],
+    b: 1,
+    bahas: "Perbandingan kelipatan ('three times') menggunakan struktur baku 'as + adverb + as' ('as fast as')."
+  },
+  {
+    q: "_____ its extreme remoteness in the South Pacific, Easter Island attracted Polynesian voyagers who carved hundreds of monumental stone statues.",
+    p: ["Although", "Despite", "Because of", "In spite"],
+    b: 1,
+    bahas: "Preposisi 'Despite' tepat diikuti oleh frasa nomina 'its extreme remoteness in the South Pacific'."
+  },
+  {
+    q: "Had the meteorologists detected the sudden pressure drop earlier, coastal communities _____ given several more hours to prepare.",
+    p: ["will be", "would have been", "can be", "had been"],
+    b: 1,
+    bahas: "Inversi Conditional Type 3 ('Had + S + V3') berpasangan dengan modal perfect pasif 'would have been'."
+  },
+  {
+    q: "Neither the museum curator nor the restoration specialists _____ certain whether the faded signature belonged to Rembrandt.",
+    p: ["was", "were", "is", "has been"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('specialists' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Glaciers slowly carve deep U-shaped valleys as they advance down mountain slopes, _____ massive boulders and sediment along their path.",
+    p: ["transported", "transporting", "transports", "is transporting"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('transporting massive boulders...') menyatakan tindakan bersamaan dari subjek 'Glaciers'."
+  },
+  {
+    q: "Rarely _____ such an intricate mosaic floor preserved intact beneath the ruins of an ancient Roman villa.",
+    p: ["archaeologists uncover", "do archaeologists uncover", "archaeologists are uncovering", "uncovered archaeologists"],
+    b: 1,
+    bahas: "Adverb negatif 'Rarely' di awal kalimat memicu inversi auxiliary 'do' sebelum subjek jamak 'archaeologists'."
+  },
+  {
+    q: "The higher the concentration of greenhouse gases in the atmosphere becomes, _____ heat is retained near the Earth's surface.",
+    p: ["the most", "the more", "more than", "as much"],
+    b: 1,
+    bahas: "Double comparative untuk kata benda tak terhitung ('heat') menggunakan struktur sejajar: 'The higher ..., the more ...'."
+  },
+  {
+    q: "_____ over millions of years from the remains of ancient marine microorganisms, petroleum is refined into fuels and petrochemicals.",
+    p: ["Formed", "Forming", "It formed", "To form"],
+    b: 0,
+    bahas: "Reduced passive adverbial clause ('Because it was formed...') diringkas menjadi past participle 'Formed'."
+  },
+  {
+    q: "Oceanographers are studying _____ deep ocean currents distribute heat from the tropics toward the polar regions.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menjelaskan cara atau mekanisme ('bagaimana arus laut mendistribusikan panas') menggunakan 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe number of (A) 'migratory' songbirds returning each spring (B) 'have' decreased noticeably (C) 'due to' habitat fragmentation (D) 'and' climate change.",
+    p: ["(A) migratory", "(B) have", "(C) due to", "(D) and"],
+    b: 1,
+    bahas: "Frasa subjek 'The number of + plural noun' dianggap tunggal, sehingga kata kerjanya harus 'has', bukan 'have'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nBefore (A) 'the' invention of synthetic dyes, textile artisans (B) 'obtained' vibrant colors (C) 'from' plants, minerals, and (D) 'crushing' insects.",
+    p: ["(A) the", "(B) obtained", "(C) from", "(D) crushing"],
+    b: 3,
+    bahas: "Parallel structure memerlukan tiga kata benda sejajar: 'plants, minerals, and crushed insects' (atau 'insects')."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAlike (A) 'other' marsupials native to Australia, kangaroos carry (B) 'their' newborn young inside (C) 'a' protective abdominal (D) 'pouch'.",
+    p: ["(A) other", "(B) their", "(C) a", "(D) pouch"],
+    b: 0,
+    bahas: "Di awal kalimat sebelum noun phrase ('other marsupials'), gunakan preposisi 'Like', bukan 'Alike'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe university ethics board demanded (A) 'that' every researcher (B) 'submits' raw experimental data (C) 'for' independent verification before (D) 'publication'.",
+    p: ["(A) that", "(B) submits", "(C) for", "(D) publication"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'demanded that' mewajibkan bare infinitive 'submit' tanpa akhiran -s."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe resolution of modern space telescopes (A) 'is' significantly sharper (B) 'than' (C) 'those' of ground-based observatories affected by atmospheric (D) 'turbulence'.",
+    p: ["(A) is", "(B) than", "(C) those", "(D) turbulence"],
+    b: 2,
+    bahas: "Kata ganti penunjuk harus merujuk pada kata benda tunggal 'The resolution', sehingga seharusnya 'that', bukan 'those'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi13"] = [
+  {
+    q: "_____ the discovery of hydrothermal vents in 1977, marine scientists believed that all deep-sea ecosystems depended entirely on sunlight.",
+    p: ["Prior to", "In addition", "Because", "Although"],
+    b: 0,
+    bahas: "Preposisi 'Prior to' (sebelum) tepat diikuti frasa benda 'the discovery of hydrothermal vents in 1977'."
+  },
+  {
+    q: "The Danube River, _____ through ten European countries, serves as a vital commercial waterway from Germany to the Black Sea.",
+    p: ["flows", "flowing", "flowed", "is flowing"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause aktif ('which flows') diringkas menjadi present participle 'flowing'."
+  },
+  {
+    q: "Not until the twentieth century _____ able to map the ocean floor accurately using sonar technology.",
+    p: ["oceanographers were", "were oceanographers", "oceanographers have been", "did oceanographers"],
+    b: 1,
+    bahas: "Frasa waktu negatif 'Not until...' di awal kalimat mewajibkan inversi pada klausa utama: 'were oceanographers able...'."
+  },
+  {
+    q: "Seismographs are sensitive instruments _____ detect and record ground vibrations caused by earthquakes and volcanic activity.",
+    p: ["who", "that", "whom", "whose"],
+    b: 1,
+    bahas: "Relative pronoun 'that' (atau 'which') berfungsi sebagai subjek klausa sifat untuk benda ('sensitive instruments')."
+  },
+  {
+    q: "The hospital accreditation board insisted that every surgical ward _____ sterilized according to strict international protocols.",
+    p: ["is", "be", "was", "has been"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'insisted that' selalu menggunakan bare infinitive ('be')."
+  },
+  {
+    q: "_____ of the two satellite dishes on the observatory roof was damaged when severe winds swept across the ridge.",
+    p: ["All", "Neither", "None", "Many"],
+    b: 1,
+    bahas: "Untuk menyatakan 'tidak satu pun dari dua' ('of the two satellite dishes') dengan kata kerja tunggal ('was damaged'), digunakan 'Neither'."
+  },
+  {
+    q: "The human eye can distinguish approximately ten million colors, nearly ten times _____ most mammals can perceive.",
+    p: ["more than", "as many as", "as much as", "many than"],
+    b: 1,
+    bahas: "Perbandingan kelipatan untuk kata benda jamak dapat dihitung ('colors') menggunakan 'as many as'."
+  },
+  {
+    q: "_____ its lack of limbs, the python is an extraordinarily agile climber capable of scaling tall rainforest trees.",
+    p: ["Although", "Despite", "Because of", "In spite"],
+    b: 1,
+    bahas: "Preposisi 'Despite' tepat diikuti oleh frasa nomina 'its lack of limbs'."
+  },
+  {
+    q: "Were the Earth's magnetic field _____ significantly, charged particles from solar winds would strip away much of the upper atmosphere.",
+    p: ["weaken", "to weaken", "weakened", "weakening"],
+    b: 1,
+    bahas: "Inversi Conditional Type 2 untuk kondisi hipotetis menggunakan pola 'Were + S + to + V1' ('Were ... to weaken')."
+  },
+  {
+    q: "Neither the chief chemist nor the laboratory interns _____ aware that the reagent bottle had been mislabeled.",
+    p: ["was", "were", "is", "has been"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('interns' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Honeybees perform intricate figure-eight dances inside the hive, _____ the exact direction and distance of nectar-rich flowers to other workers.",
+    p: ["communicated", "communicating", "communicates", "is communicating"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('communicating the exact direction...') menjelaskan fungsi langsung dari tarian lebah."
+  },
+  {
+    q: "Seldom _____ such a well-preserved collection of Bronze Age jewelry outside a national archaeological museum.",
+    p: ["visitors encounter", "do visitors encounter", "visitors are encountering", "encountered visitors"],
+    b: 1,
+    bahas: "Adverb negatif 'Seldom' di awal kalimat memicu inversi auxiliary 'do' sebelum subjek jamak 'visitors'."
+  },
+  {
+    q: "The deeper a diver descends beneath the ocean surface, _____ pressure the surrounding water exerts on the body.",
+    p: ["the greatest", "the greater", "greater than", "as great as"],
+    b: 1,
+    bahas: "Double comparative menggunakan struktur sejajar: 'The deeper ..., the greater ...'."
+  },
+  {
+    q: "_____ from volcanic glass cooled rapidly by seawater, obsidian was prized by ancient cultures for crafting razor-sharp tools.",
+    p: ["Formed", "Forming", "It formed", "To form"],
+    b: 0,
+    bahas: "Reduced passive adverbial clause ('Because it was formed...') diringkas menjadi past participle 'Formed'."
+  },
+  {
+    q: "Botanists are still investigating _____ carnivorous pitcher plants attract, trap, and digest insects in nutrient-poor soils.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menjelaskan cara atau proses ('bagaimana kantong semar memikat dan mencerna serangga') menggunakan 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nA large number of (A) 'historic' lighthouses along the coast (B) 'has' been automated (C) 'over' the past half (D) 'century'.",
+    p: ["(A) historic", "(B) has", "(C) over", "(D) century"],
+    b: 1,
+    bahas: "Frasa subjek 'A number of + plural noun ('lighthouses')' bersifat jamak, sehingga kata kerjanya harus 'have', bukan 'has'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe documentary explores (A) 'how' migratory salmon navigate (B) 'across' open oceans, enter coastal rivers, (C) 'and' swimming upstream to (D) 'spawn'.",
+    p: ["(A) how", "(B) across", "(C) and", "(D) swimming"],
+    b: 3,
+    bahas: "Parallel structure memerlukan tiga kata kerja dasar sejajar: 'navigate ..., enter ..., and swim upstream'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAlike (A) 'other' nocturnal amphibians, tree frogs possess (B) 'adhesive' toe pads that enable (C) 'them' to cling effortlessly (D) 'to' wet leaves.",
+    p: ["(A) other", "(B) adhesive", "(C) them", "(D) to"],
+    b: 0,
+    bahas: "Di awal kalimat sebelum noun phrase ('other nocturnal amphibians'), gunakan preposisi 'Like', bukan 'Alike'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe environmental committee recommended (A) 'that' every coastal municipality (B) 'establishes' strict zoning laws (C) 'to' protect mangrove (D) 'wetlands'.",
+    p: ["(A) that", "(B) establishes", "(C) to", "(D) wetlands"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'recommended that' mewajibkan bare infinitive 'establish' tanpa akhiran -s."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe melting point of tungsten (A) 'is' substantially higher (B) 'than' (C) 'those' of any other pure (D) 'metal'.",
+    p: ["(A) is", "(B) than", "(C) those", "(D) metal"],
+    b: 2,
+    bahas: "Kata ganti penunjuk harus merujuk pada kata benda tunggal 'The melting point', sehingga seharusnya 'that', bukan 'those'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi14"] = [
+  {
+    q: "_____ the introduction of antibiotics in the mid-twentieth century, minor bacterial infections frequently led to fatal complications.",
+    p: ["Prior to", "In addition", "Because", "Although"],
+    b: 0,
+    bahas: "Preposisi 'Prior to' (sebelum) tepat diikuti frasa benda 'the introduction of antibiotics in the mid-twentieth century'."
+  },
+  {
+    q: "The Rhine River, _____ from the Swiss Alps to the North Sea, has served as a major European trade artery for centuries.",
+    p: ["flows", "flowing", "flowed", "is flowing"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause aktif ('which flows') diringkas menjadi present participle 'flowing'."
+  },
+  {
+    q: "Never before _____ such a detailed three-dimensional map of the cosmic microwave background radiation.",
+    p: ["astrophysicists had produced", "had astrophysicists produced", "astrophysicists produced", "produced astrophysicists"],
+    b: 1,
+    bahas: "Ekspresi negatif 'Never before' di awal kalimat mewajibkan inversi Past Perfect: 'had astrophysicists produced'."
+  },
+  {
+    q: "Barometers are meteorological instruments _____ measure changes in atmospheric pressure to help forecast approaching weather systems.",
+    p: ["who", "that", "whom", "whose"],
+    b: 1,
+    bahas: "Relative pronoun 'that' (atau 'which') berfungsi sebagai subjek klausa sifat untuk benda ('meteorological instruments')."
+  },
+  {
+    q: "The national park service stipulated that every backcountry hiker _____ a bear-resistant food canister while camping overnight.",
+    p: ["carries", "carry", "carried", "carrying"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'stipulated that' selalu menggunakan bare infinitive ('carry') tanpa akhiran -s."
+  },
+  {
+    q: "_____ of the two lunar rovers deployed during the mission experienced any mechanical failure despite extreme temperature swings.",
+    p: ["All", "Neither", "None", "Many"],
+    b: 1,
+    bahas: "Untuk menyatakan 'tidak satu pun dari dua' ('of the two lunar rovers'), kata ganti yang tepat adalah 'Neither'."
+  },
+  {
+    q: "Bamboo can grow up to ninety centimeters in a single day, nearly twenty times _____ most hardwood trees.",
+    p: ["faster than", "as fast as", "as fast than", "more fast as"],
+    b: 1,
+    bahas: "Perbandingan kelipatan ('twenty times') menggunakan struktur baku 'as + adverb + as' ('as fast as')."
+  },
+  {
+    q: "_____ its delicate, translucent wings, the monarch butterfly completes an extraordinary multi-generational migration across North America.",
+    p: ["Although", "Despite", "Because of", "In spite"],
+    b: 1,
+    bahas: "Preposisi 'Despite' tepat diikuti oleh frasa nomina 'its delicate, translucent wings'."
+  },
+  {
+    q: "Had the ancient Roman engineers lacked concrete made with volcanic ash, the Pantheon's massive unreinforced dome _____ survived two millennia.",
+    p: ["will not have", "would not have", "cannot have", "had not"],
+    b: 1,
+    bahas: "Inversi Conditional Type 3 negatif ('Had + S + V3') berpasangan dengan 'would not have + V3'."
+  },
+  {
+    q: "Neither the senior astronomer nor the graduate fellows _____ expecting the telescope's infrared sensor to detect water vapor on the exoplanet.",
+    p: ["was", "were", "is", "has been"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('fellows' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Beavers construct intricate dams across forest streams using branches and mud, _____ deep ponds that provide habitat for diverse aquatic wildlife.",
+    p: ["created", "creating", "creates", "is creating"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('creating deep ponds...') menyatakan akibat langsung dari aktivitas berang-berang."
+  },
+  {
+    q: "Seldom _____ a total solar eclipse lasting longer than seven minutes at any single location on Earth.",
+    p: ["occurs", "does a total solar eclipse occur", "a total solar eclipse occurs", "occurred a total solar eclipse"],
+    b: 1,
+    bahas: "Adverb negatif 'Seldom' di awal kalimat memicu inversi auxiliary 'does' sebelum subjek tunggal."
+  },
+  {
+    q: "The more rapidly a glacier retreats up a mountain valley, _____ unstable the surrounding rock slopes become.",
+    p: ["the most", "the more", "more than", "as much"],
+    b: 1,
+    bahas: "Double comparative menggunakan struktur sejajar: 'The more rapidly ..., the more unstable ...'."
+  },
+  {
+    q: "_____ from compressed layers of ancient peat over millions of years, coal remains a major energy source in many regions.",
+    p: ["Formed", "Forming", "It formed", "To form"],
+    b: 0,
+    bahas: "Reduced passive adverbial clause ('Because it was formed...') diringkas menjadi past participle 'Formed'."
+  },
+  {
+    q: "Geophysicists are still investigating _____ liquid iron circulating in the Earth's outer core generates our planet's protective magnetic field.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menjelaskan cara atau mekanisme ('bagaimana besi cair menghasilkan medan magnet') menggunakan 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe number of (A) 'endangered' sea turtles nesting on protected beaches (B) 'have' risen steadily (C) 'since' conservation patrols (D) 'began'.",
+    p: ["(A) endangered", "(B) have", "(C) since", "(D) began"],
+    b: 1,
+    bahas: "Frasa subjek 'The number of + plural noun' dianggap tunggal, sehingga kata kerjanya harus 'has', bukan 'have'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nModern architectural acoustics (A) 'requires' careful calculation of room geometry, surface materials, (B) 'and' how (C) 'sound' waves are (D) 'absorbing'.",
+    p: ["(A) requires", "(B) and", "(C) sound", "(D) absorbing"],
+    b: 3,
+    bahas: "Kalimat pasif ('gelombang suara diserap') membutuhkan past participle 'absorbed', bukan 'absorbing'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAlike (A) 'other' apex predators in marine ecosystems, great white sharks play (B) 'a' crucial role in maintaining (C) 'the' health of prey (D) 'populations'.",
+    p: ["(A) other", "(B) a", "(C) the", "(D) populations"],
+    b: 0,
+    bahas: "Di awal kalimat sebelum noun phrase ('other apex predators'), gunakan preposisi 'Like', bukan 'Alike'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe museum board insisted (A) 'that' every visiting scholar (B) 'wears' cotton gloves when handling (C) 'rare' sixteenth-century (D) 'atlases'.",
+    p: ["(A) that", "(B) wears", "(C) rare", "(D) atlases"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'insisted that' mewajibkan bare infinitive 'wear' tanpa akhiran -s."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe tensile strength of spider silk (A) 'is' greater per unit weight (B) 'than' (C) 'those' of high-tensile (D) 'steel'.",
+    p: ["(A) is", "(B) than", "(C) those", "(D) steel"],
+    b: 2,
+    bahas: "Kata ganti penunjuk harus merujuk pada kata benda tunggal 'The tensile strength', sehingga seharusnya 'that', bukan 'those'."
+  }
+];
+
+window.BANK_SOAL_MASTER["toefl_structure_sesi15"] = [
+  {
+    q: "_____ the invention of the spectrograph, astronomers had no reliable way to determine the chemical composition of distant stars.",
+    p: ["Prior to", "In addition", "Because", "Although"],
+    b: 0,
+    bahas: "Preposisi 'Prior to' (sebelum) tepat diikuti frasa benda 'the invention of the spectrograph'."
+  },
+  {
+    q: "The Zambezi River, _____ across southern Africa, plunges over Victoria Falls to create one of the world's largest curtains of falling water.",
+    p: ["flows", "flowing", "flowed", "is flowing"],
+    b: 1,
+    bahas: "Reduced non-defining relative clause aktif ('which flows') diringkas menjadi present participle 'flowing'."
+  },
+  {
+    q: "Not until the mid-nineteenth century _____ that cholera is transmitted primarily through contaminated drinking water.",
+    p: ["physicians proved", "did physicians prove", "proved physicians", "physicians did prove"],
+    b: 1,
+    bahas: "Frasa waktu negatif 'Not until...' di awal kalimat mewajibkan inversi pada klausa utama: 'did physicians prove'."
+  },
+  {
+    q: "Anemometers are meteorological devices _____ measure wind speed and wind pressure at weather stations around the globe.",
+    p: ["who", "that", "whom", "whose"],
+    b: 1,
+    bahas: "Relative pronoun 'that' (atau 'which') berfungsi sebagai subjek klausa sifat untuk benda ('meteorological devices')."
+  },
+  {
+    q: "The international maritime organization mandated that every ocean-going vessel _____ equipped with modern satellite distress beacons.",
+    p: ["is", "be", "was", "has been"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'mandated that' selalu menggunakan bare infinitive ('be')."
+  },
+  {
+    q: "_____ of the two deep-sea submersibles reached the bottom of the trench without experiencing any structural leakage.",
+    p: ["All", "Both", "None", "Every"],
+    b: 1,
+    bahas: "Karena merujuk pada dua kapal selam ('of the two deep-sea submersibles') dengan kata kerja jamak, digunakan 'Both'."
+  },
+  {
+    q: "Silver conducts electricity slightly better than copper, which is why copper is roughly ninety percent _____ silver in electrical wiring.",
+    p: ["as efficient as", "more efficient", "as efficient than", "efficiently as"],
+    b: 0,
+    bahas: "Perbandingan kesetaraan atau kelipatan menggunakan struktur baku 'as + adjective + as' ('as efficient as')."
+  },
+  {
+    q: "_____ its thick shell of solid ice, Jupiter's moon Europa is believed to harbor a vast liquid water ocean beneath its surface.",
+    p: ["Although", "Despite", "Because of", "In spite"],
+    b: 1,
+    bahas: "Preposisi 'Despite' tepat diikuti oleh frasa nomina 'its thick shell of solid ice'."
+  },
+  {
+    q: "Were the Amazon Basin _____ massive deforestation, regional rainfall patterns across South America would be severely disrupted.",
+    p: ["experience", "to experience", "experienced", "experiencing"],
+    b: 1,
+    bahas: "Inversi Conditional Type 2 untuk peristiwa hipotetis menggunakan pola 'Were + S + to + V1' ('Were ... to experience')."
+  },
+  {
+    q: "Neither the senior paleontologist nor the museum preparators _____ prepared for how fragile the fossilized dinosaur eggs would be.",
+    p: ["was", "were", "is", "has been"],
+    b: 1,
+    bahas: "Pada korelasi 'Neither ... nor ...', kata kerja mengikuti subjek terdekat ('preparators' = jamak), sehingga memakai 'were'."
+  },
+  {
+    q: "Mangrove trees excrete excess salt through specialized glands on their leaves, _____ them to flourish in brackish coastal waters.",
+    p: ["enabled", "enabling", "enables", "is enabling"],
+    b: 1,
+    bahas: "Present participial phrase aktif ('enabling them to flourish...') menyatakan akibat langsung dari kemampuan pohon bakau."
+  },
+  {
+    q: "Rarely _____ a meteorite large enough to carve an impact crater visible from orbital satellites.",
+    p: ["strikes the Earth", "does a meteorite strike the Earth", "a meteorite strikes the Earth", "struck a meteorite the Earth"],
+    b: 1,
+    bahas: "Adverb negatif 'Rarely' di awal kalimat memicu inversi auxiliary 'does' sebelum subjek tunggal."
+  },
+  {
+    q: "The more carefully an archaeologist documents the stratigraphy of an excavation site, _____ accurately artifacts can be dated.",
+    p: ["the most", "the more", "more than", "as much"],
+    b: 1,
+    bahas: "Double comparative menggunakan struktur sejajar: 'The more carefully ..., the more accurately ...'."
+  },
+  {
+    q: "_____ from molten magma cooling slowly deep beneath the Earth's crust, granite is prized for its durability in monumental architecture.",
+    p: ["Formed", "Forming", "It formed", "To form"],
+    b: 0,
+    bahas: "Reduced passive adverbial clause ('Because it was formed...') diringkas menjadi past participle 'Formed'."
+  },
+  {
+    q: "Biochemists are still uncovering _____ enzymes accelerate complex metabolic reactions inside living cells without being consumed.",
+    p: ["how", "what", "which", "whom"],
+    b: 0,
+    bahas: "Noun clause yang menjelaskan cara atau mekanisme ('bagaimana enzim mempercepat reaksi metabolisme') menggunakan 'how'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nA large proportion of (A) 'the' migratory shorebirds resting along the estuary (B) 'depends' on horseshoe crab eggs (C) 'for' fuel during (D) 'their' spring journey.",
+    p: ["(A) the", "(B) depends", "(C) for", "(D) their"],
+    b: 1,
+    bahas: "Frasa 'A proportion of + plural noun ('shorebirds')' dianggap jamak, sehingga kata kerjanya harus 'depend', bukan 'depends'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe engineering team tested (A) 'the' suspension bridge for wind resistance, thermal expansion, (B) 'and' how much weight (C) 'it' could safely (D) 'supporting'.",
+    p: ["(A) the", "(B) and", "(C) it", "(D) supporting"],
+    b: 3,
+    bahas: "Setelah modal auxiliary 'could', kata kerja harus berbentuk dasar (bare infinitive) 'support', bukan 'supporting'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nAlike (A) 'other' cephalopods, cuttlefish can rapidly alter (B) 'the' color and texture of (C) 'their' skin to blend seamlessly (D) 'into' coral reefs.",
+    p: ["(A) other", "(B) the", "(C) their", "(D) into"],
+    b: 0,
+    bahas: "Di awal kalimat sebelum noun phrase ('other cephalopods'), gunakan preposisi 'Like', bukan 'Alike'."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe aerospace agency insisted (A) 'that' every spacecraft component (B) 'undergoes' rigorous vibration testing prior (C) 'to' orbital (D) 'launch'.",
+    p: ["(A) that", "(B) undergoes", "(C) to", "(D) launch"],
+    b: 1,
+    bahas: "Subjunctive mood setelah 'insisted that' mewajibkan bare infinitive 'undergo' tanpa akhiran -s."
+  },
+  {
+    q: "[Written Expression - Pilih bagian yang SALAH]\nThe thermal conductivity of diamond (A) 'is' roughly five times higher (B) 'than' (C) 'those' of pure (D) 'copper'.",
+    p: ["(A) is", "(B) than", "(C) those", "(D) copper"],
+    b: 2,
+    bahas: "Kata ganti penunjuk harus merujuk pada kata benda tunggal 'The thermal conductivity', sehingga seharusnya 'that', bukan 'those'."
+  }
+];
+
