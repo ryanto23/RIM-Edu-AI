@@ -1,15 +1,15 @@
-// File: soal/kls2_binggris_master.js
+// File: soal/kls2_bing_master.js
 window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
 
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u1 = E([
+  const b1 = E([
     ["What is 'apel' in English?", ["Banana", "Apple", "Orange", "Mango"], 1, "Apple artinya apel."],
     ["What is 'pisang' in English?", ["Grape", "Banana", "Watermelon", "Papaya"], 1, "Banana artinya pisang."],
     ["What is 'jeruk' in English?", ["Strawberry", "Orange", "Pineapple", "Avocado"], 1, "Orange artinya jeruk."],
     ["What is 'semangka' in English?", ["Melon", "Watermelon", "Durian", "Guava"], 1, "Watermelon artinya semangka."],
     ["What is 'anggur' in English?", ["Apple", "Grape", "Mango", "Pear"], 1, "Grape artinya anggur."],
-    ["A: 'Do you like banana?' B: 'Yes, I ...'", ["do not", "do", "am", "is"], 1, "Jawaban singkat positif untuk 'Do you...' adalah 'Yes, I do.'"],
+    ["A: 'Do you like apples?' B: 'Yes, I ...'", ["do not", "do", "am", "is"], 1, "Jawaban singkat positif untuk 'Do you...' adalah 'Yes, I do.'"],
     ["A: 'Do you like durian?' B: 'No, I ...'", ["do", "don't", "am not", "isn't"], 1, "Jawaban singkat negatif untuk 'Do you...' adalah 'No, I don't.'"],
     ["I like ... (mangga). It is sweet.", ["apple", "mango", "banana", "orange"], 1, "Mango artinya mangga."],
     ["Siti ... strawberries. They are fresh.", ["like", "likes", "liking", "liked"], 1, "Subjek tunggal (Siti/She) menggunakan kata kerja 'likes'."],
@@ -25,13 +25,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Watermelon is big and green outside, but ... inside.", ["blue", "red", "black", "purple"], 1, "Daging buah semangka berwarna merah (red)."],
     ["Eating fruits every day makes our body ...", ["sick", "healthy and strong", "sleepy", "sad"], 1, "Buah-buahan menyehatkan tubuh (healthy)."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab1_sesi1"] = [...u1];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab1_sesi2"] = [...u1.slice(7), ...u1.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab1_sesi3"] = [...u1.slice(14), ...u1.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab1_sesi1"] = [...b1];
+  window.BANK_SOAL_MASTER["kls2_bing_bab1_sesi2"] = [...b1.slice(7), ...b1.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab1_sesi3"] = [...b1.slice(14), ...b1.slice(0, 14)];
 })();
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u2 = E([
+  const b2 = E([
     ["What is 'ayah' in English?", ["Mother", "Father", "Brother", "Grandfather"], 1, "Father artinya ayah."],
     ["What is 'ibu' in English?", ["Sister", "Mother", "Aunt", "Grandmother"], 1, "Mother artinya ibu."],
     ["What is 'kakek' in English?", ["Uncle", "Grandfather", "Father", "Brother"], 1, "Grandfather artinya kakek."],
@@ -53,13 +53,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Rani and Budi ... eating sweet mangoes together.", ["likes", "like", "is like", "was like"], 1, "Dua orang (jamak) memakai 'like'."],
     ["We must respect and ... our parents.", ["hate", "love / obey", "ignore", "forget"], 1, "Menghormati dan menyayangi orang tua adalah kewajiban anak."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab2_sesi1"] = [...u2];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab2_sesi2"] = [...u2.slice(7), ...u2.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab2_sesi3"] = [...u2.slice(14), ...u2.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab2_sesi1"] = [...b2];
+  window.BANK_SOAL_MASTER["kls2_bing_bab2_sesi2"] = [...b2.slice(7), ...b2.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab2_sesi3"] = [...b2.slice(14), ...b2.slice(0, 14)];
 })();
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u3 = E([
+  const b3 = E([
     ["What is 'pensil' in English?", ["Pen", "Pencil", "Ruler", "Eraser"], 1, "Pencil artinya pensil."],
     ["What is 'pulpen / pena' in English?", ["Pencil", "Pen", "Book", "Bag"], 1, "Pen artinya pena atau pulpen."],
     ["What is 'penggaris' in English?", ["Eraser", "Ruler", "Sharpener", "Notebook"], 1, "Ruler artinya penggaris."],
@@ -81,13 +81,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["There are five ... in my bag. (buku)", ["book", "books", "a book", "bookes"], 1, "Jumlah lebih dari satu (five) menggunakan bentuk jamak 'books'."],
     ["Keep your school things tidy in your ...", ["floor", "bag", "yard", "shoe"], 1, "Menyimpan perlengkapan sekolah rapi di dalam tas."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab3_sesi1"] = [...u3];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab3_sesi2"] = [...u3.slice(7), ...u3.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab3_sesi3"] = [...u3.slice(14), ...u3.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab3_sesi1"] = [...b3];
+  window.BANK_SOAL_MASTER["kls2_bing_bab3_sesi2"] = [...b3.slice(7), ...b3.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab3_sesi3"] = [...b3.slice(14), ...b3.slice(0, 14)];
 })();
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u4 = E([
+  const b4 = E([
     ["What number comes after eleven (11)?", ["Ten", "Twelve", "Thirteen", "Fifteen"], 1, "Setelah 11 adalah 12 (twelve)."],
     ["What is 'lima belas' in English?", ["Fifty", "Fifteen", "Five", "Fourteen"], 1, "15 dalam bahasa Inggris adalah fifteen."],
     ["What is 'dua puluh' in English?", ["Twelve", "Twenty", "Two", "Thirty"], 1, "20 dalam bahasa Inggris adalah twenty."],
@@ -109,13 +109,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Arrange the numbers from smallest to largest: fifteen, eleven, nineteen, thirteen", ["Nineteen, fifteen, thirteen, eleven", "Eleven, thirteen, fifteen, nineteen", "Thirteen, eleven, fifteen, nineteen", "Eleven, fifteen, thirteen, nineteen"], 1, "Urutan: 11, 13, 15, 19."],
     ["Counting objects carefully helps us learn numbers and ...", ["sleeping", "mathematics", "singing", "drawing"], 1, "Berhitung melatih kemampuan numerasi dasar."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab4_sesi1"] = [...u4];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab4_sesi2"] = [...u4.slice(7), ...u4.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab4_sesi3"] = [...u4.slice(14), ...u4.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab4_sesi1"] = [...b4];
+  window.BANK_SOAL_MASTER["kls2_bing_bab4_sesi2"] = [...b4.slice(7), ...b4.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab4_sesi3"] = [...b4.slice(14), ...b4.slice(0, 14)];
 })();
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u5 = E([
+  const b5 = E([
     ["What is 'sapi' in English?", ["Goat", "Cow", "Horse", "Sheep"], 1, "Cow artinya sapi."],
     ["What is 'kambing' in English?", ["Cow", "Goat", "Duck", "Chicken"], 1, "Goat artinya kambing."],
     ["What is 'bebek' in English?", ["Chicken", "Duck", "Bird", "Fish"], 1, "Duck artinya bebek."],
@@ -137,13 +137,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["A: 'Where is the rabbit?' B: 'It is ... the bush.' (di samping)", ["under", "beside / next to", "in", "on"], 1, "Beside / next to artinya di samping."],
     ["We must feed and take care of our pets with ...", ["anger", "love and kindness", "laziness", "fear"], 1, "Menyayangi hewan peliharaan adalah sikap terpuji."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab5_sesi1"] = [...u5];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab5_sesi2"] = [...u5.slice(7), ...u5.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab5_sesi3"] = [...u5.slice(14), ...u5.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab5_sesi1"] = [...b5];
+  window.BANK_SOAL_MASTER["kls2_bing_bab5_sesi2"] = [...b5.slice(7), ...b5.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab5_sesi3"] = [...b5.slice(14), ...b5.slice(0, 14)];
 })();
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u6 = E([
+  const b6 = E([
     ["Mr. Ahmad is my father. ... is a teacher.", ["She", "He", "It", "They"], 1, "Kata ganti subjek untuk laki-laki tunggal adalah 'He'."],
     ["Mrs. Siti is my mother. ... is kind.", ["He", "She", "We", "You"], 1, "Kata ganti subjek untuk perempuan tunggal adalah 'She'."],
     ["Rani is my younger sister. ... is five years old.", ["He", "She", "They", "It"], 1, "Sister adalah perempuan, sehingga kata gantinya 'She'."],
@@ -165,13 +165,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Arrange the words: 'is - She - my - sister - elder'", ["My sister elder is she.", "She is my elder sister.", "Elder sister my is she.", "Is she my elder sister."], 1, "Susunan kalimat benar: She is my elder sister."],
     ["A happy family always helps and ... each other.", ["fights", "cares for / loves", "leaves", "ignores"], 1, "Keluarga bahagia saling menyayangi dan membantu."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab6_sesi1"] = [...u6];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab6_sesi2"] = [...u6.slice(7), ...u6.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab6_sesi3"] = [...u6.slice(14), ...u6.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab6_sesi1"] = [...b6];
+  window.BANK_SOAL_MASTER["kls2_bing_bab6_sesi2"] = [...b6.slice(7), ...b6.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab6_sesi3"] = [...b6.slice(14), ...b6.slice(0, 14)];
 })();
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u7 = E([
+  const b7 = E([
     ["What is the opposite (lawan kata) of 'tall' (tinggi)?", ["Big", "Short", "Fat", "Long"], 1, "Tall (tinggi) berlawanan dengan short (pendek)."],
     ["What is the opposite of 'big' (besar)?", ["Tall", "Small", "Thin", "Young"], 1, "Big (besar) berlawanan dengan small (kecil)."],
     ["What is the opposite of 'fat' (gemuk)?", ["Short", "Thin / Slim", "Old", "Fast"], 1, "Fat berlawanan dengan thin atau slim (kurus/langsing)."],
@@ -193,13 +193,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Arrange the words: 'is - My - father - tall - strong - and'", ["My father is tall and strong.", "Tall and strong is my father.", "My is father tall and strong.", "Father my is strong and tall."], 1, "Susunan kalimat benar: My father is tall and strong."],
     ["Even though people are tall or short, big or small, we must ... everyone.", ["laugh at", "respect and be kind to", "hate", "ignore"], 1, "Menghormati perbedaan fisik setiap orang adalah sikap mulia."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab7_sesi1"] = [...u7];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab7_sesi2"] = [...u7.slice(7), ...u7.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab7_sesi3"] = [...u7.slice(14), ...u7.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab7_sesi1"] = [...b7];
+  window.BANK_SOAL_MASTER["kls2_bing_bab7_sesi2"] = [...b7.slice(7), ...b7.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab7_sesi3"] = [...b7.slice(14), ...b7.slice(0, 14)];
 })();
 (function() {
   const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u8 = E([
+  const b8 = E([
     ["What is 'jerapah' in English?", ["Zebra", "Giraffe", "Elephant", "Lion"], 1, "Giraffe artinya jerapah."],
     ["What is 'gajah' in English?", ["Tiger", "Elephant", "Monkey", "Bear"], 1, "Elephant artinya gajah."],
     ["What is 'singa' in English?", ["Tiger", "Lion", "Wolf", "Fox"], 1, "Lion artinya singa."],
@@ -221,81 +221,7 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Arrange the words: 'is - The - elephant - big - grey - and'", ["The elephant is big and grey.", "Big and grey is elephant the.", "Elephant the is grey and big.", "Is the elephant big and grey."], 1, "Susunan benar: The elephant is big and grey."],
     ["At the zoo, we must not ... the animals carelessly.", ["look at", "feed or disturb", "take photos of", "learn about"], 1, "Dilarang memberi makan sembarangan atau mengganggu hewan di kebun binatang."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab8_sesi1"] = [...u8];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab8_sesi2"] = [...u8.slice(7), ...u8.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab8_sesi3"] = [...u8.slice(14), ...u8.slice(0, 14)];
-})();
-(function() {
-  const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u9 = E([
-    ["What is 'membaca' in English?", ["Writing", "Reading", "Drawing", "Singing"], 1, "Reading artinya sedang membaca."],
-    ["What is 'menulis' in English?", ["Reading", "Writing", "Listening", "Speaking"], 1, "Writing artinya sedang menulis."],
-    ["What is 'bermain' in English?", ["Sleeping", "Playing", "Eating", "Drinking"], 1, "Playing artinya sedang bermain."],
-    ["What is 'makan' in English?", ["Drinking", "Eating", "Cooking", "Washing"], 1, "Eating artinya sedang makan."],
-    ["What is 'minum' in English?", ["Eating", "Drinking", "Swimming", "Running"], 1, "Drinking artinya sedang minum."],
-    ["I ... reading a storybook in the library.", ["is", "am", "are", "do"], 1, "Subjek 'I' berpasangan dengan 'am'."],
-    ["She ... writing a letter on her desk.", ["am", "is", "are", "were"], 1, "Subjek tunggal 'She' berpasangan dengan 'is'."],
-    ["They ... playing football in the school yard.", ["is", "are", "am", "was"], 1, "Subjek jamak 'They' berpasangan dengan 'are'."],
-    ["A: 'What are you doing?' B: 'I am ... a picture.' (menggambar)", ["singing", "drawing", "sleeping", "jumping"], 1, "Drawing artinya menggambar."],
-    ["A: 'What is Budi doing?' B: 'He is ... milk.' (minum)", ["eating", "drinking", "reading", "writing"], 1, "Drinking milk = sedang minum susu."],
-    ["My mother is ... delicious food in the kitchen.", ["sleeping", "cooking", "swimming", "driving"], 1, "Cooking in the kitchen = memasak di dapur."],
-    ["What is 'menyanyi' in English?", ["Dancing", "Singing", "Running", "Walking"], 1, "Singing artinya menyanyi."],
-    ["What is 'berenang' in English?", ["Running", "Swimming", "Jumping", "Cycling"], 1, "Swimming artinya berenang."],
-    ["The students are ... to the teacher carefully.", ["sleeping", "listening", "eating", "playing"], 1, "Listening to the teacher = mendengarkan guru."],
-    ["We ... studying English in the classroom now.", ["is", "are", "am", "does"], 1, "Subjek 'We' menggunakan to be 'are'."],
-    ["What is 'tidur' in English?", ["Waking up", "Sleeping", "Standing", "Sitting"], 1, "Sleeping artinya tidur."],
-    ["A: 'Are you eating fried rice?' B: 'Yes, I ...'", ["is", "am", "are", "do"], 1, "Pertanyaan 'Are you...' dijawab 'Yes, I am.'"],
-    ["'Dia (perempuan) sedang menari' in English is ...", ["She is singing.", "She is dancing.", "He is dancing.", "She is drawing."], 1, "Dancing artinya menari."],
-    ["Arrange the words: 'is - He - watering - flowers - the'", ["Watering he is the flowers.", "He is watering the flowers.", "The flowers is he watering.", "Is he watering the flowers."], 1, "Susunan benar: He is watering the flowers."],
-    ["When the teacher is explaining, students should be ... attentively.", ["playing", "listening and studying", "sleeping", "shouting"], 1, "Mendengarkan dan belajar dengan tekun saat guru mengajar."]
-  ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab9_sesi1"] = [...u9];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab9_sesi2"] = [...u9.slice(7), ...u9.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab9_sesi3"] = [...u9.slice(14), ...u9.slice(0, 14)];
-})();
-(function() {
-  const E = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
-  const u10 = E([
-    ["What is 'sepeda' in English?", ["Car", "Bike / Bicycle", "Bus", "Train"], 1, "Bike atau bicycle artinya sepeda."],
-    ["What is 'mobil' in English?", ["Motorcycle", "Car", "Truck", "Boat"], 1, "Car artinya mobil."],
-    ["What is 'sepeda motor' in English?", ["Bicycle", "Motorcycle / Motorbike", "Plane", "Ship"], 1, "Motorcycle artinya sepeda motor."],
-    ["What is 'kereta api' in English?", ["Bus", "Train", "Plane", "Taxi"], 1, "Train artinya kereta api."],
-    ["What is 'pesawat terbang' in English?", ["Ship", "Plane / Airplane", "Helicopter", "Train"], 1, "Plane artinya pesawat terbang."],
-    ["What is 'kapal laut' in English?", ["Car", "Ship / Boat", "Bus", "Bike"], 1, "Ship artinya kapal laut."],
-    ["What is 'becak' in English?", ["Taxi", "Pedicab", "Truck", "Train"], 1, "Pedicab adalah becak tradisional."],
-    ["Siti's house is near the school. She goes to school on ...", ["car", "foot (berjalan kaki)", "plane", "ship"], 1, "'On foot' artinya berjalan kaki."],
-    ["Budi goes to school ... bike every morning.", ["on", "by", "in", "at"], 1, "Menggunakan kendaraan memakai kata depan 'by' (by bike, by car)."],
-    ["A: 'How do you go to school?' B: 'I go to school ... bus.'", ["on", "by", "in", "under"], 1, "By bus = naik bus."],
-    ["A plane flies in the ...", ["sea", "sky / air", "road", "railway"], 1, "Pesawat terbang di udara/langit (sky)."],
-    ["A ship sails on the ...", ["road", "sea / ocean", "sky", "mountain"], 1, "Kapal berlayar di laut (sea)."],
-    ["A train runs on the ...", ["water", "railway track", "sky", "sand"], 1, "Kereta api berjalan di atas rel (railway track)."],
-    ["Who drives a plane?", ["Driver", "Pilot", "Captain", "Machinist"], 1, "Pilot adalah pengemudi pesawat terbang."],
-    ["Who drives a car or a bus?", ["Pilot", "Driver", "Sailor", "Teacher"], 1, "Driver adalah sopir/pengemudi mobil atau bus."],
-    ["Before crossing the street, we must look right and ...", ["up", "left", "down", "back"], 1, "Look right and left = tengok kanan dan kiri."],
-    ["When riding a motorcycle, we must wear a ... on our head.", ["hat", "helmet", "cap", "scarf"], 1, "Helmet artinya helm pelindung kepala."],
-    ["Red traffic light means ...", ["Go", "Stop", "Run", "Turn left"], 1, "Lampu merah artinya berhenti (stop)."],
-    ["Green traffic light means ...", ["Stop", "Go", "Wait", "Sleep"], 1, "Lampu hijau artinya jalan (go)."],
-    ["Arrange the words: 'goes - Father - office - to - by - car'", ["Father goes to office by car.", "By car father goes office to.", "Office goes to father by car.", "Goes father to office by car."], 0, "Susunan kalimat benar: Father goes to office by car."]
-  ]);
-  window.BANK_SOAL_MASTER["kls2_binggris_bab10_sesi1"] = [...u10];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab10_sesi2"] = [...u10.slice(7), ...u10.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_binggris_bab10_sesi3"] = [...u10.slice(14), ...u10.slice(0, 14)];
-})();
-// Alias otomatis semua variasi kunci Bahasa Inggris Kelas 2 SD (unit / bab & bing / binggris / inggris)
-(function() {
-  const M = window.BANK_SOAL_MASTER || {};
-  for (let u = 1; u <= 10; u++) {
-    for (let sesi = 1; sesi <= 3; sesi++) {
-      const asal = M[`kls2_binggris_bab${u}_sesi${sesi}`];
-      if (asal) {
-        M[`kls2_binggris_unit${u}_sesi${sesi}`] = asal;
-        M[`kls2_bing_bab${u}_sesi${sesi}`] = asal;
-        M[`kls2_bing_unit${u}_sesi${sesi}`] = asal;
-        M[`kls2_inggris_bab${u}_sesi${sesi}`] = asal;
-        M[`kls2_inggris_unit${u}_sesi${sesi}`] = asal;
-        M[`kls2_english_bab${u}_sesi${sesi}`] = asal;
-        M[`kls2_english_unit${u}_sesi${sesi}`] = asal;
-      }
-    }
-  }
+  window.BANK_SOAL_MASTER["kls2_bing_bab8_sesi1"] = [...b8];
+  window.BANK_SOAL_MASTER["kls2_bing_bab8_sesi2"] = [...b8.slice(7), ...b8.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_bing_bab8_sesi3"] = [...b8.slice(14), ...b8.slice(0, 14)];
 })();
