@@ -281,3 +281,21 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
   window.BANK_SOAL_MASTER["kls2_binggris_bab10_sesi2"] = [...u10.slice(7), ...u10.slice(0, 7)];
   window.BANK_SOAL_MASTER["kls2_binggris_bab10_sesi3"] = [...u10.slice(14), ...u10.slice(0, 14)];
 })();
+// Alias otomatis semua variasi kunci Bahasa Inggris Kelas 2 SD (unit / bab & bing / binggris / inggris)
+(function() {
+  const M = window.BANK_SOAL_MASTER || {};
+  for (let u = 1; u <= 10; u++) {
+    for (let sesi = 1; sesi <= 3; sesi++) {
+      const asal = M[`kls2_binggris_bab${u}_sesi${sesi}`];
+      if (asal) {
+        M[`kls2_binggris_unit${u}_sesi${sesi}`] = asal;
+        M[`kls2_bing_bab${u}_sesi${sesi}`] = asal;
+        M[`kls2_bing_unit${u}_sesi${sesi}`] = asal;
+        M[`kls2_inggris_bab${u}_sesi${sesi}`] = asal;
+        M[`kls2_inggris_unit${u}_sesi${sesi}`] = asal;
+        M[`kls2_english_bab${u}_sesi${sesi}`] = asal;
+        M[`kls2_english_unit${u}_sesi${sesi}`] = asal;
+      }
+    }
+  }
+})();
