@@ -225,3 +225,16 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
   window.BANK_SOAL_MASTER["kls2_matematika_bab8_sesi2"] = [...b8.slice(7), ...b8.slice(0, 7)];
   window.BANK_SOAL_MASTER["kls2_matematika_bab8_sesi3"] = [...b8.slice(14), ...b8.slice(0, 14)];
 })();
+// Alias otomatis semua variasi kunci Matematika Kelas 2 SD
+(function() {
+  const M = window.BANK_SOAL_MASTER || {};
+  for (let bab = 1; bab <= 8; bab++) {
+    for (let sesi = 1; sesi <= 3; sesi++) {
+      const asal = M[`kls2_matematika_bab${bab}_sesi${sesi}`];
+      if (asal) {
+        M[`kls2_mtk_bab${bab}_sesi${sesi}`] = asal;
+        M[`kls2_math_bab${bab}_sesi${sesi}`] = asal;
+      }
+    }
+  }
+})();
