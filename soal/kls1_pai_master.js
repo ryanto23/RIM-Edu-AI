@@ -1464,3 +1464,418 @@ window.BANK_SOAL_MASTER["kls1_pai_bab10_sesi1"] = [
   ]));
 })();
 
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 3 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab3_sesi2"] = P([
+    ["Bacaan basmalah berbunyi ...", ["Alhamdulillahi rabbil 'alamin", "Bismillahirrahmanirrahim", "Subhanallah", "Allahu Akbar"], 1, "Basmalah berbunyi Bismillahirrahmanirrahim."],
+    ["Arti bacaan basmalah adalah ...", ["Segala puji bagi Allah", "Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang", "Maha Suci Allah", "Allah Maha Besar"], 1, "Basmalah berarti Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang."],
+    ["Kita membaca basmalah ketika akan ...", ["Mengakhiri pekerjaan", "Memulai setiap perbuatan baik", "Masuk ke kamar mandi", "Menguap lebar"], 1, "Basmalah dibaca saat memulai aktivitas kebaikan."],
+    ["Pekerjaan baik yang diawali basmalah akan mendapat ... dari Allah Swt.", ["Kesulitan", "Keberkahan dan pahala", "Hukuman", "Kerugian"], 1, "Setiap kebaikan yang diawali basmalah bernilai ibadah dan berkah."],
+    ["Bacaan hamdalah berbunyi ...", ["Bismillahirrahmanirrahim", "Alhamdulillahi rabbil 'alamin", "Astaghfirullahal 'azim", "Inna lillahi wa inna ilaihi raji'un"], 1, "Hamdalah berbunyi Alhamdulillahi rabbil 'alamin."],
+    ["Arti bacaan hamdalah adalah ...", ["Dengan nama Allah", "Segala puji bagi Allah, Tuhan seluruh alam", "Aku mohon ampun kepada Allah", "Tiada Tuhan selain Allah"], 1, "Hamdalah artinya Segala puji bagi Allah, Tuhan seluruh alam."],
+    ["Ketika selesai makan dan minum, kita mengucapkan ...", ["Basmalah", "Hamdalah", "Takbir", "Istigfar"], 1, "Hamdalah dibaca setelah selesai melakukan aktivitas atau mendapat nikmat."],
+    ["Membaca hamdalah merupakan bukti rasa ... kepada Allah Swt.", ["Sombong", "Syukur", "Kecewa", "Takut"], 1, "Mengucap hamdalah adalah ungkapan syukur atas nikmat Allah."],
+    ["Sebelum berangkat ke sekolah, Ahmad berpamitan kepada orang tua dan membaca ...", ["Hamdalah", "Basmalah", "Tahlil", "Tasbih"], 1, "Memulai perjalanan menuntut ilmu diawali membaca basmalah."],
+    ["Siti mendapat nilai bagus saat ulangan. Ia bersyukur dengan mengucap ...", ["Astaghfirullah", "Alhamdulillahi rabbil 'alamin", "Bismillahirrahmanirrahim", "Subhanallah"], 1, "Mendapat nikmat keberhasilan disyukuri dengan membaca hamdalah."],
+    ["Lafal basmalah terdapat pada ayat pertama Surah ...", ["Al-Ikhlas", "Al-Fatihah", "An-Nas", "Al-Falaq"], 1, "Ayat pertama Surah Al-Fatihah adalah Bismillahirrahmanirrahim."],
+    ["Lafal hamdalah terdapat pada ayat kedua Surah ...", ["Al-Kautsar", "Al-Fatihah", "Al-Asr", "Al-Fil"], 1, "Ayat kedua Surah Al-Fatihah adalah Alhamdulillahi rabbil 'alamin."],
+    ["Allah Swt. memiliki sifat Ar-Rahman yang artinya Maha ...", ["Adil", "Pengasih", "Mengetahui", "Mendengar"], 1, "Ar-Rahman artinya Allah Maha Pengasih kepada seluruh makhluk."],
+    ["Allah Swt. memiliki sifat Ar-Rahim yang artinya Maha ...", ["Pencipta", "Penyayang", "Kuasa", "Melihat"], 1, "Ar-Rahim artinya Allah Maha Penyayang kepada hamba-Nya yang beriman."],
+    ["Ketika akan memakai sepatu sebelum keluar rumah, sebaiknya kita mendahulukan kaki kanan sambil membaca ...", ["Hamdalah", "Basmalah", "Salam", "Istigfar"], 1, "Memakai alas kaki dimulai dari kanan sambil membaca basmalah."],
+    ["Anak yang rajin bersyukur kepada Allah Swt. maka nikmatnya akan ...", ["Dikurangi", "Ditambah oleh Allah Swt.", "Hilang semua", "Dibiarkan saja"], 1, "Allah berjanji menambah nikmat bagi hamba yang bersyukur."],
+    ["Kalimat basmalah termasuk salah satu kalimat ...", ["Buruk", "Tayibah (kalimat yang baik)", "Larangan", "Tanya"], 1, "Basmalah dan hamdalah adalah kalimat tayibah."],
+    ["Sebelum tidur di malam hari, kita berdoa dan mengawalinya dengan membaca ...", ["Hamdalah", "Basmalah", "Takbir", "Tahmid"], 1, "Berdoa sebelum tidur diawali dengan bacaan basmalah."],
+    ["Setelah sembuh dari sakit, seorang muslim bersyukur dengan membaca ...", ["Basmalah", "Hamdalah", "Ta'awuz", "Istirja"], 1, "Sembuh dari sakit adalah nikmat yang disyukuri dengan hamdalah."],
+    ["Membiasakan membaca basmalah dan hamdalah membuat hati menjadi ...", ["Gelisah", "Tenang dan dekat dengan Allah", "Marah", "Sombong"], 1, "Mengingat Allah selalu menenangkan hati."]
+  ]);
+
+  // BAB 3 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab3_sesi3"] = P([
+    ["Sebelum membuka buku pelajaran di kelas, murid-murid membaca ...", ["Hamdalah", "Basmalah", "Istigfar", "Tahlil"], 1, "Belajar adalah ibadah yang diawali dengan basmalah."],
+    ["Setelah selesai belajar di kelas, murid-murid bersama guru membaca ...", ["Basmalah", "Hamdalah", "Ta'awuz", "Takbir"], 1, "Mengakhiri pelajaran dengan hamdalah sebagai tanda syukur."],
+    ["Kalimat 'Alhamdulillahi rabbil 'alamin' disebut juga bacaan ...", ["Tasbih", "Tahmid (hamdalah)", "Tahlil", "Takbir"], 1, "Hamdalah disebut juga bacaan tahmid."],
+    ["Saat menolong teman yang terjatuh, kita mengawalinya dalam hati dengan membaca ...", ["Hamdalah", "Basmalah", "Istigfar", "Salam"], 1, "Setiap niat dan perbuatan baik diawali basmalah."],
+    ["Orang yang tidak pernah bersyukur atas nikmat Allah disebut ...", ["Mukmin", "Kufur nikmat", "Muttaqin", "Muhsin"], 1, "Lawannya bersyukur adalah kufur nikmat."],
+    ["Ketika menerima hadiah ulang tahun dari ayah dan ibu, kita mengucapkan terima kasih dan ...", ["Astaghfirullah", "Alhamdulillah", "Bismillah", "Innalillahi"], 1, "Mengucap Alhamdulillah adalah bentuk syukur atas rezeki hadiah."],
+    ["Basmalah tidak boleh dibaca ketika akan melakukan perbuatan ...", ["Belajar", "Maksiat atau keburukan", "Makan siang", "Menulis"], 1, "Basmalah hanya untuk perbuatan baik yang diridai Allah."],
+    ["Jumlah huruf pada lafal 'Bismillahirrahmanirrahim' ada ... huruf.", ["17", "19", "21", "25"], 1, "Lafal basmalah terdiri atas 19 huruf hijaiah."],
+    ["Kata 'Al-'Alamin' dalam bacaan hamdalah memiliki arti ...", ["Hari kiamat", "Seluruh alam", "Jalan lurus", "Maha Pengasih"], 1, "Rabbil 'alamin artinya Tuhan pemelihara seluruh alam."],
+    ["Saat minum air putih yang segar, adab yang benar adalah duduk, menggunakan tangan kanan, dan membaca ...", ["Hamdalah dulu baru basmalah", "Basmalah sebelum minum dan hamdalah sesudahnya", "Takbir sebelum minum", "Diam saja"], 1, "Sebelum minum baca basmalah, sesudah minum baca hamdalah."],
+    ["Kasih sayang Allah Swt. kepada semua makhluk tanpa terkecuali di dunia disebut sifat ...", ["Ar-Rahim", "Ar-Rahman", "Al-Malik", "Al-Quddus"], 1, "Ar-Rahman mencakup kasih sayang Allah bagi seluruh makhluk di dunia."],
+    ["Budi terhindar dari kecelakaan saat bersepeda. Ia segera bersyukur dengan membaca ...", ["Bismillah", "Alhamdulillahi rabbil 'alamin", "Subhanallah", "Allahu Akbar"], 1, "Selamat dari musibah disyukuri dengan mengucap hamdalah."],
+    ["Membaca basmalah sebelum makan bertujuan agar makanan kita membawa ...", ["Penyakit", "Keberkahan dan kesehatan", "Rasa lapar", "Kemalasan"], 1, "Makanan yang diawali basmalah menjadi berkah dan terhindar dari gangguan setan."],
+    ["Jika lupa membaca basmalah di awal makan lalu teringat di tengah makan, kita membaca ...", ["Alhamdulillah", "Bismillahi awwalahu wa akhirahu", "Astaghfirullah", "Subhanallah"], 1, "Sunah Nabi membaca Bismillahi awwalahu wa akhirahu jika lupa di awal."],
+    ["Ucapan syukur terbaik seorang hamba kepada Allah Swt. adalah kalimat ...", ["Subhanallah", "Alhamdulillah", "Allahu Akbar", "La ilaha illallah"], 1, "Rasulullah saw. bersabda sebaik-baik doa/syukur adalah Alhamdulillah."],
+    ["Ketika ayah pulang bekerja dengan selamat, keluarga di rumah menyambut dan mengucap ...", ["Astaghfirullah", "Alhamdulillah", "Innalillahi", "Ta'awuz"], 1, "Bersyukur atas keselamatan anggota keluarga dengan hamdalah."],
+    ["Sebelum menulis tugas di buku tulis, Rani mengawalinya dengan membaca ...", ["Hamdalah", "Basmalah", "Salam", "Istigfar"], 1, "Memulai menulis diawali basmalah."],
+    ["Sifat terpuji yang tercermin pada anak yang rajin mengucap hamdalah adalah ...", ["Tinggi hati", "Rendah hati dan pandai bersyukur", "Pemarah", "Suka mengeluh"], 1, "Orang yang bersyukur selalu rendah hati mengakui nikmat dari Allah."],
+    ["Ketika melihat teman bersedih, kita menghiburnya dengan niat baik sambil mengucap ...", ["Hamdalah", "Basmalah", "Takbir", "Tahlil"], 1, "Menghibur teman adalah kebaikan yang diawali basmalah."],
+    ["Dengan membiasakan basmalah dan hamdalah setiap hari, kita termasuk anak yang ...", ["Lupa kepada Allah", "Selalu mengingat Allah Swt. (zikrullah)", "Malas beribadah", "Kurang disiplin"], 1, "Membaca kalimat tayibah adalah bagian dari zikir mengingat Allah."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 4 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab4_sesi2"] = P([
+    ["Jumlah rukun Islam yang wajib dilaksanakan umat Islam ada ...", ["4 perkara", "5 perkara", "6 perkara", "7 perkara"], 1, "Rukun Islam berjumlah 5 perkara."],
+    ["Rukun Islam yang pertama adalah mengucapkan ...", ["Salat lima waktu", "Dua kalimat syahadat", "Zakat fitrah", "Puasa Ramadan"], 1, "Rukun Islam pertama adalah membaca dua kalimat syahadat."],
+    ["Bunyi syahadat tauhid adalah ...", ["Wa asyhadu anna Muhammadar Rasulullah", "Asyhadu alla ilaha illallah", "Alhamdulillahi rabbil 'alamin", "Bismillahirrahmanirrahim"], 1, "Syahadat tauhid bersaksi bahwa tiada Tuhan selain Allah."],
+    ["Bunyi syahadat rasul adalah ...", ["Asyhadu alla ilaha illallah", "Wa asyhadu anna Muhammadar Rasulullah", "Subhanallah wa bihamdihi", "Allahu Akbar kabira"], 1, "Syahadat rasul bersaksi bahwa Nabi Muhammad utusan Allah."],
+    ["Rukun Islam yang kedua adalah mendirikan ...", ["Zakat", "Salat lima waktu", "Puasa", "Haji"], 1, "Rukun Islam kedua adalah mendirikan salat lima waktu sehari semalam."],
+    ["Jumlah rakaat salat fardu dalam sehari semalam seluruhnya ada ... rakaat.", ["15", "17", "19", "20"], 1, "Subuh 2, Zuhur 4, Asar 4, Magrib 3, Isya 4 = total 17 rakaat."],
+    ["Rukun Islam yang ketiga adalah menunaikan ...", ["Salat", "Zakat", "Puasa", "Haji"], 1, "Rukun Islam ketiga adalah membayar zakat."],
+    ["Zakat yang wajib dikeluarkan setiap muslim menjelang Hari Raya Idulfitri adalah zakat ...", ["Mal", "Fitrah", "Profesi", "Perdagangan"], 1, "Zakat fitrah wajib dibayarkan pada bulan Ramadan sebelum salat Idulfitri."],
+    ["Rukun Islam yang keempat adalah melaksanakan puasa pada bulan ...", ["Muharam", "Ramadan", "Syawal", "Rajab"], 1, "Rukun Islam keempat adalah berpuasa penuh di bulan Ramadan."],
+    ["Rukun Islam yang kelima adalah menunaikan ibadah haji bagi yang ...", ["Ingin berwisata", "Mampu secara fisik dan biaya", "Masih anak-anak", "Tinggal di dekat masjid"], 1, "Ibadah haji diwajibkan bagi muslim yang mampu (istita'ah)."],
+    ["Ibadah haji dilaksanakan di Kota suci ...", ["Madinah", "Makkah", "Yerusalem", "Kairo"], 1, "Ibadah haji dilaksanakan di Baitullah, Kota Makkah."],
+    ["Salat fardu yang dikerjakan pada waktu matahari terbenam adalah salat ...", ["Asar", "Magrib", "Isya", "Subuh"], 1, "Salat Magrib dikerjakan saat matahari terbenam sebanyak 3 rakaat."],
+    ["Arti dari lafal 'Asyhadu alla ilaha illallah' adalah ...", ["Aku bersaksi Nabi Muhammad utusan Allah", "Aku bersaksi bahwa tiada Tuhan selain Allah", "Segala puji bagi Allah", "Dengan nama Allah Yang Maha Pengasih"], 1, "Syahadat tauhid bermakna bersaksi tiada Tuhan selain Allah Swt."],
+    ["Zakat fitrah menggunakan makanan pokok seperti beras seberat ...", ["1,5 kg", "2,5 kg (3,5 liter)", "5 kg", "10 kg"], 1, "Ukuran zakat fitrah adalah 1 sha' atau sekitar 2,5 kg beras."],
+    ["Berpuasa artinya menahan diri dari makan, minum, dan hal yang membatalkan mulai terbit fajar hingga ...", ["Tengah hari", "Terbenam matahari (Magrib)", "Waktu Asar", "Tengah malam"], 1, "Puasa dimulai dari terbit fajar (Subuh) hingga terbenam matahari (Magrib)."],
+    ["Salat fardu yang jumlah rakaatnya paling sedikit adalah salat ...", ["Zuhur", "Subuh", "Magrib", "Isya"], 1, "Salat Subuh berjumlah 2 rakaat."],
+    ["Orang yang berhak menerima zakat disebut ...", ["Muzaki", "Mustahik", "Munafik", "Muhajirin"], 1, "Penerima zakat disebut mustahik, sedangkan pembayar zakat disebut muzaki."],
+    ["Rukun Islam diibaratkan sebagai ... bangunan agama Islam.", ["Atap", "Tiang penyangga utama", "Jendela", "Hiasan dinding"], 1, "Rukun Islam adalah lima pilar utama penegak agama Islam."],
+    ["Salat menghadap ke arah kiblat, yaitu ...", ["Masjid Nabawi", "Ka'bah di Masjidil Haram", "Bukit Safa", "Gua Hira"], 1, "Kiblat umat Islam adalah Ka'bah di Masjidil Haram, Makkah."],
+    ["Membayar zakat dapat melatih diri memiliki sifat ...", ["Kikir dan pelit", "Dermawan dan peduli fakir miskin", "Sombong", "Pemarah"], 1, "Zakat menyucikan harta dan menumbuhkan kepedulian sosial."]
+  ]);
+
+  // BAB 4 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab4_sesi3"] = P([
+    ["Dua kalimat syahadat dibaca ketika seseorang masuk agama Islam dan juga dibaca saat duduk ... dalam salat.", ["Iftirasy (tasyahud)", "Iktidal", "Rukuk", "Sujud"], 0, "Dua kalimat syahadat dibaca dalam tasyahud awal dan tasyahud akhir salat."],
+    ["Salat fardu yang dikerjakan pada siang hari sebanyak 4 rakaat adalah salat ...", ["Subuh", "Zuhur", "Magrib", "Isya"], 1, "Salat Zuhur dikerjakan pada tengah hari sebanyak 4 rakaat."],
+    ["Salat fardu yang dikerjakan pada sore hari sebanyak 4 rakaat adalah salat ...", ["Zuhur", "Asar", "Magrib", "Subuh"], 1, "Salat Asar berjumlah 4 rakaat pada sore hari."],
+    ["Salat fardu yang dikerjakan pada malam hari sebanyak 4 rakaat adalah salat ...", ["Magrib", "Isya", "Subuh", "Asar"], 1, "Salat Isya dikerjakan pada malam hari sebanyak 4 rakaat."],
+    ["Sebelum melaksanakan salat, kita wajib menyucikan diri dengan cara ...", ["Mandi besar", "Berwudu", "Berdiam diri", "Makan dulu"], 1, "Berwudu adalah syarat sah sebelum mendirikan salat."],
+    ["Makan dan minum pada waktu dini hari sebelum masuk waktu Subuh saat berpuasa disebut ...", ["Berbuka", "Sahur", "Takjil", "Imsak"], 1, "Makan sebelum fajar untuk berpuasa disebut makan sahur."],
+    ["Menyegerakan berbuka puasa ketika azan Magrib berkumandang termasuk perbuatan ...", ["Makruh", "Sunah yang berpahala", "Haram", "Batal puasa"], 1, "Menyegerakan berbuka puasa saat masuk waktu Magrib adalah sunah Nabi."],
+    ["Seseorang yang mengeluarkan zakat disebut ...", ["Mustahik", "Muzaki", "Amil", "Mualaf"], 1, "Muzaki adalah orang yang menunaikan zakat."],
+    ["Ibadah haji dilaksanakan setiap tahun pada bulan ...", ["Ramadan", "Zulhijah", "Syawal", "Safar"], 1, "Ibadah haji dilaksanakan pada bulan Zulhijah."],
+    ["Mengelilingi Ka'bah sebanyak tujuh kali saat ibadah haji disebut ...", ["Sa'i", "Tawaf", "Wukuf", "Tahallul"], 1, "Tawaf adalah mengelilingi Ka'bah tujuh putaran berlawanan arah jarum jam."],
+    ["Salat merupakan tiang agama. Barang siapa mendirikan salat berarti ia telah ... agama.", ["Merobohkan", "Menegakkan", "Meninggalkan", "Melupakan"], 1, "Salat adalah tiang agama; mendirikannya berarti menegakkan agama."],
+    ["Anak saleh selalu melaksanakan salat lima waktu dengan ...", ["Terpaksa dan malas", "Ikhlas dan tepat waktu", "Menunggu dimarahi", "Tergesa-gesa"], 1, "Salat sebaiknya dikerjakan di awal waktu dengan khusyuk dan ikhlas."],
+    ["Puasa Ramadan melatih umat Islam memiliki sikap ...", ["Boros makanan", "Sabar, jujur, dan menahan hawa nafsu", "Pemarah", "Malas belajar"], 1, "Puasa melatih kesabaran, kejujuran, serta pengendalian diri."],
+    ["Rukun Islam urutan ketiga setelah syahadat dan salat adalah ...", ["Puasa", "Zakat", "Haji", "Sedekah"], 1, "Urutan rukun Islam: (1) Syahadat, (2) Salat, (3) Zakat, (4) Puasa, (5) Haji."],
+    ["Rukun Islam urutan keempat setelah zakat adalah ...", ["Salat", "Puasa Ramadan", "Haji", "Syahadat"], 1, "Urutan keempat rukun Islam adalah puasa di bulan Ramadan."],
+    ["Berlari-lari kecil antara Bukit Safa dan Bukit Marwah saat ibadah haji disebut ...", ["Tawaf", "Sa'i", "Wukuf", "Mabit"], 1, "Sa'i dilakukan tujuh kali perjalanan antara Safa dan Marwah."],
+    ["Berdiam diri di Padang Arafah pada tanggal 9 Zulhijah yang menjadi rukun utama haji disebut ...", ["Tawaf", "Wukuf", "Sa'i", "Melontar jumrah"], 1, "Wukuf di Arafah pada 9 Zulhijah adalah puncak ibadah haji."],
+    ["Arti lafal 'Wa asyhadu anna Muhammadar Rasulullah' adalah ...", ["Tiada Tuhan selain Allah", "Dan aku bersaksi bahwa Nabi Muhammad adalah utusan Allah", "Allah Maha Besar", "Segala puji bagi Allah"], 1, "Syahadat kedua mengakui kerasulan Nabi Muhammad saw."],
+    ["Zakat fitrah diberikan terutama kepada golongan ...", ["Orang kaya raya", "Fakir dan miskin", "Pedagang besar", "Pejabat tinggi"], 1, "Zakat fitrah diutamakan bagi fakir miskin agar bergembira di hari raya."],
+    ["Mengamalkan kelima rukun Islam secara tertib akan membuat hidup kita bahagia di ...", ["Dunia saja", "Dunia dan akhirat", "Sekolah saja", "Rumah saja"], 1, "Menjalankan rukun Islam membawa keselamatan dan kebahagiaan dunia akhirat."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 5 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab5_sesi2"] = P([
+    ["Nabi adalah manusia pilihan Allah Swt. yang diberi wahyu untuk dirinya sendiri, sedangkan rasul diberi wahyu untuk ...", ["Disimpan sendiri", "Disampaikan kepada umatnya", "Diceritakan kepada malaikat", "Ditulis di batu saja"], 1, "Rasul wajib menyampaikan wahyu Allah Swt. kepada umat manusia."],
+    ["Nabi dan rasul pertama yang diciptakan oleh Allah Swt. dari tanah adalah Nabi ...", ["Nuh a.s.", "Adam a.s.", "Ibrahim a.s.", "Idris a.s."], 1, "Nabi Adam a.s. adalah manusia sekaligus nabi pertama."],
+    ["Nabi yang mendapat mukjizat membuat kapal besar untuk menyelamatkan umatnya dari banjir bandang adalah Nabi ...", ["Musa a.s.", "Nuh a.s.", "Sulaiman a.s.", "Yunus a.s."], 1, "Nabi Nuh a.s. membuat bahtera besar atas perintah Allah Swt."],
+    ["Nabi yang diberi mukjizat tidak hangus saat dibakar api oleh Raja Namrud adalah Nabi ...", ["Ismail a.s.", "Ibrahim a.s.", "Yakub a.s.", "Yusuf a.s."], 1, "Atas izin Allah, api menjadi dingin dan menyelamatkan Nabi Ibrahim a.s."],
+    ["Nabi yang mendapat mukjizat tongkatnya dapat membelah Laut Merah saat dikejar tentara Firaun adalah Nabi ...", ["Harun a.s.", "Musa a.s.", "Daud a.s.", "Isa a.s."], 1, "Mukjizat tongkat Nabi Musa a.s. membelah Laut Merah."],
+    ["Nabi dan rasul terakhir yang diutus Allah Swt. sebagai rahmat bagi seluruh alam adalah Nabi ...", ["Isa a.s.", "Muhammad saw.", "Ibrahim a.s.", "Sulaiman a.s."], 1, "Nabi Muhammad saw. adalah penutup para nabi dan rasul."],
+    ["Mukjizat terbesar yang diberikan Allah Swt. kepada Nabi Muhammad saw. adalah ...", ["Tongkat sakti", "Kitab suci Al-Qur'an", "Kapal besar", "Baju besi"], 1, "Al-Qur'an adalah mukjizat abadi terbesar Nabi Muhammad saw."],
+    ["Sejak kecil Nabi Muhammad saw. terkenal sangat jujur sehingga mendapat gelar ...", ["Al-Faruq", "Al-Amin", "As-Siddiq", "Zunnurain"], 1, "Al-Amin artinya orang yang dapat dipercaya."],
+    ["Sifat wajib bagi rasul yang artinya 'jujur atau benar' adalah ...", ["Amanah", "Sidiq", "Tablig", "Fatanah"], 1, "Sidiq berarti benar dan jujur dalam ucapan maupun perbuatan."],
+    ["Sifat wajib bagi rasul yang artinya 'dapat dipercaya' adalah ...", ["Sidiq", "Amanah", "Tablig", "Fatanah"], 1, "Amanah berarti dapat dipercaya menjaga titipan atau tugas."],
+    ["Sifat wajib bagi rasul yang artinya 'menyampaikan wahyu' adalah ...", ["Sidiq", "Amanah", "Tablig", "Fatanah"], 2, "Tablig berarti menyampaikan seluruh wahyu Allah kepada umat."],
+    ["Sifat wajib bagi rasul yang artinya 'cerdas atau pandai' adalah ...", ["Tablig", "Fatanah", "Amanah", "Sidiq"], 1, "Fatanah berarti cerdas dan bijaksana."],
+    ["Meneladani sifat sidiq para nabi dalam kehidupan sehari-hari dilakukan dengan cara ...", ["Suka berbohong", "Selalu berkata jujur kepada orang tua dan guru", "Menyembunyikan kesalahan", "Menyontek saat ulangan"], 1, "Berkata jujur adalah wujud meneladani sifat sidiq."],
+    ["Ayah Nabi Muhammad saw. bernama ...", ["Abu Talib", "Abdullah", "Abdul Muttalib", "Hamzah"], 1, "Ayahanda Nabi Muhammad saw. bernama Abdullah bin Abdul Muttalib."],
+    ["Ibunda Nabi Muhammad saw. bernama ...", ["Khadijah", "Aminah", "Halimah", "Fatimah"], 1, "Ibunda Nabi Muhammad saw. bernama Siti Aminah."],
+    ["Nabi Muhammad saw. dilahirkan di Kota Makkah pada tanggal ...", ["1 Muharam", "12 Rabiulawal", "17 Ramadan", "10 Zulhijah"], 1, "Nabi Muhammad saw. lahir pada Senin, 12 Rabiulawal Tahun Gajah."],
+    ["Nabi yang diberi mukjizat dapat berbicara dengan hewan dan menundukkan angin adalah Nabi ...", ["Daud a.s.", "Sulaiman a.s.", "Ayyub a.s.", "Yusuf a.s."], 1, "Nabi Sulaiman a.s. dikaruniai kemampuan memahami bahasa hewan."],
+    ["Nabi yang terkenal sangat sabar ketika diuji penyakit kulit bertahun-tahun dan kehilangan harta adalah Nabi ...", ["Yunus a.s.", "Ayyub a.s.", "Zakaria a.s.", "Yahya a.s."], 1, "Nabi Ayyub a.s. adalah teladan kesabaran luar biasa."],
+    ["Saat teman menitipkan pensil kepada kita, kita menjaganya dengan baik sebagai wujud meneladani sifat ...", ["Tablig", "Amanah", "Fatanah", "Kizib"], 1, "Menjaga titipan dengan baik adalah perilaku amanah."],
+    ["Nabi dan rasul diutus Allah Swt. untuk membimbing manusia menuju jalan yang ...", ["Sesat", "Benar dan diridai Allah Swt.", "Gelap", "Sulit"], 1, "Para nabi membawa petunjuk kebenaran bagi umat manusia."]
+  ]);
+
+  // BAB 5 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab5_sesi3"] = P([
+    ["Nabi yang diberi mukjizat mampu melunakkan besi dengan tangannya dan bersuara merdu adalah Nabi ...", ["Sulaiman a.s.", "Daud a.s.", "Musa a.s.", "Harun a.s."], 1, "Nabi Daud a.s. dikaruniai suara merdu dan mukjizat melunakkan besi."],
+    ["Nabi yang tetap hidup di dalam perut ikan paus berkat rajin berzikir memohon ampun kepada Allah adalah Nabi ...", ["Nuh a.s.", "Yunus a.s.", "Ilyas a.s.", "Luth a.s."], 1, "Nabi Yunus a.s. diselamatkan Allah dari perut ikan paus."],
+    ["Nabi yang diberi mukjizat dapat berbicara ketika masih bayi dalam buaian adalah Nabi ...", ["Yahya a.s.", "Isa a.s.", "Ismail a.s.", "Ishaq a.s."], 1, "Nabi Isa a.s. berbicara saat bayi atas izin Allah membela ibunya Maryam."],
+    ["Putra Nabi Ibrahim a.s. yang taat perintah Allah ketika hendak disembelih lalu diganti domba besar adalah Nabi ...", ["Ishaq a.s.", "Ismail a.s.", "Yakub a.s.", "Yusuf a.s."], 1, "Nabi Ismail a.s. sangat taat kepada Allah dan ayahnya Nabi Ibrahim a.s."],
+    ["Ketika kecil, Nabi Muhammad saw. diasuh oleh ibu susu bernama ...", ["Siti Aminah", "Halimah Sa'diyah", "Siti Khadijah", "Ummu Aiman"], 1, "Halimah Sa'diyah menyusui dan mengasuh Nabi Muhammad saw. di pedesaan."],
+    ["Setelah ibundanya wafat, Nabi Muhammad saw. diasuh oleh kakeknya yang bernama ...", ["Abu Talib", "Abdul Muttalib", "Abbas", "Abu Lahab"], 1, "Kakek Nabi Muhammad saw. yang mengasuhnya bernama Abdul Muttalib."],
+    ["Setelah kakeknya wafat, Nabi Muhammad saw. diasuh oleh pamannya yang bernama ...", ["Abu Jahal", "Abu Talib", "Hamzah", "Abu Sufyan"], 1, "Paman Nabi Muhammad saw. yang sangat menyayanginya adalah Abu Talib."],
+    ["Nabi Muhammad saw. menerima wahyu pertama di Gua Hira melalui Malaikat ...", ["Mikail", "Jibril", "Israfil", "Izrail"], 1, "Wahyu pertama Surah Al-'Alaq 1–5 disampaikan Malaikat Jibril di Gua Hira."],
+    ["Lawan dari sifat sidiq (jujur) yang mustahil dimiliki rasul adalah ...", ["Khianat", "Kizib (bohong)", "Kitman", "Baladah"], 1, "Kizib artinya berdusta dan mustahil dimiliki para rasul."],
+    ["Lawan dari sifat amanah (dapat dipercaya) yang mustahil dimiliki rasul adalah ...", ["Kizib", "Khianat (curang)", "Kitman", "Baladah"], 1, "Khianat adalah sifat mustahil bagi rasul."],
+    ["Meneladani sifat fatanah para nabi di sekolah dilakukan dengan cara ...", ["Malas mengerjakan PR", "Rajin belajar dan tekun membaca buku", "Tidur saat guru menerangkan", "Bermain saat jam pelajaran"], 1, "Rajin belajar mengasah kecerdasan meneladani sifat fatanah."],
+    ["Nabi yang terkenal tampan wajahnya serta pandai menafsirkan mimpi adalah Nabi ...", ["Yakub a.s.", "Yusuf a.s.", "Bunyamin", "Harun a.s."], 1, "Nabi Yusuf a.s. dikaruniai ketampanan dan ilmu takwil mimpi."],
+    ["Para nabi dan rasul yang memiliki ketabahan dan kesabaran luar biasa disebut rasul ...", ["Khulafaur Rasyidin", "Ulul Azmi", "Asbabun Nuzul", "Khulafa"], 1, "Lima rasul Ulul Azmi: Nuh, Ibrahim, Musa, Isa, dan Muhammad saw."],
+    ["Nabi Muhammad saw. selalu menyayangi anak yatim dan fakir miskin. Sikap kita sebaiknya ...", ["Mengejek teman yang kurang mampu", "Menyayangi dan berbagi dengan teman yang membutuhkan", "Sombong karena punya mainan baru", "Pelit meminjamkan alat tulis"], 1, "Menyayangi sesama adalah akhlak mulia Rasulullah saw."],
+    ["Ketika menerima pesan dari guru untuk disampaikan kepada orang tua, sikap tablig yang benar adalah ...", ["Melupakannya begitu saja", "Menyampaikan pesan guru dengan jujur dan jelas", "Mengubah isi pesan guru", "Menyembunyikan surat dari guru"], 1, "Menyampaikan amanah pesan secara benar adalah contoh tablig."],
+    ["Nabi pertama adalah Nabi Adam a.s., sedangkan nabi ke-25 adalah Nabi ...", ["Isa a.s.", "Muhammad saw.", "Musa a.s.", "Ibrahim a.s."], 1, "Nabi Muhammad saw. adalah nabi dan rasul penutup yang ke-25."],
+    ["Air zamzam di Kota Makkah muncul pertama kali pada masa kisah Nabi ...", ["Musa a.s.", "Ismail a.s. dan Siti Hajar", "Nuh a.s.", "Sulaiman a.s."], 1, "Mata air zamzam memancar di dekat kaki bayi Nabi Ismail a.s."],
+    ["Nabi Muhammad saw. melarang umatnya berbohong meskipun hanya untuk ...", ["Ujian sekolah", "Bercanda atau bergurau", "Berdagang", "Bekerja"], 1, "Rasulullah saw. melarang berdusta baik serius maupun bercanda."],
+    ["Membaca salawat kepada Nabi Muhammad saw. merupakan bentuk rasa ... kita kepada beliau.", ["Takut", "Cinta dan hormat", "Ragu", "Marah"], 1, "Bersalawat adalah bukti cinta kepada Rasulullah saw."],
+    ["Dengan meneladani akhlak mulia para nabi dan rasul, kita akan disayang oleh Allah Swt. dan ...", ["Dijauhi teman", "Disenangi orang tua, guru, dan teman", "Dimarahi tetangga", "Mendapat kesulitan"], 1, "Akhlak terpuji membuat kita disayang Allah dan sesama manusia."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 6 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab6_sesi2"] = P([
+    ["Tanda baca harakat ganda pada huruf hijaiah disebut harakat ...", ["Sukun", "Tanwin", "Tasydid", "Mad"], 1, "Harakat ganda (fathatain, kasratain, dammatain) disebut tanwin."],
+    ["Harakat fathatain ( ً ) terletak di atas huruf hijaiah dan berbunyi ...", ["an", "in", "un", "a"], 0, "Fathatain berbunyi 'an', misalnya بً dibaca 'ban'."],
+    ["Harakat kasratain ( ٍ ) terletak di bawah huruf hijaiah dan berbunyi ...", ["an", "in", "un", "i"], 1, "Kasratain berbunyi 'in', misalnya بٍ dibaca 'bin'."],
+    ["Harakat dammatain ( ٌ ) terletak di atas huruf hijaiah dan berbunyi ...", ["an", "in", "un", "u"], 2, "Dammatain berbunyi 'un', misalnya بٌ dibaca 'bun'."],
+    ["Huruf 'ت' yang diberi harakat fathatain (تً) dibaca ...", ["tan", "tin", "tun", "ta"], 0, "Fathatain berbunyi 'an', sehingga تً dibaca 'tan'."],
+    ["Huruf 'س' yang diberi harakat kasratain (سٍ) dibaca ...", ["san", "sin", "sun", "si"], 1, "Kasratain berbunyi 'in', sehingga سٍ dibaca 'sin'."],
+    ["Huruf 'م' yang diberi harakat dammatain (مٌ) dibaca ...", ["man", "min", "mun", "mu"], 2, "Dammatain berbunyi 'un', sehingga مٌ dibaca 'mun'."],
+    ["Surah Al-Ikhlas terdiri atas ... ayat.", ["3", "4", "5", "6"], 1, "Surah Al-Ikhlas terdiri atas 4 ayat."],
+    ["Arti nama surah 'Al-Ikhlas' adalah ...", ["Pembukaan", "Memurnikan keesaan Allah", "Waktu subuh", "Pertolongan"], 1, "Al-Ikhlas bermakna memurnikan keesaan Allah Swt."],
+    ["Bunyi ayat pertama Surah Al-Ikhlas adalah ...", ["Allahu as-samad", "Qul huwallahu ahad", "Lam yalid wa lam yulad", "Wa lam yakul lahu kufuwan ahad"], 1, "Ayat pertama Surah Al-Ikhlas berbunyi Qul huwallahu ahad."],
+    ["Arti dari ayat 'Qul huwallahu ahad' adalah ...", ["Allah tempat meminta segala sesuatu", "Katakanlah (Muhammad), Dialah Allah, Yang Maha Esa", "Allah tidak beranak dan tidak pula diperanakkan", "Tidak ada sesuatu yang setara dengan Dia"], 1, "Qul huwallahu ahad menegaskan keesaan Allah Swt."],
+    ["Bunyi ayat kedua Surah Al-Ikhlas adalah ...", ["Qul huwallahu ahad", "Allahu as-samad", "Lam yalid wa lam yulad", "Maliki yaumiddin"], 1, "Ayat kedua Surah Al-Ikhlas adalah Allahu as-samad."],
+    ["Arti dari bacaan 'Allahu as-samad' adalah ...", ["Allah Maha Pengasih", "Allah tempat meminta segala sesuatu", "Allah Maha Pencipta", "Allah Maha Mendengar"], 1, "As-Samad artinya Allah tempat bergantung dan meminta segala sesuatu."],
+    ["Surah Al-Ikhlas diturunkan di Kota ...", ["Madinah", "Makkah", "Mesir", "Syam"], 1, "Surah Al-Ikhlas termasuk golongan surah Makkiyah."],
+    ["Pesan pokok Surah Al-Ikhlas mengajarkan bahwa Allah Swt. itu ...", ["Berbilang", "Esa (Tunggal) dan tidak ada sekutu bagi-Nya", "Membutuhkan bantuan", "Sama dengan makhluk"], 1, "Surah Al-Ikhlas menegaskan tauhid bahwa Allah Maha Esa."],
+    ["Huruf 'ك' yang berharakat fathatain (كً) dibaca ...", ["kan", "kin", "kun", "ka"], 0, "Fathatain berbunyi 'an', sehingga كً dibaca 'kan'."],
+    ["Huruf 'ر' yang berharakat kasratain (رٍ) dibaca ...", ["ran", "rin", "run", "ri"], 1, "Kasratain berbunyi 'in', sehingga رٍ dibaca 'rin'."],
+    ["Surah Al-Ikhlas berada pada urutan ke-... dalam Al-Qur'an.", ["110", "112", "113", "114"], 1, "Surah Al-Ikhlas adalah surah ke-112 dalam mushaf Al-Qur'an."],
+    ["Jika kita memiliki keinginan atau doa, tempat terbaik untuk meminta adalah kepada ...", ["Benda pusaka", "Allah Swt.", "Ramalan bintang", "Pohon besar"], 1, "Sesuai ayat Allahu as-samad, hanya kepada Allah tempat meminta."],
+    ["Membaca Surah Al-Ikhlas secara berulang-ulang pahalanya setara dengan membaca ... Al-Qur'an.", ["Seperempat", "Sepertiga", "Setengah", "Seluruh"], 1, "Rasulullah saw. bersabda Surah Al-Ikhlas sebanding dengan sepertiga Al-Qur'an."]
+  ]);
+
+  // BAB 6 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab6_sesi3"] = P([
+    ["Bunyi ayat ketiga Surah Al-Ikhlas adalah ...", ["Allahu as-samad", "Lam yalid wa lam yulad", "Qul huwallahu ahad", "Wa lam yakul lahu kufuwan ahad"], 1, "Ayat ke-3 Surah Al-Ikhlas berbunyi Lam yalid wa lam yulad."],
+    ["Arti dari ayat 'Lam yalid wa lam yulad' adalah ...", ["Allah tempat meminta segala sesuatu", "Allah tidak beranak dan tidak pula diperanakkan", "Dialah Allah Yang Maha Esa", "Tidak ada sesuatu yang setara dengan-Nya"], 1, "Allah tidak memiliki anak dan tidak dilahirkan oleh siapa pun."],
+    ["Bunyi ayat keempat Surah Al-Ikhlas adalah ...", ["Lam yalid wa lam yulad", "Wa lam yakul lahu kufuwan ahad", "Allahu as-samad", "Qul huwallahu ahad"], 1, "Ayat terakhir Surah Al-Ikhlas adalah Wa lam yakul lahu kufuwan ahad."],
+    ["Arti dari 'Wa lam yakul lahu kufuwan ahad' adalah ...", ["Dialah Allah Yang Maha Esa", "Dan tidak ada sesuatu yang setara dengan Dia", "Allah tempat meminta segala sesuatu", "Dengan nama Allah Yang Maha Pengasih"], 1, "Tidak ada satu pun makhluk yang menyamai atau setara dengan Allah Swt."],
+    ["Huruf 'ل' yang diberi harakat dammatain (لٌ) dibaca ...", ["lan", "lin", "lun", "lu"], 2, "Dammatain berbunyi 'un', sehingga لٌ dibaca 'lun'."],
+    ["Huruf 'ن' yang diberi harakat fathatain (نً) dibaca ...", ["nan", "nin", "nun", "na"], 0, "Fathatain berbunyi 'an', sehingga نً dibaca 'nan'."],
+    ["Huruf 'ح' yang diberi harakat kasratain (حٍ) dibaca ...", ["han", "hin", "hun", "hi"], 1, "Kasratain berbunyi 'in', sehingga حٍ dibaca 'hin'."],
+    ["Tanda harakat fathatain berupa dua garis miring kecil yang berada di ... huruf.", ["Atas", "Bawah", "Samping kanan", "Tengah"], 0, "Fathatain terletak di atas huruf hijaiah."],
+    ["Tanda harakat kasratain berupa dua garis miring kecil yang berada di ... huruf.", ["Atas", "Bawah", "Depan", "Belakang"], 1, "Kasratain terletak di bawah huruf hijaiah."],
+    ["Menyekutukan Allah Swt. dengan sesuatu selain-Nya disebut perbuatan ...", ["Tauhid", "Syirik", "Ikhlas", "Syukur"], 1, "Syirik adalah menyekutukan Allah dan merupakan dosa besar."],
+    ["Surah Al-Ikhlas sering dibaca umat Islam dalam ibadah ...", ["Puasa", "Salat wajib dan salat sunah", "Zakat", "Haji"], 1, "Surah Al-Ikhlas adalah surah pendek yang sering dibaca setelah Al-Fatihah saat salat."],
+    ["Huruf 'ع' yang berharakat dammatain (عٌ) dibaca ...", ["'an", "'in", "'un", "'u"], 2, "Dammatain berbunyi 'un', sehingga عٌ dibaca ''un'."],
+    ["Kata 'Ahad' pada ayat pertama Surah Al-Ikhlas memiliki arti ...", ["Banyak", "Esa atau Satu", "Besar", "Kuat"], 1, "Ahad artinya Yang Maha Esa (Tunggal)."],
+    ["Orang yang hanya menyembah Allah Swt. dan tidak meminta kepada selain Allah memiliki sifat ...", ["Takabur", "Tauhid dan ikhlas", "Riya", "Kikir"], 1, "Mengesakan Allah Swt. dalam ibadah disebut tauhid."],
+    ["Sebelum menghafal Surah Al-Ikhlas, sebaiknya kita mendengarkan bacaan guru atau murattal dengan ...", ["Bercanda", "Saksama dan menirukan perlahan", "Berteriak", "Bermain sendiri"], 1, "Menyimak dengan saksama membantu melafalkan makhraj huruf dengan benar."],
+    ["Huruf 'ب' yang diberi harakat dammatain (بٌ) dibaca ...", ["ban", "bin", "bun", "bu"], 2, "Dammatain berbunyi 'un', sehingga بٌ dibaca 'bun'."],
+    ["Huruf 'د' yang diberi harakat kasratain (دٍ) dibaca ...", ["dan", "din", "dun", "di"], 1, "Kasratain berbunyi 'in', sehingga دٍ dibaca 'din'."],
+    ["Dalam Surah Al-Ikhlas dijelaskan bahwa Allah tidak memiliki ibu, ayah, maupun ...", ["Malaikat", "Anak", "Langit", "Bumi"], 1, "Lam yalid wa lam yulad artinya Allah tidak beranak dan tidak diperanakkan."],
+    ["Membaca Surah Al-Ikhlas sebelum tidur termasuk amalan sunah yang mendatangkan ... dari Allah Swt.", ["Kesulitan", "Perlindungan dan pahala", "Rasa takut", "Kemalasan"], 1, "Rasulullah saw. menganjurkan membaca Al-Ikhlas, Al-Falaq, dan An-Nas sebelum tidur."],
+    ["Al-Qur'an menjadi pedoman hidup umat Islam agar selamat di dunia dan ...", ["Sekolah", "Akhirat", "Perjalanan", "Rumah"], 1, "Berpedoman pada Al-Qur'an menuntun kebahagiaan dunia dan akhirat."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 7 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab7_sesi2"] = P([
+    ["Nama-nama Allah Swt. yang baik dan indah berjumlah 99 disebut ...", ["Asmaulhusna", "Kalimat tayibah", "Rukun iman", "Sifat mustahil"], 0, "Asmaulhusna = nama baik Allah."],
+    ["Jumlah Asmaulhusna seluruhnya ada ... nama.", ["25", "66", "99", "100"], 2, "Berjumlah 99 nama agung."],
+    ["Asmaulhusna 'Ar-Rahman' memiliki arti Allah Maha ...", ["Adil", "Pengasih", "Mengetahui", "Mendengar"], 1, "Ar-Rahman = Maha Pengasih."],
+    ["Asmaulhusna 'Ar-Rahim' memiliki arti Allah Maha ...", ["Pencipta", "Penyayang", "Melihat", "Kuasa"], 1, "Ar-Rahim = Maha Penyayang."],
+    ["Allah memberi udara dan sinar matahari kepada semua makhluk sebagai bukti sifat ...", ["Al-Malik", "Ar-Rahman", "Al-Quddus", "As-Salam"], 1, "Kasih sayang bagi semua makhluk."],
+    ["Kasih sayang Allah di akhirat berupa surga dikhususkan bagi orang yang ...", ["Kaya raya", "Beriman dan bertakwa", "Sombong", "Malas ibadah"], 1, "Ar-Rahim khusus orang beriman."],
+    ["Nabi Muhammad saw. diutus sebagai 'rahmatan lil 'alamin' artinya rahmat bagi ...", ["Keluarga saja", "Seluruh alam semesta", "Kota Makkah", "Orang kaya"], 1, "Rahmat bagi seluruh alam."],
+    ["Contoh perilaku meneladani sifat Ar-Rahman dan Ar-Rahim di rumah adalah ...", ["Merebut mainan adik", "Menyayangi adik dan membantu orang tua", "Membentak keluarga", "Malas merapikan kamar"], 1, "Menyayangi keluarga wujud kasih sayang."],
+    ["Saat melihat teman jatuh di halaman sekolah, sikap kasih sayang kita adalah ...", ["Menertawakannya", "Segera menolong dan mengantar ke UKS", "Membiarkannya menangis", "Mengejeknya"], 1, "Menolong teman wujud kasih sayang."],
+    ["Terhadap hewan peliharaan di rumah seperti kucing, kita wajib ...", ["Menyiksanya", "Memberi makan dan minum teratur", "Membiarkan lapar", "Melemparinya batu"], 1, "Menyayangi hewan makhluk Allah."],
+    ["Terhadap tanaman bunga di halaman sekolah, sikap kasih sayang kita adalah ...", ["Mencabuti daunnya", "Menyiram dan merawatnya agar subur", "Menginjak-injaknya", "Membuang sampah di pot"], 1, "Merawat tanaman wujud kasih sayang."],
+    ["Orang tua yang merawat dan membesarkan kita sejak kecil wajib kita ...", ["Bantah katanya", "Hormati, patuhi, dan doakan", "Abaikan nasihatnya", "Kasar ucapannya"], 1, "Berbakti kepada orang tua wajib."],
+    ["Lanjutan doa orang tua 'warhamhuma kama rabbayani ...'", ["Kabira", "Saghira", "Jamilah", "Kathira"], 1, "Artinya: menyayangiku di waktu kecil."],
+    ["Ketika guru menjelaskan pelajaran di kelas, sikap hormat murid adalah ...", ["Mengobrol dengan teman", "Mendengarkan dengan tertib dan sopan", "Bermain di belakang", "Tidur di meja"], 1, "Menghormati guru akhlak mulia."],
+    ["Anak yatim yang sangat disayangi Nabi Muhammad saw. adalah anak yang ditinggal wafat ...", ["Kakaknya", "Ayahnya", "Tetangganya", "Pamannya"], 1, "Yatim = ditinggal wafat ayah."],
+    ["Berbagi bekal makanan kepada teman yang lupa membawa bekal adalah sikap ...", ["Boros", "Kasih sayang dan peduli", "Sombong", "Pamer"], 1, "Berbagi mempererat persaudaraan."],
+    ["Allah Swt. menyayangi hamba-Nya yang berhati lembut dan suka ...", ["Bermusuhan", "Memaafkan kesalahan orang lain", "Mengejek teman", "Berbuat curang"], 1, "Pemaaf mendatangkan rahmat Allah."],
+    ["Ucapan salam yang baik saat menyapa guru di pagi hari adalah ...", ["Hei kamu", "Assalamu'alaikum warahmatullahi wabarakatuh", "Minggir dulu", "Diam saja"], 1, "Salam adalah doa keselamatan."],
+    ["Allah Swt. tidak akan menyayangi orang yang tidak mau ... sesama makhluk-Nya.", ["Menyalahkan", "Menyayangi", "Menjauhi", "Mencela"], 1, "Siapa menyayangi akan disayangi Allah."],
+    ["Menjaga kerukunan dengan teman berbeda suku maupun agama meneladani sifat ...", ["Al-Mutakabbir", "Ar-Rahman dan Ar-Rahim", "Al-Qahhar", "Al-Jabbar"], 1, "Kasih sayang merangkul semua manusia."]
+  ]);
+
+  // BAB 7 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab7_sesi3"] = P([
+    ["Arti lafal 'Ar-Rahmanirrahim' dalam Surah Al-Fatihah adalah ...", ["Pemilik hari pembalasan", "Yang Maha Pengasih lagi Maha Penyayang", "Tuhan seluruh alam", "Jalan yang lurus"], 1, "Ayat ke-3 Surah Al-Fatihah."],
+    ["Perbedaan Ar-Rahman dan Ar-Rahim terletak pada ...", ["Waktunya saja", "Cakupan penerima kasih sayang di dunia dan akhirat", "Jumlah hurufnya", "Tempat turunnya"], 1, "Ar-Rahman umum, Ar-Rahim khusus mukmin."],
+    ["Ketika ada teman sekelas sedang sakit di rumah, sikap kita sebaiknya ...", ["Membiarkannya saja", "Menjenguk dan mendoakan lekas sembuh", "Mengambil barangnya", "Mengejeknya lemah"], 1, "Menjenguk orang sakit wujud kasih sayang."],
+    ["Nabi Muhammad saw. memeluk dan mencium cucunya Hasan dan Husain sebagai bukti ...", ["Kemarahan", "Kasih sayang terhadap anak-anak", "Kesombongan", "Kesedihan"], 1, "Rasulullah saw. sangat menyayangi anak-anak."],
+    ["Jika adik merusak mainan kita tanpa sengaja, sikap terpuji kita adalah ...", ["Memukul adik", "Memaafkan sabar dan menasihati pelan", "Menangis berteriak", "Merusak mainan adik"], 1, "Memaafkan adik tanda kasih sayang."],
+    ["Membantu ibu merapikan meja makan merupakan bentuk ... kepada orang tua.", ["Paksaan", "Kasih sayang dan bakti", "Kesombongan", "Kemalasan"], 1, "Membantu orang tua bernilai ibadah."],
+    ["Berbicara dengan orang yang lebih tua harus menggunakan suara yang ...", ["Keras membentak", "Lembut, sopan, dan santun", "Cepat dan kasar", "Sambil membelakangi"], 1, "Tutur kata lembut tanda hormat."],
+    ["Allah menurunkan hujan untuk menyuburkan tanaman sebagai bukti sifat ...", ["Ar-Rahman", "Al-Muntaqim", "Al-Qabid", "Al-Khafid"], 0, "Hujan memberi kehidupan bagi alam."],
+    ["Orang yang rajin berzikir menyebut Asmaulhusna akan mendapat ...", ["Kesulitan", "Pahala dan ketenangan hati", "Hukuman", "Kerugian"], 1, "Zikir Asmaulhusna menenangkan jiwa."],
+    ["Contoh kasih sayang terhadap lingkungan alam sekitar adalah ...", ["Buang sampah ke sungai", "Buang sampah pada tempatnya dan jaga kebersihan", "Tebang pohon sembarangan", "Coret tembok sekolah"], 1, "Menjaga alam wujud syukur nikmat."],
+    ["Apabila teman meminta maaf atas kesalahannya, sikap kita adalah ...", ["Menolaknya", "Segera memaafkan dengan ikhlas", "Membalas kesalahannya", "Mendiamkannya selamanya"], 1, "Memaafkan mempererat persaudaraan."],
+    ["Cara menghormati guru saat bertemu di luar sekolah adalah ...", ["Pura-pura tidak lihat", "Mengucapkan salam dan menyapa ramah", "Berlari menjauh", "Berteriak memanggil"], 1, "Menyapa guru menunjukkan adab mulia."],
+    ["Terhadap tetangga di sekitar rumah, kita harus bersikap ...", ["Mencurigai", "Menghormati dan tolong-menolong", "Mengganggu", "Menjauhi"], 1, "Tetangga harus hidup rukun."],
+    ["Kasih sayang ibu kepada anaknya merupakan karunia dari sifat Allah yaitu ...", ["Ar-Rahim", "Al-Jabbar", "Al-Mutakabbir", "Al-Aziz"], 0, "Pancaran sifat Maha Penyayang Allah."],
+    ["Saat melihat nenek kesulitan menyeberang jalan, tindakan kita adalah ...", ["Membiarkannya sendiri", "Membantu menyeberangkan dengan hati-hati", "Menertawakannya", "Berjalan mendahului"], 1, "Menolong lansia amal mulia."],
+    ["Anak penyayang selalu menjaga lisannya agar tidak ...", ["Berzikir", "Menyakiti perasaan teman", "Membaca Al-Qur'an", "Mengucap salam"], 1, "Menjaga lisan wujud kasih sayang."],
+    ["Mengucapkan terima kasih setelah ditolong teman menunjukkan sikap ...", ["Sombong", "Menghargai dan santun", "Acuh tak acuh", "Pemarah"], 1, "Berterima kasih tanda menghargai."],
+    ["Allah Swt. mencintai hamba yang berbuat baik kepada ...", ["Dirinya sendiri", "Semua makhluk ciptaan Allah", "Teman dekat saja", "Orang kaya saja"], 1, "Kebaikan berlaku untuk semua makhluk."],
+    ["Memahami arti Asmaulhusna merupakan bagian dari mengenal sifat ...", ["Malaikat", "Allah Swt.", "Manusia", "Para nabi"], 1, "Asmaulhusna mengenalkan sifat Allah."],
+    ["Meneladani sifat Ar-Rahman dan Ar-Rahim membuat suasana kelas menjadi ...", ["Ribut bertengkar", "Damai, rukun, dan penuh kasih sayang", "Sepi dan tegang", "Penuh permusuhan"], 1, "Kasih sayang menciptakan kerukunan."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 8 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab8_sesi2"] = P([
+    ["Saat diberi hadiah atau bantuan oleh orang lain, kita mengucapkan ...", ["Maaf", "Terima kasih", "Permisi", "Tolong"], 1, "Berterima kasih wujud menghargai kebaikan."],
+    ["Berterima kasih kepada Allah Swt. dilakukan dengan cara ...", ["Mengeluh", "Bersyukur dan taat beribadah", "Sombong", "Pamer"], 1, "Syukur kepada Allah lewat ibadah dan hamdalah."],
+    ["Sikap berterima kasih kepada orang tua diwujudkan dengan cara ...", ["Membantah", "Patuh, sopan, dan membantu pekerjaan rumah", "Marah", "Malas belajar"], 1, "Berbakti wujud terima kasih kepada orang tua."],
+    ["Ketika guru selesai mengajar di kelas, murid mengucapkan terima kasih dengan ...", ["Berteriak", "Sopan dan santun", "Cemberut", "Membelakangi"], 1, "Menghormati jasa guru dengan santun."],
+    ["Orang yang tidak mau berterima kasih kepada sesama manusia berarti belum pandai bersyukur kepada ...", ["Teman", "Allah Swt.", "Tetangga", "Diri sendiri"], 1, "Hadis Nabi: tidak bersyukur kepada manusia berarti tidak bersyukur kepada Allah."],
+    ["Arti sikap disiplin adalah ...", ["Semaunya sendiri", "Taat dan patuh pada aturan yang berlaku", "Sering terlambat", "Menunda tugas"], 1, "Disiplin = patuh terhadap tata tertib."],
+    ["Contoh sikap disiplin di rumah setelah bangun tidur adalah ...", ["Langsung bermain", "Merapikan tempat tidur dan salat Subuh", "Tidur kembali", "Menonton televisi"], 1, "Disiplin dimulai dari kebiasaan baik di rumah."],
+    ["Contoh sikap disiplin saat berangkat ke sekolah adalah ...", ["Datang terlambat", "Berangkat lebih awal agar tiba tepat waktu", "Lupa membawa buku", "Tidak memakai seragam"], 1, "Tepat waktu adalah ciri siswa disiplin."],
+    ["Ketika lampu lalu lintas berwarna merah, pengendara yang disiplin harus ...", ["Menerobos", "Berhenti di belakang garis", "Mempercepat laju", "Membunyikan klakson"], 1, "Mematuhi rambu lalu lintas wujud disiplin."],
+    ["Saat mengerjakan tugas atau PR dari guru, anak disiplin akan mengerjakannya dengan ...", ["Menyontek", "Tepat waktu dan sungguh-sungguh", "Menunda-nunda", "Asal-asalan"], 1, "Tanggung jawab tugas melatih kedisiplinan."],
+    ["Manfaat membiasakan hidup disiplin adalah membuat hidup menjadi ...", ["Berantakan", "Teratur, tertib, dan sukses", "Susah", "Malas"], 1, "Disiplin kunci keberhasilan belajar."],
+    ["Jika teman meminjamkan pensil kepada kita, saat mengembalikan kita ucapkan ...", ["Terserah", "Terima kasih banyak", "Sudah biasa", "Ambil saja"], 1, "Mengucap terima kasih menjaga persahabatan."],
+    ["Disiplin dalam melaksanakan salat lima waktu artinya salat dikerjakan pada ...", ["Akhir waktu", "Awal waktu secara tertib", "Saat ingat saja", "Hari libur saja"], 1, "Salat tepat waktu adalah disiplin ibadah."],
+    ["Aturan tata tertib di sekolah dibuat agar suasana belajar menjadi ...", ["Ribut", "Aman, tertib, dan nyaman", "Tegang", "Kacau"], 1, "Tata tertib menciptakan ketertiban bersama."],
+    ["Setelah selesai bermain di rumah, sikap disiplin anak saleh adalah ...", ["Membiarkan berantakan", "Merapikan kembali mainan ke tempatnya", "Menyuruh ibu membereskan", "Pergi keluar rumah"], 1, "Merapikan mainan melatih tanggung jawab."],
+    ["Ketika menerima makanan dari tetangga, kita menerimanya dengan tangan kanan dan mengucap ...", ["Permisi", "Terima kasih dan Alhamdulillah", "Maaf", "Selamat tinggal"], 1, "Tangan kanan dan terima kasih menunjukkan adab baik."],
+    ["Anak yang disiplin berpakaian ke sekolah akan mengenakan seragam yang ...", ["Kusut dan kotor", "Rapi, bersih, dan lengkap atributnya", "Sobek", "Salah jadwal"], 1, "Kerapian seragam mencerminkan kedisiplinan."],
+    ["Berterima kasih kepada petugas kebersihan sekolah dilakukan dengan cara ...", ["Membuang sampah sembarangan", "Mengucap terima kasih dan membuang sampah pada tempatnya", "Mengotori lantai", "Mengejek pekerjaannya"], 1, "Menjaga kebersihan meringankan tugas petugas."],
+    ["Kebiasaan disiplin harus dilatih sejak ...", ["Sudah tua", "Usia dini (kecil)", "Bekerja nanti", "Menjadi guru"], 1, "Disiplin sejak kecil menjadi kebiasaan baik."],
+    ["Allah Swt. sangat menyukai hamba-Nya yang pandai bersyukur dan hidup ...", ["Ceroboh", "Disiplin serta teratur", "Malas", "Sombong"], 1, "Syukur dan disiplin akhlak terpuji muslim."]
+  ]);
+
+  // BAB 8 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab8_sesi3"] = P([
+    ["Berterima kasih adalah salah satu bentuk akhlak ...", ["Mazmumah (tercela)", "Mahmudah (terpuji)", "Buruk", "Larangan"], 1, "Akhlak mahmudah adalah perilaku terpuji."],
+    ["Saat upacara bendera hari Senin di sekolah, sikap disiplin murid adalah ...", ["Mengobrol di barisan", "Berdiri tegak dan mengikuti upacara dengan khidmat", "Duduk di lapangan", "Bermain topi"], 1, "Khidmat saat upacara wujud disiplin kebangsaan."],
+    ["Ketika dibantu kakak mengerjakan tugas yang sulit, kita mengucapkan ...", ["Biasa saja", "Terima kasih ya Kak sudah membantu", "Memang tugas kakak", "Diam saja"], 1, "Berterima kasih mempererat kasih sayang saudara."],
+    ["Disiplin waktu belajar di rumah dilakukan dengan cara membuat ...", ["Alasan malas", "Jadwal belajar rutin setiap malam", "Mainan baru", "Coretan dinding"], 1, "Jadwal belajar teratur membantu prestasi."],
+    ["Sebelum masuk ke dalam ruang kelas, murid berbaris dengan ...", ["Berdesakan", "Tertib dan rapi", "Berlari-lari", "Berteriak"], 1, "Berbaris tertib wujud disiplin sekolah."],
+    ["Jika kita melakukan kesalahan kepada teman, selain berterima kasih kita juga harus berani mengucap ...", ["Selamat", "Maaf", "Tolong", "Halo"], 1, "Meminta maaf dan berterima kasih adalah kata ajaib."],
+    ["Disiplin menjaga kesehatan tubuh dilakukan dengan cara ...", ["Jajan sembarangan", "Makan bergizi, gosok gigi, dan tidur cukup", "Begadang tiap malam", "Malas mandi"], 1, "Menjaga kebersihan diri bagian disiplin."],
+    ["Ketika meminjam buku di perpustakaan sekolah, sikap disiplin kita adalah ...", ["Mencoret-coret halaman", "Mengembalikan buku tepat waktu dalam keadaan rapi", "Menyimpannya di rumah", "Merobek sampulnya"], 1, "Mematuhi aturan perpustakaan wujud disiplin."],
+    ["Rasa terima kasih kepada petani yang menanam padi diwujudkan dengan cara ...", ["Membuang-buang nasi", "Menghabiskan makanan yang diambil secukupnya", "Mengambil nasi berlebihan lalu dibuang", "Mengejek pekerjaan petani"], 1, "Tidak mubazir makanan menghargai jasa petani."],
+    ["Anak yang tidak disiplin sering datang terlambat akan merugikan ...", ["Orang asing", "Diri sendiri dan mengganggu teman", "Hewan peliharaan", "Tumbuhan"], 1, "Ketidakdisiplinan menghambat proses belajar."],
+    ["Saat guru memberikan nasihat kebaikan, kita mendengarkan lalu mengucap ...", ["Terserah", "Terima kasih atas nasihatnya, Bu/Pak", "Tidak perlu", "Diam membelakangi"], 1, "Menghargai nasihat guru tanda murid beradab."],
+    ["Disiplin dalam berbicara artinya berkata yang baik, jujur, dan tidak ...", ["Sopan", "Menyakiti hati orang lain", "Lembut", "Jelas"], 1, "Menjaga ucapan bagian disiplin diri."],
+    ["Ketika pulang sekolah, anak disiplin langsung pulang ke rumah dan meletakkan sepatu di ...", ["Ruang tamu", "Rak sepatu dengan rapi", "Atas meja makan", "Halaman depan"], 1, "Meletakkan barang pada tempatnya melatih tertib."],
+    ["Ucapan syukur dan terima kasih kepada Allah Swt. paling utama adalah ...", ["Astaghfirullah", "Alhamdulillahi rabbil 'alamin", "Innalillahi", "Subhanallah"], 1, "Hamdalah ungkapan syukur kepada Allah."],
+    ["Disiplin antre di kantin atau loket artinya ...", ["Menyerobot barisan depan", "Menunggu giliran dengan sabar di barisan", "Mendorong teman", "Berteriak minta duluan"], 1, "Budaya antre mencerminkan kedisiplinan."],
+    ["Ketika diberi pujian atas prestasi oleh teman, kita menjawab dengan rendah hati ...", ["Memang aku hebat", "Alhamdulillah, terima kasih atas doanya", "Kamu memang kalah", "Sudah pasti menang"], 1, "Rendah hati dan bersyukur saat dipuji."],
+    ["Disiplin bangun pagi memudahkan kita melaksanakan salat ... tepat waktu.", ["Zuhur", "Subuh", "Asar", "Isya"], 1, "Bangun pagi melatih disiplin salat Subuh."],
+    ["Terhadap pembantu atau pekerja di rumah, kita tetap wajib bersikap ramah dan mengucap ...", ["Perintah keras", "Terima kasih setiap kali dibantu", "Acuh tak acuh", "Sombong"], 1, "Menghormati siapa pun yang membantu kita."],
+    ["Orang yang selalu bersyukur dan berterima kasih akan memiliki banyak ...", ["Musuh", "Teman dan disayang Allah", "Masalah", "Kesedihan"], 1, "Sikap ramah membuat disukai banyak orang."],
+    ["Membiasakan terima kasih dan disiplin setiap hari menjadikan kita anak yang ...", ["Ceroboh", "Berakhlak mulia dan mandiri", "Manja", "Pemarah"], 1, "Akhlak mulia bekal masa depan."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 9 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab9_sesi2"] = P([
+    ["Kebersihan adalah sebagian dari ...", ["Kekayaan", "Iman", "Permainan", "Perjalanan"], 1, "Hadis Nabi: Kebersihan sebagian dari iman."],
+    ["Allah Swt. mencintai orang-orang yang bertobat dan orang-orang yang ...", ["Sombong", "Menyucikan diri (bersih)", "Malas", "Kotor"], 1, "Allah mencintai hamba yang menjaga kebersihan."],
+    ["Bersuci dari hadas dan najis dalam ajaran Islam disebut ...", ["Tayamum", "Taharah", "Tilawah", "Tafakur"], 1, "Taharah artinya bersuci atau membersihkan diri."],
+    ["Alat bersuci yang paling utama dalam Islam adalah ...", ["Minyak wangi", "Air yang suci lagi menyucikan", "Kertas tisu", "Kain basah"], 1, "Air mutlak adalah alat bersuci utama."],
+    ["Sebelum melaksanakan salat lima waktu, kita wajib menyucikan diri dengan ...", ["Mandi biasa", "Berwudu", "Berdiam diri", "Mencuci tangan saja"], 1, "Berwudu adalah syarat sah salat."],
+    ["Anggota tubuh yang pertama kali dibasuh dalam rukun wudu adalah ...", ["Tangan", "Wajah (muka)", "Kaki", "Telinga"], 1, "Membasuh wajah disertai niat adalah rukun wudu."],
+    ["Urutan membasuh kedua tangan saat berwudu adalah sampai ke ...", ["Pergelangan tangan", "Siku", "Bahu", "Jari saja"], 1, "Membasuh tangan dilakukan hingga kedua siku."],
+    ["Setelah membasuh kedua tangan, rukun wudu berikutnya adalah mengusap sebagian ...", ["Leher", "Kepala", "Punggung", "Dada"], 1, "Mengusap sebagian kepala termasuk rukun wudu."],
+    ["Anggota wudu terakhir yang dibasuh hingga mata kaki adalah ...", ["Tangan", "Kedua kaki", "Lutut", "Betis"], 1, "Membasuh kaki sampai mata kaki rukun wudu."],
+    ["Menjaga kebersihan badan dilakukan dengan cara mandi minimal ... kali sehari.", ["1", "2", "4", "5"], 1, "Mandi pagi dan sore menjaga tubuh tetap bersih."],
+    ["Menggosok gigi secara teratur dilakukan setelah makan dan sebelum ...", ["Bermain", "Tidur malam", "Olahraga", "Berangkat sekolah"], 1, "Gosok gigi mencegah gigi berlubang dan bau mulut."],
+    ["Kuku tangan dan kaki yang sudah panjang sebaiknya segera ...", ["Diwarnai", "Dipotong rapi", "Dibiarkan saja", "Digigit"], 1, "Memotong kuku sunah fitrah dan menjaga kebersihan."],
+    ["Pakaian yang kita gunakan untuk beribadah salat harus bersih dan suci dari ...", ["Warna cerah", "Najis dan kotoran", "Lipatan", "Kancing"], 1, "Suci pakaian adalah syarat sah salat."],
+    ["Ketika masuk ke dalam kamar mandi (WC), kita disunahkan mendahulukan kaki ...", ["Kanan", "Kiri", "Kedua kaki bersamaan", "Melompat"], 1, "Masuk kamar mandi mendahulukan kaki kiri sambil berdoa."],
+    ["Ketika keluar dari kamar mandi, kita disunahkan mendahulukan kaki ...", ["Kiri", "Kanan", "Mundur", "Berlari"], 1, "Keluar kamar mandi mendahulukan kaki kanan sambil mengucap Ghufranaka."],
+    ["Membuang sampah bungkus makanan yang benar adalah ke dalam ...", ["Selokan air", "Tempat sampah", "Kolong meja", "Halaman sekolah"], 1, "Membuang sampah pada tempatnya menjaga lingkungan sehat."],
+    ["Jika tidak ada air atau sedang sakit parah tidak boleh kena air, bersuci dapat diganti dengan ...", ["Mandi pasir", "Tayamum menggunakan debu suci", "Lap handuk", "Berdiam diri"], 1, "Tayamum adalah pengganti wudu dengan debu suci."],
+    ["Lingkungan rumah yang bersih dan rapi membuat kita terhindar dari berbagai ...", ["Teman", "Penyakit", "Rezeki", "Pahala"], 1, "Kebersihan mencegah datangnya kuman penyakit."],
+    ["Piket kebersihan kelas harus dilaksanakan oleh ...", ["Ketua kelas saja", "Seluruh murid secara bergiliran sesuai jadwal", "Guru kelas", "Penjaga sekolah saja"], 1, "Piket kelas tanggung jawab bersama murid."],
+    ["Hidup bersih mencerminkan keimanan seorang muslim kepada ...", ["Malaikat", "Allah Swt.", "Manusia", "Alam"], 1, "Menjaga kebersihan bagian dari ketaatan beragama."]
+  ]);
+
+  // BAB 9 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab9_sesi3"] = P([
+    ["Air yang suci dan dapat digunakan untuk bersuci disebut air ...", ["Musta'mal", "Mutlak", "Mutanajis", "Keruh"], 1, "Air mutlak seperti air hujan, sumur, sungai, dan laut."],
+    ["Contoh air yang sah digunakan untuk berwudu adalah ...", ["Air teh manis", "Air sumur atau air keran yang bersih", "Air kopi", "Air kelapa muda"], 1, "Air bersih alami yang tidak berubah sifatnya sah untuk wudu."],
+    ["Hal yang dapat membatalkan wudu antara lain ...", ["Membaca Al-Qur'an", "Buang angin (kentut) atau buang air", "Berjalan kaki", "Berbicara sopan"], 1, "Keluar sesuatu dari qubul atau dubur membatalkan wudu."],
+    ["Tidur nyenyak dalam posisi berbaring dapat menyebabkan wudu menjadi ...", ["Lebih sempurna", "Batal", "Bertambah pahalanya", "Tetap sah"], 1, "Tidur nyenyak menghilangkan kesadaran sehingga membatalkan wudu."],
+    ["Benda kotor yang menghalangi sahnya ibadah salat seperti kotoran hewan atau darah disebut ...", ["Hadas", "Najis", "Debu", "Keringat"], 1, "Najis harus dibersihkan sebelum beribadah."],
+    ["Cara membersihkan najis ringan (mukhaffafah) seperti air kencing bayi laki-laki yang hanya minum ASI adalah ...", ["Dibiarkan kering", "Dipercikkan air suci pada tempat yang terkena", "Dicuci tujuh kali dengan tanah", "Ditiup saja"], 1, "Najis mukhaffafah cukup diperciki air bersih."],
+    ["Sebelum makan makanan, kita wajib mencuci kedua tangan dengan sabun dan air mengalir agar ...", ["Tangan basah", "Tangan bersih dari kuman penyakit", "Cepat kenyang", "Tidak lapar"], 1, "Cuci tangan menjaga kesehatan pencernaan."],
+    ["Menjaga kebersihan masjid atau musala adalah tanggung jawab ...", ["Marbot saja", "Seluruh umat Islam yang menggunakannya", "Anak-anak saja", "Pengurus RT"], 1, "Masjid adalah rumah Allah yang wajib dijaga kesuciannya."],
+    ["Saat bersin atau batuk di dekat orang lain, adab kebersihan yang baik adalah ...", ["Menghadap wajah teman", "Menutup mulut dan hidung dengan tisu atau siku", "Berteriak keras", "Meludah sembarangan"], 1, "Menutup mulut saat bersin mencegah penularan penyakit."],
+    ["Rambut kepala yang bersih dan rapi dirawat dengan cara rajin ...", ["Dicat warna-warni", "Keramas dengan sampo dan disisir rapi", "Dibiarkan kusut", "Ditutup plastik"], 1, "Merawat rambut menjaga kebersihan diri."],
+    ["Membersihkan tempat tidur setiap pagi setelah bangun melatih hidup ...", ["Manja", "Bersih dan mandiri", "Malas", "Ceroboh"], 1, "Kebersihan kamar dimulai dari tempat tidur."],
+    ["Jika melihat sampah plastik berserakan di halaman sekolah, sikap anak saleh adalah ...", ["Menginjaknya", "Memungut dan membuangnya ke tempat sampah", "Menendangnya ke kelas lain", "Membiarkannya saja"], 1, "Peduli sampah wujud cinta kebersihan."],
+    ["Tayamum dilakukan dengan mengusapkan debu yang suci ke bagian ...", ["Tangan dan kaki", "Wajah dan kedua tangan sampai siku", "Kepala dan telinga", "Leher dan dada"], 1, "Rukun tayamum mengusap wajah dan kedua tangan."],
+    ["Air liur anjing termasuk jenis najis berat (mughallazah) yang cara menyucikannya dibasuh air ... kali dan salah satunya dicampur tanah.", ["3", "5", "7", "9"], 2, "Najis mughallazah dibasuh 7 kali, salah satunya dengan tanah."],
+    ["Ruang kelas yang bersih membuat kegiatan belajar menjadi lebih ...", ["Mengantuk", "Nyaman, sehat, dan bersemangat", "Membosankan", "Panas"], 1, "Kelas bersih mendukung konsentrasi belajar."],
+    ["Setelah buang air kecil atau besar, kita wajib membersihkannya dengan air bersih (istinja) menggunakan tangan ...", ["Kanan", "Kiri", "Kedua tangan", "Jari telunjuk kanan"], 1, "Tangan kiri digunakan untuk membersihkan kotoran (istinja)."],
+    ["Menjaga kebersihan hati dilakukan dengan cara menjauhi sifat ...", ["Jujur", "Iri, dengki, dan sombong", "Pemaaf", "Sabar"], 1, "Selain bersih lahir, muslim juga menjaga bersih batin."],
+    ["Air hujan yang turun dari langit hukumnya ... untuk bersuci.", ["Najis", "Suci dan menyucikan", "Makruh", "Haram"], 1, "Air hujan termasuk air mutlak yang menyucikan."],
+    ["Berwudu dengan tertib artinya membasuh anggota wudu secara ...", ["Acak", "Berurutan sesuai rukun wudu", "Terbalik dari kaki dulu", "Cepat tanpa aturan"], 1, "Tertib berarti berurutan dari niat/wajah hingga kaki."],
+    ["Anak yang membiasakan hidup bersih akan disenangi oleh Allah Swt., orang tua, dan ...", ["Kuman penyakit", "Teman-teman di sekolah", "Nyamuk", "Lalat"], 1, "Kebersihan membuat kita sehat dan disenangi sesama."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 10 - SESI 2 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab10_sesi2"] = P([
+    ["Manusia dan nabi pertama yang diciptakan oleh Allah Swt. adalah Nabi ...", ["Nuh a.s.", "Adam a.s.", "Ibrahim a.s.", "Musa a.s."], 1, "Nabi Adam a.s. adalah manusia sekaligus nabi pertama."],
+    ["Allah Swt. menciptakan Nabi Adam a.s. berasal dari ...", ["Cahaya", "Api", "Tanah liat", "Air hujan"], 2, "Nabi Adam a.s. diciptakan Allah Swt. dari tanah."],
+    ["Nabi Adam a.s. diciptakan Allah Swt. untuk menjadi pemimpin atau ... di muka bumi.", ["Raja hutan", "Khalifah", "Malaikat", "Penjaga langit"], 1, "Khalifah artinya pemimpin dan pemelihara bumi."],
+    ["Allah Swt. mengajarkan kepada Nabi Adam a.s. pengetahuan tentang nama-nama ...", ["Malaikat saja", "Seluruh benda di alam semesta", "Bintang saja", "Gunung saja"], 1, "Allah mengajarkan nama-nama segala sesuatu kepada Nabi Adam a.s."],
+    ["Setelah menciptakan Nabi Adam a.s., Allah Swt. memerintahkan malaikat dan iblis untuk ...", ["Pergi menjauh", "Bersujud memberi penghormatan kepada Nabi Adam a.s.", "Berperang", "Berdiam diri"], 1, "Sujud penghormatan atas perintah Allah Swt."],
+    ["Makhluk yang menolak perintah Allah Swt. untuk bersujud menghormati Nabi Adam a.s. adalah ...", ["Malaikat Jibril", "Iblis", "Malaikat Mikail", "Malaikat Israfil"], 1, "Iblis membangkang perintah Allah Swt."],
+    ["Alasan iblis menolak bersujud menghormati Nabi Adam a.s. karena memiliki sifat ...", ["Rendah hati", "Sombong (takabur)", "Sabar", "Jujur"], 1, "Iblis merasa lebih mulia karena tercipta dari api."],
+    ["Sifat sombong seperti iblis harus kita jauhi karena dapat mendatangkan ... Allah Swt.", ["Kasih sayang", "Murka dan hukuman", "Pahala besar", "Rezeki melimpah"], 1, "Sombong adalah sifat tercela yang dibenci Allah."],
+    ["Pendamping hidup Nabi Adam a.s. yang diciptakan Allah Swt. di surga bernama ...", ["Siti Sarah", "Siti Hawa", "Siti Maryam", "Siti Aminah"], 1, "Siti Hawa adalah istri Nabi Adam a.s."],
+    ["Di dalam surga, Nabi Adam a.s. dan Siti Hawa dilarang oleh Allah Swt. mendekati dan memakan buah ...", ["Kurma", "Khuldi", "Anggur", "Delima"], 1, "Allah melarang keduanya mendekati pohon khuldi."],
+    ["Makhluk yang menggoda Nabi Adam a.s. dan Siti Hawa agar memakan buah terlarang adalah ...", ["Malaikat", "Iblis (setan)", "Burung surga", "Hewan melata"], 1, "Iblis menipu keduanya agar melanggar larangan Allah."],
+    ["Akibat melanggar larangan Allah Swt., Nabi Adam a.s. dan Siti Hawa diturunkan dari surga ke ...", ["Bulan", "Bumi", "Bintang", "Langit ketujuh"], 1, "Keduanya diturunkan ke bumi untuk menjalani hidup."],
+    ["Setelah menyadari kesalahannya, Nabi Adam a.s. dan Siti Hawa segera ... memohon ampun kepada Allah Swt.", ["Menyalahkan orang lain", "Bertobat dengan sungguh-sungguh", "Lari bersembunyi", "Marah dan putus asa"], 1, "Nabi Adam a.s. segera bertobat dan memohon ampunan."],
+    ["Doa tobat Nabi Adam a.s. diawali dengan bacaan 'Rabbana zalamna ...'", ["Anfusana", "Walidayya", "Al-'alamin", "Mustaqim"], 0, "Rabbana zalamna anfusana artinya Ya Tuhan kami, kami telah menzalimi diri kami sendiri."],
+    ["Allah Swt. Maha Pengampun (Al-Ghafur) sehingga Allah ... tobat Nabi Adam a.s. dan Siti Hawa.", ["Menolak", "Menerima dan mengampuni", "Melupakan", "Menunda"], 1, "Allah menerima tobat hamba-Nya yang tulus menyesal."],
+    ["Nabi Adam a.s. dan Siti Hawa dipertemukan kembali oleh Allah Swt. di bukit ...", ["Gua Hira", "Jabal Rahmah (Padang Arafah)", "Bukit Uhud", "Gunung Sinai"], 1, "Jabal Rahmah berarti bukit kasih sayang tempat pertemuan keduanya."],
+    ["Keteladanan utama dari kisah Nabi Adam a.s. ketika berbuat salah adalah ...", ["Suka mencari alasan", "Segera mengakui kesalahan dan meminta maaf", "Menyalahkan teman", "Mengulangi kesalahan"], 1, "Mengakui salah dan bertobat adalah akhlak mulia."],
+    ["Umat manusia di seluruh dunia merupakan keturunan dari Nabi ...", ["Nuh a.s.", "Adam a.s. dan Siti Hawa", "Ibrahim a.s.", "Musa a.s."], 1, "Nabi Adam a.s. disebut Abul Basyar (bapak seluruh manusia)."],
+    ["Sebagai khalifah di bumi, manusia wajib menjaga kelestarian alam dan tidak boleh berbuat ...", ["Kebaikan", "Kerusakan di muka bumi", "Kerukunan", "Ibadah"], 1, "Tugas khalifah adalah memakmurkan dan merawat bumi."],
+    ["Anak saleh yang meneladani Nabi Adam a.s. akan selalu bersikap ... kepada sesama teman.", ["Sombong dan angkuh", "Rendah hati dan pemaaf", "Pemarah", "Kasar"], 1, "Rendah hati lawan dari kesombongan iblis."]
+  ]);
+
+  // BAB 10 - SESI 3 (20 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab10_sesi3"] = P([
+    ["Iblis merasa dirinya lebih mulia daripada Nabi Adam a.s. karena iblis diciptakan dari ...", ["Tanah", "Api yang menyala", "Cahaya", "Air"], 1, "Iblis sombong karena merasa api lebih tinggi dari tanah."],
+    ["Malaikat bersujud kepada Nabi Adam a.s. bukan untuk menyembah, melainkan sebagai bentuk ...", ["Ketakutan", "Penghormatan atas perintah Allah Swt.", "Paksaan manusia", "Permainan"], 1, "Sujud malaikat adalah bentuk penghormatan atas perintah Allah."],
+    ["Arti doa tobat Nabi Adam a.s. 'wa illam taghfir lana wa tarhamna lanakunanna minal ...'", ["Muttaqin", "Khasirin (orang-orang yang merugi)", "Muhsinin", "Sabirin"], 1, "Jika Engkau tidak mengampuni dan menyayangi kami, niscaya kami termasuk orang-orang yang merugi."],
+    ["Ketika tidak sengaja menjatuhkan kotak pensil teman di kelas, sikap meneladani Nabi Adam a.s. adalah ...", ["Pura-pura tidak tahu", "Segera meminta maaf dan merapikannya kembali", "Menyalahkan teman sebelah", "Tertawa lalu pergi"], 1, "Berani meminta maaf saat salah meneladani Nabi Adam a.s."],
+    ["Sifat tercela yang menyebabkan iblis diusir dari surga dan dilaknat Allah Swt. adalah ...", ["Jujur", "Sombong dan membangkang perintah Allah", "Sabar", "Rajin berdoa"], 1, "Kesombongan menjerumuskan iblis pada kemurkaan Allah."],
+    ["Allah Swt. memberikan bekal utama kepada Nabi Adam a.s. sehingga lebih unggul dari malaikat berupa ...", ["Sayap terbang", "Akal dan ilmu pengetahuan", "Harta benda", "Istana megah"], 1, "Ilmu pengetahuan memuliakan derajat manusia."],
+    ["Putra-putra Nabi Adam a.s. yang terkenal dalam kisah sejarah umat manusia adalah ...", ["Harut dan Marut", "Qabil dan Habil", "Yajuj dan Majuj", "Ismail dan Ishaq"], 1, "Qabil dan Habil adalah putra Nabi Adam a.s."],
+    ["Ketika teman meminta maaf kepada kita dengan tulus, sikap kita sebaiknya ...", ["Menolak memaafkan", "Memaafkan dengan lapang dada", "Memarahinya terus-menerus", "Mendiamkannya"], 1, "Allah Maha Pengampun, maka kita pun wajib saling memaafkan."],
+    ["Sebagai wujud syukur menjadi keturunan Nabi Adam a.s. yang berakal, kita harus rajin ...", ["Bermain sepanjang hari", "Belajar menuntut ilmu yang bermanfaat", "Tidur di kelas", "Membantah guru"], 1, "Menuntut ilmu menjalankan amanah akal dari Allah."],
+    ["Nabi Adam a.s. selalu berzikir dan bertasbih memuji kebesaran Allah Swt. setiap ...", ["Tahun sekali", "Saat dan waktu", "Bulan puasa saja", "Hari libur"], 1, "Mengingat Allah membuat hati selalu tenang."],
+    ["Perbuatan merusak tanaman di taman sekolah bertentangan dengan tugas manusia sebagai ... di bumi.", ["Penonton", "Khalifah (pemelihara alam)", "Tamu", "Penghuni sementara"], 1, "Merawat alam adalah bagian tugas khalifah."],
+    ["Jika kita mendapat juara kelas, sikap rendah hati yang benar adalah ...", ["Mengejek teman yang nilainya rendah", "Bersyukur kepada Allah dan tetap ramah kepada semua teman", "Pamer hadiah ke semua orang", "Merasa paling pintar sendiri"], 1, "Rendah hati menjauhkan kita dari sifat sombong iblis."],
+    ["Orang yang berbuat dosa lalu segera bertobat kepada Allah Swt. disebut ...", ["Takabur", "Tawwabin (orang yang bertobat)", "Kafir", "Munafik"], 1, "Allah mencintai orang-orang yang bertobat."],
+    ["Godaan setan selalu mengajak manusia berbuat keburukan. Agar terlindung dari godaan setan kita membaca ...", ["Hamdalah", "Ta'awuz (A'uzu billahi minasy-syaitanir-rajim)", "Takbir", "Salam"], 1, "Ta'awuz adalah doa memohon perlindungan dari godaan setan."],
+    ["Nabi Adam a.s. mengajarkan kepada anak-anaknya untuk selalu menyembah hanya kepada ...", ["Matahari", "Allah Swt.", "Patung batu", "Api"], 1, "Seluruh nabi mengajarkan tauhid menyembah Allah Swt."],
+    ["Setelah turun ke bumi, Nabi Adam a.s. dan Siti Hawa bekerja keras bercocok tanam dan membangun kehidupan dengan penuh ...", ["Keluhan", "Kesabaran dan tawakal kepada Allah", "Kemalasan", "Kemarahan"], 1, "Sabar dan tawakal kunci menghadapi ujian hidup."],
+    ["Sesama manusia di seluruh dunia adalah saudara karena berasal dari nenek moyang yang sama yaitu ...", ["Raja Namrud", "Nabi Adam a.s. dan Siti Hawa", "Firaun", "Qarun"], 1, "Persaudaraan kemanusiaan berakar dari Nabi Adam a.s."],
+    ["Membiasakan membaca istigfar 'Astaghfirullahal 'azim' setiap hari melatih kita agar selalu ...", ["Sombong", "Memohon ampun dan menjaga diri dari kesalahan", "Lupa diri", "Pemarah"], 1, "Istigfar membersihkan hati dari dosa dan khilaf."],
+    ["Perilaku menyayangi sesama teman tanpa membeda-bedakan mencerminkan keteladanan akhlak para ...", ["Setan", "Nabi dan rasul Allah", "Orang sombong", "Penjahat"], 1, "Para nabi mengajarkan kasih sayang dan persaudaraan."],
+    ["Dengan mempelajari kisah keteladanan Nabi Adam a.s., kita belajar untuk selalu taat kepada Allah, rendah hati, dan ...", ["Suka membantah", "Berani mengakui kesalahan serta bertobat", "Iri hati", "Merasa paling benar"], 1, "Taat, rendah hati, dan segera bertobat inti teladan Nabi Adam a.s."]
+  ]);
+})();
