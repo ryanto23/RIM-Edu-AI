@@ -1,4 +1,4 @@
-// File: soal/kls2_matematika_master.js
+// File: soal/kls2_mtk_master.js
 window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
 
 (function() {
@@ -25,9 +25,9 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Bilangan terkecil yang dapat disusun dari angka 5 dan 3 adalah ...", ["53", "35", "55", "33"], 1, "3 puluhan + 5 satuan = 35."],
     ["Jika sekarang halaman buku ke-29, maka dua halaman berikutnya adalah halaman ke-...", ["30", "31", "32", "28"], 1, "29 + 2 = 31."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab1_sesi1"] = [...b1];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab1_sesi2"] = [...b1.slice(7), ...b1.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab1_sesi3"] = [...b1.slice(14), ...b1.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab1_sesi1"] = [...b1];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab1_sesi2"] = [...b1.slice(7), ...b1.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab1_sesi3"] = [...b1.slice(14), ...b1.slice(0, 14)];
 })();
 (function() {
   const M = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
@@ -53,9 +53,9 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Operasi hitung yang hasilnya 28 adalah ...", ["15 + 12", "45 - 17", "50 - 24", "19 + 11"], 1, "45 - 17 = 28."],
     ["Dalam kotak ada 25 pensil merah dan 18 pensil biru. Jumlah seluruh pensil dalam kotak adalah ...", ["33", "43", "42", "53"], 1, "25 + 18 = 43 pensil."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab2_sesi1"] = [...b2];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab2_sesi2"] = [...b2.slice(7), ...b2.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab2_sesi3"] = [...b2.slice(14), ...b2.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab2_sesi1"] = [...b2];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab2_sesi2"] = [...b2.slice(7), ...b2.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab2_sesi3"] = [...b2.slice(14), ...b2.slice(0, 14)];
 })();
 (function() {
   const M = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
@@ -63,27 +63,27 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Bangun datar yang memiliki 3 sisi dan 3 sudut disebut ...", ["Persegi", "Segitiga", "Lingkaran", "Persegi panjang"], 1, "Segitiga memiliki 3 sisi dan 3 titik sudut."],
     ["Bangun datar yang memiliki 4 sisi sama panjang dan 4 sudut siku-siku adalah ...", ["Persegi panjang", "Persegi", "Segitiga", "Trapesium"], 1, "Keempat sisi persegi sama panjang."],
     ["Permukaan papan tulis di depan kelas umumnya berbentuk bangun datar ...", ["Lingkaran", "Persegi panjang", "Segitiga", "Layang-layang"], 1, "Papan tulis berbentuk persegi panjang."],
-    ["Permukaan roda sepeda dan uang koin berbentuk bangun datar ...", ["Persegi", "Lingkaran", "Segitiga", "Belah ketupat"], 1, "Roda dan koin memiliki 1 sisi lengkung berbentuk lingkaran."],
+    ["Permukaan roda sepeda dan uang koin berbentuk bangun datar ...", ["Persegi", "Lingkaran", "Segitiga", "Belah ketupat"], 1, "Roda dan koin berbentuk lingkaran."],
     ["Banyaknya sisi pada bangun datar segi empat adalah ... buah.", ["3", "4", "5", "6"], 1, "Segi empat memiliki 4 ruas garis sisi."],
     ["Bangun ruang yang berbentuk seperti bola sepak dan kelereng adalah ...", ["Kubus", "Bola", "Tabung", "Kerucut"], 1, "Bola memiliki permukaan lengkung seluruhnya."],
     ["Bangun ruang yang memiliki 6 sisi berbentuk persegi yang sama besar seperti dadu adalah ...", ["Balok", "Kubus", "Tabung", "Kerucut"], 1, "Dadu dan rubik berbentuk kubus."],
     ["Kotak sepatu, lemari pakaian, dan penghapus papan tulis berbentuk bangun ruang ...", ["Kubus", "Balok", "Bola", "Kerucut"], 1, "Balok memiliki 6 sisi berbentuk persegi panjang."],
     ["Kaleng susu, gelas minum, dan drum air berbentuk bangun ruang ...", ["Kerucut", "Tabung", "Kubus", "Bola"], 1, "Tabung memiliki alas dan tutup berbentuk lingkaran."],
     ["Topi ulang tahun dan nasi tumpeng berbentuk bangun ruang ...", ["Tabung", "Kerucut", "Balok", "Kubus"], 1, "Kerucut memiliki alas lingkaran dan satu titik puncak."],
-    ["Bangun datar yang tidak memiliki titik sudut sama sekali adalah ...", ["Segitiga", "Lingkaran", "Persegi", "Persegi panjang"], 1, "Lingkaran hanya dibatasi satu garis lengkung tertutup."],
+    ["Bangun datar yang tidak memiliki titik sudut sama sekali adalah ...", ["Segitiga", "Lingkaran", "Persegi", "Persegi panjang"], 1, "Lingkaran tidak memiliki titik sudut."],
     ["Banyaknya titik sudut pada bangun datar segitiga adalah ...", ["2", "3", "4", "5"], 1, "Segitiga mempunyai 3 titik sudut."],
     ["Benda di ruang kelas yang permukaannya berbentuk persegi adalah ...", ["Pintu kelas", "Ubin keramik lantai", "Bola dunia (globe)", "Penggaris panjang"], 1, "Ubin lantai umumnya berbentuk persegi."],
     ["Banyaknya sisi pada bangun ruang balok dan kubus adalah ... sisi.", ["4", "6", "8", "12"], 1, "Kubus dan balok memiliki 6 bidang sisi."],
     ["Sisi alas dan sisi tutup pada bangun ruang tabung berbentuk bangun datar ...", ["Segitiga", "Lingkaran", "Persegi", "Segi lima"], 1, "Alas dan tutup tabung berbentuk lingkaran."],
-    ["Jika dua buah bangun segitiga siku-siku yang sama besar digabungkan pada sisi miringnya, dapat membentuk bangun ...", ["Lingkaran", "Persegi atau persegi panjang", "Segi lima", "Tabung"], 1, "Komposisi dua segitiga siku-siku membentuk segi empat."],
-    ["Bangun ruang yang dapat menggelinding dengan mudah ke segala arah adalah ...", ["Kubus", "Bola", "Balok", "Prisma"], 1, "Bola tidak memiliki sudut sehingga mudah menggelinding."],
+    ["Dua buah segitiga siku-siku sama besar jika digabungkan sisi miringnya dapat membentuk ...", ["Lingkaran", "Persegi atau persegi panjang", "Segi lima", "Tabung"], 1, "Komposisi dua segitiga siku-siku membentuk segi empat."],
+    ["Bangun ruang yang dapat menggelinding dengan mudah ke segala arah adalah ...", ["Kubus", "Bola", "Balok", "Prisma"], 1, "Bola tidak bersudut sehingga mudah menggelinding."],
     ["Rambu lalu lintas peringatan di jalan raya umumnya berbentuk bangun datar ...", ["Lingkaran", "Segitiga atau belah ketupat", "Tabung", "Kubus"], 1, "Rambu peringatan berbentuk segitiga/belah ketupat."],
     ["Benda berikut yang berbentuk tabung adalah ...", ["Kotak tisu", "Baterai jam dinding dan kaleng minuman", "Dadu permainan", "Bola basket"], 1, "Baterai silinder berbentuk tabung."],
-    ["Mengelompokkan benda berdasarkan bentuk bangun datar dan bangun ruang melatih ketelitian mengamati ...", ["Warna cat", "Ciri-ciri bentuk benda di sekitar kita", "Berat benda", "Harga barang"], 1, "Mengenali sisi dan sudut membantu mengklasifikasi bentuk."]
+    ["Mengelompokkan benda berdasarkan bangun datar dan ruang melatih ketelitian mengamati ...", ["Warna cat", "Ciri-ciri bentuk benda di sekitar kita", "Berat benda", "Harga barang"], 1, "Mengenali sisi dan sudut membantu mengklasifikasi bentuk."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab3_sesi1"] = [...b3];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab3_sesi2"] = [...b3.slice(7), ...b3.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab3_sesi3"] = [...b3.slice(14), ...b3.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab3_sesi1"] = [...b3];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab3_sesi2"] = [...b3.slice(7), ...b3.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab3_sesi3"] = [...b3.slice(14), ...b3.slice(0, 14)];
 })();
 (function() {
   const M = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
@@ -105,13 +105,13 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Jika Budi berdiri menghadap ke utara, maka arah belakang punggung Budi adalah arah ...", ["Timur", "Selatan", "Barat", "Utara"], 1, "Utara berlawanan arah dengan Selatan."],
     ["Matahari terbit setiap pagi dari sebelah ...", ["Barat", "Timur", "Utara", "Selatan"], 1, "Matahari terbit di Timur dan terbenam di Barat."],
     ["Lanjutkan pola huruf berikut: A - B - A - B - A - ...", ["A", "B", "C", "D"], 1, "Pola huruf berselang A dan B."],
-    ["Perhatikan susunan manik-manik gelang: 1 merah, 2 kuning, 1 merah, 2 kuning, 1 merah, ... Manik berikutnya adalah ...", ["1 merah", "2 kuning", "2 biru", "1 hijau"], 1, "Pola berulang: 1 merah diikuti 2 kuning."],
-    ["Di sebelah kanan rumah Siti adalah rumah Rani, dan di sebelah kiri rumah Siti adalah rumah Beni. Rumah yang berada di tengah adalah rumah ...", ["Rani", "Siti", "Beni", "Dina"], 1, "Siti diapit oleh Rani (kanan) dan Beni (kiri)."],
-    ["Mengenali posisi benda dan pola di sekitar membantu kita berpikir teratur dan mudah menemukan ...", ["Kesalahan", "Letak benda serta urutan kejadian", "Kerugian", "Kebingungan"], 1, "Pemahaman posisi dan pola melatih logika keteraturan."]
+    ["Perhatikan susunan gelang: 1 merah, 2 kuning, 1 merah, 2 kuning, 1 merah, ... Manik berikutnya adalah ...", ["1 merah", "2 kuning", "2 biru", "1 hijau"], 1, "Pola berulang: 1 merah diikuti 2 kuning."],
+    ["Di kanan rumah Siti adalah rumah Rani, dan di kiri rumah Siti adalah rumah Beni. Rumah di tengah adalah rumah ...", ["Rani", "Siti", "Beni", "Dina"], 1, "Siti diapit oleh Rani dan Beni."],
+    ["Mengenali posisi benda dan pola di sekitar membantu kita berpikir teratur dan menemukan ...", ["Kesalahan", "Letak benda serta urutan kejadian", "Kerugian", "Kebingungan"], 1, "Pemahaman posisi dan pola melatih logika."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab4_sesi1"] = [...b4];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab4_sesi2"] = [...b4.slice(7), ...b4.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab4_sesi3"] = [...b4.slice(14), ...b4.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab4_sesi1"] = [...b4];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab4_sesi2"] = [...b4.slice(7), ...b4.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab4_sesi3"] = [...b4.slice(14), ...b4.slice(0, 14)];
 })();
 (function() {
   const M = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
@@ -137,22 +137,18 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Tanda perbandingan yang tepat untuk 1/4 ... 1/2 adalah ...", [">", "<", "=", "+"], 1, "1/4 lebih kecil daripada 1/2 (<)."],
     ["Konsep pecahan mengajarkan kita untuk berbagi makanan dengan teman secara ...", ["Curang", "Adil dan sama besar", "Sombong", "Pelit"], 1, "Pecahan melatih pembagian yang adil."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab5_sesi1"] = [...b5];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab5_sesi2"] = [...b5.slice(7), ...b5.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab5_sesi3"] = [...b5.slice(14), ...b5.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab5_sesi1"] = [...b5];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab5_sesi2"] = [...b5.slice(7), ...b5.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab5_sesi3"] = [...b5.slice(14), ...b5.slice(0, 14)];
 })();
 (function() {
   const M = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
   const b6 = M([
-    ["Alat ukur panjang baku yang biasa digunakan murid untuk mengukur panjang buku tulis adalah ...", ["Timbangan", "Penggaris (mistar)", "Jam dinding", "Termometer"], 1, "Penggaris menggunakan satuan baku sentimeter (cm)."],
-    ["Satuan panjang baku yang tertulis pada penggaris sekolah adalah ...", ["Kilogram (kg)", "Sentimeter (cm)", "Jam", "Liter"], 1, "cm adalah singkatan dari sentimeter."],
-    ["1 meter (m) sama dengan ... sentimeter (cm).", ["10", "100", "1.000", "50"], 1, "1 m = 100 cm."],
-    ["Panjang pita 200 cm jika diubah ke dalam satuan meter menjadi ... m.", ["20", "2", "200", "12"], 1, "200 cm : 100 = 2 meter."],
-    ["Contoh alat ukur panjang tidak baku yang menggunakan anggota tubuh manusia adalah ...", ["Meteran kain", "Jengkal tangan dan depa", "Timbangan duduk", "Stopwatch"], 1, "Jengkal, hasta, dan depa adalah satuan tidak baku."],
     ["Alat yang digunakan untuk mengukur berat badan manusia adalah ...", ["Penggaris", "Timbangan badan", "Meteran pita", "Jam tangan"], 1, "Timbangan badan mengukur massa/berat tubuh."],
     ["Satuan berat baku yang sering digunakan saat membeli beras atau gula di toko adalah ...", ["Sentimeter (cm)", "Kilogram (kg) dan gram (g)", "Menit", "Meter (m)"], 1, "kg dan g adalah satuan berat baku."],
     ["1 kilogram (kg) sama dengan ... gram (g).", ["10", "1.000", "100", "500"], 1, "1 kg = 1.000 gram."],
     ["Berat 2 kg jeruk ditambah 3 kg apel seluruhnya adalah ... kg.", ["4", "5", "6", "1"], 1, "2 kg + 3 kg = 5 kg."],
+    ["Berat semangka 3.000 gram sama dengan ... kg.", ["30", "3", "300", "3.000"], 1, "3.000 gram : 1.000 = 3 kg."],
     ["Di antara benda berikut, manakah yang paling berat?", ["1 buah pensil", "1 buah tas berisi penuh buku", "1 lembar kertas", "1 buah penghapus"], 1, "Tas penuh buku memiliki massa paling berat."],
     ["Alat ukur waktu yang memiliki jarum pendek penunjuk jam dan jarum panjang penunjuk menit adalah ...", ["Timbangan", "Jam analog (jam dinding)", "Penggaris", "Kompas"], 1, "Jarum pendek = jam, jarum panjang = menit."],
     ["Jika jarum pendek menunjuk angka 7 dan jarum panjang menunjuk angka 12, maka jam menunjukkan pukul ...", ["06.00", "07.00", "12.00", "07.30"], 1, "Jarum panjang di angka 12 menandakan pukul tepat (07.00)."],
@@ -160,14 +156,18 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["1 jam terdiri atas ... menit.", ["30", "60", "24", "100"], 1, "1 jam = 60 menit."],
     ["1 hari terdiri atas ... jam.", ["12", "24", "60", "7"], 1, "1 hari penuh = 24 jam."],
     ["Budi mulai belajar pukul 19.00 dan selesai pukul 20.00. Lama Budi belajar adalah ... jam.", ["2", "1", "3", "4"], 1, "20.00 - 19.00 = 1 jam."],
+    ["Alat ukur panjang baku yang biasa digunakan murid untuk mengukur panjang buku tulis adalah ...", ["Timbangan", "Penggaris (mistar)", "Jam dinding", "Termometer"], 1, "Penggaris menggunakan satuan baku sentimeter (cm)."],
+    ["1 meter (m) sama dengan ... sentimeter (cm).", ["10", "100", "1.000", "50"], 1, "1 m = 100 cm."],
+    ["Panjang pita 200 cm jika diubah ke dalam satuan meter menjadi ... m.", ["20", "2", "200", "12"], 1, "200 cm : 100 = 2 meter."],
+    ["Contoh alat ukur panjang tidak baku yang menggunakan anggota tubuh manusia adalah ...", ["Meteran kain", "Jengkal tangan dan depa", "Timbangan duduk", "Stopwatch"], 1, "Jengkal, hasta, dan depa adalah satuan tidak baku."],
     ["Panjang pensil Ani 15 cm dan panjang pensil Rini 12 cm. Pensil yang lebih panjang adalah milik ...", ["Rini", "Ani (selisih 3 cm)", "Sama panjang", "Tidak diketahui"], 1, "15 cm > 12 cm, selisihnya 3 cm."],
-    ["Alat ukur panjang yang digunakan penjahit untuk mengukur lingkar pinggang baju adalah ...", ["Penggaris besi", "Meteran pita (metlin)", "Timbangan gantung", "Jam pasir"], 1, "Meteran pita lentur mengikuti lekuk tubuh."],
-    ["Berat semangka 3.000 gram sama dengan ... kg.", ["30", "3", "300", "3.000"], 1, "3.000 gram : 1.000 = 3 kg."],
-    ["Menggunakan alat ukur baku seperti penggaris dan timbangan menghasilkan ukuran yang ...", ["Berubah-ubah tiap orang", "Tetap dan sama di mana saja", "Kurang tepat", "Berbeda-beda"], 1, "Satuan baku memberikan hasil pengukuran standar."]
+    ["Berat 500 gram gula ditambah 500 gram tepung sama dengan ... kg.", ["10", "1", "5", "2"], 1, "500 g + 500 g = 1.000 g = 1 kg."],
+    ["Pukul 08.00 pagi jarum pendek menunjuk angka 8 dan jarum panjang menunjuk angka ...", ["6", "12", "8", "3"], 1, "Pukul tepat jarum panjang menunjuk angka 12."],
+    ["Menggunakan alat ukur baku seperti timbangan dan jam menghasilkan ukuran yang ...", ["Berubah-ubah tiap orang", "Tetap dan standar di mana saja", "Kurang tepat", "Berbeda-beda"], 1, "Satuan baku memberikan hasil pengukuran standar."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab6_sesi1"] = [...b6];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab6_sesi2"] = [...b6.slice(7), ...b6.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab6_sesi3"] = [...b6.slice(14), ...b6.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab6_sesi1"] = [...b6];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab6_sesi2"] = [...b6.slice(7), ...b6.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab6_sesi3"] = [...b6.slice(14), ...b6.slice(0, 14)];
 })();
 (function() {
   const M = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
@@ -193,9 +193,9 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Jika 60 + ... = 95, maka bilangan pengganti titik-titik yang tepat adalah ...", ["25", "35", "45", "30"], 1, "95 - 60 = 35."],
     ["Dalam sebuah keranjang ada 100 butir telur. Jika 25 butir telur dibeli ibu, sisa telur di keranjang adalah ...", ["85", "75", "65", "80"], 1, "100 - 25 = 75 butir telur."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab7_sesi1"] = [...b7];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab7_sesi2"] = [...b7.slice(7), ...b7.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab7_sesi3"] = [...b7.slice(14), ...b7.slice(0, 14)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab7_sesi1"] = [...b7];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab7_sesi2"] = [...b7.slice(7), ...b7.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab7_sesi3"] = [...b7.slice(14), ...b7.slice(0, 14)];
 })();
 (function() {
   const M = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
@@ -221,20 +221,7 @@ window.BANK_SOAL_MASTER = window.BANK_SOAL_MASTER || {};
     ["Cara mengumpulkan data tinggi badan seluruh teman sekelas paling tepat dilakukan dengan ...", ["Menebak dari jauh", "Mengukur langsung menggunakan meteran tinggi badan", "Bertanya kepada adik", "Melihat foto kelas"], 1, "Pengukuran langsung menghasilkan data akurat."],
     ["Manfaat menyajikan data dalam bentuk diagram adalah informasi menjadi lebih ...", ["Sulit dipahami", "Jelas, ringkas, dan mudah dibandingkan", "Membingungkan", "Panjang lebar"], 1, "Diagram memvisualisasikan perbandingan data secara cepat."]
   ]);
-  window.BANK_SOAL_MASTER["kls2_matematika_bab8_sesi1"] = [...b8];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab8_sesi2"] = [...b8.slice(7), ...b8.slice(0, 7)];
-  window.BANK_SOAL_MASTER["kls2_matematika_bab8_sesi3"] = [...b8.slice(14), ...b8.slice(0, 14)];
-})();
-// Alias otomatis semua variasi kunci Matematika Kelas 2 SD
-(function() {
-  const M = window.BANK_SOAL_MASTER || {};
-  for (let bab = 1; bab <= 8; bab++) {
-    for (let sesi = 1; sesi <= 3; sesi++) {
-      const asal = M[`kls2_matematika_bab${bab}_sesi${sesi}`];
-      if (asal) {
-        M[`kls2_mtk_bab${bab}_sesi${sesi}`] = asal;
-        M[`kls2_math_bab${bab}_sesi${sesi}`] = asal;
-      }
-    }
-  }
+  window.BANK_SOAL_MASTER["kls2_mtk_bab8_sesi1"] = [...b8];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab8_sesi2"] = [...b8.slice(7), ...b8.slice(0, 7)];
+  window.BANK_SOAL_MASTER["kls2_mtk_bab8_sesi3"] = [...b8.slice(14), ...b8.slice(0, 14)];
 })();
