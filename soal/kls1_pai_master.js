@@ -1342,3 +1342,125 @@ window.BANK_SOAL_MASTER["kls1_pai_bab10_sesi1"] = [
   }
 ];
 
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 1 - SESI 2 (15 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab1_sesi2"] = P([
+    ["Kitab suci umat Islam yang diturunkan kepada Nabi Muhammad saw. adalah ...", ["Taurat", "Zabur", "Injil", "Al-Qur'an"], 3, "Al-Qur'an adalah kitab suci umat Islam."],
+    ["Sebelum membaca Al-Qur'an sebaiknya kita berwudu dan membaca ...", ["Hamdalah", "Ta'awuz dan basmalah", "Takbiratul ihram", "Salam penutup"], 1, "Membaca ta'awuz dan basmalah sebelum membaca Al-Qur'an adalah adab yang baik."],
+    ["Huruf hijaiah yang pertama adalah ...", ["Ba", "Ta", "Alif", "Jim"], 2, "Huruf hijaiah diawali dengan huruf Alif (ا)."],
+    ["Jumlah seluruh huruf hijaiah dasar ada ...", ["26 huruf", "28 huruf", "29 huruf", "30 huruf"], 2, "Huruf hijaiah dasar berjumlah 29 huruf."],
+    ["Tanda baca harakat kasrah berbunyi ...", ["a", "i", "u", "an"], 1, "Harakat kasrah terletak di bawah huruf dan berbunyi 'i'."],
+    ["Huruf 'ب' yang diberi harakat dammah (بُ) dibaca ...", ["ba", "bi", "bu", "ban"], 2, "Harakat dammah berbunyi 'u', sehingga بُ dibaca 'bu'."],
+    ["Surah Al-Fatihah terdiri atas ... ayat.", ["5", "6", "7", "8"], 2, "Surah Al-Fatihah memiliki 7 ayat."],
+    ["Arti dari nama surah Al-Fatihah adalah ...", ["Manusia", "Pembukaan", "Waktu subuh", "Pertolongan"], 1, "Al-Fatihah artinya pembukaan."],
+    ["Surah Al-Fatihah wajib dibaca pada setiap rakaat ketika melaksanakan ...", ["Puasa", "Salat", "Zakat", "Haji"], 1, "Membaca Surah Al-Fatihah termasuk rukun salat."],
+    ["Bunyi ayat kedua Surah Al-Fatihah adalah ...", ["Bismillahirrahmanirrahim", "Alhamdulillahi rabbil 'alamin", "Ar-rahmanirrahim", "Maliki yaumiddin"], 1, "Ayat ke-2 Surah Al-Fatihah berbunyi Alhamdulillahi rabbil 'alamin."],
+    ["Arti dari bacaan 'Alhamdulillahi rabbil 'alamin' adalah ...", ["Dengan nama Allah Yang Maha Pengasih", "Segala puji bagi Allah, Tuhan seluruh alam", "Yang menguasai hari pembalasan", "Tunjukilah kami jalan yang lurus"], 1, "Alhamdulillahi rabbil 'alamin artinya segala puji bagi Allah, Tuhan seluruh alam."],
+    ["Surah Al-Fatihah diturunkan di Kota ...", ["Madinah", "Makkah", "Mesir", "Palestina"], 1, "Surah Al-Fatihah termasuk golongan surah Makkiyah karena turun di Makkah."],
+    ["Orang yang rajin membaca dan menghafal Al-Qur'an akan mendapatkan ... dari Allah Swt.", ["Dosa", "Pahala dan kasih sayang", "Hukuman", "Kesulitan"], 1, "Membaca Al-Qur'an berpahala besar dan mendatangkan rahmat Allah."],
+    ["Harakat fathah pada huruf hijaiah terletak di ... huruf.", ["Atas", "Bawah", "Samping kanan", "Samping kiri"], 0, "Fathah adalah garis miring kecil di atas huruf yang berbunyi 'a'."],
+    ["Setelah selesai membaca Al-Qur'an, kita disunahkan membaca ...", ["Tasbih", "Tasdiq (Sadaqallahul 'azim)", "Istigfar", "Tahlil"], 1, "Setelah membaca Al-Qur'an dianjurkan membaca Sadaqallahul 'azim."]
+  ]);
+
+  // BAB 1 - SESI 3 (15 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab1_sesi3"] = P([
+    ["Huruf hijaiah 'ت' yang berharakat fathah (تَ) dibaca ...", ["ta", "ti", "tu", "tan"], 0, "Fathah berbunyi 'a', maka تَ dibaca 'ta'."],
+    ["Harakat yang bentuknya seperti huruf wawu kecil di atas huruf disebut ...", ["Fathah", "Kasrah", "Dammah", "Sukun"], 2, "Dammah berbentuk seperti wawu kecil di atas huruf dan berbunyi 'u'."],
+    ["Ayat keempat Surah Al-Fatihah berbunyi ...", ["Ar-rahmanirrahim", "Maliki yaumiddin", "Iyyaka na'budu wa iyyaka nasta'in", "Ihdinas-siratal-mustaqim"], 1, "Ayat ke-4 Surah Al-Fatihah adalah Maliki yaumiddin."],
+    ["Arti dari 'Maliki yaumiddin' adalah ...", ["Maha Pengasih lagi Maha Penyayang", "Pemilik hari pembalasan", "Hanya kepada-Mu kami menyembah", "Jalan orang-orang yang diberi nikmat"], 1, "Maliki yaumiddin artinya Pemilik atau Raja hari pembalasan."],
+    ["Saat teman sedang membaca Al-Qur'an, sikap kita sebaiknya ...", ["Berbicara keras", "Mendengarkan dengan tenang", "Bermain di dekatnya", "Menyanyi keras-keras"], 1, "Adab saat Al-Qur'an dibacakan adalah diam dan mendengarkan dengan tenang."],
+    ["Huruf hijaiah setelah huruf 'ج' (jim) adalah ...", ["خ (kha)", "ح (ha)", "د (dal)", "ذ (zal)"], 1, "Urutan huruf hijaiah: jim (ج), ha (ح), kha (خ)."],
+    ["Huruf 'س' (sin) jika diberi harakat kasrah (سِ) dibaca ...", ["sa", "si", "su", "sin"], 1, "Kasrah berbunyi 'i', sehingga سِ dibaca 'si'."],
+    ["Al-Qur'an ditulis menggunakan huruf ...", ["Latin", "Hijaiah (Arab)", "Jawa", "Kanji"], 1, "Al-Qur'an ditulis dalam bahasa Arab menggunakan huruf hijaiah."],
+    ["Surah Al-Fatihah disebut juga 'Ummul Qur'an' yang artinya ...", ["Penutup Al-Qur'an", "Induk Al-Qur'an", "Cahaya Al-Qur'an", "Hiasan Al-Qur'an"], 1, "Ummul Qur'an artinya induk atau inti dari isi Al-Qur'an."],
+    ["Meletakkan mushaf Al-Qur'an harus di tempat yang ...", ["Rendah dan kotor", "Tinggi, bersih, dan suci", "Dekat tempat sampah", "Di lantai sembarangan"], 1, "Memuliakan Al-Qur'an dilakukan dengan meletakkannya di tempat bersih dan terhormat."],
+    ["Huruf hijaiah terakhir dalam susunan huruf hijaiah adalah ...", ["Wawu (و)", "Ha (هـ)", "Lam alif (لا)", "Ya (ي)"], 3, "Huruf hijaiah diakhiri dengan huruf Ya (ي)."],
+    ["Bacaan 'Ihdinas-siratal-mustaqim' artinya ...", ["Segala puji bagi Allah", "Tunjukilah kami jalan yang lurus", "Dengan nama Allah", "Maha Pengasih lagi Maha Penyayang"], 1, "Ayat ke-6 Surah Al-Fatihah memohon petunjuk jalan yang lurus."],
+    ["Huruf 'م' (mim) berharakat dammah (مُ) dibaca ...", ["ma", "mi", "mu", "man"], 2, "Dammah berbunyi 'u', sehingga مُ dibaca 'mu'."],
+    ["Membaca Al-Qur'an dimulai dari arah ...", ["Kiri ke kanan", "Kanan ke kiri", "Atas ke bawah", "Bawah ke atas"], 1, "Tulisan huruf hijaiah Arab dibaca dari kanan ke kiri."],
+    ["Anak muslim yang cinta Al-Qur'an akan membacanya setiap ...", ["Tahun sekali", "Hari dengan rajin", "Bulan puasa saja", "Saat ujian saja"], 1, "Membiasakan membaca Al-Qur'an setiap hari menumbuhkan kecintaan pada Al-Qur'an."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // BAB 2 - SESI 2 (15 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab2_sesi2"] = P([
+    ["Arti kata 'iman' menurut bahasa adalah ...", ["Ragu-ragu", "Percaya dan yakin", "Melihat langsung", "Bertanya-tanya"], 1, "Iman berarti percaya dengan sepenuh hati, diucapkan lisan, dan diamalkan dengan perbuatan."],
+    ["Jumlah rukun iman yang wajib diyakini umat Islam ada ...", ["4 perkara", "5 perkara", "6 perkara", "7 perkara"], 2, "Rukun iman berjumlah 6 perkara."],
+    ["Rukun iman yang pertama adalah iman kepada ...", ["Malaikat Allah", "Kitab-kitab Allah", "Allah Swt.", "Rasul-rasul Allah"], 2, "Rukun iman pertama adalah iman kepada Allah Swt."],
+    ["Alam semesta beserta seluruh isinya seperti matahari, bulan, dan bintang adalah ciptaan ...", ["Manusia", "Malaikat", "Allah Swt.", "Para nabi"], 2, "Allah Swt. adalah Al-Khaliq (Maha Pencipta) seluruh alam semesta."],
+    ["Rukun iman yang kedua adalah iman kepada ...", ["Kitab-kitab Allah", "Malaikat-malaikat Allah", "Hari Kiamat", "Qada dan Qadar"], 1, "Rukun iman kedua adalah beriman kepada malaikat-malaikat Allah."],
+    ["Malaikat adalah makhluk Allah Swt. yang diciptakan dari ...", ["Tanah liat", "Api yang menyala", "Nur (cahaya)", "Air mengalir"], 2, "Malaikat diciptakan oleh Allah Swt. dari cahaya (nur)."],
+    ["Rukun iman yang ketiga adalah iman kepada ...", ["Rasul-rasul Allah", "Kitab-kitab Allah", "Hari Akhir", "Malaikat Allah"], 1, "Rukun iman ketiga adalah beriman kepada kitab-kitab Allah."],
+    ["Kitab suci terakhir yang menjadi penyempurna kitab-kitab sebelumnya adalah ...", ["Taurat", "Zabur", "Injil", "Al-Qur'an"], 3, "Al-Qur'an adalah kitab suci terakhir yang menyempurnakan Taurat, Zabur, dan Injil."],
+    ["Rukun iman yang keempat adalah iman kepada ...", ["Malaikat Allah", "Rasul-rasul Allah", "Hari Kiamat", "Qada dan Qadar"], 1, "Rukun iman keempat adalah iman kepada rasul-rasul Allah."],
+    ["Nabi dan rasul terakhir yang diutus Allah Swt. untuk seluruh umat manusia adalah ...", ["Nabi Adam a.s.", "Nabi Ibrahim a.s.", "Nabi Isa a.s.", "Nabi Muhammad saw."], 3, "Nabi Muhammad saw. adalah khatamul anbiya (penutup para nabi dan rasul)."],
+    ["Rukun iman yang kelima adalah iman kepada ...", ["Kitab Allah", "Hari Kiamat (Hari Akhir)", "Malaikat Allah", "Rasul Allah"], 1, "Rukun iman kelima adalah percaya akan datangnya Hari Kiamat."],
+    ["Rukun iman yang keenam adalah iman kepada ...", ["Rasul Allah", "Kitab Allah", "Qada dan Qadar", "Malaikat Allah"], 2, "Rukun iman keenam adalah iman kepada Qada dan Qadar (ketetapan Allah)."],
+    ["Salah satu cara mensyukuri nikmat penglihatan dan pendengaran ciptaan Allah adalah ...", ["Melihat hal yang buruk", "Menggunakannya untuk membaca Al-Qur'an dan belajar", "Mengabaikan nasihat orang tua", "Menyakiti teman sebaya"], 1, "Menggunakan anggota tubuh untuk kebaikan adalah bentuk syukur kepada Allah."],
+    ["Malaikat yang bertugas menyampaikan wahyu kepada para nabi dan rasul adalah Malaikat ...", ["Mikail", "Jibril", "Israfil", "Izrail"], 1, "Malaikat Jibril bertugas menyampaikan wahyu dari Allah Swt."],
+    ["Orang yang beriman kepada Allah Swt. akan selalu berbuat baik meskipun sedang ...", ["Dilihat guru", "Sendirian tidak ada yang melihat", "Dipuji teman", "Di depan orang tua"], 1, "Orang beriman yakin Allah Swt. Maha Melihat (Al-Basir) di mana pun berada."]
+  ]);
+
+  // BAB 2 - SESI 3 (15 Soal)
+  window.BANK_SOAL_MASTER["kls1_pai_bab2_sesi3"] = P([
+    ["Bukti adanya Allah Swt. dapat kita lihat dari keberadaan ...", ["Mainan plastik", "Gunung, lautan, dan makhluk hidup", "Gedung bertingkat", "Kendaraan bermotor"], 1, "Keindahan dan keteraturan alam semesta adalah bukti nyata kekuasaan Allah Swt."],
+    ["Malaikat Allah selalu taat dan tidak pernah ... kepada perintah Allah Swt.", ["Patuh", "Durhaka atau bermaksiat", "Bertasbih", "Sujud"], 1, "Malaikat adalah makhluk yang selalu taat dan tidak pernah durhaka kepada Allah."],
+    ["Nabi yang menerima kitab suci Zabur adalah Nabi ...", ["Musa a.s.", "Daud a.s.", "Isa a.s.", "Muhammad saw."], 1, "Kitab Zabur diturunkan kepada Nabi Daud a.s."],
+    ["Nabi yang menerima kitab suci Taurat adalah Nabi ...", ["Musa a.s.", "Daud a.s.", "Isa a.s.", "Ibrahim a.s."], 0, "Kitab Taurat diturunkan kepada Nabi Musa a.s."],
+    ["Nabi yang menerima kitab suci Injil adalah Nabi ...", ["Musa a.s.", "Daud a.s.", "Isa a.s.", "Nuh a.s."], 2, "Kitab Injil diturunkan kepada Nabi Isa a.s."],
+    ["Meneladani sifat jujur dan penyayang Nabi Muhammad saw. merupakan wujud iman kepada ...", ["Malaikat", "Kitab", "Rasul Allah", "Hari Akhir"], 2, "Beriman kepada rasul diwujudkan dengan meneladani akhlak mulia Rasulullah saw."],
+    ["Pada Hari Kiamat kelak, seluruh alam semesta akan hancur dan manusia akan dibangkitkan untuk menerima ...", ["Hadiah dunia", "Balasan amal perbuatannya", "Jabatan baru", "Harta kekayaan"], 1, "Semua amal baik maupun buruk manusia akan dibalas secara adil pada Hari Akhir."],
+    ["Sikap anak yang beriman kepada Qada dan Qadar ketika belum menjadi juara lomba adalah ...", ["Marah dan menyalahkan teman", "Tetap sabar, ikhlas, dan terus giat belajar", "Berhenti belajar selamanya", "Iri hati kepada pemenang"], 1, "Iman kepada takdir melatih jiwa sabar, ikhlas, dan pantang menyerah."],
+    ["Malaikat yang bertugas membagi rezeki dan menurunkan hujan atas izin Allah adalah Malaikat ...", ["Jibril", "Mikail", "Rakib", "Atid"], 1, "Malaikat Mikail bertugas mengatur rezeki dan hujan."],
+    ["Malaikat yang bertugas mencatat amal kebaikan manusia adalah Malaikat ...", ["Rakib", "Atid", "Munkar", "Nakir"], 0, "Malaikat Rakib mencatat amal baik, sedangkan Malaikat Atid mencatat amal buruk."],
+    ["Sebagai wujud cinta kepada Rasulullah saw., ketika mendengar nama Nabi Muhammad disebut kita dianjurkan membaca ...", ["Istigfar", "Salawat", "Takbir", "Tahlil"], 1, "Membaca salawat (Allahumma salli 'ala Muhammad) adalah bukti cinta kepada Nabi."],
+    ["Jumlah nabi dan rasul yang wajib kita ketahui namanya dalam Al-Qur'an ada ...", ["10", "15", "25", "99"], 2, "Ada 25 nabi dan rasul yang wajib diketahui oleh setiap muslim."],
+    ["Makhluk ciptaan Allah Swt. yang paling sempurna karena dikaruniai akal dan pikiran adalah ...", ["Tumbuhan", "Hewan", "Manusia", "Gunung"], 2, "Manusia diciptakan dalam bentuk sebaik-baiknya serta diberi akal pikiran."],
+    ["Ketika melihat keindahan pemandangan alam ciptaan Allah, sebaiknya kita mengucapkan kalimat tayibah ...", ["Innalillahi", "Subhanallah / Masyaallah", "Astaghfirullah", "La haula wala quwwata"], 1, "Subhanallah (Maha Suci Allah) diucapkan saat mengagumi kebesaran ciptaan Allah."],
+    ["Rukun iman harus diyakini oleh setiap muslim dengan ...", ["Setengah hati", "Sepenuh hati tanpa keraguan", "Terpaksa", "Ikut-ikutan saja"], 1, "Keimanan yang benar adalah keyakinan penuh di dalam hati tanpa keraguan sedikit pun."]
+  ]);
+})();
+
+(function() {
+  const P = (list) => list.map(([q, p, b, bahas]) => ({ q, p, b, bahas }));
+
+  // Tambahan 5 soal Bab 1 Sesi 2 & Sesi 3 (Total menjadi 20 soal/sesi)
+  window.BANK_SOAL_MASTER["kls1_pai_bab1_sesi2"].push(...P([
+    ["Surah Al-Fatihah berada pada urutan ke-... dalam Al-Qur'an.", ["1", "2", "3", "4"], 0, "Surah Al-Fatihah adalah surah pembuka urutan pertama."],
+    ["Huruf 'ك' (kaf) yang berharakat kasrah (كِ) dibaca ...", ["ka", "ki", "ku", "kan"], 1, "Kasrah berbunyi 'i', sehingga كِ dibaca 'ki'."],
+    ["Harakat fathah, kasrah, dan dammah disebut tanda baca ...", ["Tajwid", "Harakat dasar", "Waqaf", "Mad"], 1, "Fathah, kasrah, dan dammah adalah harakat dasar huruf hijaiah."],
+    ["Bunyi ayat kelima Surah Al-Fatihah adalah ...", ["Maliki yaumiddin", "Iyyaka na'budu wa iyyaka nasta'in", "Ihdinas-siratal-mustaqim", "Ar-rahmanirrahim"], 1, "Ayat ke-5 Surah Al-Fatihah adalah Iyyaka na'budu wa iyyaka nasta'in."],
+    ["Membaca Al-Qur'an harus dilakukan dengan suara yang jelas dan ...", ["Tergesa-gesa", "Tartil (perlahan dan benar)", "Berteriak keras", "Sambil bercanda"], 1, "Al-Qur'an dianjurkan dibaca dengan tartil atau perlahan dan benar."]
+  ]));
+
+  window.BANK_SOAL_MASTER["kls1_pai_bab1_sesi3"].push(...P([
+    ["Huruf 'ل' (lam) berharakat fathah (لَ) dibaca ...", ["la", "li", "lu", "lan"], 0, "Fathah berbunyi 'a', sehingga لَ dibaca 'la'."],
+    ["Al-Qur'an diturunkan sebagai petunjuk hidup bagi ...", ["Malaikat", "Seluruh umat manusia", "Jin saja", "Hewan dan tumbuhan"], 1, "Al-Qur'an adalah hudan linnas (petunjuk bagi umat manusia)."],
+    ["Jumlah ayat Surah Al-Fatihah adalah ... ayat.", ["6", "7", "8", "9"], 1, "Surah Al-Fatihah terdiri dari 7 ayat."],
+    ["Sebelum menyentuh mushaf Al-Qur'an disunahkan dalam keadaan ...", ["Kotor", "Suci (berwudu)", "Mengantuk", "Lapar"], 1, "Menyentuh Al-Qur'an disunahkan dalam keadaan suci dari hadas."],
+    ["Huruf hijaiah 'ن' (nun) berharakat dammah (نُ) dibaca ...", ["na", "ni", "nu", "nun"], 2, "Dammah berbunyi 'u', sehingga نُ dibaca 'nu'."]
+  ]));
+
+  // Tambahan 5 soal Bab 2 Sesi 2 & Sesi 3 (Total menjadi 20 soal/sesi)
+  window.BANK_SOAL_MASTER["kls1_pai_bab2_sesi2"].push(...P([
+    ["Allah Swt. menciptakan siang dan malam secara bergantian sebagai tanda ...", ["Kelemahan alam", "Kekuasaan dan kebesaran Allah Swt.", "Kebetulan semata", "Buatan manusia"], 1, "Pergantian siang dan malam menunjukkan kekuasaan Allah Swt."],
+    ["Malaikat tidak memiliki hawa nafsu, tidak makan, dan tidak ...", ["Bertasbih", "Minum maupun tidur", "Taat kepada Allah", "Menjalankan tugas"], 1, "Malaikat tidak makan, tidak minum, dan tidak tidur."],
+    ["Iman kepada hari kiamat termasuk rukun iman yang ke-...", ["Tiga", "Empat", "Lima", "Enam"], 2, "Iman kepada hari akhir/kiamat adalah rukun iman kelima."],
+    ["Malaikat Israfil bertugas meniup sangkakala pada hari ...", ["Raya Idulfitri", "Kiamat", "Jumat", "Kelahiran"], 1, "Malaikat Israfil bertugas meniup sangkakala pada hari kiamat."],
+    ["Semua ketetapan Allah Swt. sejak zaman azali disebut ...", ["Ikhtiar", "Qada", "Doa", "Tawakal"], 1, "Qada adalah ketetapan Allah sejak zaman azali."]
+  ]));
+
+  window.BANK_SOAL_MASTER["kls1_pai_bab2_sesi3"].push(...P([
+    ["Nabi yang pertama kali diciptakan Allah Swt. adalah Nabi ...", ["Nuh a.s.", "Adam a.s.", "Ibrahim a.s.", "Musa a.s."], 1, "Nabi Adam a.s. adalah manusia dan nabi pertama."],
+    ["Malaikat Izrail diberi tugas oleh Allah Swt. untuk ...", ["Membagi rezeki", "Mencabut nyawa makhluk hidup", "Menjaga pintu surga", "Menyampaikan wahyu"], 1, "Malaikat Izrail bertugas mencabut nyawa."],
+    ["Kitab suci yang wajib kita imani seluruhnya berjumlah ... kitab.", ["2", "3", "4", "5"], 2, "Empat kitab Allah: Taurat, Zabur, Injil, dan Al-Qur'an."],
+    ["Malaikat penjaga pintu surga bernama Malaikat ...", ["Malik", "Ridwan", "Munkar", "Nakir"], 1, "Malaikat Ridwan bertugas menjaga pintu surga."],
+    ["Malaikat penjaga pintu neraka bernama Malaikat ...", ["Ridwan", "Malik", "Jibril", "Mikail"], 1, "Malaikat Malik bertugas menjaga pintu neraka."]
+  ]));
+})();
+
